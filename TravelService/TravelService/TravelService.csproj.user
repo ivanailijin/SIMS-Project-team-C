@@ -7,7 +7,21 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\AddAccommodation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\OwnerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AddAccommodation.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
