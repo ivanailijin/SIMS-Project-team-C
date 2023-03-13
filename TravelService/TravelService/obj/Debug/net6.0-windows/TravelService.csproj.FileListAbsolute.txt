@@ -19,3 +19,5 @@ C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelServ
 C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.pdb
 C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.genruntimeconfig.cache
 C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\ref\TravelService.dll
+C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\View\AccommodationView.g.cs
+C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\View\AccommodationView.baml

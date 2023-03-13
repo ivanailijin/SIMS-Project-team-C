@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Width="60" Height="30" Click="AccommodationView_Click"> </Button>
 
     </Grid>
 </Window>
