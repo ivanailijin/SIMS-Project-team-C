@@ -16,13 +16,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Repository;
 using TravelService.Model;
+using TravelService.Validation;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace TravelService.View
 {
     /// <summary>
     /// Interaction logic for AddAccommodation.xaml
     /// </summary>
-    public partial class AddAccommodation : Window, INotifyPropertyChanged
+    public partial class AddAccommodation : Window, IDataErrorInfo, INotifyPropertyChanged
     {
 
         private readonly AccommodationRepository _repositoryAccommodation;
@@ -144,6 +147,16 @@ namespace TravelService.View
 
             DataContext = this;
         }
+
+        public string Error
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
+        public string this[string columnName] => throw new NotImplementedException();
 
         private void AddAccommodation_Click(object sender, RoutedEventArgs e)
         {

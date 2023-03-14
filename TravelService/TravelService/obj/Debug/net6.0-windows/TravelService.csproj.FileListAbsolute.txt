@@ -44,3 +44,4 @@ C:\Users\hp\Desktop\SIMS-Projekat\SIMS-Project-team-C\TravelService\TravelServic
 C:\Users\hp\Desktop\SIMS-Projekat\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\ref\TravelService.dll
 C:\Users\hp\Desktop\SIMS-Projekat\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\View\OwnerView.g.cs
 C:\Users\hp\Desktop\SIMS-Projekat\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\View\OwnerView.baml
+C:\Users\hp\Desktop\SIMS-Projekat\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
