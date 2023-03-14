@@ -19,3 +19,26 @@ C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelServ
 C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.pdb
 C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.genruntimeconfig.cache
 C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\ref\TravelService.dll
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\bin\Debug\net6.0-windows\TravelService.exe
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\bin\Debug\net6.0-windows\TravelService.deps.json
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\bin\Debug\net6.0-windows\TravelService.runtimeconfig.json
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\bin\Debug\net6.0-windows\TravelService.dll
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\bin\Debug\net6.0-windows\TravelService.pdb
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.csproj.AssemblyReference.cache
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\View\TourView.g.cs
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\App.g.cs
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService_MarkupCompile.cache
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService_MarkupCompile.lref
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\MainWindow.baml
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\View\TourView.baml
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.g.resources
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.AssemblyInfoInputs.cache
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.AssemblyInfo.cs
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.csproj.CoreCompileInputs.cache
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.dll
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\refint\TravelService.dll
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.pdb
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\TravelService.genruntimeconfig.cache
+C:\Users\Jovana\Desktop\Faks\IIIgodina\2. semestar\SIMS\Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\ref\TravelService.dll

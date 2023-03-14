@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelService.View;
 
 namespace TravelService
 {
@@ -23,6 +24,12 @@ namespace TravelService
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TourView tw= new TourView();
+            tw.Show();
         }
     }
 }
