@@ -20,6 +20,7 @@ using TravelService.Validation;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using Microsoft.Win32;
+using System.IO;
 
 namespace TravelService.View
 {
@@ -39,16 +40,22 @@ namespace TravelService.View
             set;
         }
 
-        private string _name;
-
-        public string Name
+        public ObservableCollection<BitmapImage> ImageList
         {
-            get => _name;
+            get;
+            set;
+        }   
+
+        private string _accommodationName;
+
+        public string AccommodationName
+        {
+            get => _accommodationName;
             set
             {
-                if (value != _name)
+                if (value != _accommodationName)
                 {
-                    _name = value;
+                    _accommodationName = value;
                     OnPropertyChanged();
                 }
             }
@@ -195,7 +202,7 @@ namespace TravelService.View
                 formattedPictures.Add(picture);
             }
 
-            Accommodation accommodation = new Accommodation(Name, savedLocation, savedLocation.Id, _accommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, formattedPictures);
+            Accommodation accommodation = new Accommodation(AccommodationName, savedLocation, savedLocation.Id, _accommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, formattedPictures);
             _repositoryAccommodation.Save(accommodation);
             Close();
         }
@@ -214,11 +221,11 @@ namespace TravelService.View
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-            //dlg.DefaultExt = ".png";
-            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
+            dlg.Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
             dlg.Multiselect = true;
 
             Nullable<bool> result = dlg.ShowDialog();
+
 
             if (result == true)
             {
@@ -230,12 +237,9 @@ namespace TravelService.View
                     Pictures += "|";
                 }
 
-                Pictures = Pictures.Substring(0, Pictures.Length - 1);  
+                Pictures = Pictures.Substring(0, Pictures.Length - 1);
 
-                //string filename = dlg.FileName;
-                //ikonicaResursaBox.Text = filename;
-
-                //slikaResursa.Source = new BitmapImage(new Uri(filename));
+                
             }
         }
     }
