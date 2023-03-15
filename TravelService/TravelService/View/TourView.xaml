@@ -7,32 +7,63 @@
         mc:Ignorable="d"
         Title="TourView" Height="450" Width="800">
     <Grid>
-        <DockPanel>
 
-            <ToolBar DockPanel.Dock="Top" Height="40">
-                <Separator Width="600" Background="Transparent"></Separator>
-                <TextBox x:Name="findByEntityBox" DockPanel.Dock="Right" Visibility="Visible" HorizontalAlignment="Right" Width="100"  BorderBrush="Black"></TextBox>
-                <Separator Width="10" Background="Transparent"></Separator>
-                <Button Click="findByEntity" Width="30" Height="20">Pretrazi</Button>
-            </ToolBar>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <DataGrid DockPanel.Dock="Bottom"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,10,0,18" Grid.RowSpan="2">
+            <Label Width="111">City and country:</Label>
+            <Label Width="113">Tour duration:</Label>
+            <Label Width="105">Language:</Label>
+            <Label Width="140">Number of guests:</Label>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,0,54,0" Orientation="Horizontal">
+            <ComboBox x:Name="locationComboBox" Width="100" Height="20" ItemsSource="{Binding Locations}" DisplayMemberPath="CityAndCountry"></ComboBox>
+            <ComboBox x:Name="durationComboBox" Width="100" Height="20" ItemsSource="{Binding Tours}" DisplayMemberPath="Duration" Margin="5" Visibility="Visible" BorderBrush="Black"></ComboBox>
+            <ComboBox x:Name="languageComboBox" Width="100" Height="20" ItemsSource="{Binding Languages}" DisplayMemberPath="Name" Margin="5" Visibility="Visible" BorderBrush="Black"></ComboBox>
+            <TextBox x:Name="guestsTextBox" Width="100" Height="20" Margin="5" Visibility="Visible" BorderBrush="Black"></TextBox>
+            <Button Click="searchTour_Click" Height="20" Margin="100,0,0,0">Search</Button>
+            <Button Click="showAllTours_Click" Height="20" Margin="50,0,0,0">Show all tours</Button>
+        </StackPanel>
+
+        <DataGrid Grid.Row="2" x:Name="allTours"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True"
-                  Width="700" Height="350">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Maximum number of guests" Binding="{Binding MaxGuestNumber}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tour start" Binding="{Binding CheckPointStart}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tour end" Binding="{Binding CheckPointEnd}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Date and time" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="auto"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
-        
+                  AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Maximum number of guests" Binding="{Binding MaxGuestNumber}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Checkpoints" Binding="{Binding CheckPoint.Name}" Width="auto">
+                
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Checkpoints2" Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ItemsControl x:Name="allCheckPoints" ItemsSource="{Binding CheckPointsTour}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Date and time" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="auto"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
     </Grid>
 </Window>

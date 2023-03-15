@@ -17,11 +17,9 @@ namespace TravelService.Model
         public Language Language { get; set; }
         public int LanguageId { get; set; }
         public int MaxGuestNumber { get; set; }
-        public CheckPoint CheckPointStart { get; set; }
-        public List<CheckPoint> CheckPointMiddle { get; set; }
-        public CheckPoint CheckPointEnd { get; set; }
-        public int CheckPointStartId { get; set; }
-        public int CheckPointEndId { get; set; }
+        public CheckPoint CheckPoint { get; set; }
+        public int CheckPointId { get; set; }
+        public List<CheckPoint> CheckPointsTour { get; set; }
         public List<DateTime> TourStart { get; set; }
         public int Duration { get; set; }
         public List<string> Pictures { get; set; }
@@ -30,9 +28,9 @@ namespace TravelService.Model
         {
             List<string> Pictures = new List<string>();
             List<DateTime> TourStart = new List<DateTime>();
-            List<CheckPoint> CheckPointMiddle = new List<CheckPoint>();
+            List<CheckPoint> CheckPointsTour = new List<CheckPoint>();
         }
-        public Tour(int id, string name, Location location, int locationId, string description, Language language, int languageId, int maxGuestNumber, CheckPoint checkPointStart, List<CheckPoint> checkPointMiddle, CheckPoint checkPointEnd, int checkPointStartId, int checkPointEndId, List<DateTime> tourStart, int duration, List<string> pictures)
+        public Tour(int id, string name, Location location, int locationId, string description, Language language, int languageId, int maxGuestNumber, CheckPoint checkPoint, int checkPointId, List<DateTime> tourStart, int duration, List<string> pictures)
         {
             Id = id;
             Name = name;
@@ -42,10 +40,9 @@ namespace TravelService.Model
             Language = language;
             LanguageId = languageId;
             MaxGuestNumber = maxGuestNumber;
-            CheckPointStart = checkPointStart;
-            CheckPointEnd = checkPointEnd;
-            CheckPointStartId = checkPointStartId;
-            CheckPointEndId = checkPointEndId;
+            CheckPoint = checkPoint;
+            CheckPointId = checkPointId;
+            CheckPointsTour = new List<CheckPoint>();
             TourStart = tourStart;
             Duration = duration;
             Pictures = pictures;
@@ -61,9 +58,8 @@ namespace TravelService.Model
                 Description,
                 LanguageId.ToString(),
                 MaxGuestNumber.ToString(),
-                CheckPointStartId.ToString(),
-                CheckPointEndId.ToString(),
-                //Duration.ToString()
+                CheckPointId.ToString(),
+                Duration.ToString()
             };
             return csvValues;
         }
@@ -76,9 +72,8 @@ namespace TravelService.Model
             Description = values[3];
             LanguageId = Convert.ToInt32(values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
-            CheckPointStartId = Convert.ToInt32(values[6]);
-            CheckPointEndId = Convert.ToInt32(values[7]);
-           // Duration = Convert.ToInt32(values[8]);
+            CheckPointId = Convert.ToInt32(values[6]);
+            Duration = Convert.ToInt32(values[7]);
         }
     }
 }
