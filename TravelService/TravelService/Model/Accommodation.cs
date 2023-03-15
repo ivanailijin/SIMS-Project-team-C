@@ -27,11 +27,11 @@ namespace TravelService.Model
 
         public int DaysBeforeCancellingReservation { get; set; }   
 
-        public List<string> Pictures { get; set; }
+        public List<Uri> Pictures { get; set; }
 
 
         public Accommodation() { 
-            Pictures = new List<string>();
+            Pictures = new List<Uri>();
         }
 
         public Accommodation(string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation, List<string> pictures)
@@ -43,8 +43,13 @@ namespace TravelService.Model
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
             DaysBeforeCancellingReservation = daysBeforeCancellingReservation;
-            Pictures = new List<string>();
-            Pictures = pictures;
+            Pictures = new List<Uri>();
+
+            foreach(string picture in pictures)
+            {
+                Uri file = new Uri(picture);
+                Pictures.Add(file);
+            }
         }
 
         public string TypeToCSV()
@@ -71,10 +76,11 @@ namespace TravelService.Model
         {
             StringBuilder pictureList = new StringBuilder();
 
-            foreach(string picture in Pictures)
+            foreach(Uri picture in Pictures)
             {
+                string pictureString = picture.ToString();
                 pictureList.Append(picture);
-                pictureList.Append(",");
+                pictureList.Append(" ,");
             }
 
             pictureList.Remove(pictureList.Length - 1, 1);
@@ -105,16 +111,17 @@ namespace TravelService.Model
             
             string pictures = values[7];
 
-            string[] delimitedPictures = pictures.Split(",");
+            string[] delimitedPictures = pictures.Split(", ");
 
             if(Pictures == null)
             {
-                Pictures = new List<string>();
+                Pictures = new List<Uri>();
             }
 
             foreach(string picture in delimitedPictures)
             {
-                Pictures.Add(picture);
+                Uri file = new Uri(picture);
+                Pictures.Add(file);
             }
         }
     }

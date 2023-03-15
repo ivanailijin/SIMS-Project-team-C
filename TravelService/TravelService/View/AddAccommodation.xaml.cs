@@ -19,6 +19,7 @@ using TravelService.Model;
 using TravelService.Validation;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using Microsoft.Win32;
 
 namespace TravelService.View
 {
@@ -187,7 +188,7 @@ namespace TravelService.View
 
             List<string> formattedPictures = new List<string>();
 
-            string[] delimitedPictures = Pictures.Split(",");
+            string[] delimitedPictures = Pictures.Split(new char[] {'|'});
 
             foreach (string picture in delimitedPictures)
             {
@@ -209,5 +210,33 @@ namespace TravelService.View
 
         }
 
+        private void findPictures_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            //dlg.DefaultExt = ".png";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
+            dlg.Multiselect = true;
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                string[] selectedFiles = dlg.FileNames;
+
+                foreach(string file in selectedFiles)
+                {
+                    Pictures += file;
+                    Pictures += "|";
+                }
+
+                Pictures = Pictures.Substring(0, Pictures.Length - 1);  
+
+                //string filename = dlg.FileName;
+                //ikonicaResursaBox.Text = filename;
+
+                //slikaResursa.Source = new BitmapImage(new Uri(filename));
+            }
+        }
     }
 }
