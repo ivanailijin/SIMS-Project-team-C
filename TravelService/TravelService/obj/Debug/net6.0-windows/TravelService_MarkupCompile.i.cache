@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\hp\Desktop\SIMS-Projekat\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\
+C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\obj\Debug\net6.0-windows\
 TravelService
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\hp\Desktop\SIMS-Projekat\SIMS-Project-team-C\TravelService\TravelService\App.xaml
+C:\Users\ivana\Desktop\SIMS-Project\SIMS-Project-team-C\TravelService\TravelService\App.xaml
 3-663833263
 
 141597783583
 194101785492
 MainWindow.xaml;View\AddAccommodation.xaml;View\OwnerView.xaml;
 
-False
+True
 
