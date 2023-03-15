@@ -14,7 +14,7 @@
                  Width="100" Height="30">
                  </TextBox>
                 <Separator Width="10" Background="White"></Separator>
-                <ComboBox x:Name="LocationComboBox" Width="100" Height="30" ItemsSource="{Binding Locations}" DisplayMemberPath="CityAndCountry"></ComboBox>
+                <ComboBox x:Name="LocationComboBox" Width="100" Height="30" IsEditable="True" KeyUp="LocationComboBox_KeyUp" ItemsSource="{Binding Locations}" DisplayMemberPath="CityAndCountry"></ComboBox>
                 <Separator Width="10" Background="White"></Separator>
                 <ComboBox x:Name="AccommodationTypeComboBox" ItemsSource="{Binding Types}" Width="100" Height="30" Text="{Binding Path = AccommodationTypeInput, UpdateSourceTrigger=PropertyChanged}"
                           SelectionChanged="AccommodationTypeComboBox_SelectionChanged"></ComboBox>
