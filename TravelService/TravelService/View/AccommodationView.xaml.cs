@@ -39,7 +39,7 @@ namespace TravelService.View
 
         public ObservableCollection<string> Types { get; set; }
 
-
+        //accommodation
         public AccommodationView()
         {
             InitializeComponent();
