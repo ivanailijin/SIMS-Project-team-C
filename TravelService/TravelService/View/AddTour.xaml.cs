@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -21,13 +22,18 @@ namespace TravelService.View
     /// <summary>
     /// Interaction logic for AddTour.xaml
     /// </summary>
-    public partial class AddTour : Window
+    public partial class AddTour : Window,INotifyPropertyChanged
     {
-
-        private readonly TourRepository _repository;
-        private readonly LocationRepository _locrepository;
+       
 
 
+        private readonly TourRepository _repositoryTour;
+        private readonly LocationRepository _repositoryLocation;
+        private readonly LanguageRepository _repositoryLanguage;
+        private readonly CheckPointRepository _repositoryCheckPoint;
+        public static ObservableCollection<Tour> Tours { get; set; }
+        public static ObservableCollection<string> CheckPoints{ get; set; }
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -106,36 +112,37 @@ namespace TravelService.View
                 }
             }
         }
-        private string _checkPointStart;
 
-        public string CheckPointStart
+        private string _checkPoints;
+
+        public string CheckPoint
         {
-            get => _checkPointStart;
+            get => _checkPoints;
             set
             {
-                if (value != _checkPointStart)
+                if (value != _checkPoints)
                 {
-                    _checkPointStart = value;
+                    _checkPoints = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private string _checkPointEnd;
 
-        public string CheckPointEnd
+        private DateTime _tourStart;
+
+        public DateTime TourStart
         {
-            get => _checkPointEnd;
+            get => _tourStart;
             set
             {
-                if (value != _checkPointEnd)
+                if (value != _tourStart)
                 {
-                    _checkPointEnd = value;
+                    _tourStart = value;
                     OnPropertyChanged();
                 }
             }
         }
-
         private int _duration;
 
         public int Duration
@@ -150,42 +157,135 @@ namespace TravelService.View
                 }
             }
         }
-        
+
+
+        private string _pictures;
+
+        public string Pictures
+        {
+            get => _pictures;
+            set
+            {
+                if (value != _pictures)
+                {
+                    _pictures = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+       
+        public List<string> CheckPointList(List<CheckPoint> checkPoints)
+        {
+            List<string> strings = new List<string>();
+            foreach(CheckPoint checkPoint in checkPoints)
+            {
+                strings.Add(checkPoint.Name); 
+                
+            }
+            return strings; 
+        }
+       
+
+
+
 
         public AddTour()
         {
             InitializeComponent();
-            _repository = new TourRepository();
+            _repositoryTour = new TourRepository();
+            _repositoryCheckPoint = new CheckPointRepository();
+            CheckPoints = new ObservableCollection<string>(CheckPointList(_repositoryCheckPoint.GetAll()));
+            
         }
 
         private void AddTour_Click(object sender, RoutedEventArgs e)
         {
 
-            
+            InitializeComponent();
+            DataContext = this;
 
             string[] words = _location.Split(',');
 
             string city= words[0];
             string country = words[1];
+
             Location location = new Location(country,city);
-            Location savedLocation = _locrepository.Save(location);
+            Location savedLocation = _repositoryLocation.Save(location);
+
+            string name = words[2];
+            Language language = new Language(name);
+            Language savedLanguage = _repositoryLanguage.Save(language);
+
+            CheckPoint checkPoint = new CheckPoint();
+            CheckPoint savedCheckPoint = _repositoryCheckPoint.Save(checkPoint);
+
+            
 
 
-            Tour tour = new Tour(Name,savedLocation,savedLocation.Id,Description,L);
+            
+
+
+
+            List<string> formattedPictures = new List<string>();
+
+            string[] delimitedPictures = Pictures.Split(",");
+
+            foreach (string picture in delimitedPictures)
+            {
+                formattedPictures.Add(picture);
+            }
+
+
+            List<CheckPoint> formattedCheckPoints = new List<CheckPoint>();
 
            
 
-            DateTime datRodj = DateTime.Parse(DatRodj);
 
-            adr = _controllerAdr.Create(ulica, broj, grad, drzava);
-            int ida = adr.Id;
-            ProsOcena = 0;
-            BrojESPB = 0;
+
+            Tour tour = new Tour(Name,savedLocation,Description,savedLanguage,savedLanguage.Id,MaxGuestNumber,formattedCheckPoints,TourStart, Duration,formattedPictures);
+
+           
+
+           
 
 
             
         }
 
+        private void findPictures_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            //dlg.DefaultExt = ".png";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg";
+            dlg.Multiselect = true;
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                string[] selectedFiles = dlg.FileNames;
+
+                foreach (string file in selectedFiles)
+                {
+                    Pictures += file;
+                    Pictures += "|";
+                }
+
+                Pictures = Pictures.Substring(0, Pictures.Length - 1);
+
+                //string filename = dlg.FileName;
+                //ikonicaResursaBox.Text = filename;
+
+                //slikaResursa.Source = new BitmapImage(new Uri(filename));
+            }
+        }
+
+
+        
+           
+        
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();

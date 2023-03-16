@@ -54,15 +54,15 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _languages);
         }
 
-        public Langiage Update(Language language)
+        public Language Update(Language language)
         {
-            _language = _serializer.FromCSV(FilePath);
-            Language current = _languages.Find(c => c.Id == location.Id);
-            int index = _locations.IndexOf(current);
-            _locations.Remove(current);
-            _locations.Insert(index, location);       // keep ascending order of ids in file 
-            _serializer.ToCSV(FilePath, _locations);
-            return location;
+            _languages = _serializer.FromCSV(FilePath);
+            Language current = _languages.Find(c => c.Id == language.Id);
+            int index = _languages.IndexOf(current);
+            _languages.Remove(current);
+            _languages.Insert(index, language);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _languages);
+            return language;
         }
 
 

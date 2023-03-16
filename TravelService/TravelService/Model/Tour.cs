@@ -17,40 +17,68 @@ namespace TravelService.Model
         public Language Language { get; set; }
         public int LanguageId { get; set; } 
         public int MaxGuestNumber { get; set; }
-        public CheckPoint CheckPointStart { get; set; }
-        public List<CheckPoint> CheckPointMiddle { get; set; }
-        public CheckPoint CheckPointEnd { get; set; }
-        public int CheckPointStartId { get; set; }
-        public int CheckPointEndId { get; set; }
-        public List<DateTime> TourStart { get; set; }
+        public List<CheckPoint> CheckPoint { get; set; }
+        public DateTime TourStart { get; set; }
         public int Duration { get; set; }
-        public List<string> Pictures { get; set; }
+        public List<Uri> Pictures { get; set; }
+
 
         public Tour()
         {
-            List<string> Pictures = new List<string>();
-            List<DateTime> TourStart = new List<DateTime>();
-            List<CheckPoint> CheckPointMiddle = new List<CheckPoint>();
+            Pictures = new List<Uri>();
+            CheckPoint = new List<CheckPoint>();   
+
         }
-        public Tour( string name, Location location,int locationId, string description, Language language, int languageId,int maxGuestNumber, CheckPoint checkPointStart, List<CheckPoint> checkPointMiddle, CheckPoint checkPointEnd, List<DateTime> tourStart, int duration, List<string> pictures)
+        public Tour( string name, Location location,string description, Language language, int languageId, int maxGuestNumber,  List<CheckPoint> checkPoint, DateTime tourStart, int duration, List<string> pictures)
         {
-           
+            
             Name = name;
             Location = location;
-            LocationId = locationId;
             Description = description;
             Language = language;
             LanguageId = languageId;
             MaxGuestNumber = maxGuestNumber;
-            CheckPointStart = checkPointStart;
-            CheckPointEnd = checkPointEnd;
             TourStart = tourStart;
             Duration = duration;
-            Pictures = pictures;
+            Pictures = new List<Uri>();
+            
+            CheckPoint = new List<CheckPoint>();
+            CheckPoint = checkPoint;
+
+            foreach (string picture in pictures)
+            {
+                Uri file = new Uri(picture);
+                Pictures.Add(file);
+            }
         }
 
         public string[] ToCSV()
         {
+
+
+
+
+
+            StringBuilder pictureList = new StringBuilder();
+
+            foreach (Uri picture in Pictures)
+            {
+                string pictureString = picture.ToString();
+                pictureList.Append(picture);
+                pictureList.Append(" ,");
+            }
+
+            pictureList.Remove(pictureList.Length - 1, 1);
+            StringBuilder checkPointList = new StringBuilder();
+
+            foreach (CheckPoint checkPoint in CheckPoint)
+            {
+                checkPointList.Append(checkPoint);
+                checkPointList.Append(";");
+            }
+
+
+
             string[] csvValues = 
             { 
                 Id.ToString(),
@@ -59,24 +87,58 @@ namespace TravelService.Model
                 Description,
                 LanguageId.ToString(),
                 MaxGuestNumber.ToString(),
-                CheckPointStartId.ToString(),
-                CheckPointEndId.ToString(),
-                Duration.ToString()
+                Duration.ToString(),
+                pictureList.ToString(),
+                checkPointList.ToString(),
+                TourStart.ToString()
             };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            Id = Convert.ToInt32(values[0]);
-            Name= values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            Id = Convert.ToInt32(values[0]);    
+            Name = values[1];
+            LocationId = int.Parse(values[2]);
             Description = values[3];
-            LanguageId = Convert.ToInt32(values[4]);
-            MaxGuestNumber = Convert.ToInt32(values[5]);
-            CheckPointStartId = Convert.ToInt32(values[6]);
-            CheckPointEndId = Convert.ToInt32(values[7]);
-            Duration = Convert.ToInt32(values[8]);
+            LanguageId = int.Parse(values[4]);
+            MaxGuestNumber = int.Parse(values[5]);
+            Duration = int.Parse(values[6]);
+            TourStart = DateTime.Parse(values[7]);
+            
+
+            string pictures = values[8];
+            string[] delimitedPictures = pictures.Split(",");
+            if(Pictures == null)
+            {
+                Pictures = new List<Uri>();
+            }
+
+            foreach (string picture in delimitedPictures)
+            {
+                Uri file = new Uri(picture);
+                Pictures.Add(file);
+            }
+
+            CheckPoint checkPoints= new CheckPoint();
+            checkPoints.FromCsvToCheckPoint(values[9]);
+
+            if (CheckPoint == null)
+            {
+                CheckPoint = new List<CheckPoint>();
+            }
+
+
+            foreach (CheckPoint checkPoint in CheckPoint)
+            {
+                CheckPoint.Add(checkPoint);
+            }
+
+
+
+
+
+
         }
     }
 }

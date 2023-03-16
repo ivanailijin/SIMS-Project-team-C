@@ -3,36 +3,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelService.Serializer;
 
 namespace TravelService.Model
 {
-    public class CheckPoint
+    public class CheckPoint: ISerializable
     {
-        public int Id { get; set; }
+       
+        public int CheckPointId { get; set; }
         public string Name { get; set; }
-        public Location Location { get; set; }
-        public int LocationId { get; set; }
+        
+        public int TourId { get; set; }
+        
+
+        
 
         public CheckPoint() { }
-        public CheckPoint(int id, string name, Location location, int locationId)
+        public CheckPoint(int checkPointId, string name, int tourId)
         {
-            Id = id;
+            CheckPointId = checkPointId;
             Name = name;
-            Location = location;
-            LocationId = locationId;
+            TourId = tourId;
+            
         }
+
+        public override  string ToString()
+        {
+            return CheckPointId + ";" + Name;
+
+        }
+
+       
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, LocationId.ToString()};
+            string[] csvValues = { CheckPointId.ToString(), Name,TourId.ToString()};
             return csvValues;
         }
 
+
+        public CheckPoint FromCsvToCheckPoint(string values)
+        {
+            string[] Values = values.Split(";");   
+            CheckPoint checkPoint = new CheckPoint();
+            checkPoint.CheckPointId = Convert.ToInt32(Values[0]);
+           
+            return checkPoint;
+        }
         public void FromCSV(string[] values)
         {
-            Id = Convert.ToInt32(values[0]);
+           CheckPointId=Convert.ToInt32(values[0]); 
             Name = values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            TourId = Convert.ToInt32(values[2]);
+            
         }
     }
 }

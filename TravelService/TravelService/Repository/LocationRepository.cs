@@ -64,7 +64,5 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _locations);
             return location;
         }
-
-
     }
 }
