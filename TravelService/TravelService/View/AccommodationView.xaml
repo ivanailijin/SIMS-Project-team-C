@@ -1,0 +1,48 @@
+﻿<Window x:Class="TravelService.View.AccommodationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.View"
+        mc:Ignorable="d"
+        Title="AccommodationView" Height="450" Width="800">
+    <Grid>
+        <DockPanel>
+            <ToolBar DockPanel.Dock="Top" Height="60">
+                <Separator Width="30" Background="White"></Separator>
+                <TextBox x:Name="NameBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Width="100" Height="30">
+                 </TextBox>
+                <Separator Width="10" Background="White"></Separator>
+                <ComboBox x:Name="LocationComboBox" Width="100" Height="30" IsEditable="True" KeyUp="LocationComboBox_KeyUp" ItemsSource="{Binding Locations}" DisplayMemberPath="CityAndCountry"></ComboBox>
+                <Separator Width="10" Background="White"></Separator>
+                <ComboBox x:Name="AccommodationTypeComboBox" ItemsSource="{Binding Types}" Width="100" Height="30" Text="{Binding Path = AccommodationTypeInput, UpdateSourceTrigger=PropertyChanged}"
+                          SelectionChanged="AccommodationTypeComboBox_SelectionChanged"></ComboBox>
+                <TextBox x:Name="GuestNumberBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Width="100" Height="30">
+                </TextBox>
+                <Separator Width="10" Background="White"></Separator>
+                <TextBox x:Name="NumberOfDaysForReservationBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Width="100" Height="30">
+                </TextBox>
+                <Separator Width="10" Background="White"></Separator>
+                <Button Width="30" Height="20" Click="Find_Accommodation_Click">Pretrazi</Button>
+                
+                
+            </ToolBar>
+            <DataGrid x:Name="dataGridAccommodations" DockPanel.Dock="Bottom"
+                  ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  Width="700" Height="350">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="150"></DataGridTextColumn>
+                    <DataGridTextColumn Header="MaxGuestNumber" Binding="{Binding MaxGuestNumber}" Width="150"></DataGridTextColumn>
+                    <DataGridTextColumn Header="MinReservationDays" Binding="{Binding MinReservationDays}" Width="300"></DataGridTextColumn>
+                    <DataGridTextColumn Header="DaysBeforeCancellingReservation" Binding="{Binding DaysBeforeCancellingReservation}" Width="150"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelService.Repository;
+using TravelService.View;
 
 namespace TravelService
 {
@@ -20,9 +22,19 @@ namespace TravelService
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+
+        }
+
+        private void AccommodationView_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationView accomodationView = new AccommodationView();
+            accomodationView.Show();
+            Close();
         }
     }
 }

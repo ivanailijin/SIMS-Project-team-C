@@ -16,16 +16,16 @@ namespace TravelService.Model
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public Location Location { get; set; }    
+        public Location Location { get; set; }
         public int LocationId { get; set; }
 
         public TYPE Type { get; set; }
 
-        public int MaxGuestNumber { get; set; } 
+        public int MaxGuestNumber { get; set; }
 
-        public int MinReservationDays { get; set; } 
+        public int MinReservationDays { get; set; }
 
-        public int DaysBeforeCancellingReservation { get; set; }   
+        public int DaysBeforeCancellingReservation { get; set; }
 
         public List<Uri> Pictures { get; set; }
 
@@ -36,6 +36,7 @@ namespace TravelService.Model
 
         public Accommodation(string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation, List<string> pictures)
         {
+            Id = id;
             Name = name;
             Location = location;
             LocationId = locationId;
@@ -64,9 +65,9 @@ namespace TravelService.Model
 
         public TYPE TypeFromCSV(string type)
         {
-            if (string.Equals(type, "appartment"))
+            if (string.Equals(type, "Apartment"))
                 return TYPE.APARTMENT;
-            else if (string.Equals(type, "cottage"))
+            else if (string.Equals(type, "Cottage"))
                 return TYPE.COTTAGE;
             else
                 return TYPE.HOUSE;
