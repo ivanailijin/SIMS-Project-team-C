@@ -36,7 +36,6 @@ namespace TravelService.Model
 
         public Accommodation(string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation, List<string> pictures)
         {
-            Id = id;
             Name = name;
             Location = location;
             LocationId = locationId;
