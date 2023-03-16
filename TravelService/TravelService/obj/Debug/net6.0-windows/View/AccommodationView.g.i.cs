@@ -101,7 +101,7 @@ namespace TravelService.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TravelService;component/view/accommodationview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TravelService;V1.0.0.0;component/view/accommodationview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\AccommodationView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
