@@ -77,12 +77,12 @@ namespace TravelService.View
                     tourView.Show();
                     Close();
                 }
-                /*else if (user.Username.Equals("Guide") && user.Password == txtPassword.Password)
+                else if (user.Username.Equals("Guide") && user.Password == txtPassword.Password)
                 {
-                    AccommodationView accommodationView = new AccommodationView();
-                    accommodationView.Show();
+                    AddTour addTour= new AddTour();
+                    addTour.Show();
                     Close();
-                }*/
+                }
                 else
                 {
                     MessageBox.Show("Wrong password!");

@@ -7,11 +7,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-
   <ItemGroup>
-    <Folder Include="Resources\Data\" />
-    <Folder Include="Resources\Images\" />
+    <Folder Include="Model\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
-
 
 </Project>

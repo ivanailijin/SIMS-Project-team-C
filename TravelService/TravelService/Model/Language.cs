@@ -7,21 +7,22 @@ using TravelService.Serializer;
 
 namespace TravelService.Model
 {
-    public class Language : ISerializable
+    public class Language: ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
         public Language() { }
-        public Language(int id, string name)
+
+        public Language(string name)
         {
-            Id = id;
             Name = name;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name };
+
+            string[] csvValues = { Id.ToString(), Name};
             return csvValues;
         }
 

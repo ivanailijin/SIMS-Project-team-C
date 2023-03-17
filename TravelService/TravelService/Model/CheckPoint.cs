@@ -7,17 +7,21 @@ using TravelService.Serializer;
 
 namespace TravelService.Model
 {
-    public class CheckPoint :  ISerializable
+    public class CheckPoint : ISerializable
     {
 
         public int CheckPointId { get; set; }
         public string Name { get; set; }
+
         public int TourId { get; set; }
 
 
 
 
-        public CheckPoint() { }
+        public CheckPoint()
+        {
+            
+        }
         public CheckPoint(int checkPointId, string name, int tourId)
         {
             CheckPointId = checkPointId;
@@ -39,7 +43,6 @@ namespace TravelService.Model
             string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString() };
             return csvValues;
         }
-
 
 
         public void FromCSV(string[] values)

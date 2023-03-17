@@ -12,6 +12,7 @@ namespace TravelService.Repository
     {
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
+
         private readonly Serializer<Location> _serializer;
 
         private List<Location> _locations;
@@ -60,10 +61,11 @@ namespace TravelService.Repository
             Location current = _locations.Find(c => c.Id == location.Id);
             int index = _locations.IndexOf(current);
             _locations.Remove(current);
-            _locations.Insert(index, location);       // keep ascending order of ids in file
+            _locations.Insert(index, location);       // keep ascending order of ids in file 
             _serializer.ToCSV(FilePath, _locations);
             return location;
         }
     }
+
 }
 

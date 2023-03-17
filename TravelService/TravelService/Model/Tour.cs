@@ -17,31 +17,28 @@ namespace TravelService.Model
         public Language Language { get; set; }
         public int LanguageId { get; set; }
         public int MaxGuestNumber { get; set; }
-        public CheckPoint CheckPoint { get; set; }
-        public int CheckPointId { get; set; }
+      //  public int CheckPointId { get; set; }
         public List<CheckPoint> CheckPoints { get; set; }
         public DateTime TourStart { get; set; }
         public int Duration { get; set; }
         public List<Uri> Pictures { get; set; }
 
+
         public Tour()
         {
             Pictures = new List<Uri>();
             CheckPoints = new List<CheckPoint>();
+
         }
-        public Tour(int id, string name, Location location, int locationId, string description, Language language, int languageId, int maxGuestNumber, CheckPoint checkPoint, int checkPointId, DateTime tourStart, int duration, List<string> pictures)
+        public Tour(string name, Location location, string description, Language language, int languageId, int maxGuestNumber,  DateTime tourStart, int duration, List<string> pictures)
         {
-            Id = id;
+
             Name = name;
             Location = location;
-            LocationId = locationId;
             Description = description;
             Language = language;
             LanguageId = languageId;
             MaxGuestNumber = maxGuestNumber;
-            CheckPoint = checkPoint;
-            CheckPointId = checkPointId;
-            //CheckPoints = new List<CheckPoint>();
             TourStart = tourStart;
             Duration = duration;
             Pictures = new List<Uri>();
@@ -55,7 +52,7 @@ namespace TravelService.Model
 
         public string[] ToCSV()
         {
-           StringBuilder pictureList = new StringBuilder();
+            StringBuilder pictureList = new StringBuilder();
 
             foreach (Uri picture in Pictures)
             {
@@ -64,8 +61,13 @@ namespace TravelService.Model
                 pictureList.Append(" ,");
             }
 
-            pictureList.Remove(pictureList.Length - 1, 1);
-            StringBuilder checkPointList = new StringBuilder();
+            if (pictureList.Length > 0)
+            {
+                pictureList.Remove(pictureList.Length - 1, 1);
+            }
+
+
+
 
             string[] csvValues =
             {
@@ -75,10 +77,11 @@ namespace TravelService.Model
                 Description,
                 LanguageId.ToString(),
                 MaxGuestNumber.ToString(),
-                CheckPointId.ToString(),
+               // CheckPointId.ToString(),
                 Duration.ToString(),
                 pictureList.ToString(),
                 TourStart.ToString()
+                
             };
             return csvValues;
         }
@@ -87,16 +90,16 @@ namespace TravelService.Model
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            LocationId = int.Parse(values[2]);
             Description = values[3];
-            LanguageId = Convert.ToInt32(values[4]);
-            MaxGuestNumber = Convert.ToInt32(values[5]);
-            CheckPointId = Convert.ToInt32(values[6]);
-            Duration = Convert.ToInt32(values[7]);
-            TourStart = DateTime.Parse(values[8]);
-            string pictures = values[9];
+            LanguageId = int.Parse(values[4]);
+            MaxGuestNumber = int.Parse(values[5]);
+          // CheckPointId = int.Parse(values[6]);
+            Duration = int.Parse(values[6]);
 
-            string[] delimitedPictures = pictures.Split(" ,");
+
+            string pictures = values[7];
+            string[] delimitedPictures = pictures.Split(",");
             if (Pictures == null)
             {
                 Pictures = new List<Uri>();
@@ -107,6 +110,17 @@ namespace TravelService.Model
                 Uri file = new Uri(picture);
                 Pictures.Add(file);
             }
+
+          
+
+            TourStart = DateTime.Parse(values[8]);
+
+
+
+
+
+
+
         }
     }
 }

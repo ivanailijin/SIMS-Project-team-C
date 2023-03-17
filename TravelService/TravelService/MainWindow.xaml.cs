@@ -32,10 +32,8 @@ namespace TravelService
 
         
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            TourView tw= new TourView();
-            tw.Show();
-        }
+       
+
+        
     }
 }
