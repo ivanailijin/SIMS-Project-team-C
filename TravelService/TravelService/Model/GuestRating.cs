@@ -49,10 +49,10 @@ namespace TravelService.Model
            {
                 Id.ToString(),
                 Cleanness.ToString(),
-                Cleanness.ToString(),
-                Cleanness.ToString(),
-                Cleanness.ToString(),
                 RulesFollowing.ToString(),
+                Communication.ToString(),
+                NoiseLevel.ToString(),
+                PropertyRespect.ToString(),
                 Comment,
                 ReservationId.ToString(),
             };

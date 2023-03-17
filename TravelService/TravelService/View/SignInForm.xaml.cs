@@ -26,6 +26,8 @@ namespace TravelService.View
 
         private readonly UserRepository _repository;
 
+        private readonly AccommodationReservationRepository _reservationRepository;
+
         private string _username;
         public string Username
         {
@@ -52,6 +54,7 @@ namespace TravelService.View
             InitializeComponent();
             DataContext = this;
             _repository = new UserRepository();
+            _reservationRepository = new AccommodationReservationRepository();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -63,6 +66,23 @@ namespace TravelService.View
                 {
                     OwnerView ownerView = new OwnerView();
                     ownerView.Show();
+
+                    List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
+
+                    foreach(AccommodationReservation reservation in reservationList)
+                    {
+                        TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
+                        if(!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0)
+                        {
+                            MessageBoxResult result = MessageBox.Show("You have an unrated guest?\nDo you want to rate it now?", "Rating guest", MessageBoxButton.YesNo);
+                            if(result == MessageBoxResult.Yes)
+                            {
+                                GuestRatingView guestRatingView = new GuestRatingView(reservation.Id);
+                                guestRatingView.Show();
+                            }
+                        }
+                    }
+                    
                     Close();
                 }
                 else if(user.Username.Equals("Guest1") && user.Password == txtPassword.Password)

@@ -1,0 +1,107 @@
+﻿<Window x:Class="TravelService.View.GuestRatingView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.View"
+        mc:Ignorable="d"
+        Title="GuestRatingView" Height="350" Width="600">
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Grid.Column="0" Width="350" Height="270">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Cleannes" Grid.Row="0" Grid.Column="0" Height="25" ></Label>
+            <Label Content="Following the rules" Grid.Row="1" Grid.Column="0" Height="25"></Label>
+            <Label Content="Communication" Grid.Row="2" Grid.Column="0" Height="25"></Label>
+            <Label Content="Noise Level" Grid.Row="3" Grid.Column="0" Height="25"></Label>
+            <Label Content="Respect for property" Grid.Row="4" Grid.Column="0" Height="25"></Label>
+            <Label Content="Other comment" Grid.Row="5" Grid.Column="0" Height="25"></Label>
+            <GroupBox Grid.Row="0" Grid.Column="1" Height="30">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Grid.Column="1" Height="30">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="2" Grid.Column="1" Height="30">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="3" Grid.Column="1" Height="30">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="4" Grid.Column="1" Height="30">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                </StackPanel>
+            </GroupBox>
+            <TextBox  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+                     Height="40">
+                <TextBox.Text >
+                    <Binding Path="DaysBeforeCancellingReservation" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+        </Grid>
+    </Grid>
+</Window>
