@@ -19,18 +19,17 @@ namespace TravelService.Model
         public int MaxGuestNumber { get; set; }
         public CheckPoint CheckPoint { get; set; }
         public int CheckPointId { get; set; }
-        public List<CheckPoint> CheckPointsTour { get; set; }
-        public List<DateTime> TourStart { get; set; }
+        public List<CheckPoint> CheckPoints { get; set; }
+        public DateTime TourStart { get; set; }
         public int Duration { get; set; }
-        public List<string> Pictures { get; set; }
+        public List<Uri> Pictures { get; set; }
 
         public Tour()
         {
-            List<string> Pictures = new List<string>();
-            List<DateTime> TourStart = new List<DateTime>();
-            List<CheckPoint> CheckPointsTour = new List<CheckPoint>();
+            Pictures = new List<Uri>();
+            CheckPoints = new List<CheckPoint>();
         }
-        public Tour(int id, string name, Location location, int locationId, string description, Language language, int languageId, int maxGuestNumber, CheckPoint checkPoint, int checkPointId, List<DateTime> tourStart, int duration, List<string> pictures)
+        public Tour(int id, string name, Location location, int locationId, string description, Language language, int languageId, int maxGuestNumber, CheckPoint checkPoint, int checkPointId, DateTime tourStart, int duration, List<string> pictures)
         {
             Id = id;
             Name = name;
@@ -42,14 +41,32 @@ namespace TravelService.Model
             MaxGuestNumber = maxGuestNumber;
             CheckPoint = checkPoint;
             CheckPointId = checkPointId;
-            CheckPointsTour = new List<CheckPoint>();
+            //CheckPoints = new List<CheckPoint>();
             TourStart = tourStart;
             Duration = duration;
-            Pictures = pictures;
+            Pictures = new List<Uri>();
+
+            foreach (string picture in pictures)
+            {
+                Uri file = new Uri(picture);
+                Pictures.Add(file);
+            }
         }
 
         public string[] ToCSV()
         {
+           StringBuilder pictureList = new StringBuilder();
+
+            foreach (Uri picture in Pictures)
+            {
+                string pictureString = picture.ToString();
+                pictureList.Append(picture);
+                pictureList.Append(" ,");
+            }
+
+            pictureList.Remove(pictureList.Length - 1, 1);
+            StringBuilder checkPointList = new StringBuilder();
+
             string[] csvValues =
             {
                 Id.ToString(),
@@ -59,7 +76,9 @@ namespace TravelService.Model
                 LanguageId.ToString(),
                 MaxGuestNumber.ToString(),
                 CheckPointId.ToString(),
-                Duration.ToString()
+                Duration.ToString(),
+                pictureList.ToString(),
+                TourStart.ToString()
             };
             return csvValues;
         }
@@ -74,6 +93,20 @@ namespace TravelService.Model
             MaxGuestNumber = Convert.ToInt32(values[5]);
             CheckPointId = Convert.ToInt32(values[6]);
             Duration = Convert.ToInt32(values[7]);
+            TourStart = DateTime.Parse(values[8]);
+            string pictures = values[9];
+
+            string[] delimitedPictures = pictures.Split(" ,");
+            if (Pictures == null)
+            {
+                Pictures = new List<Uri>();
+            }
+
+            foreach (string picture in delimitedPictures)
+            {
+                Uri file = new Uri(picture);
+                Pictures.Add(file);
+            }
         }
     }
 }

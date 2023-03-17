@@ -43,24 +43,22 @@
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="Maximum number of guests" Binding="{Binding MaxGuestNumber}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Checkpoints" Binding="{Binding CheckPoint.Name}" Width="auto">
-                
-                </DataGridTextColumn>
-                <DataGridTemplateColumn Header="Checkpoints2" Width="auto">
+                <DataGridTemplateColumn Header="Checkpoints" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ItemsControl x:Name="allCheckPoints" ItemsSource="{Binding CheckPointsTour}">
-                                <ItemsControl.ItemTemplate>
+                            <ListBox  x:Name="listBoxCheckPoint" Height="100" ItemsSource="{Binding Path=CheckPoints}">
+                                <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock Text="{Binding Name}"/>
                                     </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Date and time" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pictures" Binding="{Binding Pictures}" Width="auto"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

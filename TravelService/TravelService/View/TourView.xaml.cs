@@ -30,10 +30,10 @@ namespace TravelService.View
 
         public readonly CheckPointRepository _checkpointRepository;
         public static List<Location> Locations { get; set; }
-        public static ObservableCollection<Tour> Tours { get; set; }
+        public static ObservableCollection<Tour> Tours { get; set; } 
         public static List<Language> Languages { get; set; }
         public static List<CheckPoint> CheckPoints { get; set; }
-        //public ObservableCollection<CheckPoint> TourCheckPoints { get; set; }
+        public static List<CheckPoint> FilteredCheckPoints { get; set; }
         public ObservableCollection<Tour> FilteredTours { get; set; }
         public TourView()
         {
@@ -43,26 +43,37 @@ namespace TravelService.View
             _locationRepository = new LocationRepository();
             _languageRepository = new LanguageRepository();
             _checkpointRepository = new CheckPointRepository();
+
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             FilteredTours = new ObservableCollection<Tour>();
-            //TourCheckPoints = new ObservableCollection<CheckPoint>();
+            FilteredCheckPoints = new List<CheckPoint>();
             Locations = new List<Location>(_locationRepository.GetAll());
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
 
             foreach (Tour tour in Tours)
             {
+                List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
                 tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
                 tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
-                tour.CheckPoint = CheckPoints.Find(cp => cp.CheckPointId == tour.CheckPointId);
-                tour.CheckPoint = CheckPoints.Find(cp => cp.TourId == tour.Id);
-                /*foreach (CheckPoint cp in CheckPoints) {
-                    
-                    if (tour.Id == cp.TourId) {
-                        tour.CheckPointsTour.Add(cp);
+
+                
+                tour.CheckPoints.Clear();
+                ListCheckPoints.Clear();
+
+                int currentId=tour.Id;
+                
+
+                foreach (CheckPoint c in CheckPoints)
+                {
+                    int currentCheckPointTourId = c.TourId;
+                    if((currentCheckPointTourId == currentId)) {
+                        ListCheckPoints.Add(c);
                         
                     }
-                }*/
+                }
+
+                tour.CheckPoints.AddRange(ListCheckPoints);
                 
             }
         }
@@ -128,5 +139,7 @@ namespace TravelService.View
         {
             allTours.ItemsSource = Tours;
         }
+
+        
     }
-}
+ }
