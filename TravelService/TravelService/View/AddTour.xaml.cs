@@ -32,7 +32,7 @@ namespace TravelService.View
         private readonly LanguageRepository _repositoryLanguage;
         private readonly CheckPointRepository _repositoryCheckPoint;
         public static ObservableCollection<Tour> Tours { get; set; }
-        public static ObservableCollection<string> CheckPoints{ get; set; }
+        public ObservableCollection<string> CheckPoints{ get; set; }
         
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -84,16 +84,16 @@ namespace TravelService.View
                 }
             }
         }
-        private string _language;
+        private string _tourLanguage;
 
-        public string Language
+        public string TourLanguage
         {
-            get => _language;
+            get => _tourLanguage;
             set
             {
-                if (value != _language)
+                if (value != _tourLanguage)
                 {
-                    _language = value;
+                    _tourLanguage = value;
                     OnPropertyChanged();
                 }
             }
@@ -113,20 +113,7 @@ namespace TravelService.View
             }
         }
 
-        private string _checkPoints;
-
-        public string CheckPoint
-        {
-            get => _checkPoints;
-            set
-            {
-                if (value != _checkPoints)
-                {
-                    _checkPoints = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+       
 
 
         private DateTime _tourStart;
@@ -193,11 +180,18 @@ namespace TravelService.View
         public AddTour()
         {
             InitializeComponent();
+            DataContext = this;
             _repositoryTour = new TourRepository();
             _repositoryCheckPoint = new CheckPointRepository();
+            _repositoryLanguage = new LanguageRepository();
+            _repositoryLocation = new LocationRepository(); 
             CheckPoints = new ObservableCollection<string>(CheckPointList(_repositoryCheckPoint.GetAll()));
-            
+
+
+            CheckPointCombo.ItemsSource = CheckPoints;
         }
+
+
 
         private void AddTour_Click(object sender, RoutedEventArgs e)
         {
@@ -213,8 +207,8 @@ namespace TravelService.View
             Location location = new Location(country,city);
             Location savedLocation = _repositoryLocation.Save(location);
 
-            string name = words[2];
-            Language language = new Language(name);
+            
+            Language language = new Language(TourLanguage);
             Language savedLanguage = _repositoryLanguage.Save(language);
 
             CheckPoint checkPoint = new CheckPoint();
@@ -237,16 +231,17 @@ namespace TravelService.View
             }
 
 
-            List<CheckPoint> formattedCheckPoints = new List<CheckPoint>();
+            List<CheckPoint> checkPoints = new List<CheckPoint>();
 
            
 
 
 
-            Tour tour = new Tour(Name,savedLocation,Description,savedLanguage,savedLanguage.Id,MaxGuestNumber,formattedCheckPoints,TourStart, Duration,formattedPictures);
+            Tour tour = new Tour(Name,savedLocation,Description,savedLanguage,savedLanguage.Id,MaxGuestNumber,checkPoints,TourStart, Duration,formattedPictures);
 
            
-
+            _repositoryTour.Save(tour);
+            Close();
            
 
 

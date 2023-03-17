@@ -50,14 +50,14 @@
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}"
                      
                      Height="25" ></TextBox>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Language, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=TourLanguage, UpdateSourceTrigger=PropertyChanged}"
                      
                      Height="25"></TextBox>
             <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"
                      
                      Height="25"></TextBox>
-            <ComboBox  Grid.Row="5" Grid.Column="1" ItemsSource="{Binding CheckPoints}"
-                     DisplayMemberPath="Name">
+            <ComboBox x:Name="CheckPointCombo" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding CheckPoints}">
+
             </ComboBox>
 
 

@@ -17,7 +17,8 @@ namespace TravelService.Model
         public Language Language { get; set; }
         public int LanguageId { get; set; } 
         public int MaxGuestNumber { get; set; }
-        public List<CheckPoint> CheckPoint { get; set; }
+        public int CheckPointId { get; set; }   
+        public List<CheckPoint> CheckPoints { get; set; }
         public DateTime TourStart { get; set; }
         public int Duration { get; set; }
         public List<Uri> Pictures { get; set; }
@@ -26,7 +27,7 @@ namespace TravelService.Model
         public Tour()
         {
             Pictures = new List<Uri>();
-            CheckPoint = new List<CheckPoint>();   
+            CheckPoints = new List<CheckPoint>();   
 
         }
         public Tour( string name, Location location,string description, Language language, int languageId, int maxGuestNumber,  List<CheckPoint> checkPoint, DateTime tourStart, int duration, List<string> pictures)
@@ -42,8 +43,8 @@ namespace TravelService.Model
             Duration = duration;
             Pictures = new List<Uri>();
             
-            CheckPoint = new List<CheckPoint>();
-            CheckPoint = checkPoint;
+            CheckPoints = new List<CheckPoint>();
+            CheckPoints = checkPoint;
 
             foreach (string picture in pictures)
             {
@@ -71,7 +72,7 @@ namespace TravelService.Model
             pictureList.Remove(pictureList.Length - 1, 1);
             StringBuilder checkPointList = new StringBuilder();
 
-            foreach (CheckPoint checkPoint in CheckPoint)
+            foreach (CheckPoint checkPoint in CheckPoints)
             {
                 checkPointList.Append(checkPoint);
                 checkPointList.Append(";");
@@ -123,15 +124,15 @@ namespace TravelService.Model
             CheckPoint checkPoints= new CheckPoint();
             checkPoints.FromCsvToCheckPoint(values[9]);
 
-            if (CheckPoint == null)
+            if (CheckPoints == null)
             {
-                CheckPoint = new List<CheckPoint>();
+                CheckPoints = new List<CheckPoint>();
             }
 
 
-            foreach (CheckPoint checkPoint in CheckPoint)
+            foreach (CheckPoint checkPoint in CheckPoints)
             {
-                CheckPoint.Add(checkPoint);
+                CheckPoints.Add(checkPoint);
             }
 
 

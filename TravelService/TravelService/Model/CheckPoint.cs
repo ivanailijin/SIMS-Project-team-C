@@ -18,7 +18,9 @@ namespace TravelService.Model
 
         
 
-        public CheckPoint() { }
+        public CheckPoint() {
+            TourId = -1;
+        }
         public CheckPoint(int checkPointId, string name, int tourId)
         {
             CheckPointId = checkPointId;
@@ -44,15 +46,16 @@ namespace TravelService.Model
 
         public CheckPoint FromCsvToCheckPoint(string values)
         {
-            string[] Values = values.Split(";");   
+            string[] Values = values.Split(" ;");   
             CheckPoint checkPoint = new CheckPoint();
             checkPoint.CheckPointId = Convert.ToInt32(Values[0]);
+           
            
             return checkPoint;
         }
         public void FromCSV(string[] values)
         {
-           CheckPointId=Convert.ToInt32(values[0]); 
+            CheckPointId = Convert.ToInt32(values[0]);
             Name = values[1];
             TourId = Convert.ToInt32(values[2]);
             
