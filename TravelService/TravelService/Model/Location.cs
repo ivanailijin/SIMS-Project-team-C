@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using TravelService.Serializer;
 using static System.Net.Mime.MediaTypeNames;
 
+
 namespace TravelService.Model
 {
+
     public class Location : ISerializable
     {
         public int Id { get; set; }
-        public string City { get; set; }
-
         public string Country { get; set; }
+
+        public string City { get; set; }
 
         public string CityAndCountry
         {
@@ -22,7 +24,7 @@ namespace TravelService.Model
 
         public Location() { }
 
-        public Location( string country, string city) {             
+        public Location(string country, string city) {
             City = city;
             Country = country;
         }

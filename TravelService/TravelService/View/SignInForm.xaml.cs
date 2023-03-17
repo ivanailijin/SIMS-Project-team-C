@@ -71,6 +71,18 @@ namespace TravelService.View
                     accommodationView.Show();
                     Close();
                 }
+                else if (user.Username.Equals("Guest2") && user.Password == txtPassword.Password)
+                {
+                    TourView tourView = new TourView();
+                    tourView.Show();
+                    Close();
+                }
+                /*else if (user.Username.Equals("Guide") && user.Password == txtPassword.Password)
+                {
+                    AccommodationView accommodationView = new AccommodationView();
+                    accommodationView.Show();
+                    Close();
+                }*/
                 else
                 {
                     MessageBox.Show("Wrong password!");

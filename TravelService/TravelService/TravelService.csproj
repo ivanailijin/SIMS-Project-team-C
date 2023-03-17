@@ -7,9 +7,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+
   <ItemGroup>
     <Folder Include="Resources\Data\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>
+
 
 </Project>
