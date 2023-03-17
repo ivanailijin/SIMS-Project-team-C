@@ -28,6 +28,7 @@ namespace TravelService.View
         {
             AddAccommodation addAccommodation = new AddAccommodation();
             addAccommodation.Show();
+            Close();
         }
     }
 }
