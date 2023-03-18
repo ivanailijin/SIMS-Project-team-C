@@ -31,9 +31,9 @@ namespace TravelService.View
 
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
 
-        public static List<Location> Locations { get; set; }
-
         public Accommodation SelectedAccommodation { get; set; }
+
+        public static List<Location> Locations { get; set; }
 
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
 
@@ -166,6 +166,12 @@ namespace TravelService.View
 
             return filteredLocations;
          
+        }
+
+        private void ReserveAccommodation_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationReservationView reservationView = new AccommodationReservationView(SelectedAccommodation);
+            reservationView.Show();
         }
     }
 }

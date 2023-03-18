@@ -111,7 +111,7 @@ namespace TravelService.Model
             
             string pictures = values[7];
 
-            string[] delimitedPictures = pictures.Split(", ");
+            string[] delimitedPictures = pictures.Split(" ,");
 
             if(Pictures == null)
             {
