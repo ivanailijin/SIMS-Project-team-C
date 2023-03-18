@@ -5,14 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.View"
         mc:Ignorable="d"
-        Title="GuestRatingView" Height="350" Width="600">
+        Title="GuestRatingView" Height="500" Width="600">
+    <Window.Resources>
+        <local:RadioButtonConverter x:Key="RadioButtonConverter" />
+    </Window.Resources>
     <Grid>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="320"></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+
+        <Grid Grid.Row ="0" Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Data of the guest's reservation:" TextAlignment="Center" Margin="0,9"  FontSize="15" ></TextBlock>
+            <Label Grid.Row="1" Grid.Column="0" Content="Name of accommodation:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="1" Content="Check in date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="2" Content="Check out date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <TextBlock Grid.Row="2" Grid.Column="0"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="2"></TextBlock>
+        </Grid>
         
-        <Grid Grid.Row="0" Grid.Column="0" Width="350" Height="270">
+        <Grid Grid.Row="1" Grid.Column="0" Width="350" Height="270">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
@@ -25,7 +50,7 @@
                 <ColumnDefinition Width="150"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Cleannes" Grid.Row="0" Grid.Column="0" Height="25" ></Label>
+            <Label Content="Cleanness" Grid.Row="0" Grid.Column="0" Height="25" ></Label>
             <Label Content="Following the rules" Grid.Row="1" Grid.Column="0" Height="25"></Label>
             <Label Content="Communication" Grid.Row="2" Grid.Column="0" Height="25"></Label>
             <Label Content="Noise Level" Grid.Row="3" Grid.Column="0" Height="25"></Label>
@@ -33,53 +58,53 @@
             <Label Content="Other comment" Grid.Row="5" Grid.Column="0" Height="25"></Label>
             <GroupBox Grid.Row="0" Grid.Column="1" Height="30">
                 <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
-                </StackPanel>
+                        <RadioButton Width="37" Content="1" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Width="37" Content="2" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Width="37" Content="3" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Width="37" Content="4" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Width="37" Content="5" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    </StackPanel>
             </GroupBox>
             <GroupBox Grid.Row="1" Grid.Column="1" Height="30">
                 <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="1" GroupName="RulesCriteria" IsChecked="{Binding RulesFollowing, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" GroupName="RulesCriteria" IsChecked="{Binding RulesFollowing, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" GroupName="RulesCriteria" IsChecked="{Binding RulesFollowing, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" GroupName="RulesCriteria" IsChecked="{Binding RulesFollowing, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" GroupName="RulesCriteria" IsChecked="{Binding RulesFollowing, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Grid.Row="2" Grid.Column="1" Height="30">
                 <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="1" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Grid.Row="3" Grid.Column="1" Height="30">
                 <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="1" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Grid.Row="4" Grid.Column="1" Height="30">
                 <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="1" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
-            <TextBox  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
                      Height="40">
                 <TextBox.Text >
-                    <Binding Path="DaysBeforeCancellingReservation" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding Path="Comment" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
 
                         </Binding.ValidationRules>
@@ -103,5 +128,14 @@
                 </Validation.ErrorTemplate>
             </TextBox>
         </Grid>
+        <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
+            <Separator Background="White" Width="170"></Separator>
+            <Button Content="Add"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
+                    Click="AddGuestRating_Click"/>
+            <Separator Background="White" Width="100"></Separator>
+            <Button Content="Cancel" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
+                    Click ="CancelGuestRating_Click"/>
+            <Separator Background="White" Width="180"></Separator>
+        </WrapPanel>
     </Grid>
 </Window>

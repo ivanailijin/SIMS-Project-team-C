@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelService.Model;
+using TravelService.Repository;
 
 namespace TravelService.View
 {
@@ -21,17 +24,21 @@ namespace TravelService.View
     /// </summary>
     public partial class GuestRatingView : Window, INotifyPropertyChanged
     {
+        private readonly GuestRatingRepository _guestRatingRepository;
+
+        private readonly AccommodationReservationRepository _reservationRepository;
+
         private int ReservationId;
 
-        private int _cleannes;
+        private int _cleanness;
         public int Cleanness
         {
-            get => _cleannes;
+            get => _cleanness;
             set
             {
-                if (value != _cleannes)
+                if (value != _cleanness)
                 {
-                    _cleannes = value;
+                    _cleanness = value;
                     OnPropertyChanged();
                 }
             }
@@ -91,8 +98,8 @@ namespace TravelService.View
                 }
             }
         }
-        private int _comment;
-        public int Comment
+        private string _comment;
+        public string Comment
         {
             get => _comment;
             set
@@ -115,6 +122,26 @@ namespace TravelService.View
         {
             InitializeComponent();
             ReservationId = reservationId;
+            _guestRatingRepository = new GuestRatingRepository();
+            _reservationRepository = new AccommodationReservationRepository();
+
+            DataContext = this;
+        }
+
+        private void AddGuestRating_Click(object sender, RoutedEventArgs e)
+        {
+            GuestRating guestRating = new GuestRating(Cleanness, RulesFollowing, Communication, NoiseLevel, PropertyRespect, Comment, ReservationId);
+            _guestRatingRepository.Save(guestRating);
+            AccommodationReservation ratedReservation = _reservationRepository.FindById(ReservationId);
+            ratedReservation.IsRated = true;
+            _reservationRepository.Update(ratedReservation);
+
+            Close();
+        }
+
+        private void CancelGuestRating_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
