@@ -32,7 +32,7 @@
             <Label Content="Days of staying" Grid.Row="2" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             <DatePicker x:Name="startDatePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
             <DatePicker x:Name="endDatePicker" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
-            <TextBox x:Name="daysOfStayingBox" Grid.Row="2" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+            <TextBox x:Name="daysOfStayingBox" Text="{Binding Path=LengthOfStay}" Grid.Row="2" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0">
@@ -41,23 +41,27 @@
 
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Label Content="Available dates" HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" FontSize="17" ></Label>
-                <TextBlock Foreground="Red" Margin="0,20,0,0"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10">dfgdffdgfdd</TextBlock>
+                <TextBlock x:Name="NotificationBlock" Foreground="Red" Margin="0,20,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"></TextBlock>
             </Grid>
             <Grid Grid.Row="1" >
-                <DataGrid ItemsSource="{Binding AvailableDates}" SelectedItem="{Binding SelectedAvailableDate}">
+                <DataGrid ItemsSource="{Binding AvailableDatesPair}" SelectedItem="{Binding SelectedAvailableDatePair}"  AutoGenerateColumns="False" Width="260">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Check-in" Binding="{Binding Item1, StringFormat='{}{0:d}'}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Checkout" Binding="{Binding Item2, StringFormat='{}{0:d}'}"  Width="*"></DataGridTextColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Grid>
             <Grid Grid.Row="2">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Guest Number" Grid.Row="2" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <Separator Width="25" Background="White"></Separator>
-                    <TextBox x:Name="guestNumberBox" Grid.Row="2" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+                    <TextBox x:Name="guestNumberBox" Text="{Binding Path=GuestNumber}" Grid.Row="2" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
                 </StackPanel>
             </Grid>
         </Grid>

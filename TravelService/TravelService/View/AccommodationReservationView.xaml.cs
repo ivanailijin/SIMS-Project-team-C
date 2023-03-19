@@ -25,10 +25,10 @@ namespace TravelService.View
     public partial class AccommodationReservationView : Window, INotifyPropertyChanged
     {
         public AccommodationReservationRepository _reservationRepository;
-        public Accommodation SelectedAccommodation { get; set; } 
-        public ObservableCollection<AccommodationReservation> Reservations { get; set; }    
-        public ObservableCollection<object> AvailableDates { get; set; }
-        public AccommodationReservation SelectedAvailableDate { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
+        public ObservableCollection<AccommodationReservation> Reservations { get; set; }
+        public ObservableCollection<Tuple<DateTime, DateTime>> AvailableDatesPair { get; set; }
+        public Tuple<DateTime, DateTime> SelectedAvailableDatePair { get; set; }
 
         public AccommodationReservationView(Accommodation selectedAccommodation)
         {
@@ -41,6 +41,7 @@ namespace TravelService.View
 
             startDatePicker.DisplayDate = DateTime.Today;
             endDatePicker.DisplayDate = DateTime.Today;
+            AvailableDatesPair = new ObservableCollection<Tuple<DateTime, DateTime>>();
         }
 
         private DateTime _checkInDate;
@@ -71,6 +72,20 @@ namespace TravelService.View
             }
         }
 
+        private int _lengthOfStay;
+        public int LengthOfStay
+        {
+            get => _lengthOfStay;
+            set
+            {
+                if (value != _lengthOfStay)
+                {
+                    _lengthOfStay = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private int _guestNumber;
         public int GuestNumber
         {
@@ -85,6 +100,20 @@ namespace TravelService.View
             }
         }
 
+        private bool _isRated;
+        public bool IsRated
+        {
+            get => _isRated;
+            set
+            {
+                if (value != _isRated)
+                {
+                    _isRated = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -94,17 +123,73 @@ namespace TravelService.View
 
 
         private void CheckAvailability_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             DateTime startDate = (DateTime)startDatePicker.SelectedDate;
             DateTime endDate = (DateTime)endDatePicker.SelectedDate;
             int daysOfStaying = int.Parse(daysOfStayingBox.Text);
             List<DateTime> reservedDates = FindReservedDates();
+            List<DateTime> availableDates = new List<DateTime>();
+            AvailableDatesPair.Clear();
+            NotificationBlock.Text = "";
 
-          /*  for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
             {
-                if(!reservedDates.Contains(date) && date.AddDays(3) )
-            }*/
+                if (!reservedDates.Contains(date))
+                {
+                    availableDates.Add(date);
+                }
+                else
+                {
+                    availableDates.Clear();
+                }
+
+                if (availableDates.Count == daysOfStaying)
+                {
+                    AvailableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
+                    availableDates.RemoveAt(0);
+                }
+            }
+
+            availableDates.Clear();
+            DateTime recommendedStartDate = startDate;
+            DateTime recommendedEndDate = endDate;
+
+            //za startdate da napravis ogranicenje da ne predje danasnji datum
+            if (AvailableDatesPair.Count == 0)
+            {
+                NotificationBlock.Text = "All dates in the given range are taken. We recommend the following dates: ";
+
+                while (!(AvailableDatesPair.Count >= 3))
+                {
+                    recommendedStartDate = recommendedStartDate.Equals(DateTime.Today) ? recommendedStartDate : recommendedStartDate.AddDays(-1);
+                    recommendedEndDate = recommendedEndDate.AddDays(1);
+
+                    availableDates.Clear();
+                    for (DateTime date = recommendedStartDate; date <= recommendedEndDate; date = date.AddDays(1))
+                    {
+                        if (!reservedDates.Contains(date))
+                        {
+                            availableDates.Add(date);
+                        }
+                        else
+                        {
+                            availableDates.Clear();
+                        }
+
+                        if (availableDates.Count == daysOfStaying)
+                        {
+                             if (!AvailableDatesPair.Contains(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date)))
+                                AvailableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
+                             availableDates.RemoveAt(0);
+                        }
+                        
+                    }
+                }
+            }
         }
+
+
+
 
         public List<DateTime> FindReservedDates()
         {
@@ -112,28 +197,36 @@ namespace TravelService.View
 
             foreach (AccommodationReservation reservation in Reservations)
             {
-                if(SelectedAccommodation.Id == reservation.AccommodationId)
+                if (SelectedAccommodation.Id == reservation.AccommodationId)
                 {
-                    DateTime checkIn = reservation.CheckInDate.Date;
-                    DateTime checkOut = reservation.CheckOutDate.Date;
+                    DateTime checkIn = reservation.CheckInDate;
+                    DateTime checkOut = reservation.CheckOutDate;
 
-                    for(DateTime currentDate = checkIn; currentDate <= checkOut; currentDate.AddDays(1))
+                    for (DateTime currentDate = checkIn; currentDate <= checkOut; currentDate = currentDate.AddDays(1))
                     {
-                        reservedDates.Add(currentDate);
+                            reservedDates.Add(currentDate);
                     }
                 }
             }
             return reservedDates;
         }
 
+
+
         private void Reserve_Click(object sender, RoutedEventArgs e)
         {
-
+            CheckInDate = SelectedAvailableDatePair.Item1;
+            CheckOutDate = SelectedAvailableDatePair.Item2;
+            IsRated = false;
+            AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated);
+            _reservationRepository.Save(reservation);
+            Close();
         }
 
         private void CloseReservations_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
+        
     }
 }

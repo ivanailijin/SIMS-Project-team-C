@@ -11,7 +11,6 @@ namespace TravelService.Model
     public class AccommodationReservation : ISerializable
     {
         public int Id { get; set; }
-        public Accommodation Accommodation { get; set; } 
         public int AccommodationId { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
@@ -20,9 +19,8 @@ namespace TravelService.Model
         public bool IsRated { get; set; }
         public AccommodationReservation() { }
 
-        public AccommodationReservation(Accommodation accommodation, int accommodationId, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber, bool isRated)
+        public AccommodationReservation(int accommodationId, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber, bool isRated)
         {
-            Accommodation = accommodation;
             AccommodationId = accommodationId;
             CheckInDate = checkInDate;
             CheckOutDate = checkOutDate;
