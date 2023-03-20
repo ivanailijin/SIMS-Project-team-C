@@ -20,6 +20,7 @@ namespace TravelService.Model
         public int LocationId { get; set; }
 
         public TYPE Type { get; set; }
+        public string TypeText { get; set; }
 
         public int MaxGuestNumber { get; set; }
 

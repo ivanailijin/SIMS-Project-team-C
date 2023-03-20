@@ -8,27 +8,42 @@
         Title="AccommodationView" WindowStartupLocation="CenterScreen" Height="500" Width="900">
     <Grid>
         <DockPanel>
-            <ToolBar DockPanel.Dock="Top" Height="60">
+            <ToolBar DockPanel.Dock="Top" Height="70">
                 <Separator Width="30" Background="White"></Separator>
-                <TextBox x:Name="NameBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="100" Height="30">
-                 </TextBox>
+                <StackPanel>
+                    <Label Content="Name" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <TextBox x:Name="NameBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Width="100" Height="30"></TextBox>
+                </StackPanel>
                 <Separator Width="10" Background="White"></Separator>
-                <ComboBox x:Name="LocationComboBox" Width="100" Height="30" IsEditable="True" KeyUp="LocationComboBox_KeyUp" ItemsSource="{Binding Locations}" DisplayMemberPath="CityAndCountry"></ComboBox>
+                <StackPanel>
+                    <Label Content="Location" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <ComboBox x:Name="LocationComboBox" Width="100" Height="30" IsEditable="True" KeyUp="LocationComboBox_KeyUp">
+                    </ComboBox>
+                </StackPanel>
                 <Separator Width="10" Background="White"></Separator>
-                <ComboBox x:Name="AccommodationTypeComboBox" ItemsSource="{Binding Types}" Width="100" Height="30" Text="{Binding Path = AccommodationTypeInput, UpdateSourceTrigger=PropertyChanged}"
+                <StackPanel>
+                    <Label Content="Type" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <ComboBox x:Name="AccommodationTypeComboBox" ItemsSource="{Binding Types}" Width="100" Height="30" Text="{Binding Path = AccommodationTypeInput, UpdateSourceTrigger=PropertyChanged}"
                           SelectionChanged="AccommodationTypeComboBox_SelectionChanged"></ComboBox>
-                <TextBox x:Name="GuestNumberBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="100" Height="30">
-                </TextBox>
+                </StackPanel>
                 <Separator Width="10" Background="White"></Separator>
-                <TextBox x:Name="NumberOfDaysForReservationBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="100" Height="30">
-                </TextBox>
+                <StackPanel>
+                    <Label Content="Guest number" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <TextBox x:Name="GuestNumberBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Width="100" Height="30"></TextBox>
+                </StackPanel>
                 <Separator Width="10" Background="White"></Separator>
-                <Button Width="30" Height="20" Click="Find_Accommodation_Click">Pretrazi</Button>
+                <StackPanel>
+                    <Label Content="Reservation days" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <TextBox x:Name="NumberOfDaysForReservationBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Width="100" Height="30"></TextBox>
+                </StackPanel>
+                <Separator Width="10" Background="White"></Separator>
+                <Button Margin="0,15,0,0"  Width="50" Height="30" Click="Find_Accommodation_Click" BorderBrush="Black">Search
+                </Button>
                 <Separator Width="80" Background="White"></Separator>
-                <Button x:Name="ReserveAccommodation" Width="90" Height="30" Click="ReserveAccommodation_Click">Reserve</Button>
+                <Button x:Name="ReserveAccommodation" Margin="0,15,0,0" Width="90" Height="30" Click="ReserveAccommodation_Click" BorderBrush="Black">Reservation</Button>
                 
             </ToolBar>
             <DataGrid x:Name="dataGridAccommodations" DockPanel.Dock="Bottom"
@@ -39,7 +54,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="90"></DataGridTextColumn>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="120"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="90"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Type" Binding="{Binding TypeStr}" Width="90"></DataGridTextColumn>
                     <DataGridTextColumn Header="MaxGuest" Binding="{Binding MaxGuestNumber}" Width="100"></DataGridTextColumn>
                     <DataGridTextColumn Header="MinDays" Binding="{Binding MinReservationDays}" Width="100"></DataGridTextColumn>
                     <DataGridTextColumn Header="DaysBeforeCancel" Binding="{Binding DaysBeforeCancellingReservation}" Width="110"></DataGridTextColumn>

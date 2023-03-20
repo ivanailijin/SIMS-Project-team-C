@@ -12,6 +12,9 @@ namespace TravelService.Model
     {
         public int Id { get; set; }
         public int AccommodationId { get; set; }
+        public string AccommodationName { get; set; }
+        public string GuestName { get; set; }
+        public string GuestSurname { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int LengthOfStay { get; set; }
@@ -19,9 +22,12 @@ namespace TravelService.Model
         public bool IsRated { get; set; }
         public AccommodationReservation() { }
 
-        public AccommodationReservation(int accommodationId, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber, bool isRated)
+        public AccommodationReservation(int accommodationId, string accommodationName, string guestName, string guestSurname, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber, bool isRated)
         {
             AccommodationId = accommodationId;
+            AccommodationName = accommodationName;
+            GuestName = guestName;
+            GuestSurname = guestSurname;
             CheckInDate = checkInDate;
             CheckOutDate = checkOutDate;
             LengthOfStay = lengthOfStay;
@@ -35,6 +41,9 @@ namespace TravelService.Model
             { 
                 Id.ToString(),
                 AccommodationId.ToString(),
+                AccommodationName,
+                GuestName,
+                GuestSurname,
                 CheckInDate.ToString(),
                 CheckOutDate.ToString(),
                 LengthOfStay.ToString(),
@@ -48,11 +57,14 @@ namespace TravelService.Model
         {
             Id = Convert.ToInt32(values[0]);
             AccommodationId = Convert.ToInt32(values[1]);
-            CheckInDate = DateTime.Parse(values[2]);
-            CheckOutDate = DateTime.Parse(values[3]);
-            LengthOfStay = Convert.ToInt32(values[4]);
-            GuestNumber = Convert.ToInt32(values[5]);
-            IsRated = bool.Parse(values[6]);
+            AccommodationName = values[2];
+            GuestName = values[3];
+            GuestSurname = values[4];
+            CheckInDate = DateTime.Parse(values[5]);
+            CheckOutDate = DateTime.Parse(values[6]);
+            LengthOfStay = Convert.ToInt32(values[7]);
+            GuestNumber = Convert.ToInt32(values[8]);
+            IsRated = bool.Parse(values[9]);
         }
     }
 }

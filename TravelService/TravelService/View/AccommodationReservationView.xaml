@@ -6,10 +6,22 @@
         xmlns:local="clr-namespace:TravelService.View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="AccommodationReservationView" WindowStartupLocation="CenterScreen" Height="370" Width="640">
-    <Grid Height="320" Width="570">
+        Title="AccommodationReservationView" WindowStartupLocation="CenterScreen" Height="380" Width="630">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox">
+                    <Border BorderBrush="Red"
+                            BorderThickness="1"/>
+                </AdornedElementPlaceholder>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid Height="340" Width="570">
         <Grid.RowDefinitions>
-            <RowDefinition Height="240"></RowDefinition>
+            <RowDefinition Height="260"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -22,17 +34,26 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Start date" Grid.Row="0" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            <Label Content="End date" Grid.Row="1" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            <Label Content="Days of staying" Grid.Row="2" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-            <DatePicker x:Name="startDatePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
-            <DatePicker x:Name="endDatePicker" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
-            <TextBox x:Name="daysOfStayingBox" Text="{Binding Path=LengthOfStay}" Grid.Row="2" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+            <Label Content="Name" Grid.Row="0" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Content="Surname" Grid.Row="1" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Content="Start date" Grid.Row="2" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Content="End date" Grid.Row="3" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Content="Days of staying" Grid.Row="4" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <TextBox x:Name="nameBox" Text="{Binding Path=GuestName, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="0" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+            <TextBox x:Name="surnameBox" Text="{Binding Path=GuestSurname, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="1" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+            <DatePicker x:Name="startDatePicker" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
+            <DatePicker x:Name="endDatePicker" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
+            <TextBox x:Name="daysOfStayingBox" Text="{Binding Path=LengthOfStay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Row="4" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0">
@@ -61,7 +82,8 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Guest Number" Grid.Row="2" Grid.Column="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <Separator Width="25" Background="White"></Separator>
-                    <TextBox x:Name="guestNumberBox" Text="{Binding Path=GuestNumber}" Grid.Row="2" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+                    <TextBox x:Name="guestNumberBox" Text="{Binding Path=GuestNumber, UpdateSourceTrigger=PropertyChanged}"
+                             Grid.Row="2" Grid.Column="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
                 </StackPanel>
             </Grid>
         </Grid>
