@@ -28,6 +28,12 @@ namespace TravelService.View
 
         private readonly AccommodationReservationRepository _reservationRepository;
 
+        private readonly AccommodationRepository _accommodationRepository;
+
+        public Window Parent { get; set; }
+
+        public AccommodationReservation SelectedReservation { get; set; }
+
         private int ReservationId;
 
         private int _cleanness;
@@ -118,12 +124,22 @@ namespace TravelService.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public GuestRatingView(int reservationId)
+        public GuestRatingView(int reservationId, AccommodationReservation selectedReservation)
         {
             InitializeComponent();
+            SelectedReservation = selectedReservation;
             ReservationId = reservationId;
             _guestRatingRepository = new GuestRatingRepository();
             _reservationRepository = new AccommodationReservationRepository();
+            _accommodationRepository = new AccommodationRepository();
+
+            AccommodationReservation ratedReservation = _reservationRepository.FindById(ReservationId);
+            Accommodation accommodation = _accommodationRepository.FindById(ratedReservation.AccommodationId);
+            AccommodationName.Text = accommodation.Name;
+            CheckInDate.Text = ratedReservation.CheckInDate.ToString("dd-MMM-yyyy");
+            CheckOutDate.Text = ratedReservation.CheckOutDate.ToString("dd-MMM-yyyy");
+            GuestName.Text = ratedReservation.GuestName;
+            GuestSurname.Text = ratedReservation.GuestSurname;
 
             DataContext = this;
         }
@@ -135,6 +151,9 @@ namespace TravelService.View
             AccommodationReservation ratedReservation = _reservationRepository.FindById(ReservationId);
             ratedReservation.IsRated = true;
             _reservationRepository.Update(ratedReservation);
+
+            GuestRatingOverview guestRatingOverview = (GuestRatingOverview)this.Parent;
+            guestRatingOverview.UnratedReservations.Remove(SelectedReservation);
 
             Close();
         }

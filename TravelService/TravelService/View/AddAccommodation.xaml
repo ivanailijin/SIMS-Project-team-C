@@ -154,7 +154,7 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <TextBox  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBox x:Name="CancelDaysBox"  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
                      Height="25">
                 <TextBox.Text >
                     <Binding Path="DaysBeforeCancellingReservation" UpdateSourceTrigger="PropertyChanged" >

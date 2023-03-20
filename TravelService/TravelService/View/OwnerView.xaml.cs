@@ -28,7 +28,12 @@ namespace TravelService.View
         {
             AddAccommodation addAccommodation = new AddAccommodation();
             addAccommodation.Show();
-            Close();
+        }
+
+        private void GuestRating_Click(object sender, RoutedEventArgs e)
+        {
+            GuestRatingOverview ratingOverview = new GuestRatingOverview();
+            ratingOverview.Show();
         }
     }
 }

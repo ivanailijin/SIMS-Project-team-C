@@ -74,11 +74,12 @@ namespace TravelService.View
                         TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
                         if(!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0)
                         {
-                            MessageBoxResult result = MessageBox.Show("You have an unrated guest?\nDo you want to rate it now?", "Rating guest", MessageBoxButton.YesNo);
+                            MessageBoxResult result = MessageBox.Show("You have an unrated guest?\nDo you want to rate it now?", "Notification", MessageBoxButton.YesNo);
                             if(result == MessageBoxResult.Yes)
                             {
-                                GuestRatingView guestRatingView = new GuestRatingView(reservation.Id);
-                                guestRatingView.Show();
+                                GuestRatingOverview guestRatingOverview = new GuestRatingOverview();
+                                guestRatingOverview.ShowDialog();
+                                break;
                             }
                         }
                     }

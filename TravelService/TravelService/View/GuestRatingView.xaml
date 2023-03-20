@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.View"
         mc:Ignorable="d"
-        Title="GuestRatingView" Height="500" Width="600">
+        Title="GuestRatingView" WindowStartupLocation="CenterScreen" Height="500" Width="630">
     <Window.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
     </Window.Resources>
@@ -24,17 +24,23 @@
                 <RowDefinition Height="25"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Data of the guest's reservation:" TextAlignment="Center" Margin="0,9"  FontSize="15" ></TextBlock>
-            <Label Grid.Row="1" Grid.Column="0" Content="Name of accommodation:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="1" Content="Check in date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="2" Content="Check out date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <TextBlock Grid.Row="2" Grid.Column="0"></TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1"></TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="2"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Text="Data of the guest's reservation:" Foreground="DarkSlateBlue" FontWeight="Bold" TextAlignment="Center" Margin="0,9"  FontSize="15" ></TextBlock>
+            <Label Grid.Row="1" Grid.Column="0" Foreground="CadetBlue" FontWeight="Bold" Content="Guest name:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="1" Foreground="CadetBlue" FontWeight="Bold" Content="Guest surname:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="2"  Foreground="CadetBlue" FontWeight="Bold" Content="Name of accommodation:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="3"  Foreground="CadetBlue" FontWeight="Bold" Content="Check in date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="4"  Foreground="CadetBlue" FontWeight="Bold" Content="Check out date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <TextBlock x:Name="GuestName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"></TextBlock>
+            <TextBlock x:Name="GuestSurname" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
+            <TextBlock x:Name="AccommodationName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2"></TextBlock>
+            <TextBlock x:Name="CheckInDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="3"></TextBlock>
+            <TextBlock x:Name="CheckOutDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="4"></TextBlock>
         </Grid>
         
         <Grid Grid.Row="1" Grid.Column="0" Width="350" Height="270">
@@ -130,7 +136,7 @@
         </Grid>
         <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
             <Separator Background="White" Width="170"></Separator>
-            <Button Content="Add"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
+            <Button Content="Save"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
                     Click="AddGuestRating_Click"/>
             <Separator Background="White" Width="100"></Separator>
             <Button Content="Cancel" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 

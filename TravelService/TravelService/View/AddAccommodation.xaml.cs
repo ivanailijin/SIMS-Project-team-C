@@ -107,7 +107,7 @@ namespace TravelService.View
             }
         }
 
-        private int _daysBeforeCancellingReservation;
+        private int _daysBeforeCancellingReservation = 1;
         public int DaysBeforeCancellingReservation
         {
             get => _daysBeforeCancellingReservation;
