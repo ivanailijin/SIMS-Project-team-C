@@ -30,11 +30,5 @@ namespace TravelService
 
         }
 
-        private void AccommodationView_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationView accomodationView = new AccommodationView();
-            accomodationView.Show();
-            Close();
-        }
     }
 }

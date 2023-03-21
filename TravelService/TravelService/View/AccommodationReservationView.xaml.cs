@@ -27,11 +27,12 @@ namespace TravelService.View
     {
         public AccommodationReservationRepository _reservationRepository;
         public Accommodation SelectedAccommodation { get; set; }
+        public Guest1 LoggedInGuest1 { get; set; }
         public ObservableCollection<AccommodationReservation> Reservations { get; set; }
         public ObservableCollection<Tuple<DateTime, DateTime>> AvailableDatesPair { get; set; }
         public Tuple<DateTime, DateTime> SelectedAvailableDatePair { get; set; }
 
-        public AccommodationReservationView(Accommodation selectedAccommodation)
+        public AccommodationReservationView(Accommodation selectedAccommodation, Guest1 guest1)
         {
             InitializeComponent();
             DataContext = this;
@@ -39,38 +40,11 @@ namespace TravelService.View
             _reservationRepository = new AccommodationReservationRepository();
             Reservations = new ObservableCollection<AccommodationReservation>(_reservationRepository.GetAll());
             SelectedAccommodation = selectedAccommodation;
+            this.LoggedInGuest1 = guest1;
 
             startDatePicker.DisplayDateStart = DateTime.Today;
             endDatePicker.DisplayDateStart = DateTime.Today;
             AvailableDatesPair = new ObservableCollection<Tuple<DateTime, DateTime>>();
-        }
-
-        private string _name;
-        public string GuestName
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _surname;
-        public string GuestSurname
-        {
-            get => _surname;
-            set
-            {
-                if (value != _surname)
-                {
-                    _surname = value;
-                    OnPropertyChanged();
-                }
-            }
         }
 
         private DateTime _checkInDate;
@@ -168,15 +142,15 @@ namespace TravelService.View
 
             if (endDate < startDate)
             {
-                MessageBox.Show("End date must be greater than start date. Please try again.");
                 AvailableDatesPair.Clear();
+                MessageBox.Show("End date must be greater than start date. Please try again.");
                 return;
             }
 
             if(daysOfStaying < SelectedAccommodation.MinReservationDays)
             {
-                MessageBox.Show($"Minimum number of days for reservation is {SelectedAccommodation.MinReservationDays}");
                 AvailableDatesPair.Clear();
+                MessageBox.Show($"Minimum number of days for reservation is {SelectedAccommodation.MinReservationDays}");
                 return;
             }
 
@@ -272,7 +246,7 @@ namespace TravelService.View
                 CheckInDate = SelectedAvailableDatePair.Item1;
                 CheckOutDate = SelectedAvailableDatePair.Item2;
                 IsRated = false;
-                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, SelectedAccommodation.Name, GuestName, GuestSurname, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated);
+                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, SelectedAccommodation.Name, LoggedInGuest1.Id, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated);
                 _reservationRepository.Save(reservation);
                 Close();
             }

@@ -28,7 +28,7 @@ namespace TravelService.View
         private readonly AccommodationRepository _accomodationRepository;
 
         private readonly LocationRepository _locationRepository;
-
+        public Guest1 Guest1 { get; set; }
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
 
         public Accommodation SelectedAccommodation { get; set; }
@@ -40,13 +40,14 @@ namespace TravelService.View
         public ObservableCollection<string> Types { get; set; }
 
         //accommodation
-        public AccommodationView()
+        public AccommodationView(Guest1 guest1)
         {
             InitializeComponent();
             DataContext = this;
             _accomodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
 
+            this.Guest1 = guest1;
             Accommodations = new ObservableCollection<Accommodation>(_accomodationRepository.GetAll());
             Locations = new List<Location>(_locationRepository.GetAll());
 
@@ -209,7 +210,7 @@ namespace TravelService.View
         {
             if (SelectedAccommodation != null)
             {
-                AccommodationReservationView reservationView = new AccommodationReservationView(SelectedAccommodation);
+                AccommodationReservationView reservationView = new AccommodationReservationView(SelectedAccommodation, Guest1);
                 reservationView.Show();
             }
             else

@@ -25,6 +25,7 @@ namespace TravelService.View
     {
 
         private readonly UserRepository _repository;
+        private readonly Guest1Repository _guest1Repository;
 
         private string _username;
         public string Username
@@ -40,6 +41,37 @@ namespace TravelService.View
             }
         }
 
+        public string _password;
+
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                if (value != _password)
+                {
+                    _password = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool OwnerIsChecked { get; set; }
+        public bool Guest2IsChecked { get; set; }
+        public bool GuideIsChecked { get; set; }
+
+        private bool _guest1IsChecked;
+
+        public bool Guest1IsChecked
+        {
+            get { return _guest1IsChecked; }
+            set
+            {
+                _guest1IsChecked = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -52,35 +84,54 @@ namespace TravelService.View
             InitializeComponent();
             DataContext = this;
             _repository = new UserRepository();
+            _guest1Repository = new Guest1Repository();
+
+            Password = txtPassword.Password;
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
-            User user = _repository.GetByUsername(Username);
-            if (user != null)
+            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(txtPassword.Password))
             {
-                if (user.Username.Equals("Owner") &&  user.Password == txtPassword.Password)
+                User user = _repository.GetByUsername(Username);
+
+                if (user != null)
                 {
-                    OwnerView ownerView = new OwnerView();
-                    ownerView.Show();
-                    Close();
-                }
-                else if(user.Username.Equals("Guest1") && user.Password == txtPassword.Password)
-                {
-                    AccommodationView accommodationView = new AccommodationView();
-                    accommodationView.Show();
-                    Close();
+                    if (user.Password.Equals(txtPassword.Password))
+                    {
+                        if (OwnerIsChecked && user.UserType.Equals("Owner"))
+                        {
+                            //Owner owner = _ownerRepository.GetByUsername(Username);
+                        }
+                        else if (Guest1IsChecked && user.UserType.Equals("Guest1"))
+                        {
+                            Guest1 guest1 = _guest1Repository.GetByUsername(Username);
+                            AccommodationView accommodationView = new AccommodationView(guest1);
+                            accommodationView.Show();
+                        }
+                        else if (Guest2IsChecked && user.UserType.Equals("Guest2"))
+                        {
+
+                        }
+                        else if (GuideIsChecked && user.UserType.Equals("Guide"))
+                        {
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Wrong user type!");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wrong password!");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Wrong password!");
+                    MessageBox.Show("Wrong username!");
                 }
             }
-            else
-            {
-                MessageBox.Show("Wrong username!");
-            }
-
         }
     }
 }
