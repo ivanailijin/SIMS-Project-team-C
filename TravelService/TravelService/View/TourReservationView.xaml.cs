@@ -198,7 +198,7 @@ namespace TravelService.View
         private void FullyBookedTour(Tour selectedTour)
         {
             MessageBox.Show("Selected tour is fully booked. Try other tours on this location! ");
-            FindOtherTours(selectedTour);            
+            FindOtherTours(selectedTour);
         }
 
         private void FindOtherTours(Tour selectedTour)
@@ -216,15 +216,18 @@ namespace TravelService.View
             }
             allActiveTours.ItemsSource = OtherTours;
             
-            RunOutOfTours(selectedTour);
+            RunOutOfTours();
         }
 
-        private void RunOutOfTours(Tour tour)
+        private void RunOutOfTours()
         {
             if (OtherTours.Count() < 1)
             {
                 MessageBox.Show("There are no more avaliable tours, please change the number of people!");
-                ActiveTours.Add(tour);
+                ActiveTours.Clear();
+                foreach (Tour tour in Tours) {
+                    FindActiveTourList(tour);
+                }
                 allActiveTours.ItemsSource = ActiveTours;
             }
         }
@@ -232,8 +235,8 @@ namespace TravelService.View
         private void SaveSameReservation(Tour selectedTour, TourReservation reservation, string numberOfGuests)
         {
             TourReservations.Remove(reservation);
-            //int newGuestNumber = selectedTour.MaxGuestNumber - int.Parse(numberOfGuests);
-            TourReservation tourReservation = new TourReservation(_tourReservationRepository.NextId(), selectedTour.Id, reservation.GuestNumber - int.Parse(numberOfGuests));
+            int newGuestNumber = reservation.GuestNumber - int.Parse(numberOfGuests);
+            TourReservation tourReservation = new TourReservation(_tourReservationRepository.NextId(), selectedTour.Id, newGuestNumber);
             TourReservations.Add(tourReservation);
             _tourReservationRepository.Save(tourReservation);
         }
