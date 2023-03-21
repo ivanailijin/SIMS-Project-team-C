@@ -160,7 +160,19 @@ namespace TravelService.View
             }
         }
 
-
+        private int _guestNumber;
+        public int GuestNumber
+        {
+            get => _guestNumber;
+            set
+            {
+                if (value != _guestNumber)
+                {
+                    _guestNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
 
@@ -213,10 +225,10 @@ namespace TravelService.View
 
 
 
-            Tour tour = new Tour(TourName, savedLocation, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures);
+            //Tour tour = new Tour(TourName, savedLocation, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures);
 
 
-            _repositoryTour.Save(tour);
+            //_repositoryTour.Save(tour);
             Close();
 
 

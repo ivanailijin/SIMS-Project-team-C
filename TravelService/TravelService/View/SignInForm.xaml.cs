@@ -127,7 +127,9 @@ namespace TravelService.View
                         }
                         else if (Guest2IsChecked && user.UserType.Equals("Guest2"))
                         {
-
+                            SecondGuestView secondGuestView = new SecondGuestView();
+                            secondGuestView.Show();
+                            Close();
                         }
                         else if (GuideIsChecked && user.UserType.Equals("Guide"))
                         {
