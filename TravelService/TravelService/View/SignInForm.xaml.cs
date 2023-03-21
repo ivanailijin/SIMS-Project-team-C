@@ -79,9 +79,8 @@ namespace TravelService.View
                 }
                 else if (user.Username.Equals("Guide") && user.Password == txtPassword.Password)
                 {
-                    AddTour addTour= new AddTour();
-                    addTour.Show();
-                    Close();
+                   Window1 window1 = new Window1();
+                    window1.Show(); 
                 }
                 else
                 {

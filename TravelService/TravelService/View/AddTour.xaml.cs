@@ -25,13 +25,15 @@ namespace TravelService.View
     public partial class AddTour : Window, INotifyPropertyChanged
     {
 
-
+        
 
         private readonly TourRepository _repositoryTour;
         private readonly LocationRepository _repositoryLocation;
         private readonly LanguageRepository _repositoryLanguage;
-       
-       
+        private readonly CheckPointRepository _repositoryCheckPoint;
+        public static List<Location> Locations { get; set; }
+
+        public int TourId;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -159,7 +161,20 @@ namespace TravelService.View
                 }
             }
         }
+        private bool _done;
 
+        public bool Done
+        {
+            get => _done;
+            set
+            {
+                if (value != _done)
+                {
+                    _done = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
 
 
@@ -171,6 +186,11 @@ namespace TravelService.View
             _repositoryTour = new TourRepository();
             _repositoryLanguage = new LanguageRepository();
             _repositoryLocation = new LocationRepository();
+            _repositoryCheckPoint= new CheckPointRepository();
+
+            Locations = new List<Location>(_repositoryLocation.GetAll());
+
+            TourId = _repositoryTour.NextId();
           
         }
 
@@ -194,10 +214,7 @@ namespace TravelService.View
             Language language = new Language(TourLanguage);
             Language savedLanguage = _repositoryLanguage.Save(language);
 
-
-
-           
-
+  
 
 
 
@@ -213,14 +230,28 @@ namespace TravelService.View
 
 
 
-            Tour tour = new Tour(TourName, savedLocation, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures);
-
-
-            _repositoryTour.Save(tour);
-            Close();
+            Tour tour = new Tour(TourName,savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures,Done);
 
 
 
+
+            List<CheckPoint> checkPoints = _repositoryCheckPoint.GetAll();
+            int count = 0;
+            foreach(var checkpoint in checkPoints)
+            {
+                if(checkpoint.TourId == TourId)
+                {
+                    count++;
+                }
+            }
+
+            if(count >= 2)
+            {
+
+                _repositoryTour.Save(tour);
+                Close();
+
+            }
 
         }
 
@@ -228,7 +259,7 @@ namespace TravelService.View
 
         private void CheckPoint_Click(object sender, RoutedEventArgs e)
         {
-            EnterCheckPoint enterCheckPoint = new EnterCheckPoint();
+            EnterCheckPoint enterCheckPoint = new EnterCheckPoint(TourId);
             enterCheckPoint.Show();
 
 
