@@ -19,7 +19,6 @@ using System.Text.RegularExpressions;
 
 namespace TravelService.View
 {
-
     public partial class TourView : Window
     {
         public readonly TourRepository _tourRepository;
@@ -29,12 +28,12 @@ namespace TravelService.View
         public readonly LanguageRepository _languageRepository;
 
         public readonly CheckPointRepository _checkpointRepository;
-        public static List<Location> Locations { get; set; }
         public static ObservableCollection<Tour> Tours { get; set; } 
+        public static List<Location> Locations { get; set; }
         public static List<Language> Languages { get; set; }
         public static List<CheckPoint> CheckPoints { get; set; }
-        public static List<CheckPoint> FilteredCheckPoints { get; set; }
         public ObservableCollection<Tour> FilteredTours { get; set; }
+        public static List<CheckPoint> FilteredCheckPoints { get; set; }
         public TourView()
         {
             InitializeComponent();
@@ -46,39 +45,47 @@ namespace TravelService.View
 
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             FilteredTours = new ObservableCollection<Tour>();
-            FilteredCheckPoints = new List<CheckPoint>();
             Locations = new List<Location>(_locationRepository.GetAll());
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
 
+            ShowTourList();            
+        }
+
+        public void ShowTourList()
+        {
             foreach (Tour tour in Tours)
-            {
-                List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            {                
                 tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
                 tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
 
-                
-                tour.CheckPoints.Clear();
-                ListCheckPoints.Clear();
-
-                int currentId=tour.Id;
-                
-
-                foreach (CheckPoint c in CheckPoints)
-                {
-                    int currentCheckPointTourId = c.TourId;
-                    if((currentCheckPointTourId == currentId)) {
-                        ListCheckPoints.Add(c);
-                        
-                    }
-                }
-
-                tour.CheckPoints.AddRange(ListCheckPoints);
-                
+                ShowListCheckPointList(tour);                
             }
         }
 
-       private void searchTour_Click(object sender, RoutedEventArgs e)
+        private void ShowListCheckPointList(Tour tour)
+        {
+            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            tour.CheckPoints.Clear();
+            ListCheckPoints.Clear();
+
+            foreach (CheckPoint c in CheckPoints)
+            {
+                if (TourIdMatched(c.TourId, tour.Id))
+                    ListCheckPoints.Add(c);
+            }
+            tour.CheckPoints.AddRange(ListCheckPoints);
+        }
+
+        public bool TourIdMatched(int checkPointTourId, int tourId)
+        {
+            if ((checkPointTourId == tourId))
+            {
+                return true;
+            }
+            return false;
+        }
+        private void searchTour_Click(object sender, RoutedEventArgs e)
         {
             FilteredTours.Clear();
 
@@ -86,8 +93,6 @@ namespace TravelService.View
             string inputLocation = (string)locationComboBox.Text.Replace(",", "").Replace(" ", "");
             string inputLanguage = (string)languageComboBox.Text;
             string inputGuestNumber = guestsTextBox.Text;
-
-
 
             foreach (Tour tour in Tours) {
                 if (isTourSearchable(tour, inputLocation, inputDuration, inputLanguage, inputGuestNumber)) {
@@ -97,13 +102,10 @@ namespace TravelService.View
                     allTours.ItemsSource = FilteredTours;
                 }
             }
-
             allTours.ItemsSource = FilteredTours;
         }
-
         private bool isTourSearchable(Tour tour, string inputLocation, string inputDuration, string inputLanguage, string inputGuestNumber)
-        {
-            
+        {            
             if (((tour.Location.CityAndCountry.Replace(",", "").Replace(" ", "")).Contains(inputLocation) || string.IsNullOrEmpty(inputLocation)) &&
                 (tour.Language.Name.Contains(inputLanguage) || string.IsNullOrEmpty(inputLanguage)) &&
                 (isDurationCorrect(tour, inputDuration) || string.IsNullOrEmpty(inputDuration)) &&
@@ -112,20 +114,16 @@ namespace TravelService.View
             {
                 return true;
             }
-
             return false;
         }
-
         private bool isDurationCorrect(Tour tour, string inputDuration)
         {
-
             if (int.TryParse(inputDuration, out int duration) && duration == tour.Duration)
             {
                 return true;
             }
             return false;
         }
-
         private bool IsGuestNumberLessThanMax(Tour tour, string inputGuestNumber)
         {
             if (int.TryParse(inputGuestNumber, out int GuestNumber) && GuestNumber <= tour.MaxGuestNumber) 
@@ -134,12 +132,13 @@ namespace TravelService.View
             }
             return false;
         }
-
         private void showAllTours_Click(object sender, RoutedEventArgs e)
         {
             allTours.ItemsSource = Tours;
         }
-
-        
+        private void cacnelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }        
     }
  }

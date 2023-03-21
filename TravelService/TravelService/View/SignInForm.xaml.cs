@@ -73,7 +73,7 @@ namespace TravelService.View
                 }
                 else if (user.Username.Equals("Guest2") && user.Password == txtPassword.Password)
                 {
-                    TourView tourView = new TourView();
+                    SecondGuestView tourView = new SecondGuestView();
                     tourView.Show();
                     Close();
                 }

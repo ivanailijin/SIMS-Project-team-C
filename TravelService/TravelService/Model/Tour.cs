@@ -17,12 +17,13 @@ namespace TravelService.Model
         public Language Language { get; set; }
         public int LanguageId { get; set; }
         public int MaxGuestNumber { get; set; }
-      //  public int CheckPointId { get; set; }
         public List<CheckPoint> CheckPoints { get; set; }
         public DateTime TourStart { get; set; }
+        public DateTime TourEnd { get; set; }
+        public bool IsActive { get; set; }
         public int Duration { get; set; }
         public List<Uri> Pictures { get; set; }
-
+        public bool Done { get; set; }
 
         public Tour()
         {
@@ -30,7 +31,7 @@ namespace TravelService.Model
             CheckPoints = new List<CheckPoint>();
 
         }
-        public Tour(string name, Location location, string description, Language language, int languageId, int maxGuestNumber,  DateTime tourStart, int duration, List<string> pictures)
+        public Tour(string name, Location location, string description, Language language, int languageId, int maxGuestNumber, DateTime tourStart, int duration, List<string> pictures, bool done)
         {
 
             Name = name;
@@ -48,6 +49,7 @@ namespace TravelService.Model
                 Uri file = new Uri(picture);
                 Pictures.Add(file);
             }
+            Done = done;
         }
 
         public string[] ToCSV()
@@ -80,8 +82,8 @@ namespace TravelService.Model
                // CheckPointId.ToString(),
                 Duration.ToString(),
                 pictureList.ToString(),
-                TourStart.ToString()
-                
+                TourStart.ToString(),
+                Done.ToString()
             };
             return csvValues;
         }
@@ -94,7 +96,7 @@ namespace TravelService.Model
             Description = values[3];
             LanguageId = int.Parse(values[4]);
             MaxGuestNumber = int.Parse(values[5]);
-          // CheckPointId = int.Parse(values[6]);
+            // CheckPointId = int.Parse(values[6]);
             Duration = int.Parse(values[6]);
 
 
@@ -111,16 +113,16 @@ namespace TravelService.Model
                 Pictures.Add(file);
             }
 
-          
+
 
             TourStart = DateTime.Parse(values[8]);
 
 
 
 
-
-
-
         }
+
+
+
     }
 }

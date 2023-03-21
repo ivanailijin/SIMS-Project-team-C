@@ -26,13 +26,6 @@ namespace TravelService.Repository
         {
             return _serializer.FromCSV(FilePath);
         }
-
-        /*public List<CheckPoint> GetAllByTour(Tour tour,CheckPoint cp)
-        {
-            if(tour.Id== cp.TourId )
-
-        }*/
-
         public CheckPoint Save(CheckPoint checkpoint)
         {
             checkpoint.CheckPointId = NextId();
@@ -70,10 +63,5 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _checkpoints);
             return checkpoint;
         }
-
-
-
-
-
     }
 }
