@@ -26,6 +26,8 @@ namespace TravelService.View
         private readonly AccommodationReservationRepository _reservationRepository;
 
         private readonly AccommodationRepository _accommodationRepository;
+
+        private readonly Guest1Repository _guest1Repository;
         public ObservableCollection<AccommodationReservation> UnratedReservations { get; set; }
 
         public AccommodationReservation SelectedReservation { get; set; }
@@ -38,9 +40,11 @@ namespace TravelService.View
             this.Owner = owner;
             _reservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
+            _guest1Repository = new Guest1Repository();
             UnratedReservations = new ObservableCollection<AccommodationReservation>();
 
             List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
+            List<Guest1> guests = _guest1Repository.GetAll();
 
             foreach (AccommodationReservation reservation in reservationList)
             {
@@ -50,6 +54,11 @@ namespace TravelService.View
                 {
                     UnratedReservations.Add(reservation);
                 }
+            }
+
+            foreach(AccommodationReservation unratedReservation in UnratedReservations)
+            {
+                unratedReservation.Guest1 = guests.Find(g => g.Id == unratedReservation.GuestId);
             }
 
             DataContext = this;

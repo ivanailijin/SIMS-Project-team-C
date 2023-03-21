@@ -14,6 +14,7 @@ namespace TravelService.Model
         public int AccommodationId { get; set; }
         public string AccommodationName { get; set; }
         public int GuestId { get; set; }
+        public Guest1 Guest1 { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int LengthOfStay { get; set; }

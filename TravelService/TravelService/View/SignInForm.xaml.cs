@@ -113,8 +113,8 @@ namespace TravelService.View
                                     {
                                         GuestRatingOverview guestRatingOverview = new GuestRatingOverview(owner);
                                         guestRatingOverview.ShowDialog();
-                                        break;
                                     }
+                                    break;
                                 }
                             }
                             Close();

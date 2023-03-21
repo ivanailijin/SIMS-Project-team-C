@@ -36,5 +36,10 @@ namespace TravelService.Repository
 
             return null;
         }
+
+        public List<Guest1> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
     }
 }
