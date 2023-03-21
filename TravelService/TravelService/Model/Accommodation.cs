@@ -15,6 +15,7 @@ namespace TravelService.Model
     {
         public int Id { get; set; }
 
+        public int OwnerId { get; set; }
         public string Name { get; set; }
 
         public Location Location { get; set; }
@@ -36,8 +37,9 @@ namespace TravelService.Model
             Pictures = new List<Uri>();
         }
 
-        public Accommodation(string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation, List<string> pictures)
+        public Accommodation(int userId, string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation, List<string> pictures)
         {
+            OwnerId = userId;
             Name = name;
             Location = location;
             LocationId = locationId;
@@ -90,6 +92,7 @@ namespace TravelService.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                OwnerId.ToString(),
                 Name,
                 LocationId.ToString(),
                 TypeToCSV(),
@@ -104,14 +107,15 @@ namespace TravelService.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Name = values[1];
-            LocationId = Convert.ToInt32(values[2]);
-            Type = TypeFromCSV(values[3]);
-            MaxGuestNumber = Convert.ToInt32(values[4]);
-            MinReservationDays  = Convert.ToInt32(values[5]);
-            DaysBeforeCancellingReservation = Convert.ToInt32(values[6]);
+            OwnerId = Convert.ToInt32(values[1]);
+            Name = values[2];
+            LocationId = Convert.ToInt32(values[3]);
+            Type = TypeFromCSV(values[4]);
+            MaxGuestNumber = Convert.ToInt32(values[5]);
+            MinReservationDays  = Convert.ToInt32(values[6]);
+            DaysBeforeCancellingReservation = Convert.ToInt32(values[7]);
             
-            string pictures = values[7];
+            string pictures = values[8];
 
             string[] delimitedPictures = pictures.Split(", ");
 

@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelService.Model;
 using TravelService.Repository;
 
@@ -25,6 +16,10 @@ namespace TravelService.View
     {
 
         private readonly UserRepository _repository;
+
+        private readonly OwnerRepository _ownerRepository;
+
+        private readonly AccommodationRepository _accommodationRepository;
 
         private readonly AccommodationReservationRepository _reservationRepository;
 
@@ -42,6 +37,23 @@ namespace TravelService.View
             }
         }
 
+
+        private bool _ownerIsChecked;
+
+        public bool OwnerIsChecked
+        {
+            get { return _ownerIsChecked; }
+            set
+            {
+                _ownerIsChecked = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool Guest1IsChecked { get; set; }
+        public bool Guest2IsChecked { get; set; }
+        public bool GuideIsChecked { get; set; }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -54,54 +66,81 @@ namespace TravelService.View
             InitializeComponent();
             DataContext = this;
             _repository = new UserRepository();
+            _ownerRepository = new OwnerRepository();
             _reservationRepository = new AccommodationReservationRepository();
+            _accommodationRepository = new AccommodationRepository();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
-            User user = _repository.GetByUsername(Username);
-            if (user != null)
+
+            if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(txtPassword.Password))
             {
-                if (user.Username.Equals("Owner") &&  user.Password == txtPassword.Password)
+                User user = _repository.GetByUsername(Username);
+
+                if (user != null)
                 {
-                    OwnerView ownerView = new OwnerView();
-                    ownerView.Show();
-
-                    List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
-
-                    foreach(AccommodationReservation reservation in reservationList)
+                    if (user.Password.Equals(txtPassword.Password))
                     {
-                        TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
-                        if(!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0)
+                        if (OwnerIsChecked && user.UserType.Equals("Owner"))
                         {
-                            MessageBoxResult result = MessageBox.Show("You have an unrated guest?\nDo you want to rate it now?", "Notification", MessageBoxButton.YesNo);
-                            if(result == MessageBoxResult.Yes)
+                            Owner owner = _ownerRepository.GetByUsername(Username);
+                            OwnerView ownerView = new OwnerView(owner);
+                            ownerView.Show();
+
+                            List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
+
+                            foreach (AccommodationReservation reservation in reservationList)
                             {
-                                GuestRatingOverview guestRatingOverview = new GuestRatingOverview();
-                                guestRatingOverview.ShowDialog();
-                                break;
+                                Accommodation reservedAccommodation = _accommodationRepository.FindById(reservation.AccommodationId);
+                                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
+                                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservedAccommodation.OwnerId == owner.Id)
+                                {
+                                    MessageBoxResult result = MessageBox.Show("You have an unrated guest?\nDo you want to rate it now?", "Notification", MessageBoxButton.YesNo);
+                                    if (result == MessageBoxResult.Yes)
+                                    {
+                                        GuestRatingOverview guestRatingOverview = new GuestRatingOverview(owner);
+                                        guestRatingOverview.ShowDialog();
+                                        break;
+                                    }
+                                }
                             }
+                            Close();
+                        }
+                        else if (Guest1IsChecked && user.UserType.Equals("Guest1"))
+                        {
+
+                        }
+                        else if (Guest2IsChecked && user.UserType.Equals("Guest2"))
+                        {
+
+                        }
+                        else if (GuideIsChecked && user.UserType.Equals("Guide"))
+                        {
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Wrong user type!");
                         }
                     }
-                    
-                    Close();
-                }
-                else if(user.Username.Equals("Guest1") && user.Password == txtPassword.Password)
-                {
-                    AccommodationView accommodationView = new AccommodationView();
-                    accommodationView.Show();
-                    Close();
+                    else
+                    {
+                        MessageBox.Show("Wrong password!");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Wrong password!");
+                    MessageBox.Show("Wrong username!");
                 }
             }
-            else
-            {
-                MessageBox.Show("Wrong username!");
-            }
+        }
 
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            checkBox.IsChecked = true;
         }
     }
 }
+

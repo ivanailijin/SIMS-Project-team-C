@@ -25,23 +25,28 @@ namespace TravelService.View
     {
         private readonly AccommodationReservationRepository _reservationRepository;
 
+        private readonly AccommodationRepository _accommodationRepository;
         public ObservableCollection<AccommodationReservation> UnratedReservations { get; set; }
 
         public AccommodationReservation SelectedReservation { get; set; }
 
+        public Owner Owner { get; set; }
         public GuestRatingView Child { get; set;  }
-        public GuestRatingOverview()
+        public GuestRatingOverview(Owner owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             _reservationRepository = new AccommodationReservationRepository();
+            _accommodationRepository = new AccommodationRepository();
             UnratedReservations = new ObservableCollection<AccommodationReservation>();
 
             List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
 
             foreach (AccommodationReservation reservation in reservationList)
             {
+                Accommodation reservedAccommodation = _accommodationRepository.FindById(reservation.AccommodationId);
                 TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
-                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0)
+                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 &&  reservedAccommodation.OwnerId == Owner.Id)
                 {
                     UnratedReservations.Add(reservation);
                 }

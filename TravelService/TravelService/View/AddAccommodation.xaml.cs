@@ -34,6 +34,8 @@ namespace TravelService.View
 
         private readonly LocationRepository _repositoryLocation;
 
+        public Owner Owner { get; set; }
+
         public ObservableCollection<string> types
         {
             get;
@@ -143,9 +145,10 @@ namespace TravelService.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public AddAccommodation()
+        public AddAccommodation(Owner owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             types = new ObservableCollection<string>();
             types.Add("House");
             types.Add("Cottage");
@@ -202,7 +205,7 @@ namespace TravelService.View
                 formattedPictures.Add(picture);
             }
 
-            Accommodation accommodation = new Accommodation(AccommodationName, savedLocation, savedLocation.Id, _accommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, formattedPictures);
+            Accommodation accommodation = new Accommodation(Owner.Id, AccommodationName, savedLocation, savedLocation.Id, _accommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, formattedPictures);
             _repositoryAccommodation.Save(accommodation);
             Close();
         }

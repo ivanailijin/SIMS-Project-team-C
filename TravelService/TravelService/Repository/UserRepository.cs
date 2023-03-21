@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,17 @@ namespace TravelService.Repository
         {
             _users = _serializer.FromCSV(FilePath);
             return _users.FirstOrDefault(u => u.Username == username);
+        }
+
+        public ObservableCollection<string> GettAllPasswords()
+        {
+            ObservableCollection<string> passwords = new ObservableCollection<string>();
+
+            foreach (User user in _users)
+            {
+                passwords.Add(user.Password);
+            }
+            return passwords;
         }
     }
 }
