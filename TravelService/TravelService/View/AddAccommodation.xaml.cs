@@ -246,7 +246,7 @@ namespace TravelService.View
                     Pictures += file;
                     Pictures += "|";
                     string destinationFilePath = Path.Combine(destinationFolder, Path.GetFileName(file));
-                    File.Move(file, destinationFilePath);
+                    File.Copy(file, destinationFilePath);
                     MyListBox.Items.Add(file);
                 }
 
