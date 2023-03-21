@@ -31,9 +31,8 @@ namespace TravelService.Model
             CheckPoints = new List<CheckPoint>();
 
         }
-        public Tour(string name, Location location, int locationdId, string description, Language language, int languageId, int maxGuestNumber, DateTime tourStart, int duration, List<string> pictures, bool done)
+        public Tour(string name, Location location, int locationdId,string description, Language language, int languageId, int maxGuestNumber, DateTime tourStart, int duration, List<string> pictures, bool done)
         {
-
             Name = name;
             Location = location;
             LocationId = locationdId;
@@ -56,7 +55,6 @@ namespace TravelService.Model
         public string[] ToCSV()
         {
             StringBuilder pictureList = new StringBuilder();
-
             foreach (Uri picture in Pictures)
             {
                 string pictureString = picture.ToString();
@@ -108,6 +106,7 @@ namespace TravelService.Model
             }
 
             TourStart = DateTime.Parse(values[8]);
+            Done = Boolean.Parse(values[9]);
         }
     }
 }

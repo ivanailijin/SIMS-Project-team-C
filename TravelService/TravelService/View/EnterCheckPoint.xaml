@@ -5,27 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.View"
         mc:Ignorable="d"
-        Title="EnterCheckPoint" Height="200" Width="600">
-    <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="700"></RowDefinition>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
+        Title="EnterCheckPoint" Height="219" Width="600">
+    <Grid Height="197" VerticalAlignment="Top">
+        <Button Content="Create" Click="Create_Click" HorizontalAlignment="Left" Height="32" Margin="56,131,0,0" VerticalAlignment="Top" Width="141"/>
+        <Button Content="Close" Click="Cancel_Click"  HorizontalAlignment="Left" Height="31" Margin="386,131,0,0" VerticalAlignment="Top" Width="141" RenderTransformOrigin="1.856,0.361">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="1.361"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.265"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <TextBlock HorizontalAlignment="Left" Height="37" Margin="140,11,0,0" TextWrapping="Wrap" Text="Enter Minimum 2 CheckPoints" FontSize="20" VerticalAlignment="Top" Width="296"/>
+        <TextBox HorizontalAlignment="Left"  Text="{Binding Path=CheckPoint}" Height="49" Margin="74,59,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="437"/>
 
-
-
-            <WrapPanel Grid.Row = "1" FlowDirection="RightToLeft" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,2,0,0" Grid.RowSpan="2" >
-                <Button Content="Close" IsCancel="True" Click="Cancel_Click" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="20, 5, 20, 5" />
-                <Button Content="Create" IsDefault="True" Click="Create_Click"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20, 5, 20, 5" />
-            </WrapPanel>
-            <Grid HorizontalAlignment="Center" Height="80" VerticalAlignment="Center" Width="480">
-                <Label Content="ENTER CheckPoint: " HorizontalAlignment="Left" Height="70" Margin="10,10,0,0" VerticalAlignment="Top" Width="230"/>
-                <TextBox HorizontalAlignment="Center" Height="70" Margin="245,10,0,0" TextWrapping="Wrap" Text="{Binding Path=CheckPoint}"  VerticalAlignment="Top" Width="235"/>
-            </Grid>
-
-
-        </Grid>
     </Grid>
 </Window>

@@ -12,22 +12,23 @@ namespace TravelService.Model
 
         public int CheckPointId { get; set; }
         public string Name { get; set; }
-
+        public bool Active { get; set; }
         public int TourId { get; set; }
+       
 
 
 
 
         public CheckPoint()
         {
-            
+           
         }
-        public CheckPoint(int checkPointId, string name, int tourId)
+       public CheckPoint(int checkPointId, string name, bool active, int tourId)
         {
             CheckPointId = checkPointId;
             Name = name;
+            Active = active;
             TourId = tourId;
-
         }
 
         public override string ToString()
@@ -40,7 +41,7 @@ namespace TravelService.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString() };
+            string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString()};
             return csvValues;
         }
 

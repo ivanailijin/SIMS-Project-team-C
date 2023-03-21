@@ -23,13 +23,16 @@ namespace TravelService.View
     /// </summary>
     public partial class EnterCheckPoint : Window
     {
-
+        public int TourId;
         private readonly CheckPointRepository _repositoryCheckPoint;
-        public EnterCheckPoint()
+        private readonly TourRepository _repositoryTour;
+        public EnterCheckPoint(int Id)
         {
             InitializeComponent();
             DataContext = this;
             _repositoryCheckPoint = new CheckPointRepository();
+            _repositoryTour = new TourRepository();
+            TourId = Id;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -56,6 +59,7 @@ namespace TravelService.View
         {
             CheckPoint checkPoint = new CheckPoint();
             checkPoint.Name = CheckPoint;
+            checkPoint.TourId = TourId;
             CheckPoint savedCheckPoint = _repositoryCheckPoint.Save(checkPoint);
 
 
@@ -65,6 +69,6 @@ namespace TravelService.View
             Close();
         }
 
-        
+       
     }
 }

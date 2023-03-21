@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,7 +14,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+//using System.Windows.Shapes;
 using TravelService.Model;
 using TravelService.Repository;
 
@@ -30,8 +31,9 @@ namespace TravelService.View
         private readonly TourRepository _repositoryTour;
         private readonly LocationRepository _repositoryLocation;
         private readonly LanguageRepository _repositoryLanguage;
-       
-       
+        private readonly CheckPointRepository _repositoryCheckPoint;
+
+        public int TourId;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -159,20 +161,21 @@ namespace TravelService.View
                 }
             }
         }
+        private bool _done;
 
-        private int _guestNumber;
-        public int GuestNumber
+        public bool Done
         {
-            get => _guestNumber;
+            get => _done;
             set
             {
-                if (value != _guestNumber)
+                if (value != _done)
                 {
-                    _guestNumber = value;
+                    _done = value;
                     OnPropertyChanged();
                 }
             }
         }
+
 
 
 
@@ -183,7 +186,10 @@ namespace TravelService.View
             _repositoryTour = new TourRepository();
             _repositoryLanguage = new LanguageRepository();
             _repositoryLocation = new LocationRepository();
-          
+            _repositoryCheckPoint = new CheckPointRepository();
+
+            TourId = _repositoryTour.NextId();
+
         }
 
 
@@ -206,14 +212,6 @@ namespace TravelService.View
             Language language = new Language(TourLanguage);
             Language savedLanguage = _repositoryLanguage.Save(language);
 
-
-
-           
-
-
-
-
-
             List<string> formattedPictures = new List<string>();
 
             string[] delimitedPictures = Pictures.Split(new char[] { '|' });
@@ -225,14 +223,28 @@ namespace TravelService.View
 
 
 
-            //Tour tour = new Tour(TourName, savedLocation, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures);
-
-
-            //_repositoryTour.Save(tour);
-            Close();
+            Tour tour = new Tour(TourName, savedLocation,savedLocation.Id, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures, Done);
 
 
 
+
+            List<CheckPoint> checkPoints = _repositoryCheckPoint.GetAll();
+            int count = 0;
+            foreach (var checkpoint in checkPoints)
+            {
+                if (checkpoint.TourId == TourId)
+                {
+                    count++;
+                }
+            }
+
+            if (count >= 2)
+            {
+
+                _repositoryTour.Save(tour);
+                Close();
+
+            }
 
         }
 
@@ -240,18 +252,17 @@ namespace TravelService.View
 
         private void CheckPoint_Click(object sender, RoutedEventArgs e)
         {
-            EnterCheckPoint enterCheckPoint = new EnterCheckPoint();
+            EnterCheckPoint enterCheckPoint = new EnterCheckPoint(TourId);
             enterCheckPoint.Show();
 
 
         }
 
-
-        private void findPictures_Click(object sender, RoutedEventArgs e)
+   private void findPictures_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-            dlg.Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+            dlg.Filter = "Image files (*.jpg;*.jpeg;*.png;*.jfif)|*.jpg;*.jpeg;*.png;*.jfif";
             dlg.Multiselect = true;
 
             Nullable<bool> result = dlg.ShowDialog();
@@ -261,14 +272,23 @@ namespace TravelService.View
             {
                 string[] selectedFiles = dlg.FileNames;
 
-                foreach (string file in selectedFiles)
+                string destinationFolder = @"../../../Resources/Images/";
+
+                if(!Directory.Exists(destinationFolder))
+                {
+                    Directory.CreateDirectory(destinationFolder);
+                }
+
+                foreach(string file in selectedFiles)
                 {
                     Pictures += file;
                     Pictures += "|";
+                    string destinationFilePath = System.IO.Path.Combine(destinationFolder, Path.GetFileName(file));
+                    File.Move(file, destinationFilePath);
+                   
                 }
 
                 Pictures = Pictures.Substring(0, Pictures.Length - 1);
-
 
             }
         }
@@ -276,11 +296,10 @@ namespace TravelService.View
 
 
 
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
-            private void Cancel_Click(object sender, RoutedEventArgs e)
-            {
-                Close();
-            }
-        
     }
 }

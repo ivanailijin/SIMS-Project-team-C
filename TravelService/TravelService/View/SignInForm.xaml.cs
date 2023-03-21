@@ -91,6 +91,7 @@ namespace TravelService.View
 
                 if (user != null)
                 {
+
                     if (user.Password.Equals(txtPassword.Password))
                     {
                         if (OwnerIsChecked && user.UserType.Equals("Owner"))
@@ -133,7 +134,9 @@ namespace TravelService.View
                         }
                         else if (GuideIsChecked && user.UserType.Equals("Guide"))
                         {
-
+                            Window1 window1 = new Window1();
+                            window1.Show();
+                            Close();
                         }
                         else
                         {
@@ -143,7 +146,7 @@ namespace TravelService.View
                     else
                     {
                         MessageBox.Show("Wrong password!");
-                    }
+                    }    
                 }
                 else
                 {
