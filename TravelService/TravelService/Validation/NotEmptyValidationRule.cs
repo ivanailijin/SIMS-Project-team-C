@@ -72,7 +72,7 @@ namespace TravelService.Validation
             try
             {
                 var s = value as string;
-                Regex r = new Regex("^[a-zA-Z]+,[a-zA-Z]+$");
+                Regex r = new Regex("^[a-zA-Z]+(\\s+[a-zA-Z]+)*,\\s?[a-zA-Z]+(\\s+[a-zA-Z]+)*$");
                 if (r.IsMatch(s))
                 {
                     return new ValidationResult(true, null);

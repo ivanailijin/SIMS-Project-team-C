@@ -13,7 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+//using System.Windows.Shapes;
 using TravelService.Repository;
 using TravelService.Model;
 using TravelService.Validation;
@@ -33,6 +33,8 @@ namespace TravelService.View
         private readonly AccommodationRepository _repositoryAccommodation;
 
         private readonly LocationRepository _repositoryLocation;
+
+        public Owner Owner { get; set; }
 
         public ObservableCollection<string> types
         {
@@ -107,7 +109,7 @@ namespace TravelService.View
             }
         }
 
-        private int _daysBeforeCancellingReservation;
+        private int _daysBeforeCancellingReservation = 1;
         public int DaysBeforeCancellingReservation
         {
             get => _daysBeforeCancellingReservation;
@@ -143,9 +145,10 @@ namespace TravelService.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public AddAccommodation()
+        public AddAccommodation(Owner owner)
         {
             InitializeComponent();
+            this.Owner = owner;
             types = new ObservableCollection<string>();
             types.Add("House");
             types.Add("Cottage");
@@ -202,7 +205,7 @@ namespace TravelService.View
                 formattedPictures.Add(picture);
             }
 
-            Accommodation accommodation = new Accommodation(AccommodationName, savedLocation, savedLocation.Id, _accommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, formattedPictures);
+            Accommodation accommodation = new Accommodation(Owner.Id, AccommodationName, savedLocation, savedLocation.Id, _accommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, formattedPictures);
             _repositoryAccommodation.Save(accommodation);
             Close();
         }
@@ -221,7 +224,7 @@ namespace TravelService.View
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-            dlg.Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+            dlg.Filter = "Image files (*.jpg;*.jpeg;*.png;*.jfif)|*.jpg;*.jpeg;*.png;*.jfif";
             dlg.Multiselect = true;
 
             Nullable<bool> result = dlg.ShowDialog();
@@ -231,15 +234,24 @@ namespace TravelService.View
             {
                 string[] selectedFiles = dlg.FileNames;
 
+                string destinationFolder = @"../../../Resources/Images/";
+
+                if(!Directory.Exists(destinationFolder))
+                {
+                    Directory.CreateDirectory(destinationFolder);
+                }
+
                 foreach(string file in selectedFiles)
                 {
                     Pictures += file;
                     Pictures += "|";
+                    string destinationFilePath = Path.Combine(destinationFolder, Path.GetFileName(file));
+                    File.Move(file, destinationFilePath);
+                    MyListBox.Items.Add(file);
                 }
 
                 Pictures = Pictures.Substring(0, Pictures.Length - 1);
 
-                
             }
         }
     }

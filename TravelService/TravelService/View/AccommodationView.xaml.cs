@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using TravelService.Model;
 using System.Printing;
 using System.Diagnostics.Metrics;
+using System.ComponentModel;
 
 namespace TravelService.View
 {
@@ -29,6 +30,8 @@ namespace TravelService.View
 
         private readonly LocationRepository _locationRepository;
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
 
         public static List<Location> Locations { get; set; }
@@ -38,6 +41,10 @@ namespace TravelService.View
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
 
         public ObservableCollection<string> Types { get; set; }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName] => throw new NotImplementedException();
 
         //accommodation
         public AccommodationView()

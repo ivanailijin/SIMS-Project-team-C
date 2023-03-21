@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelService.Model;
 
 namespace TravelService.View
 {
@@ -19,15 +20,24 @@ namespace TravelService.View
     /// </summary>
     public partial class OwnerView : Window
     {
-        public OwnerView()
+        public Owner Owner { get; set; }
+
+        public OwnerView(Owner owner)
         {
+            this.Owner = owner;
             InitializeComponent();
         }
 
         private void AddAccommodation_Click(object sender, RoutedEventArgs e)
         {
-            AddAccommodation addAccommodation = new AddAccommodation();
+            AddAccommodation addAccommodation = new AddAccommodation(Owner);
             addAccommodation.Show();
+        }
+
+        private void GuestRating_Click(object sender, RoutedEventArgs e)
+        {
+            GuestRatingOverview ratingOverview = new GuestRatingOverview(Owner);
+            ratingOverview.Show();
         }
     }
 }

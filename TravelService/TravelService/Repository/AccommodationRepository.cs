@@ -54,7 +54,18 @@ namespace TravelService.Repository
             _accommodations.Remove(founded);
             _serializer.ToCSV(FilePath, _accommodations);
         }
-
+        public Accommodation FindById(int id)
+        {
+            _accommodations = _serializer.FromCSV(FilePath);
+            foreach (Accommodation accommodation in _accommodations)
+            {
+                if (accommodation.Id == id)
+                {
+                    return accommodation;
+                }
+            }
+            return null;
+        }
         public Accommodation Update(Accommodation accommodation)
         {
             _accommodations = _serializer.FromCSV(FilePath);
