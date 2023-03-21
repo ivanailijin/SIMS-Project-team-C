@@ -53,6 +53,7 @@ namespace TravelService.Repository
             _accommodationReservations.Remove(founded);
             _serializer.ToCSV(FilePath, _accommodationReservations);
         }
+
         public AccommodationReservation FindById(int id)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
@@ -65,13 +66,14 @@ namespace TravelService.Repository
             }
             return null;
         }
+
         public AccommodationReservation Update(AccommodationReservation accommodationReservation)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
             AccommodationReservation current = _accommodationReservations.Find(c => c.Id == accommodationReservation.Id);
             int index = _accommodationReservations.IndexOf(current);
             _accommodationReservations.Remove(current);
-            _accommodationReservations.Insert(index, accommodationReservation);
+            _accommodationReservations.Insert(index, accommodationReservation);      
             _serializer.ToCSV(FilePath, _accommodationReservations);
             return accommodationReservation;
         }

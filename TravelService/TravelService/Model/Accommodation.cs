@@ -23,6 +23,7 @@ namespace TravelService.Model
         public int LocationId { get; set; }
 
         public TYPE Type { get; set; }
+        public string TypeText { get; set; }
 
         public int MaxGuestNumber { get; set; }
 
@@ -117,7 +118,7 @@ namespace TravelService.Model
             
             string pictures = values[8];
 
-            string[] delimitedPictures = pictures.Split(", ");
+            string[] delimitedPictures = pictures.Split(" ,");
 
             if(Pictures == null)
             {

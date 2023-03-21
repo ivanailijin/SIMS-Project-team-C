@@ -27,33 +27,22 @@ namespace TravelService.View
     public partial class AccommodationView : Window
     {
         private readonly AccommodationRepository _accomodationRepository;
-
         private readonly LocationRepository _locationRepository;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
+        public Guest1 Guest1 { get; set; }
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
-
-        public static List<Location> Locations { get; set; }
-
         public Accommodation SelectedAccommodation { get; set; }
-
+        public static List<Location> Locations { get; set; }
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
-
         public ObservableCollection<string> Types { get; set; }
 
-        public string Error => throw new NotImplementedException();
-
-        public string this[string columnName] => throw new NotImplementedException();
-
-        //accommodation
-        public AccommodationView()
+        public AccommodationView(Guest1 guest1)
         {
             InitializeComponent();
             DataContext = this;
             _accomodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
 
+            this.Guest1 = guest1;
             Accommodations = new ObservableCollection<Accommodation>(_accomodationRepository.GetAll());
             Locations = new List<Location>(_locationRepository.GetAll());
 
@@ -62,28 +51,43 @@ namespace TravelService.View
                 accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
             }
 
+            foreach(Accommodation accommodation in Accommodations)
+            {
+                if(accommodation.Type == TYPE.HOUSE)
+                {
+                    accommodation.TypeText = "House";
+                }
+                else if(accommodation.Type == TYPE.APARTMENT)
+                {
+                    accommodation.TypeText = "Apartment";
+                }
+                else
+                {
+                    accommodation.TypeText = "Cottage";
+                }
+            }
+
+            foreach(Accommodation accommodation in Accommodations)
+            {
+                LocationComboBox.Items.Add(accommodation.Location.CityAndCountry);
+            }
+            LocationComboBox.Items.Insert(0, "");
+
             FilteredAccommodations = new ObservableCollection<Accommodation>();
             Types = new ObservableCollection<string>();
             Types.Add("");
             Types.Add("Apartment");
             Types.Add("House");
             Types.Add("Cottage");
-
         }
 
         private void Find_Accommodation_Click(object sender, RoutedEventArgs e)
         {
-            string name = NameBox.Text.ToLower().Trim();
-            string location = (string)LocationComboBox.Text.Replace(",", "").Replace(" ", "");
-            string type = (string)AccommodationTypeComboBox.SelectedItem;
-            string guestNumber = GuestNumberBox.Text;
-            string daysForReservation = NumberOfDaysForReservationBox.Text;
-
             FilteredAccommodations.Clear();
 
             foreach (Accommodation accommodation in Accommodations)
             {
-                if (IsAccommodationMatchingSearchCriteria(accommodation, name, location, type, guestNumber, daysForReservation))
+                if (IsAccommodationMatchingSearchCriteria(accommodation))
                 {
                     if (!FilteredAccommodations.Contains(accommodation))
                         FilteredAccommodations.Add(accommodation);
@@ -97,11 +101,18 @@ namespace TravelService.View
 
         }
 
-        public bool IsAccommodationMatchingSearchCriteria(Accommodation accommodation, string name, string location, string type, string guestNumber, string daysForReservation)
+        public bool IsAccommodationMatchingSearchCriteria(Accommodation accommodation)
         {
+            string name = NameBox.Text.ToLower();
+            string[] nameWords = name.Split(' ');
+            string location = (string)LocationComboBox.Text.Replace(",", "").Replace(" ", "");
+            string type = (string)AccommodationTypeComboBox.SelectedItem;
+            string guestNumber = GuestNumberBox.Text;
+            string daysForReservation = NumberOfDaysForReservationBox.Text;
+
             bool matches = false;
 
-            if((accommodation.Name.ToLower().Trim().Contains(name) || string.IsNullOrEmpty(name)) &&
+            if ((IsContainingNameWords(accommodation,nameWords) || string.IsNullOrEmpty(name)) &&
                ((accommodation.Location.CityAndCountry.Replace(",", "").Replace(" ", "")).Contains(location) || string.IsNullOrEmpty(location)) &&
                (HasMatchingAccommodationType(accommodation, type) || string.IsNullOrEmpty(type)) &&
                (IsGuestNumberLessThanMaximum(accommodation, guestNumber) || string.IsNullOrEmpty(guestNumber)) &&
@@ -111,6 +122,21 @@ namespace TravelService.View
             }
 
             return matches;
+        }
+
+        public bool IsContainingNameWords(Accommodation accommodation, string[] nameWords)
+        {
+            bool containsAllWords = true;
+
+            foreach(string word in nameWords)
+            {
+                if (!accommodation.Name.ToLower().Contains(word))
+                {
+                    containsAllWords = false;
+                    break;
+                }
+            }
+            return containsAllWords;
         }
 
         public bool HasMatchingAccommodationType(Accommodation accommodation, string type)
@@ -168,11 +194,23 @@ namespace TravelService.View
             {
                 locationSuggestions.Add(location.CityAndCountry);
             }
-
             List<string> filteredLocations = locationSuggestions.Where(l => l.StartsWith(locationInput, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
             return filteredLocations;
          
+        }
+
+        private void ReserveAccommodation_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedAccommodation != null)
+            {
+                AccommodationReservationView reservationView = new AccommodationReservationView(SelectedAccommodation, Guest1);
+                reservationView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please select accommodation for reservation.");
+            }
         }
     }
 }

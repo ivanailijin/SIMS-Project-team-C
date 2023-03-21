@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
 using TravelService.Model;
 using TravelService.Repository;
 
@@ -16,6 +15,7 @@ namespace TravelService.View
     {
 
         private readonly UserRepository _repository;
+        private readonly Guest1Repository _guest1Repository;
 
         private readonly OwnerRepository _ownerRepository;
 
@@ -37,7 +37,6 @@ namespace TravelService.View
             }
         }
 
-
         private bool _ownerIsChecked;
 
         public bool OwnerIsChecked
@@ -49,10 +48,22 @@ namespace TravelService.View
                 OnPropertyChanged();
             }
         }
-        public bool Guest1IsChecked { get; set; }
+
         public bool Guest2IsChecked { get; set; }
         public bool GuideIsChecked { get; set; }
 
+
+        private bool _guest1IsChecked;
+
+        public bool Guest1IsChecked
+        {
+            get { return _guest1IsChecked; }
+            set
+            {
+                _guest1IsChecked = value;
+                OnPropertyChanged();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -67,13 +78,13 @@ namespace TravelService.View
             DataContext = this;
             _repository = new UserRepository();
             _ownerRepository = new OwnerRepository();
+            _guest1Repository = new Guest1Repository();
             _reservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
-
             if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(txtPassword.Password))
             {
                 User user = _repository.GetByUsername(Username);
@@ -109,7 +120,10 @@ namespace TravelService.View
                         }
                         else if (Guest1IsChecked && user.UserType.Equals("Guest1"))
                         {
-
+                            Guest1 guest1 = _guest1Repository.GetByUsername(Username);
+                            AccommodationView accommodationView = new AccommodationView(guest1);
+                            accommodationView.Show();
+                            Close();
                         }
                         else if (Guest2IsChecked && user.UserType.Equals("Guest2"))
                         {
@@ -129,18 +143,6 @@ namespace TravelService.View
                         MessageBox.Show("Wrong password!");
                     }
                 }
-                else if (user.Username.Equals("Guest2") && user.Password == txtPassword.Password)
-                {
-                    TourView tourView = new TourView();
-                    tourView.Show();
-                    Close();
-                }
-                else if (user.Username.Equals("Guide") && user.Password == txtPassword.Password)
-                {
-                    AddTour addTour= new AddTour();
-                    addTour.Show();
-                    Close();
-                }
                 else
                 {
                     MessageBox.Show("Wrong username!");
@@ -148,11 +150,7 @@ namespace TravelService.View
             }
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            CheckBox checkBox = (CheckBox)sender;
-            checkBox.IsChecked = true;
-        }
     }
 }
+
 

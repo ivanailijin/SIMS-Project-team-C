@@ -138,8 +138,8 @@ namespace TravelService.View
             AccommodationName.Text = accommodation.Name;
             CheckInDate.Text = ratedReservation.CheckInDate.ToString("dd-MMM-yyyy");
             CheckOutDate.Text = ratedReservation.CheckOutDate.ToString("dd-MMM-yyyy");
-            GuestName.Text = ratedReservation.GuestName;
-            GuestSurname.Text = ratedReservation.GuestSurname;
+//            GuestName.Text = ratedReservation.GuestName;
+ //           GuestSurname.Text = ratedReservation.GuestSurname;
 
             DataContext = this;
         }

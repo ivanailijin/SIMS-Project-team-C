@@ -183,15 +183,15 @@ namespace TravelService.View
 
             string typeAccommodation = typeAccommodationCombo.Text;
 
-            if (typeAccommodation.Equals("apartman"))
+            if (typeAccommodation.Equals("Apartment"))
             {
                 _accommodationType = TYPE.APARTMENT;
             }
-            else if (typeAccommodation.Equals("kuca"))
+            else if (typeAccommodation.Equals("House"))
             {
                 _accommodationType = TYPE.HOUSE;
             }
-            else if (typeAccommodation.Equals("koliba"))
+            else if (typeAccommodation.Equals("Cottage"))
             {
                 _accommodationType = TYPE.COTTAGE;
             }

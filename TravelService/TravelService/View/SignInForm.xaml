@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.View"
         mc:Ignorable="d"
-         Title="Sign in" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Sign in" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -31,8 +32,8 @@
             <Label Grid.Row="1" Grid.Column="0" Height="30">Password:</Label>
             <TextBox Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding Path=Username, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Height="25" TextWrapping="Wrap" VerticalAlignment="Center"/>
             <PasswordBox Name="txtPassword" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" Height="25" VerticalAlignment="Center"/>
-            <CheckBox Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="CheckBox_Checked" IsChecked="{Binding OwnerIsChecked, UpdateSourceTrigger=PropertyChanged}" ></CheckBox>
-            <CheckBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding Guest1IsChecked}" ></CheckBox>
+            <CheckBox Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding OwnerIsChecked, UpdateSourceTrigger=PropertyChanged}" ></CheckBox>
+            <CheckBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding Guest1IsChecked, UpdateSourceTrigger=PropertyChanged}" ></CheckBox>
             <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding Guest2IsChecked}" ></CheckBox>
             <CheckBox Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding GuideIsChecked}" ></CheckBox>
             <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Owner</Label>
@@ -40,7 +41,6 @@
             <Label Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">Guest2</Label>
             <Label Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center">Guide</Label>
         </Grid>
-
         <Button Grid.Row="2" Click="SignIn" Content="Sign in" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="60"/>
 
     </Grid>
