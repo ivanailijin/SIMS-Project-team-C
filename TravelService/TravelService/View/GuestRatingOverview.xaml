@@ -19,11 +19,9 @@
                    AutoGenerateColumns="False" IsReadOnly="True"
                    Width="330" Height="200" Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="90" Binding="{Binding GuestName}">
+                <DataGridTextColumn Header="Name" Width="170" Binding="{Binding Guest1.Username}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Surname"  Width="90" Binding="{Binding GuestSurname}">
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Accommodation"  Width="140" Binding="{Binding AccommodationName}">
+                <DataGridTextColumn Header="Accommodation"  Width="150" Binding="{Binding AccommodationName}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

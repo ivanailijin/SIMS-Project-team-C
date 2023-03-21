@@ -77,7 +77,7 @@ namespace TravelService.Validation
                 {
                     return new ValidationResult(true, null);
                 }
-                return new ValidationResult(false, "Field is required by: 'country,city' ");
+                return new ValidationResult(false, "Field is required by: 'city, country' ");
             }
             catch
             {
