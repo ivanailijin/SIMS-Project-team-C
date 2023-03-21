@@ -93,12 +93,9 @@ namespace TravelService.View
                         FilteredAccommodations.Add(accommodation);
 
                     dataGridAccommodations.ItemsSource = FilteredAccommodations;
-                }
-                
+                }  
             }
-
             dataGridAccommodations.ItemsSource = FilteredAccommodations;
-
         }
 
         public bool IsAccommodationMatchingSearchCriteria(Accommodation accommodation)
@@ -120,7 +117,6 @@ namespace TravelService.View
             {
                 matches = true;
             }
-
             return matches;
         }
 
