@@ -36,7 +36,18 @@ namespace TravelService.Repository
 
             return null;
         }
-
+        public Guest1 FindById(int id)
+        {
+            _guests = _serializer.FromCSV(FilePath);
+            foreach (Guest1 guest in _guests)
+            {
+                if (guest.Id == id)
+                {
+                    return guest;
+                }
+            }
+            return null;
+        }
         public List<Guest1> GetAll()
         {
             return _serializer.FromCSV(FilePath);

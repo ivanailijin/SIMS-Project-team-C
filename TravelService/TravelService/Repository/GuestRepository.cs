@@ -61,7 +61,7 @@ namespace TravelService.Repository
             Guest current = _guest.Find(c => c.Id == guest.Id);
             int index = _guest.IndexOf(current);
             _guest.Remove(current);
-            _guest.Insert(index, guest);       // keep ascending order of ids in file
+            _guest.Insert(index, guest);       
             _serializer.ToCSV(FilePath, _guest);
             return guest;
         }

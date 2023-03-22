@@ -60,7 +60,7 @@ namespace TravelService.Repository
             Language current = _languages.Find(c => c.Id == language.Id);
             int index = _languages.IndexOf(current);
             _languages.Remove(current);
-            _languages.Insert(index, language);       // keep ascending order of ids in file 
+            _languages.Insert(index, language);       
             _serializer.ToCSV(FilePath, _languages);
             return language;
         }

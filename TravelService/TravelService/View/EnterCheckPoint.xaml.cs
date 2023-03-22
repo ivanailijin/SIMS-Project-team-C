@@ -61,14 +61,11 @@ namespace TravelService.View
             checkPoint.Name = CheckPoint;
             checkPoint.TourId = TourId;
             CheckPoint savedCheckPoint = _repositoryCheckPoint.Save(checkPoint);
-
-
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-       
     }
 }

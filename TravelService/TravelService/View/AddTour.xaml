@@ -36,7 +36,7 @@
             <Label Content="Maximum of Guest Numbers" Grid.Row="4" Grid.Column="0" Height="25"></Label>
             <Label Content="Check Point " Grid.Row="5" Grid.Column="0" Height="25"></Label>
             <Label Content="Tour Start" Grid.Row="6" Grid.Column="0" Height="25"></Label>
-            <Label Content="Duration" Grid.Row="7" Grid.Column="0" Height="25"></Label>
+            <Label Content="Duration in hours" Grid.Row="7" Grid.Column="0" Height="25"></Label>
             <Label Content="Pictures" Grid.Row="8" Grid.Column="0" Height="25"></Label>
 
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=TourName, UpdateSourceTrigger=PropertyChanged}"

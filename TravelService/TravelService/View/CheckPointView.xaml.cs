@@ -49,9 +49,6 @@ namespace TravelService.View
 
             FilteredCheckPoint = new List<CheckPoint>();
 
-
-           // FilteredCheckPoint.ElementAt(0).Active = true;
-          //  SelectedCheckPoint = FilteredCheckPoint.ElementAt(0);
             foreach (Tour tour in Tours)
             {
 
@@ -88,7 +85,6 @@ namespace TravelService.View
                 {
                     FilteredCheckPoint[0].Active = true;
                 }
-
             }
         }
 
@@ -100,48 +96,29 @@ namespace TravelService.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-       
         private void Mark_Click(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = (CheckBox)this.FindName("myCheckBox");
             if (SelectedCheckPoint != null)
             {
-                
-             //   if (checkBox.IsChecked == true)
-               
-
                     GuestPresence guestPresence = new GuestPresence(SelectedTour,SelectedCheckPoint);
                     guestPresence.Show();
                     Close();
-                
-
             }
         }
         private int numChecked = 0;
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-
-            // Increment the number of checked checkboxes
             numChecked++;
              ListCheckBox.ItemsSource = FilteredCheckPoint;
-            // Check if all checkboxes are checked
             if (numChecked + 1 == ListCheckBox.Items.Count)
             {
-             
-                
-                    // Enable or disable the button based on the value of Active property
                     EndButton.IsEnabled = true;
-                
-               
-              
             }
         }
         private void End_Click(object sender, RoutedEventArgs e)
         {
-            
-
             SelectedTour.Done = true;
             _tourRepository.Update(SelectedTour);
             MessageBox.Show("The tour was successfully completed");
@@ -152,12 +129,10 @@ namespace TravelService.View
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            
             MessageBox.Show("The tour is cancelled");
             TourOverview tourOverview = new TourOverview(SelectedTour);
             tourOverview.Show();
             Close();
-
         }
     }
 }

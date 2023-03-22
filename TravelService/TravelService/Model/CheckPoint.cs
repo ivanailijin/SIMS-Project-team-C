@@ -15,10 +15,6 @@ namespace TravelService.Model
         public bool Active { get; set; }
         public int TourId { get; set; }
        
-
-
-
-
         public CheckPoint()
         {
            
@@ -37,21 +33,17 @@ namespace TravelService.Model
 
         }
 
-
-
         public string[] ToCSV()
         {
             string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString()};
             return csvValues;
         }
 
-
         public void FromCSV(string[] values)
         {
             CheckPointId = Convert.ToInt32(values[0]);
             Name = values[1];
             TourId = Convert.ToInt32(values[2]);
-
         }
     }
 }

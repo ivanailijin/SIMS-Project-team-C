@@ -24,23 +24,20 @@
                 <RowDefinition Height="25"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"></ColumnDefinition>
-                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="170"></ColumnDefinition>
+                <ColumnDefinition Width="170"></ColumnDefinition>
                 <ColumnDefinition Width="160"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Text="Data of the guest's reservation:" Foreground="DarkSlateBlue" FontWeight="Bold" TextAlignment="Center" Margin="0,9"  FontSize="15" ></TextBlock>
-            <Label Grid.Row="1" Grid.Column="0" Foreground="CadetBlue" FontWeight="Bold" Content="Guest name:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="1" Foreground="CadetBlue" FontWeight="Bold" Content="Guest surname:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="2"  Foreground="CadetBlue" FontWeight="Bold" Content="Name of accommodation:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="3"  Foreground="CadetBlue" FontWeight="Bold" Content="Check in date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="4"  Foreground="CadetBlue" FontWeight="Bold" Content="Check out date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="0"   Foreground="CadetBlue" FontWeight="Bold" Content="Guest name:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="1"  Foreground="CadetBlue" FontWeight="Bold" Content="Name of accommodation:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="2"  Foreground="CadetBlue" FontWeight="Bold" Content="Check in date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+            <Label Grid.Row="1" Grid.Column="3"  Foreground="CadetBlue" FontWeight="Bold" Content="Check out date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
             <TextBlock x:Name="GuestName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"></TextBlock>
-            <TextBlock x:Name="GuestSurname" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
-            <TextBlock x:Name="AccommodationName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2"></TextBlock>
-            <TextBlock x:Name="CheckInDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="3"></TextBlock>
-            <TextBlock x:Name="CheckOutDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="4"></TextBlock>
+            <TextBlock x:Name="AccommodationName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
+            <TextBlock x:Name="CheckInDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2"></TextBlock>
+            <TextBlock x:Name="CheckOutDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="3"></TextBlock>
         </Grid>
         
         <Grid Grid.Row="1" Grid.Column="0" Width="350" Height="270">

@@ -60,7 +60,7 @@ namespace TravelService.Repository
             GuestRating current = _guestRatings.Find(c => c.Id == guestRating.Id);
             int index = _guestRatings.IndexOf(current);
             _guestRatings.Remove(current);
-            _guestRatings.Insert(index, guestRating);       // keep ascending order of ids in file
+            _guestRatings.Insert(index, guestRating);      
             _serializer.ToCSV(FilePath, _guestRatings);
             return guestRating;
         }

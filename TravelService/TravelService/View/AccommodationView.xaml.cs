@@ -171,29 +171,7 @@ namespace TravelService.View
             if (AccommodationTypeComboBox.SelectedItem != null)
             {
                 string inputType = (string)AccommodationTypeComboBox.SelectedItem;
-
             }
-        }
-
-        private void LocationComboBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            string locationInput = LocationComboBox.Text;
-
-            List<string> filteredLocations = GetFilteredLocations(locationInput);
-            LocationComboBox.ItemsSource = filteredLocations;
-        }
-
-        public List<string> GetFilteredLocations(string locationInput)
-        {
-            List<string> locationSuggestions = new List<string>();
-            foreach (Location location in Locations)
-            {
-                locationSuggestions.Add(location.CityAndCountry);
-            }
-            List<string> filteredLocations = locationSuggestions.Where(l => l.StartsWith(locationInput, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-            return filteredLocations;
-         
         }
 
         private void ReserveAccommodation_Click(object sender, RoutedEventArgs e)

@@ -59,7 +59,7 @@ namespace TravelService.Repository
             CheckPoint current = _checkpoints.Find(c => c.CheckPointId == checkpoint.CheckPointId);
             int index = _checkpoints.IndexOf(current);
             _checkpoints.Remove(current);
-            _checkpoints.Insert(index, checkpoint);       // keep ascending order of ids in file 
+            _checkpoints.Insert(index, checkpoint);       
             _serializer.ToCSV(FilePath, _checkpoints);
             return checkpoint;
         }

@@ -28,7 +28,6 @@ namespace TravelService.Repository
             _owners = _serializer.FromCSV(FilePath);
             return _owners.FirstOrDefault(u => u.Username == username);
         }
-
         
     }
 }

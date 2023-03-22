@@ -22,7 +22,6 @@ namespace TravelService.View
     /// </summary>
     public partial class MarkAttendence : Window
     {
-
         public CheckPoint SelectedCheckPoint;
         public Tour SelectedTour;
         public Guest SelectedGuest;
@@ -58,8 +57,6 @@ namespace TravelService.View
             guestPresence.Show();
             Close();
         }
-
-
 
     }
 }

@@ -12,9 +12,9 @@ namespace TravelService.View
     /// Interaction logic for SignInForm.xaml
     /// </summary>
     public partial class SignInForm : Window
-    {
-
+    { 
         private readonly UserRepository _repository;
+
         private readonly Guest1Repository _guest1Repository;
 
         private readonly OwnerRepository _ownerRepository;

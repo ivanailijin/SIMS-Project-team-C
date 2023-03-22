@@ -16,7 +16,9 @@ namespace TravelService.View
     {
 
         public readonly TourRepository _tourRepository;
+
         private ObservableCollection<Tour> _activeTours;
+
         public readonly LocationRepository _locationRepository;
 
         public readonly LanguageRepository _languageRepository;
@@ -44,14 +46,9 @@ namespace TravelService.View
             Locations = new List<Location>(_locationRepository.GetAll());
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
-            //_activeTours = new ObservableCollection<Tour>(ActiveTours(_tourRepository.GetAll()));
 
-            //   allActiveTours.ItemsSource = _activeTours;
             ActiveTours = new List<Tour>();
             SelectedTour = selectedTour;
-
-
-
 
             foreach (Tour tour in Tours)
             {
@@ -59,7 +56,6 @@ namespace TravelService.View
                 List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
                 tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
                 tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
-
 
                 tour.CheckPoints.Clear();
                 ListCheckPoints.Clear();
@@ -73,7 +69,6 @@ namespace TravelService.View
                     if ((currentCheckPointTourId == currentId))
                     {
                         ListCheckPoints.Add(c);
-
                     }
                 }
 
@@ -82,18 +77,9 @@ namespace TravelService.View
                 if (IsInProgress(tour))
                 {
                     ActiveTours.Add(tour);
-
                 }
-
-
             }
-
-
-
         }
-
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -103,35 +89,16 @@ namespace TravelService.View
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (SelectedTour != null)
             {
                 CheckPointView checkPointView = new CheckPointView(SelectedTour);
-               
+
                 checkPointView.Show();
                 Close();
-                
-
             }
 
-
-
-
         }
-        /*  public List<Tour> ActiveTours(List<Tour> tours)
-          {
-              List<Tour> activeTours = new List<Tour>();
-              foreach (Tour tour in tours)
-              {
-                  if (IsInProgress(tour))
-                  {
-                      activeTours.Add(tour);
-                  }
-              }
-              return activeTours;
-          }
-        */
-
         public bool IsInProgress(Tour tour)
         {
             DateTime currentDate = DateTime.Now.Date;

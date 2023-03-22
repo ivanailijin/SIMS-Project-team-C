@@ -248,14 +248,10 @@ namespace TravelService.View
 
         }
 
-
-
         private void CheckPoint_Click(object sender, RoutedEventArgs e)
         {
             EnterCheckPoint enterCheckPoint = new EnterCheckPoint(TourId);
             enterCheckPoint.Show();
-
-
         }
 
    private void findPictures_Click(object sender, RoutedEventArgs e)
@@ -284,7 +280,7 @@ namespace TravelService.View
                     Pictures += file;
                     Pictures += "|";
                     string destinationFilePath = System.IO.Path.Combine(destinationFolder, Path.GetFileName(file));
-                    File.Move(file, destinationFilePath);
+                    File.Copy(file, destinationFilePath);
                    
                 }
 
@@ -292,9 +288,6 @@ namespace TravelService.View
 
             }
         }
-
-
-
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {

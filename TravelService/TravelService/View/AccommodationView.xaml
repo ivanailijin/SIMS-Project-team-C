@@ -18,7 +18,7 @@
                 <Separator Width="10" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Location" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                    <ComboBox x:Name="LocationComboBox" Width="100" Height="30" IsEditable="True" KeyUp="LocationComboBox_KeyUp">
+                    <ComboBox x:Name="LocationComboBox" Width="100" Height="30" IsEditable="True">
                     </ComboBox>
                 </StackPanel>
                 <Separator Width="10" Background="White"></Separator>

@@ -28,13 +28,10 @@ namespace TravelService.View
         private GuestRepository _repositoryGuest;
         private ObservableCollection<Guest> _guests;
         private CheckPointRepository _repositoryCheckPoint;
-
         public CheckPoint SelectedCheckPoint { get; set; }  
         public Tour SelectedTour { get; set; }  
 
-
         public GuestPresence(Tour selectedTour, CheckPoint selectedcCheckPoint)
-
         { 
             InitializeComponent();
             DataContext = this;
@@ -73,17 +70,12 @@ namespace TravelService.View
                 MarkAttendence markAttendence= new MarkAttendence(SelectedTour,SelectedCheckPoint,SelectedGuest);
                 markAttendence.Show();
                 Close();
-
             }
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-
             CheckPointView checkPointView = new CheckPointView(SelectedTour);
             checkPointView.Show();
-
         }
-
-      
     }
 }

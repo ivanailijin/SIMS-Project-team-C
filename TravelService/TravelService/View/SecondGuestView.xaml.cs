@@ -26,7 +26,6 @@ namespace TravelService.View
             InitializeComponent();
         }
 
-        
         private void TourViewButton_CLick(object sender, RoutedEventArgs e)
         {
             TourView tourView = new TourView();

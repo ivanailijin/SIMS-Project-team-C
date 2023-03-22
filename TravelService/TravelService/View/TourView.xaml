@@ -28,7 +28,7 @@
             <TextBox x:Name="guestsTextBox" Width="100" Height="20" Margin="5" Visibility="Visible" BorderBrush="Black"></TextBox>
             <Button Click="searchTour_Click" Height="20" Margin="30,0,0,0">Search</Button>
             <Button Click="showAllTours_Click" Height="20" Margin="50,0,0,0">Show all tours</Button>
-            <Button Click="cacnelButton_Click" Height="20" Margin="50,0,0,0">Cancel</Button>
+            <Button Click="cancelButton_Click" Height="20" Margin="50,0,0,0">Cancel</Button>
         </StackPanel>
         <DataGrid Grid.Row="2" x:Name="allTours"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
@@ -53,7 +53,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Date and time" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Duration in hours" Binding="{Binding Duration}" Width="auto"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="Images">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

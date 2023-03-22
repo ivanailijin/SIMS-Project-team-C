@@ -29,7 +29,6 @@ namespace TravelService.View
 
         private readonly Guest1Repository _guest1Repository;
         public ObservableCollection<AccommodationReservation> UnratedReservations { get; set; }
-
         public AccommodationReservation SelectedReservation { get; set; }
 
         public Owner Owner { get; set; }
@@ -70,7 +69,7 @@ namespace TravelService.View
         {
             Dispatcher.Invoke(() =>
             {
-                GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation.Id, SelectedReservation);
+                GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation);
                 guestRatingView.Parent = this;
                 guestRatingView.ShowDialog();
             });

@@ -136,7 +136,7 @@ namespace TravelService.View
         {
             allTours.ItemsSource = Tours;
         }
-        private void cacnelButton_Click(object sender, RoutedEventArgs e)
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }        
