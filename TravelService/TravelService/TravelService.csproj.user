@@ -6,8 +6,38 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
+ 
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\CheckPointView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EnterCheckPoint.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+
+    <Page Update="View\SecondGuestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+	  <Page Update="View\TourReservationView.xaml">
+		  <SubType>Designer</SubType>
+	  </Page>
+    <Page Update="View\GuestPresence.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\MarkAttendence.xaml">
+    </Page>
+    <Page Update="View\TourOverview.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TourView.xaml">
+    </Page>
+    <Page Update="View\AddTour.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Window1.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
