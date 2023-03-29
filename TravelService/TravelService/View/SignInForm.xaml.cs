@@ -37,33 +37,6 @@ namespace TravelService.View
             }
         }
 
-        private bool _ownerIsChecked;
-
-        public bool OwnerIsChecked
-        {
-            get { return _ownerIsChecked; }
-            set
-            {
-                _ownerIsChecked = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool Guest2IsChecked { get; set; }
-        public bool GuideIsChecked { get; set; }
-
-
-        private bool _guest1IsChecked;
-
-        public bool Guest1IsChecked
-        {
-            get { return _guest1IsChecked; }
-            set
-            {
-                _guest1IsChecked = value;
-                OnPropertyChanged();
-            }
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -94,7 +67,7 @@ namespace TravelService.View
 
                     if (user.Password.Equals(txtPassword.Password))
                     {
-                        if (OwnerIsChecked && user.UserType.Equals("Owner"))
+                        if (txtPassword.Password.Equals("owner123"))
                         {
                             Owner owner = _ownerRepository.GetByUsername(Username);
                             OwnerView ownerView = new OwnerView(owner);
@@ -119,20 +92,20 @@ namespace TravelService.View
                             }
                             Close();
                         }
-                        else if (Guest1IsChecked && user.UserType.Equals("Guest1"))
+                        else if (txtPassword.Password.Equals("guest1123"))
                         {
                             Guest1 guest1 = _guest1Repository.GetByUsername(Username);
                             AccommodationView accommodationView = new AccommodationView(guest1);
                             accommodationView.Show();
                             Close();
                         }
-                        else if (Guest2IsChecked && user.UserType.Equals("Guest2"))
+                        else if (txtPassword.Password.Equals("guest2123"))
                         {
                             SecondGuestView secondGuestView = new SecondGuestView();
                             secondGuestView.Show();
                             Close();
                         }
-                        else if (GuideIsChecked && user.UserType.Equals("Guide"))
+                        else if (txtPassword.Password.Equals("guide123"))
                         {
                             Window1 window1 = new Window1();
                             window1.Show();
