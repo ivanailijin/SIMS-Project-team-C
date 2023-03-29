@@ -68,48 +68,10 @@ namespace TravelService.View
 
             SelectedTour = selectedActiveTour;
 
-            foreach (Tour tour in Tours)
-            {
-                List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
-                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
-                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+            _tourReservationRepository.showAllActiveTours(Tours,Locations,Languages,CheckPoints,ActiveTours);
 
-                tour.CheckPoints.Clear();
-                ListCheckPoints.Clear();
-
-                int currentId = tour.Id;
-                foreach (CheckPoint c in CheckPoints)
-                {
-                    int currentCheckPointTourId = c.TourId;
-                    if ((currentCheckPointTourId == currentId))
-                    {
-                        ListCheckPoints.Add(c);
-
-                    }
-                }
-
-                tour.CheckPoints.AddRange(ListCheckPoints);
-                FindActiveTourList(tour);
-            }
         }
-        public void FindActiveTourList(Tour tour) {
-            if (IsInPorgress(tour))
-            {
-                AddActiveTours(tour);
-            }
-        }
-        public void AddActiveTours(Tour tour) {
-            ActiveTours.Add(tour);
-        }
-        public bool IsInPorgress(Tour tour)
-        {
-            DateTime currentDate = DateTime.Now.Date;
-                if (tour.TourStart.Date == currentDate)
-                {
-                    return true;
-                }
-            return false;
-        }
+        
         private void CheckTourButton_Click(object sender, RoutedEventArgs e)
         {
             TryReserving(SelectedTour, EnteredNumberOfGuests);
@@ -149,32 +111,10 @@ namespace TravelService.View
             }
             else
             {
-                TourReservation lastReservation =FindLastCurrentReservation(selectedTour.Id);
-                foreach (TourReservation tourReservation in TourReservations) {
-                    if (tourReservation.Id == lastReservation.Id) {
-                        if (tourReservation.TourId == selectedTour.Id)
-                        {
-                            if (int.Parse(numberOfGuests) <= tourReservation.GuestNumber)
-                            {
-                                SaveSameReservation(selectedTour, tourReservation, numberOfGuests);
-                                return true;
-                            }
-                            else
-                            {
-                                if (tourReservation.GuestNumber == 0)
-                                {
-                                    FullyBookedTour(selectedTour);
-                                    return false;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("There is " + tourReservation.GuestNumber + " more available spots!");
-                                    return false;
-                                }
-                            }
-                        }
-                    }                    
-                }
+                if (successOfTheLastReservation(selectedTour, numberOfGuests))
+                    return true;
+                else
+                    return false;
 
                 if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
                 {
@@ -182,10 +122,43 @@ namespace TravelService.View
                     return true;
                 }
                 else {
-                     MessageBox.Show("There is " + selectedTour.MaxGuestNumber + " more available spots!");
+                    MessageBox.Show("There is " + selectedTour.MaxGuestNumber + " more available spots!");
                     return false;
                 }
             }
+        }
+
+        private bool successOfTheLastReservation(Tour selectedTour, string numberOfGuests)
+        {
+            TourReservation lastReservation = FindLastCurrentReservation(selectedTour.Id);
+            foreach (TourReservation tourReservation in TourReservations)
+            {
+                if (tourReservation.Id == lastReservation.Id)
+                {
+                    if (tourReservation.TourId == selectedTour.Id)
+                    {
+                        if (int.Parse(numberOfGuests) <= tourReservation.GuestNumber)
+                        {
+                            SaveSameReservation(selectedTour, tourReservation, numberOfGuests);
+                            return true;
+                        }
+                        else
+                        {
+                            if (tourReservation.GuestNumber == 0)
+                            {
+                                FullyBookedTour(selectedTour);
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("There is " + tourReservation.GuestNumber + " more available spots!");
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         private TourReservation FindLastCurrentReservation(int tourId) {
@@ -226,7 +199,7 @@ namespace TravelService.View
                 MessageBox.Show("There are no more avaliable tours, please change the number of people!");
                 ActiveTours.Clear();
                 foreach (Tour tour in Tours) {
-                    FindActiveTourList(tour);
+                    _tourReservationRepository.FindActiveTourList(tour, ActiveTours);
                 }
                 allActiveTours.ItemsSource = ActiveTours;
             }

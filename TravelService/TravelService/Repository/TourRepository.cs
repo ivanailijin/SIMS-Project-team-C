@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TravelService.Model;
 using TravelService.Serializer;
 
@@ -63,6 +65,69 @@ namespace TravelService.Repository
             _tours.Insert(index, tours);       
             _serializer.ToCSV(FilePath, _tours);
             return tours;
+        }
+
+        public void ShowTourList(ObservableCollection<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints)
+        {
+            foreach (Tour tour in Tours)
+            {
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+                ShowListCheckPointList(tour, CheckPoints);
+            }
+        }
+
+        private void ShowListCheckPointList(Tour tour, List<CheckPoint> CheckPoints)
+        {
+            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            tour.CheckPoints.Clear();
+            ListCheckPoints.Clear();
+
+            foreach (CheckPoint c in CheckPoints)
+            {
+                if (TourIdMatched(c.TourId, tour.Id))
+                    ListCheckPoints.Add(c);
+            }
+            tour.CheckPoints.AddRange(ListCheckPoints);
+        }
+
+        public bool TourIdMatched(int checkPointTourId, int tourId)
+        {
+            if ((checkPointTourId == tourId))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool isTourSearchable(Tour tour, string inputLocation, string inputDuration, string inputLanguage, string inputGuestNumber)
+        {
+            if (((tour.Location.CityAndCountry.Replace(",", "").Replace(" ", "")).Contains(inputLocation) || string.IsNullOrEmpty(inputLocation)) &&
+                (tour.Language.Name.Contains(inputLanguage) || string.IsNullOrEmpty(inputLanguage)) &&
+                (isDurationCorrect(tour, inputDuration) || string.IsNullOrEmpty(inputDuration)) &&
+                (IsGuestNumberLessThanMax(tour, inputGuestNumber) || string.IsNullOrEmpty(inputGuestNumber))
+                )
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool isDurationCorrect(Tour tour, string inputDuration)
+        {
+            if (int.TryParse(inputDuration, out int duration) && duration == tour.Duration)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool IsGuestNumberLessThanMax(Tour tour, string inputGuestNumber)
+        {
+            if (int.TryParse(inputGuestNumber, out int GuestNumber) && GuestNumber <= tour.MaxGuestNumber)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

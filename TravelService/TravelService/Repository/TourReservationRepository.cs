@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows;
 using TravelService.Model;
 using TravelService.Serializer;
+using TravelService.View;
+using System.Collections.ObjectModel;
 
 namespace TravelService.Repository
 {
@@ -15,11 +19,14 @@ namespace TravelService.Repository
         private readonly Serializer<TourReservation> _serializer;
 
         private List<TourReservation> _reservation;
+        public Tour SelectedTour { get; set; }
 
         public TourReservationRepository()
         {
             _serializer = new Serializer<TourReservation>();
             _reservation = _serializer.FromCSV(FilePath);
+
+           
         }
 
         public List<TourReservation> GetAll()
@@ -65,5 +72,53 @@ namespace TravelService.Repository
             return reservations;
         }
 
+        public void FindActiveTourList(Tour tour, List<Tour> ActiveTours)
+        {
+            if (IsInPorgress(tour))
+            {
+                AddActiveTours(tour, ActiveTours);
+            }
+        }
+        public void AddActiveTours(Tour tour, List<Tour> ActiveTours)
+        {
+            ActiveTours.Add(tour);
+        }
+        public bool IsInPorgress(Tour tour)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            if (tour.TourStart.Date == currentDate)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void showAllActiveTours(ObservableCollection<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> ActiveTours)
+        {
+
+            foreach (Tour tour in Tours)
+            {
+                List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+                tour.CheckPoints.Clear();
+                ListCheckPoints.Clear();
+
+                int currentId = tour.Id;
+                foreach (CheckPoint c in CheckPoints)
+                {
+                    int currentCheckPointTourId = c.TourId;
+                    if ((currentCheckPointTourId == currentId))
+                    {
+                        ListCheckPoints.Add(c);
+
+                    }
+                }
+
+                tour.CheckPoints.AddRange(ListCheckPoints);
+                FindActiveTourList(tour, ActiveTours);
+            }
+        }
     }
 }

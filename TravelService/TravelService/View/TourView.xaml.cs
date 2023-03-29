@@ -33,7 +33,6 @@ namespace TravelService.View
         public static List<Language> Languages { get; set; }
         public static List<CheckPoint> CheckPoints { get; set; }
         public ObservableCollection<Tour> FilteredTours { get; set; }
-        public static List<CheckPoint> FilteredCheckPoints { get; set; }
         public TourView()
         {
             InitializeComponent();
@@ -49,42 +48,9 @@ namespace TravelService.View
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
 
-            ShowTourList();            
+            _tourRepository.ShowTourList(Tours,Locations, Languages, CheckPoints);            
         }
-
-        public void ShowTourList()
-        {
-            foreach (Tour tour in Tours)
-            {                
-                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
-                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
-
-                ShowListCheckPointList(tour);                
-            }
-        }
-
-        private void ShowListCheckPointList(Tour tour)
-        {
-            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
-            tour.CheckPoints.Clear();
-            ListCheckPoints.Clear();
-
-            foreach (CheckPoint c in CheckPoints)
-            {
-                if (TourIdMatched(c.TourId, tour.Id))
-                    ListCheckPoints.Add(c);
-            }
-            tour.CheckPoints.AddRange(ListCheckPoints);
-        }
-
-        public bool TourIdMatched(int checkPointTourId, int tourId)
-        {
-            if ((checkPointTourId == tourId))
-            {
-                return true;
-            }
-            return false;
-        }
+       
         private void searchTour_Click(object sender, RoutedEventArgs e)
         {
             FilteredTours.Clear();
@@ -95,7 +61,7 @@ namespace TravelService.View
             string inputGuestNumber = guestsTextBox.Text;
 
             foreach (Tour tour in Tours) {
-                if (isTourSearchable(tour, inputLocation, inputDuration, inputLanguage, inputGuestNumber)) {
+                if (_tourRepository.isTourSearchable(tour, inputLocation, inputDuration, inputLanguage, inputGuestNumber)) {
                     if (!FilteredTours.Contains(tour))
                         FilteredTours.Add(tour);
 
@@ -104,34 +70,7 @@ namespace TravelService.View
             }
             allTours.ItemsSource = FilteredTours;
         }
-        private bool isTourSearchable(Tour tour, string inputLocation, string inputDuration, string inputLanguage, string inputGuestNumber)
-        {            
-            if (((tour.Location.CityAndCountry.Replace(",", "").Replace(" ", "")).Contains(inputLocation) || string.IsNullOrEmpty(inputLocation)) &&
-                (tour.Language.Name.Contains(inputLanguage) || string.IsNullOrEmpty(inputLanguage)) &&
-                (isDurationCorrect(tour, inputDuration) || string.IsNullOrEmpty(inputDuration)) &&
-                (IsGuestNumberLessThanMax(tour, inputGuestNumber) || string.IsNullOrEmpty(inputGuestNumber))
-                )
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool isDurationCorrect(Tour tour, string inputDuration)
-        {
-            if (int.TryParse(inputDuration, out int duration) && duration == tour.Duration)
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool IsGuestNumberLessThanMax(Tour tour, string inputGuestNumber)
-        {
-            if (int.TryParse(inputGuestNumber, out int GuestNumber) && GuestNumber <= tour.MaxGuestNumber) 
-            {
-                return true;
-            }
-            return false;
-        }
+        
         private void showAllTours_Click(object sender, RoutedEventArgs e)
         {
             allTours.ItemsSource = Tours;
