@@ -20,10 +20,14 @@ namespace TravelService.View
     /// </summary>
     public partial class SecondGuestView : Window
     {
+
+       
         public Tour SelectedTour { get; set; }
         public SecondGuestView()
         {
             InitializeComponent();
+
+            
         }
 
         private void TourViewButton_CLick(object sender, RoutedEventArgs e)
@@ -36,5 +40,6 @@ namespace TravelService.View
             TourReservationView tourReservationView = new TourReservationView(SelectedTour);
             tourReservationView.Show();
         }
+
     }
 }

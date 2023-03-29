@@ -42,19 +42,18 @@ namespace TravelService.View
         }
         private void Click_Cancel(object sender, RoutedEventArgs e)
         {
-            SelectedGuest.Attendence = false;
-            _repositoryGuest.Update(SelectedGuest);
-            GuestPresence guestPresence = new GuestPresence(SelectedTour, SelectedCheckPoint);
-            guestPresence.Show();
+            MessageBox.Show("Thank you for answering!");
+            SecondGuestView secondGuestView = new SecondGuestView();
+            secondGuestView.Show();
             Close();
         }
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            SelectedGuest.Attendence = true;
-            _repositoryGuest.Update(SelectedGuest);
-            GuestPresence guestPresence = new GuestPresence(SelectedTour, SelectedCheckPoint);
-            guestPresence.Show();
+            
+            MessageBox.Show("Thank you for confirming!");
+            SecondGuestView secondGuestView = new SecondGuestView();
+            secondGuestView.Show();
             Close();
         }
 

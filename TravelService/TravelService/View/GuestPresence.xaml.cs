@@ -30,6 +30,7 @@ namespace TravelService.View
         private CheckPointRepository _repositoryCheckPoint;
         public CheckPoint SelectedCheckPoint { get; set; }  
         public Tour SelectedTour { get; set; }  
+        public InvitationRepository _repositoryInvitation { get; set; } 
 
         public GuestPresence(Tour selectedTour, CheckPoint selectedcCheckPoint)
         { 
@@ -37,6 +38,7 @@ namespace TravelService.View
             DataContext = this;
             _repositoryGuest= new GuestRepository();
             _repositoryCheckPoint = new CheckPointRepository();
+            _repositoryInvitation = new InvitationRepository();
             SelectedTour = selectedTour;
             SelectedCheckPoint = selectedcCheckPoint;
             _guests = new ObservableCollection<Guest>(filterGuests(_repositoryGuest.GetAll()));
@@ -65,11 +67,12 @@ namespace TravelService.View
 
         private void Mark_Click(object sender, RoutedEventArgs e)
         {
+            
             if (SelectedGuest != null)
             {
-                MarkAttendence markAttendence= new MarkAttendence(SelectedTour,SelectedCheckPoint,SelectedGuest);
-                markAttendence.Show();
-                Close();
+                Invitation invitation = new Invitation(SelectedGuest.Id, false);
+                _repositoryInvitation.Save(invitation);
+             
             }
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
