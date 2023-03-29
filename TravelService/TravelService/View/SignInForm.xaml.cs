@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -22,6 +23,15 @@ namespace TravelService.View
         private readonly AccommodationRepository _accommodationRepository;
 
         private readonly AccommodationReservationRepository _reservationRepository;
+        public readonly TourRepository _repositoryTour;
+        public readonly GuestRepository _repositoryGuest;
+        private CheckPointRepository _repositoryCheckPoint;
+        public List<Tour> _tours;
+        public static ObservableCollection<Guest> Guests { get; set; }
+
+        public CheckPoint SelectedCheckPoint;
+        public Tour SelectedTour;
+        public Guest SelectedGuest;
 
         private string _username;
         public string Username
@@ -81,6 +91,11 @@ namespace TravelService.View
             _guest1Repository = new Guest1Repository();
             _reservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
+            _repositoryTour = new TourRepository();
+            _repositoryGuest = new GuestRepository();
+            _repositoryCheckPoint = new CheckPointRepository();
+
+
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -128,9 +143,14 @@ namespace TravelService.View
                         }
                         else if (Guest2IsChecked && user.UserType.Equals("Guest2"))
                         {
-                            SecondGuestView secondGuestView = new SecondGuestView();
-                            secondGuestView.Show();
-                            Close();
+
+                           MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, SelectedGuest);
+                           markAttendence.ShowDialog();
+                           Close();
+                            
+                           SecondGuestView secondGuestView = new SecondGuestView();
+                           secondGuestView.Show();
+                           Close();
                         }
                         else if (GuideIsChecked && user.UserType.Equals("Guide"))
                         {

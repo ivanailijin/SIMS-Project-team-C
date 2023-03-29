@@ -21,14 +21,16 @@
             <Label Width="105">Language:</Label>
             <Label Width="140">Number of guests:</Label>
         </StackPanel>
-        <StackPanel Grid.Row="1" Margin="0,0,54,0" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Margin="0,0,38,0" Orientation="Horizontal">
             <ComboBox x:Name="locationComboBox" Width="100" Height="20" ItemsSource="{Binding Locations}" DisplayMemberPath="CityAndCountry"></ComboBox>
             <ComboBox x:Name="durationComboBox" Width="100" Height="20" ItemsSource="{Binding Tours}" DisplayMemberPath="Duration" Margin="5" Visibility="Visible" BorderBrush="Black"></ComboBox>
             <ComboBox x:Name="languageComboBox" Width="100" Height="20" ItemsSource="{Binding Languages}" DisplayMemberPath="Name" Margin="5" Visibility="Visible" BorderBrush="Black"></ComboBox>
             <TextBox x:Name="guestsTextBox" Width="100" Height="20" Margin="5" Visibility="Visible" BorderBrush="Black"></TextBox>
             <Button Click="searchTour_Click" Height="20" Margin="30,0,0,0">Search</Button>
-            <Button Click="showAllTours_Click" Height="20" Margin="50,0,0,0">Show all tours</Button>
-            <Button Click="cancelButton_Click" Height="20" Margin="50,0,0,0">Cancel</Button>
+            <Button Click="showAllTours_Click" Height="20" Margin="30,0,0,0">Show all tours</Button>
+            <Button Click="cancelButton_Click" Height="20" Margin="20,0,0,0">Cancel</Button>
+            
+
         </StackPanel>
         <DataGrid Grid.Row="2" x:Name="allTours"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
