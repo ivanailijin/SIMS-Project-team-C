@@ -43,7 +43,6 @@ namespace TravelService.View
             UnratedReservations = new ObservableCollection<AccommodationReservation>();
 
             List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
-            List<Guest1> guests = _guest1Repository.GetAll();
 
             UnratedReservations = _reservationRepository.FindUnratedReservations(_accommodationRepository, Owner.Id);
 
