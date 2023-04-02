@@ -139,25 +139,36 @@ namespace TravelService.View
             DateTime startDate = (DateTime)startDatePicker.SelectedDate;
             DateTime endDate = (DateTime)endDatePicker.SelectedDate;
             int daysOfStaying = int.Parse(daysOfStayingBox.Text);
+            List<Tuple<DateTime, DateTime>> availableDateRange = new List<Tuple<DateTime, DateTime>>();
+            
 
             if (endDate < startDate)
             {
-                AvailableDatesPair.Clear();
+                if (AvailableDatesPair != null)
+                {
+                    AvailableDatesPair.Clear();
+                }
                 MessageBox.Show("End date must be greater than start date. Please try again.");
                 return;
             }
 
             if(daysOfStaying < SelectedAccommodation.MinReservationDays)
             {
-                AvailableDatesPair.Clear();
+                if (AvailableDatesPair != null)
+                {
+                    AvailableDatesPair.Clear();
+                }
                 MessageBox.Show($"Minimum number of days for reservation is {SelectedAccommodation.MinReservationDays}");
                 return;
             }
 
+            
+
+            //_reservationRepository.FindAvailableDates(SelectedAccommodation, AvailableDatesPair, startDate, endDate, daysOfStaying, NotificationBlock.Text);
+
             List<DateTime> reservedDates = FindReservedDates();
             List<DateTime> availableDates = new List<DateTime>();
-            AvailableDatesPair.Clear();
-            NotificationBlock.Text = "";
+            
 
             for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
             {
@@ -211,9 +222,10 @@ namespace TravelService.View
                     }
                 }
             }
+            
         }
 
-        public List<DateTime> FindReservedDates()
+       public List<DateTime> FindReservedDates()
         {
             List<DateTime> reservedDates = new List<DateTime>();
 
