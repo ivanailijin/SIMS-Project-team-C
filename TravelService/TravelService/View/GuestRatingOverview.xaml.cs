@@ -43,22 +43,10 @@ namespace TravelService.View
             UnratedReservations = new ObservableCollection<AccommodationReservation>();
 
             List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
-            List<Guest1> guests = _guest1Repository.GetAll();
 
-            foreach (AccommodationReservation reservation in reservationList)
-            {
-                Accommodation reservedAccommodation = _accommodationRepository.FindById(reservation.AccommodationId);
-                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
-                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 &&  reservedAccommodation.OwnerId == Owner.Id)
-                {
-                    UnratedReservations.Add(reservation);
-                }
-            }
+            UnratedReservations = _reservationRepository.FindUnratedReservations(_accommodationRepository, Owner.Id);
 
-            foreach(AccommodationReservation unratedReservation in UnratedReservations)
-            {
-                unratedReservation.Guest1 = guests.Find(g => g.Id == unratedReservation.GuestId);
-            }
+            UnratedReservations = _guest1Repository.FindReservationGuest(UnratedReservations);
 
             DataContext = this;
         }

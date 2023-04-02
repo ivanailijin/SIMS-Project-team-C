@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +68,22 @@ namespace TravelService.Repository
             return null;
         }
 
+        public ObservableCollection<AccommodationReservation> FindUnratedReservations(AccommodationRepository _accommodationRepository, int OwnerId)
+        {
+            ObservableCollection<AccommodationReservation>  UnratedReservations = new ObservableCollection<AccommodationReservation>();
+
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                Accommodation reservedAccommodation = _accommodationRepository.FindById(reservation.AccommodationId);
+                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
+                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservedAccommodation.OwnerId == OwnerId)
+                {
+                    UnratedReservations.Add(reservation);
+                }
+            }
+
+            return UnratedReservations;
+        }
         public AccommodationReservation Update(AccommodationReservation accommodationReservation)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
