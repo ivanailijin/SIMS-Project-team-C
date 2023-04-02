@@ -94,5 +94,93 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _accommodationReservations);
             return accommodationReservation;
         }
+
+
+        public List<Tuple<DateTime, DateTime>> FindAvailableDates(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying)
+        {
+            List<DateTime> reservedDates = FindReservedDates(selectedAccommodation);
+            List<DateTime> availableDates = new List<DateTime>();
+            List<Tuple<DateTime, DateTime>> availableDatesPair = new List<Tuple<DateTime, DateTime>>();
+
+            availableDatesPair.Clear();
+            //notification = "";
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                if (!reservedDates.Contains(date))
+                {
+                    availableDates.Add(date);
+                }
+                else
+                {
+                    availableDates.Clear();
+                }
+
+                if (availableDates.Count == daysOfStaying)
+                {
+                    availableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
+                    availableDates.RemoveAt(0);
+                }
+            }
+            return availableDatesPair;
+        }   
+
+           /*     availableDates.Clear();
+                DateTime recommendedStartDate = startDate;
+                DateTime recommendedEndDate = endDate;
+
+                if (availableDatesPair.Count == 0)
+                {
+                    notification = "All dates in the given range are taken. We recommend the following dates: ";
+
+                    while (!(availableDatesPair.Count >= 5))
+                    {
+                        recommendedStartDate = recommendedStartDate.Equals(DateTime.Today) ? recommendedStartDate : recommendedStartDate.AddDays(-1);
+                        recommendedEndDate = recommendedEndDate.AddDays(1);
+
+                        availableDates.Clear();
+                        for (DateTime date = recommendedStartDate; date <= recommendedEndDate; date = date.AddDays(1))
+                        {
+                            if (!reservedDates.Contains(date))
+                            {
+                                availableDates.Add(date);
+                            }
+                            else
+                            {
+                                availableDates.Clear();
+                            }
+
+                            if (availableDates.Count == daysOfStaying)
+                            {
+                                if (!availableDatesPair.Contains(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date)))
+                                    availableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
+                                availableDates.RemoveAt(0);
+                            }
+                        }
+                    }
+                    
+                }
+        }*/
+
+
+        public List<DateTime> FindReservedDates(Accommodation selectedAccommodation)
+        {
+            List<DateTime> reservedDates = new List<DateTime>();
+
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                if (selectedAccommodation.Id == reservation.AccommodationId)
+                {
+                    DateTime checkIn = reservation.CheckInDate;
+                    DateTime checkOut = reservation.CheckOutDate;
+
+                    for (DateTime currentDate = checkIn; currentDate <= checkOut; currentDate = currentDate.AddDays(1))
+                    {
+                        reservedDates.Add(currentDate);
+                    }
+                }
+            }
+            return reservedDates;
+        }
     }
 }
