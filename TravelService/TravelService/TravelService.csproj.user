@@ -6,7 +6,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
- 
+  <ItemGroup>
+    <Compile Update="View\OwnerRatingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\RatingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
@@ -17,13 +24,18 @@
     <Page Update="View\EnterCheckPoint.xaml">
       <SubType>Designer</SubType>
     </Page>
-
+    <Page Update="View\OwnerRatingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\RatingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\SecondGuestView.xaml">
       <SubType>Designer</SubType>
     </Page>
-	  <Page Update="View\TourReservationView.xaml">
-		  <SubType>Designer</SubType>
-	  </Page>
+    <Page Update="View\TourReservationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\GuestPresence.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -42,8 +42,10 @@
                 <Separator Width="10" Background="White"></Separator>
                 <Button Margin="0,15,0,0"  Width="50" Height="30" Click="Find_Accommodation_Click" BorderBrush="Black">Search
                 </Button>
-                <Separator Width="80" Background="White"></Separator>
-                <Button x:Name="ReserveAccommodation" Margin="0,15,0,0" Width="90" Height="30" Click="ReserveAccommodation_Click" BorderBrush="Black">Reservation</Button>
+                <Separator Width="50" Background="White"></Separator>
+                <Button x:Name="ReserveAccommodation" Margin="0,15,0,0" Width="70" Height="30" Click="ReserveAccommodation_Click" BorderBrush="Black">Reservation</Button>
+                <Separator Width="5" Background="White"></Separator>
+                <Button x:Name="OwnerRating" Margin="0,15,0,0" Width="50" Height="30" Click="OwnerRating_Click" BorderBrush="Black">Rating</Button>
                 
             </ToolBar>
             <DataGrid x:Name="dataGridAccommodations" DockPanel.Dock="Bottom"

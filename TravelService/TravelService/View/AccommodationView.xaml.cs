@@ -186,6 +186,12 @@ namespace TravelService.View
                 MessageBox.Show("Please select accommodation for reservation.");
             }
         }
+
+        private void OwnerRating_Click(object sender, RoutedEventArgs e)
+        {
+            RatingView ratingView = new RatingView(Guest1);
+            ratingView.Show();
+;        }
     }
 }
 
