@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using TravelService.Repository;
 using TravelService.Model;
-using System.Text.RegularExpressions;
+using TravelService.Repository;
 
 namespace TravelService.View
 {
@@ -62,99 +50,42 @@ namespace TravelService.View
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
 
-            ShowTourList();
+            _tourRepository.ShowTourList(convertList(Tours), Locations, Languages, CheckPoints);
         }
-
-        public void ShowTourList()
+        public List<Tour> convertList(ObservableCollection<Tour> observableCollection)
         {
+            List<Tour> convertedList = observableCollection.ToList();
+            return convertedList;
+        }
+        private void searchTour_Click(object sender, RoutedEventArgs e)
+        {
+            FilteredTours.Clear();
+
+            string inputDuration = (string)durationComboBox.Text;
+            string inputLocation = (string)locationComboBox.Text.Replace(",", "").Replace(" ", "");
+            string inputLanguage = (string)languageComboBox.Text;
+            string inputGuestNumber = guestsTextBox.Text;
+
             foreach (Tour tour in Tours)
             {
-                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
-                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+                if (_tourRepository.isTourSearchable(tour, inputLocation, inputDuration, inputLanguage, inputGuestNumber))
+                {
+                    if (!FilteredTours.Contains(tour))
+                        FilteredTours.Add(tour);
 
-                ShowListCheckPointList(tour);
+                    allTours.ItemsSource = FilteredTours;
+                }
             }
+            allTours.ItemsSource = FilteredTours;
         }
-    
 
-    private void ShowListCheckPointList(Tour tour)
-    {
-        List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
-        tour.CheckPoints.Clear();
-        ListCheckPoints.Clear();
-
-        foreach (CheckPoint c in CheckPoints)
+        private void showAllTours_Click(object sender, RoutedEventArgs e)
         {
-            if (TourIdMatched(c.TourId, tour.Id))
-                ListCheckPoints.Add(c);
+            allTours.ItemsSource = Tours;
         }
-        tour.CheckPoints.AddRange(ListCheckPoints);
-    }
-
-    public bool TourIdMatched(int checkPointTourId, int tourId)
-    {
-        if ((checkPointTourId == tourId))
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            return true;
+            this.Close();
         }
-        return false;
     }
-    private void searchTour_Click(object sender, RoutedEventArgs e)
-    {
-        FilteredTours.Clear();
-
-        string inputDuration = (string)durationComboBox.Text;
-        string inputLocation = (string)locationComboBox.Text.Replace(",", "").Replace(" ", "");
-        string inputLanguage = (string)languageComboBox.Text;
-        string inputGuestNumber = guestsTextBox.Text;
-
-        foreach (Tour tour in Tours) {
-            if (isTourSearchable(tour, inputLocation, inputDuration, inputLanguage, inputGuestNumber)) {
-                if (!FilteredTours.Contains(tour))
-                    FilteredTours.Add(tour);
-
-                allTours.ItemsSource = FilteredTours;
-            }
-        }
-        allTours.ItemsSource = FilteredTours;
-    }
-    private bool isTourSearchable(Tour tour, string inputLocation, string inputDuration, string inputLanguage, string inputGuestNumber)
-    {
-        if (((tour.Location.CityAndCountry.Replace(",", "").Replace(" ", "")).Contains(inputLocation) || string.IsNullOrEmpty(inputLocation)) &&
-            (tour.Language.Name.Contains(inputLanguage) || string.IsNullOrEmpty(inputLanguage)) &&
-            (isDurationCorrect(tour, inputDuration) || string.IsNullOrEmpty(inputDuration)) &&
-            (IsGuestNumberLessThanMax(tour, inputGuestNumber) || string.IsNullOrEmpty(inputGuestNumber))
-            )
-        {
-            return true;
-        }
-        return false;
-    }
-    private bool isDurationCorrect(Tour tour, string inputDuration)
-    {
-        if (int.TryParse(inputDuration, out int duration) && duration == tour.Duration)
-        {
-            return true;
-        }
-        return false;
-    }
-    private bool IsGuestNumberLessThanMax(Tour tour, string inputGuestNumber)
-    {
-        if (int.TryParse(inputGuestNumber, out int GuestNumber) && GuestNumber <= tour.MaxGuestNumber)
-        {
-            return true;
-        }
-        return false;
-    }
-    private void showAllTours_Click(object sender, RoutedEventArgs e)
-    {
-        allTours.ItemsSource = Tours;
-    }
-    private void cancelButton_Click(object sender, RoutedEventArgs e)
-    {
-        this.Close();
-    }
-
-
-    }
- }
+}
