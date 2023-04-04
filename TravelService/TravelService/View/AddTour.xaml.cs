@@ -212,6 +212,7 @@ namespace TravelService.View
             Language language = new Language(TourLanguage);
             Language savedLanguage = _repositoryLanguage.Save(language);
 
+
             List<string> formattedPictures = new List<string>();
 
             string[] delimitedPictures = Pictures.Split(new char[] { '|' });
@@ -223,30 +224,16 @@ namespace TravelService.View
 
 
 
-            Tour tour = new Tour(TourName, savedLocation,savedLocation.Id, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures, Done);
+            Tour tour = new Tour(TourName, savedLocation,savedLocation.Id, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber,  TourStart, Duration, formattedPictures, Done);
 
 
 
 
             List<CheckPoint> checkPoints = _repositoryCheckPoint.GetAll();
-            int count = 0;
-            foreach (var checkpoint in checkPoints)
-            {
-                if (checkpoint.TourId == TourId)
-                {
-                    count++;
-                }
-            }
-
-            if (count >= 2)
-            {
-
-                _repositoryTour.Save(tour);
-                Close();
-
-            }
+            _repositoryTour.Check(checkPoints, tour, TourId);
 
         }
+
 
         private void CheckPoint_Click(object sender, RoutedEventArgs e)
         {
@@ -254,7 +241,7 @@ namespace TravelService.View
             enterCheckPoint.Show();
         }
 
-   private void findPictures_Click(object sender, RoutedEventArgs e)
+        private void findPictures_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 

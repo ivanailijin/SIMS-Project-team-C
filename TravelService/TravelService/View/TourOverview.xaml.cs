@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using TravelService.Model;
@@ -50,35 +51,14 @@ namespace TravelService.View
             ActiveTours = new List<Tour>();
             SelectedTour = selectedTour;
 
-            foreach (Tour tour in Tours)
-            {
+            ActiveTours = _tourRepository.showAllActiveTours(convertTourList(Tours), Locations, Languages, CheckPoints,ActiveTours);
+            
 
-                List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
-                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
-                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
-
-                tour.CheckPoints.Clear();
-                ListCheckPoints.Clear();
-
-                int currentId = tour.Id;
-
-
-                foreach (CheckPoint c in CheckPoints)
-                {
-                    int currentCheckPointTourId = c.TourId;
-                    if ((currentCheckPointTourId == currentId))
-                    {
-                        ListCheckPoints.Add(c);
-                    }
-                }
-
-                tour.CheckPoints.AddRange(ListCheckPoints);
-
-                if (IsInProgress(tour))
-                {
-                    ActiveTours.Add(tour);
-                }
-            }
+        }
+        private List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
+        {
+            List<Tour> convertedList = observableCollection.ToList();
+            return convertedList;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -99,14 +79,6 @@ namespace TravelService.View
             }
 
         }
-        public bool IsInProgress(Tour tour)
-        {
-            DateTime currentDate = DateTime.Now.Date;
-            if (tour.TourStart.Date == currentDate)
-            {
-                return true;
-            }
-            return false;
-        }
+        
     }
 }
