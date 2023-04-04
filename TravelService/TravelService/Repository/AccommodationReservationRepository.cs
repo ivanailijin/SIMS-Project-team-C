@@ -100,9 +100,6 @@ namespace TravelService.Repository
             List<DateTime> availableDates = new List<DateTime>();
             List<Tuple<DateTime, DateTime>> availableDatesPair = new List<Tuple<DateTime, DateTime>>();
 
-            availableDatesPair.Clear();
-            //notification = "";
-
             for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
             {
                 if (!reservedDates.Contains(date))
@@ -123,15 +120,15 @@ namespace TravelService.Repository
             return availableDatesPair;
         }
 
-        /*     availableDates.Clear();
-             DateTime recommendedStartDate = startDate;
-             DateTime recommendedEndDate = endDate;
+        public List<Tuple<DateTime, DateTime>> FindAvailableDatesOutsideRange(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying)
+        {
+            DateTime recommendedStartDate = startDate;
+            DateTime recommendedEndDate = endDate;
+            List<DateTime> reservedDates = FindReservedDates(selectedAccommodation);
+            List<DateTime> availableDates = new List<DateTime>();
+            List<Tuple<DateTime, DateTime>> availableDatesPair = new List<Tuple<DateTime, DateTime>>();
 
-             if (availableDatesPair.Count == 0)
-             {
-                 notification = "All dates in the given range are taken. We recommend the following dates: ";
-
-                 while (!(availableDatesPair.Count >= 5))
+            while (!(availableDatesPair.Count >= 5))
                  {
                      recommendedStartDate = recommendedStartDate.Equals(DateTime.Today) ? recommendedStartDate : recommendedStartDate.AddDays(-1);
                      recommendedEndDate = recommendedEndDate.AddDays(1);
@@ -156,9 +153,8 @@ namespace TravelService.Repository
                          }
                      }
                  }
-
-             }
-     }*/
+            return availableDatesPair;
+        }
 
 
         public List<DateTime> FindReservedDates(Accommodation selectedAccommodation)
