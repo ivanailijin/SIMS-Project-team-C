@@ -116,6 +116,21 @@ namespace TravelService.View
                 }
             }
         }
+
+        private bool _isOwnerRated;
+        public bool IsOwnerRated
+        {
+            get => _isOwnerRated;
+            set
+            {
+                if (value != _isOwnerRated)
+                {
+                    _isOwnerRated = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string Error
         {
             get
@@ -258,7 +273,8 @@ namespace TravelService.View
                 CheckInDate = SelectedAvailableDatePair.Item1;
                 CheckOutDate = SelectedAvailableDatePair.Item2;
                 IsRated = false;
-                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, SelectedAccommodation.Name, LoggedInGuest1.Id, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated);
+                IsOwnerRated = false;
+                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, SelectedAccommodation.Name, LoggedInGuest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated, IsOwnerRated);
                 _reservationRepository.Save(reservation);
                 Close();
             }

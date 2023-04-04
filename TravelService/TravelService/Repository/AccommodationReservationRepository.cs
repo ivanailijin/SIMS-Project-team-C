@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelService.Model;
 using TravelService.Serializer;
 
@@ -58,7 +56,7 @@ namespace TravelService.Repository
         public AccommodationReservation FindById(int id)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
-            foreach(AccommodationReservation reservation in _accommodationReservations)
+            foreach (AccommodationReservation reservation in _accommodationReservations)
             {
                 if (reservation.Id == id)
                 {
@@ -70,7 +68,7 @@ namespace TravelService.Repository
 
         public ObservableCollection<AccommodationReservation> FindUnratedReservations(AccommodationRepository _accommodationRepository, int OwnerId)
         {
-            ObservableCollection<AccommodationReservation>  UnratedReservations = new ObservableCollection<AccommodationReservation>();
+            ObservableCollection<AccommodationReservation> UnratedReservations = new ObservableCollection<AccommodationReservation>();
 
             foreach (AccommodationReservation reservation in _accommodationReservations)
             {
@@ -90,7 +88,7 @@ namespace TravelService.Repository
             AccommodationReservation current = _accommodationReservations.Find(c => c.Id == accommodationReservation.Id);
             int index = _accommodationReservations.IndexOf(current);
             _accommodationReservations.Remove(current);
-            _accommodationReservations.Insert(index, accommodationReservation);      
+            _accommodationReservations.Insert(index, accommodationReservation);
             _serializer.ToCSV(FilePath, _accommodationReservations);
             return accommodationReservation;
         }
@@ -123,44 +121,44 @@ namespace TravelService.Repository
                 }
             }
             return availableDatesPair;
-        }   
+        }
 
-           /*     availableDates.Clear();
-                DateTime recommendedStartDate = startDate;
-                DateTime recommendedEndDate = endDate;
+        /*     availableDates.Clear();
+             DateTime recommendedStartDate = startDate;
+             DateTime recommendedEndDate = endDate;
 
-                if (availableDatesPair.Count == 0)
-                {
-                    notification = "All dates in the given range are taken. We recommend the following dates: ";
+             if (availableDatesPair.Count == 0)
+             {
+                 notification = "All dates in the given range are taken. We recommend the following dates: ";
 
-                    while (!(availableDatesPair.Count >= 5))
-                    {
-                        recommendedStartDate = recommendedStartDate.Equals(DateTime.Today) ? recommendedStartDate : recommendedStartDate.AddDays(-1);
-                        recommendedEndDate = recommendedEndDate.AddDays(1);
+                 while (!(availableDatesPair.Count >= 5))
+                 {
+                     recommendedStartDate = recommendedStartDate.Equals(DateTime.Today) ? recommendedStartDate : recommendedStartDate.AddDays(-1);
+                     recommendedEndDate = recommendedEndDate.AddDays(1);
 
-                        availableDates.Clear();
-                        for (DateTime date = recommendedStartDate; date <= recommendedEndDate; date = date.AddDays(1))
-                        {
-                            if (!reservedDates.Contains(date))
-                            {
-                                availableDates.Add(date);
-                            }
-                            else
-                            {
-                                availableDates.Clear();
-                            }
+                     availableDates.Clear();
+                     for (DateTime date = recommendedStartDate; date <= recommendedEndDate; date = date.AddDays(1))
+                     {
+                         if (!reservedDates.Contains(date))
+                         {
+                             availableDates.Add(date);
+                         }
+                         else
+                         {
+                             availableDates.Clear();
+                         }
 
-                            if (availableDates.Count == daysOfStaying)
-                            {
-                                if (!availableDatesPair.Contains(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date)))
-                                    availableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
-                                availableDates.RemoveAt(0);
-                            }
-                        }
-                    }
-                    
-                }
-        }*/
+                         if (availableDates.Count == daysOfStaying)
+                         {
+                             if (!availableDatesPair.Contains(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date)))
+                                 availableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
+                             availableDates.RemoveAt(0);
+                         }
+                     }
+                 }
+
+             }
+     }*/
 
 
         public List<DateTime> FindReservedDates(Accommodation selectedAccommodation)
@@ -182,5 +180,47 @@ namespace TravelService.Repository
             }
             return reservedDates;
         }
+
+
+        public List<AccommodationReservation> FindUnratedOwners(int guestId)
+        {
+            List<AccommodationReservation> UnratedOwners = new List<AccommodationReservation>();
+
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
+                if (!reservation.IsOwnerRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservation.GuestId == guestId)
+                {
+                    UnratedOwners.Add(reservation);
+                }
+            }
+
+            return UnratedOwners;
+        }
+
+        public void SetAccommodationForUnratedOwners(List<Accommodation> accomodations)
+        {
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                reservation.Accommodation = accomodations.Find(a => a.Id == reservation.AccommodationId);
+            }
+        }
+
+        public void SetLocationForUnratedOwners(List<Location> locations)
+        {
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                reservation.Location = locations.Find(l => l.Id == reservation.LocationId);
+            }
+        }
+
+        public void SetNameForUnratedOwners(List<Owner> owners)
+        {
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                reservation.Owner = owners.Find(o => o.Id == reservation.OwnerId);
+            }
+        }
     }
+
 }
