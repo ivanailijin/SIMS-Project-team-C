@@ -6,7 +6,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
- 
+  <ItemGroup>
+    <Compile Update="View\TourTrackingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
@@ -17,19 +21,21 @@
     <Page Update="View\EnterCheckPoint.xaml">
       <SubType>Designer</SubType>
     </Page>
-
     <Page Update="View\SecondGuestView.xaml">
       <SubType>Designer</SubType>
     </Page>
-	  <Page Update="View\TourReservationView.xaml">
-		  <SubType>Designer</SubType>
-	  </Page>
+    <Page Update="View\TourReservationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\GuestPresence.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MarkAttendence.xaml">
     </Page>
     <Page Update="View\TourOverview.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TourTrackingView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\TourView.xaml">

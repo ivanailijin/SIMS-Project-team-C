@@ -28,8 +28,12 @@ namespace TravelService.View
             InitializeComponent();
 
             
+        }        
+        private void TourTrackingViewButton_CLick(object sender, RoutedEventArgs e)
+        {
+            TourTrackingView tourTrackingView = new TourTrackingView();
+            tourTrackingView.Show();
         }
-
         private void TourViewButton_CLick(object sender, RoutedEventArgs e)
         {
             TourView tourView = new TourView();

@@ -18,6 +18,8 @@ namespace TravelService.View
 
         private readonly Guest1Repository _guest1Repository;
 
+        private readonly Guest2Repository _guest2Repository;
+
         private readonly OwnerRepository _ownerRepository;
 
         private readonly AccommodationRepository _accommodationRepository;
@@ -62,6 +64,7 @@ namespace TravelService.View
             _repository = new UserRepository();
             _ownerRepository = new OwnerRepository();
             _guest1Repository = new Guest1Repository();
+            _guest2Repository = new Guest2Repository();
             _reservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
             _repositoryTour = new TourRepository();
@@ -116,7 +119,7 @@ namespace TravelService.View
                         }
                         else if (txtPassword.Password.Equals("guest2123"))
                         {
-
+                           Guest2 guest2 = _guest2Repository.GetByUsername(Username);
                            MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, SelectedGuest);
                            markAttendence.ShowDialog();
                            Close();
