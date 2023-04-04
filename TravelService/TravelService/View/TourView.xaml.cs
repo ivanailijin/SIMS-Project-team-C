@@ -31,8 +31,8 @@ namespace TravelService.View
 
         public CheckPoint SelectedCheckPoint;
         public Tour SelectedTour;
-        public Guest SelectedGuest;
-        public TourView()
+        public Guest2 Guest2 { get; set; }
+        public TourView(Guest2 guest2)
         {
             InitializeComponent();
             DataContext = this;
@@ -49,6 +49,7 @@ namespace TravelService.View
             Locations = new List<Location>(_locationRepository.GetAll());
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
+            this.Guest2 = guest2;
 
             _tourRepository.ShowTourList(convertList(Tours), Locations, Languages, CheckPoints);
         }

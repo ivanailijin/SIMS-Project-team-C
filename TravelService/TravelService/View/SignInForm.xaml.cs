@@ -120,11 +120,11 @@ namespace TravelService.View
                         else if (txtPassword.Password.Equals("guest2123"))
                         {
                            Guest2 guest2 = _guest2Repository.GetByUsername(Username);
-                           MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, SelectedGuest);
+                           MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, guest2);
                            markAttendence.ShowDialog();
                            Close();
                             
-                           SecondGuestView secondGuestView = new SecondGuestView();
+                           SecondGuestView secondGuestView = new SecondGuestView(guest2);
                            secondGuestView.Show();
                            Close();
                         }

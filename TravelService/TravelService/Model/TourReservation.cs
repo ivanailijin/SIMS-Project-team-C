@@ -15,14 +15,15 @@ namespace TravelService.Model
         public int TourId { get; set; }
         public int GuestNumber { get; set; }
 
-        //public int GuestId { get; set; }
+        public int GuestId { get; set; }
 
         public TourReservation() { }
-        public TourReservation(int id, int tourId, int guestNumber)
+        public TourReservation(int id, int tourId, int guestNumber, int guestId)
         {
             Id = id;
             TourId = tourId;
             GuestNumber = guestNumber;
+            GuestId = guestId;
             //GuestId = GuestId;
         }
 
@@ -33,7 +34,7 @@ namespace TravelService.Model
                 Id.ToString(),
                 TourId.ToString(),
                 GuestNumber.ToString(),
-                //GuestId.ToString(),
+                GuestId.ToString(),
             };
             return csvValues;
         }
@@ -43,7 +44,7 @@ namespace TravelService.Model
             Id = Convert.ToInt32(values[0]);
             TourId = int.Parse(values[1]);
             GuestNumber = int.Parse(values[2]);
-            //GuestId = int.Parse(values[3]);
+            GuestId = int.Parse(values[3]);
         }
     }
 }

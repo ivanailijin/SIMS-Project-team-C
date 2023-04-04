@@ -11,17 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelService.Model;
 
 namespace TravelService.View
 {
-    /// <summary>
-    /// Interaction logic for TourTrackingView.xaml
-    /// </summary>
     public partial class TourTrackingView : Window
     {
-        public TourTrackingView()
+
+        public Guest2 Guest2 { get; set; }
+        public TourTrackingView(Guest2 guest2)
         {
             InitializeComponent();
+            this.Guest2 = guest2;
         }
     }
 }

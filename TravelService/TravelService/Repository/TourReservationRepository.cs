@@ -121,7 +121,7 @@ namespace TravelService.Repository
             return ActiveTours;
         }
 
-        public bool TryReserving(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView)
+        public bool TryReserving(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView, Guest2 guest2)
         {
             int number = int.Parse(numberOfGuests);
             if (number <= 0)
@@ -131,7 +131,7 @@ namespace TravelService.Repository
             }
             else
             {
-                if (ReservationSuccess(selectedTour, numberOfGuests, TourReservations, ReservationsByTour, OtherTours, tourReservationView))
+                if (ReservationSuccess(selectedTour, numberOfGuests, TourReservations, ReservationsByTour, OtherTours, tourReservationView, guest2))
                 {
                     MessageBox.Show("You have successfully booked a tour!");
                     return true;
@@ -140,13 +140,13 @@ namespace TravelService.Repository
             return false;
         }
 
-        public bool ReservationSuccess(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView)
+        public bool ReservationSuccess(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView, Guest2 guest2)
         {
             if (TourReservations.Count() == 0)
             {
                 if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
                 {
-                    SaveValidReservation(selectedTour, numberOfGuests, TourReservations);
+                    SaveValidReservation(selectedTour, numberOfGuests, TourReservations, guest2);
                     return true;
                 }
                 else
@@ -157,14 +157,14 @@ namespace TravelService.Repository
             }
             else
             {
-                if (SuccessOfTheLastReservation(selectedTour, numberOfGuests, TourReservations, ReservationsByTour, OtherTours, tourReservationView))
+                if (SuccessOfTheLastReservation(selectedTour, numberOfGuests, TourReservations, ReservationsByTour, OtherTours, tourReservationView,guest2))
                     return true;
                 else
                     return false;
 
                 if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
                 {
-                    SaveValidReservation(selectedTour, numberOfGuests, TourReservations);
+                    SaveValidReservation(selectedTour, numberOfGuests, TourReservations,guest2);
                     return true;
                 }
                 else
@@ -178,7 +178,7 @@ namespace TravelService.Repository
 
         }
 
-        public bool SuccessOfTheLastReservation(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView)
+        public bool SuccessOfTheLastReservation(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView, Guest2 guest2)
         {
             TourReservation lastReservation = FindLastCurrentReservation(selectedTour.Id, TourReservations, ReservationsByTour);
             foreach (TourReservation tourReservation in TourReservations)
@@ -189,7 +189,7 @@ namespace TravelService.Repository
                     {
                         if (int.Parse(numberOfGuests) <= tourReservation.GuestNumber)
                         {
-                            SaveSameReservation(selectedTour, tourReservation, numberOfGuests, TourReservations);
+                            SaveSameReservation(selectedTour, tourReservation, numberOfGuests, TourReservations, guest2);
                             return true;
                         }
                         else
@@ -228,20 +228,20 @@ namespace TravelService.Repository
             return true;
         }
 
-        private void SaveSameReservation(Tour selectedTour, TourReservation reservation, string numberOfGuests, List<TourReservation> TourReservations)
+        private void SaveSameReservation(Tour selectedTour, TourReservation reservation, string numberOfGuests, List<TourReservation> TourReservations,Guest2 guest2)
         {
             TourReservations.Remove(reservation);
             int newGuestNumber = reservation.GuestNumber - int.Parse(numberOfGuests);
-            TourReservation tourReservation = new TourReservation(NextId(), selectedTour.Id, newGuestNumber);
+            TourReservation tourReservation = new TourReservation(NextId(), selectedTour.Id, newGuestNumber, guest2.Id);
             TourReservations.Add(tourReservation);
             Save(tourReservation);
             _serializer.ToCSV(FilePath, TourReservations);
         }
 
-        private void SaveValidReservation(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations)
+        private void SaveValidReservation(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations,Guest2 guest2)
         {
             int newGuestNumber = selectedTour.MaxGuestNumber - int.Parse(numberOfGuests);
-            TourReservation tourReservation = new TourReservation(NextId(), selectedTour.Id, newGuestNumber);
+            TourReservation tourReservation = new TourReservation(NextId(), selectedTour.Id, newGuestNumber,guest2.Id);
             TourReservations.Add(tourReservation);
             Save(tourReservation);
             _serializer.ToCSV(FilePath, TourReservations);

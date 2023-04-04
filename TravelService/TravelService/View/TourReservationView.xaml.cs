@@ -34,7 +34,9 @@ namespace TravelService.View
         public List<TourReservation> ReservationsByTour { get; set; }
         public Tour SelectedTour { get; set; }
 
-        public TourReservationView(Tour selectedTour)
+        public Guest2 Guest2 { get; set; }
+
+        public TourReservationView(Tour selectedTour, Guest2 guest2)
         {
             InitializeComponent();
             DataContext = this;
@@ -51,6 +53,7 @@ namespace TravelService.View
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
             ReservationsByTour = new List<TourReservation>();
+            this.Guest2 = guest2;
 
             ActiveTours = new List<Tour>();
             OtherTours = new List<Tour>();
@@ -76,7 +79,7 @@ namespace TravelService.View
 
         private void CheckTourButton_Click(object sender, RoutedEventArgs e)
         {
-            _tourReservationRepository.TryReserving(SelectedTour, EnteredNumberOfGuests, convertTourReservationList(TourReservations), ReservationsByTour, OtherTours, this);
+            _tourReservationRepository.TryReserving(SelectedTour, EnteredNumberOfGuests, convertTourReservationList(TourReservations), ReservationsByTour, OtherTours, this, Guest2);
         }
 
         public void FindOtherTours(Tour selectedTour)

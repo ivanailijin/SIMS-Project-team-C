@@ -24,26 +24,28 @@ namespace TravelService.View
     {
         public CheckPoint SelectedCheckPoint;
         public Tour SelectedTour;
-        public Guest SelectedGuest;
+        public Guest2 SelectedGuest;
         public readonly TourRepository _repositoryTour;
-        public readonly GuestRepository _repositoryGuest;
+        public readonly Guest2Repository _repositoryGuest;
         public List<Tour> _tours;
-        public static ObservableCollection<Guest> Guests { get; set; }
+        public static ObservableCollection<Guest2> Guests { get; set; }
 
-        public MarkAttendence(Tour selectedTour, CheckPoint selectedCheckPoint,Guest selectedGuest)
+        public Guest2 Guest2 { get; set; }
+
+        public MarkAttendence(Tour selectedTour, CheckPoint selectedCheckPoint,Guest2 guest2)
         {
             InitializeComponent();
             SelectedCheckPoint = selectedCheckPoint;
             SelectedTour = selectedTour;
-            SelectedGuest = selectedGuest;
+            this.Guest2 = guest2;
             _repositoryTour = new TourRepository();
-            _repositoryGuest = new GuestRepository();
-            Guests = new ObservableCollection<Guest>(_repositoryGuest.GetAll());
+            _repositoryGuest = new Guest2Repository();
+            Guests = new ObservableCollection<Guest2>(_repositoryGuest.GetAll());
         }
         private void Click_Cancel(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Thank you for answering!");
-            SecondGuestView secondGuestView = new SecondGuestView();
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
             secondGuestView.Show();
             Close();
         }
@@ -52,7 +54,7 @@ namespace TravelService.View
         {
             
             MessageBox.Show("Thank you for confirming!");
-            SecondGuestView secondGuestView = new SecondGuestView();
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
             secondGuestView.Show();
             Close();
         }
