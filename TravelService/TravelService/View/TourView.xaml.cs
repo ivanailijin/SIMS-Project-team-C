@@ -48,9 +48,14 @@ namespace TravelService.View
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
 
-            _tourRepository.ShowTourList(Tours,Locations, Languages, CheckPoints);            
+            _tourRepository.ShowTourList(convertTourList(Tours), Locations, Languages, CheckPoints);
         }
-       
+        public List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
+        {
+            List<Tour> convertedList = observableCollection.ToList();
+            return convertedList;
+        }
+
         private void searchTour_Click(object sender, RoutedEventArgs e)
         {
             FilteredTours.Clear();

@@ -1,14 +1,13 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Windows;
 using TravelService.Model;
 using TravelService.Serializer;
 using TravelService.View;
-using System.Collections.ObjectModel;
 
 namespace TravelService.Repository
 {
@@ -26,7 +25,7 @@ namespace TravelService.Repository
             _serializer = new Serializer<TourReservation>();
             _reservation = _serializer.FromCSV(FilePath);
 
-           
+
         }
 
         public List<TourReservation> GetAll()
@@ -67,7 +66,7 @@ namespace TravelService.Repository
             TourReservation current = _reservation.Find(c => c.Id == reservations.Id);
             int index = _reservation.IndexOf(current);
             _reservation.Remove(current);
-            _reservation.Insert(index, reservations);       
+            _reservation.Insert(index, reservations);
             _serializer.ToCSV(FilePath, _reservation);
             return reservations;
         }
@@ -93,7 +92,7 @@ namespace TravelService.Repository
             return false;
         }
 
-        public void showAllActiveTours(ObservableCollection<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> ActiveTours)
+        public List<Tour> showAllActiveTours(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> ActiveTours)
         {
 
             foreach (Tour tour in Tours)
@@ -119,6 +118,135 @@ namespace TravelService.Repository
                 tour.CheckPoints.AddRange(ListCheckPoints);
                 FindActiveTourList(tour, ActiveTours);
             }
+            return ActiveTours;
         }
+
+        public bool TryReserving(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView)
+        {
+            int number = int.Parse(numberOfGuests);
+            if (number <= 0)
+            {
+                MessageBox.Show("Inserted number of people is not valid.");
+                return false;
+            }
+            else
+            {
+                if (ReservationSuccess(selectedTour, numberOfGuests, TourReservations, ReservationsByTour, OtherTours, tourReservationView))
+                {
+                    MessageBox.Show("You have successfully booked a tour!");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool ReservationSuccess(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView)
+        {
+            if (TourReservations.Count() == 0)
+            {
+                if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
+                {
+                    SaveValidReservation(selectedTour, numberOfGuests, TourReservations);
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("There is " + selectedTour.MaxGuestNumber + " more available spots!");
+                    return false;
+                }
+            }
+            else
+            {
+                if (SuccessOfTheLastReservation(selectedTour, numberOfGuests, TourReservations, ReservationsByTour, OtherTours, tourReservationView))
+                    return true;
+                else
+                    return false;
+
+                if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
+                {
+                    SaveValidReservation(selectedTour, numberOfGuests, TourReservations);
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("There is " + selectedTour.MaxGuestNumber + " more available spots!");
+                    return false;
+                }
+
+            }
+
+
+        }
+
+        public bool SuccessOfTheLastReservation(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView)
+        {
+            TourReservation lastReservation = FindLastCurrentReservation(selectedTour.Id, TourReservations, ReservationsByTour);
+            foreach (TourReservation tourReservation in TourReservations)
+            {
+                if (tourReservation.Id == lastReservation.Id)
+                {
+                    if (tourReservation.TourId == selectedTour.Id)
+                    {
+                        if (int.Parse(numberOfGuests) <= tourReservation.GuestNumber)
+                        {
+                            SaveSameReservation(selectedTour, tourReservation, numberOfGuests, TourReservations);
+                            return true;
+                        }
+                        else
+                        {
+                            if (tourReservation.GuestNumber == 0)
+                            {
+                                FullyBookedTour(selectedTour, OtherTours, tourReservationView);
+                                return false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("There is " + tourReservation.GuestNumber + " more available spots!");
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private TourReservation FindLastCurrentReservation(int tourId, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour)
+        {
+            foreach (TourReservation tourReservation in TourReservations)
+                if (tourReservation.TourId == tourId)
+                    ReservationsByTour.Add(tourReservation);
+            TourReservation lastReservation = ReservationsByTour.Last();
+            return lastReservation;
+        }
+
+
+        public bool FullyBookedTour(Tour selectedTour, List<Tour> OtherTours, TourReservationView tourReservationView)
+        {
+            MessageBox.Show("Selected tour is fully booked. Try other tours on this location! ");
+            tourReservationView.FindOtherTours(selectedTour);
+            return true;
+        }
+
+        private void SaveSameReservation(Tour selectedTour, TourReservation reservation, string numberOfGuests, List<TourReservation> TourReservations)
+        {
+            TourReservations.Remove(reservation);
+            int newGuestNumber = reservation.GuestNumber - int.Parse(numberOfGuests);
+            TourReservation tourReservation = new TourReservation(NextId(), selectedTour.Id, newGuestNumber);
+            TourReservations.Add(tourReservation);
+            Save(tourReservation);
+            _serializer.ToCSV(FilePath, TourReservations);
+        }
+
+        private void SaveValidReservation(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations)
+        {
+            int newGuestNumber = selectedTour.MaxGuestNumber - int.Parse(numberOfGuests);
+            TourReservation tourReservation = new TourReservation(NextId(), selectedTour.Id, newGuestNumber);
+            TourReservations.Add(tourReservation);
+            Save(tourReservation);
+            _serializer.ToCSV(FilePath, TourReservations);
+        }
+
+
     }
 }

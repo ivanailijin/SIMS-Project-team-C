@@ -67,7 +67,7 @@ namespace TravelService.Repository
             return tours;
         }
 
-        public void ShowTourList(ObservableCollection<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints)
+        public void ShowTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints)
         {
             foreach (Tour tour in Tours)
             {

@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelService.Model;
 using TravelService.Repository;
 
@@ -42,10 +30,11 @@ namespace TravelService.View
         public static List<CheckPoint> CheckPoints { get; set; }
         public List<Tour> ActiveTours { get; set; }
         public List<Tour> OtherTours { get; set; }
+        public List<Tour> OtherOtherTours { get; set; }
         public List<TourReservation> ReservationsByTour { get; set; }
         public Tour SelectedTour { get; set; }
 
-        public TourReservationView(Tour selectedActiveTour)
+        public TourReservationView(Tour selectedTour)
         {
             InitializeComponent();
             DataContext = this;
@@ -65,116 +54,32 @@ namespace TravelService.View
 
             ActiveTours = new List<Tour>();
             OtherTours = new List<Tour>();
+            OtherOtherTours = new List<Tour>();
 
-            SelectedTour = selectedActiveTour;
+            SelectedTour = selectedTour;
 
-            _tourReservationRepository.showAllActiveTours(Tours,Locations,Languages,CheckPoints,ActiveTours);
+            ActiveTours = _tourReservationRepository.showAllActiveTours(convertTourList(Tours), Locations, Languages, CheckPoints, ActiveTours);
 
         }
-        
+
+        private List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
+        {
+            List<Tour> convertedList = observableCollection.ToList();
+            return convertedList;
+        }
+
+        private List<TourReservation> convertTourReservationList(ObservableCollection<TourReservation> observableCollection)
+        {
+            List<TourReservation> convertedList = observableCollection.ToList();
+            return convertedList;
+        }
+
         private void CheckTourButton_Click(object sender, RoutedEventArgs e)
         {
-            TryReserving(SelectedTour, EnteredNumberOfGuests);
+            _tourReservationRepository.TryReserving(SelectedTour, EnteredNumberOfGuests, convertTourReservationList(TourReservations), ReservationsByTour, OtherTours, this);
         }
 
-        private void TryReserving(Tour selectedTour, string numberOfGuests)
-        {
-            int number = int.Parse(numberOfGuests);
-            if (number <= 0)
-            {
-                MessageBox.Show("Inserted number of people is not valid.");
-            }
-            else
-            {
-                if (ReservationSuccess(selectedTour, numberOfGuests))
-                {
-                    MessageBox.Show("You have successfully booked a tour!");
-                }
-            }
-        }
-
-        private bool ReservationSuccess(Tour selectedTour, string numberOfGuests)
-        {
-            if (TourReservations.Count() == 0)
-            {
-                if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
-                {
-                    SaveValidReservation(selectedTour, numberOfGuests);
-                    return true;
-
-                }
-                else
-                {
-                    MessageBox.Show("There is " + selectedTour.MaxGuestNumber + " more available spots!");
-                    return false;
-                }
-            }
-            else
-            {
-                if (successOfTheLastReservation(selectedTour, numberOfGuests))
-                    return true;
-                else
-                    return false;
-
-                if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
-                {
-                    SaveValidReservation(selectedTour, numberOfGuests);
-                    return true;
-                }
-                else {
-                    MessageBox.Show("There is " + selectedTour.MaxGuestNumber + " more available spots!");
-                    return false;
-                }
-            }
-        }
-
-        private bool successOfTheLastReservation(Tour selectedTour, string numberOfGuests)
-        {
-            TourReservation lastReservation = FindLastCurrentReservation(selectedTour.Id);
-            foreach (TourReservation tourReservation in TourReservations)
-            {
-                if (tourReservation.Id == lastReservation.Id)
-                {
-                    if (tourReservation.TourId == selectedTour.Id)
-                    {
-                        if (int.Parse(numberOfGuests) <= tourReservation.GuestNumber)
-                        {
-                            SaveSameReservation(selectedTour, tourReservation, numberOfGuests);
-                            return true;
-                        }
-                        else
-                        {
-                            if (tourReservation.GuestNumber == 0)
-                            {
-                                FullyBookedTour(selectedTour);
-                                return false;
-                            }
-                            else
-                            {
-                                MessageBox.Show("There is " + tourReservation.GuestNumber + " more available spots!");
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
-        private TourReservation FindLastCurrentReservation(int tourId) {
-            foreach(TourReservation tourReservation in TourReservations)
-                if (tourReservation.TourId == tourId)
-                    ReservationsByTour.Add(tourReservation);
-            TourReservation lastReservation = ReservationsByTour.Last();
-            return lastReservation;
-        }
-        private void FullyBookedTour(Tour selectedTour)
-        {
-            MessageBox.Show("Selected tour is fully booked. Try other tours on this location! ");
-            FindOtherTours(selectedTour);
-        }
-
-        private void FindOtherTours(Tour selectedTour)
+        public void FindOtherTours(Tour selectedTour)
         {
             OtherTours.Remove(selectedTour);
             ActiveTours.Remove(selectedTour);
@@ -185,10 +90,12 @@ namespace TravelService.View
                     OtherTours.Add(tour);
                     allActiveTours.ItemsSource = OtherTours;
                 }
-                
+
             }
+            OtherTours.Remove(selectedTour);
+            ActiveTours.Remove(selectedTour);
             allActiveTours.ItemsSource = OtherTours;
-            
+
             RunOutOfTours();
         }
 
@@ -198,33 +105,16 @@ namespace TravelService.View
             {
                 MessageBox.Show("There are no more avaliable tours, please change the number of people!");
                 ActiveTours.Clear();
-                foreach (Tour tour in Tours) {
+                foreach (Tour tour in Tours)
+                {
                     _tourReservationRepository.FindActiveTourList(tour, ActiveTours);
                 }
                 allActiveTours.ItemsSource = ActiveTours;
             }
         }
-
-        private void SaveSameReservation(Tour selectedTour, TourReservation reservation, string numberOfGuests)
-        {
-            TourReservations.Remove(reservation);
-            int newGuestNumber = reservation.GuestNumber - int.Parse(numberOfGuests);
-            TourReservation tourReservation = new TourReservation(_tourReservationRepository.NextId(), selectedTour.Id, newGuestNumber);
-            TourReservations.Add(tourReservation);
-            _tourReservationRepository.Save(tourReservation);
-        }
-
-        private void SaveValidReservation(Tour selectedTour, string numberOfGuests)
-        {
-            int newGuestNumber = selectedTour.MaxGuestNumber - int.Parse(numberOfGuests);
-            TourReservation tourReservation = new TourReservation(_tourReservationRepository.NextId() , selectedTour.Id, newGuestNumber);
-            TourReservations.Add(tourReservation);
-            _tourReservationRepository.Save(tourReservation);
-        }
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();            
+            this.Close();
         }
     }
 }
