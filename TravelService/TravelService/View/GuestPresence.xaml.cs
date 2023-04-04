@@ -24,10 +24,13 @@ namespace TravelService.View
     /// </summary>
     public partial class GuestPresence : Window
     {
-        public Guest SelectedGuest { get; set; }
+        public Guest SelectedGuest { get; set; }    
+        public List<Guest> SelectedGuests { get; set; }
+        public List<CheckPoint> CheckPoints { get; set; }   
         private GuestRepository _repositoryGuest;
         private ObservableCollection<Guest> _guests;
         private CheckPointRepository _repositoryCheckPoint;
+        private TourRepository _repositoryTour;
         public CheckPoint SelectedCheckPoint { get; set; }  
         public Tour SelectedTour { get; set; }  
         public InvitationRepository _repositoryInvitation { get; set; } 
@@ -36,27 +39,32 @@ namespace TravelService.View
         { 
             InitializeComponent();
             DataContext = this;
+            _repositoryTour = new TourRepository();
             _repositoryGuest= new GuestRepository();
             _repositoryCheckPoint = new CheckPointRepository();
             _repositoryInvitation = new InvitationRepository();
             SelectedTour = selectedTour;
             SelectedCheckPoint = selectedcCheckPoint;
-            _guests = new ObservableCollection<Guest>(filterGuests(_repositoryGuest.GetAll()));
+            _guests = new ObservableCollection<Guest>(_repositoryGuest.GetAll());
+           
+            SelectedGuests = new List<Guest>();
+
+
+             _guests = new ObservableCollection<Guest>(_repositoryGuest.filterGuests(convertGuestList(_guests),SelectedTour));
             GuestDataGrid.ItemsSource = _guests;
+
+
         }
 
-        public List<Guest> filterGuests(List<Guest> guests)
+        private List<Guest> convertGuestList(ObservableCollection<Guest> observableCollection)
         {
-            List<Guest> filteredGuests = new List<Guest>();
-            foreach (Guest guest in guests)
-            {
-                if (guest.TourId == SelectedTour.Id)
-                {
-                    filteredGuests.Add(guest);
-                }
-            }
-            return filteredGuests;
+            List<Guest> convertedList = observableCollection.ToList();
+            return convertedList;
         }
+
+
+
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

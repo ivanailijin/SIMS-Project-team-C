@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelService.Model;
 using TravelService.Repository;
 
@@ -30,66 +21,42 @@ namespace TravelService.View
         private ObservableCollection<CheckPoint> _checkPoints;
         public static ObservableCollection<Tour> Tours { get; set; }
         public static List<CheckPoint> CheckPoints { get; set; }
-        public static List<CheckPoint> FilteredCheckPoint { get; set; } 
+        public static List<CheckPoint> FilteredCheckPoint { get; set; }
         public readonly CheckPointRepository _repositoryCheckPoint;
-
+        public List<Tour> ActiveTours { get; set; }
         public readonly TourRepository _tourRepository;
 
-        
+
         public CheckPointView(Tour selectedTour)
         {
             InitializeComponent();
             DataContext = this;
+
             _tourRepository = new TourRepository();
             _repositoryCheckPoint = new CheckPointRepository();
 
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_repositoryCheckPoint.GetAll());
             SelectedTour = selectedTour;
-
             FilteredCheckPoint = new List<CheckPoint>();
+            ActiveTours = new List<Tour>();
 
-            foreach (Tour tour in Tours)
-            {
+            FilteredCheckPoint = _tourRepository.ShowListCheckPointList(SelectedTour.Id, convertTourList(Tours), CheckPoints);
 
-                List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            _checkPoints = new ObservableCollection<CheckPoint>(_repositoryCheckPoint.GetAll());
+            _checkPoints.ElementAt(0).Active = true;
+            SelectedCheckPoint = _checkPoints.ElementAt(0);
 
-                tour.CheckPoints.Clear();
-                ListCheckPoints.Clear();
-
-                int currentId = tour.Id;
-
-
-                foreach (CheckPoint c in CheckPoints)
-                {
-                    int currentCheckPointTourId = c.TourId;
-                    if (currentCheckPointTourId == currentId)
-                    {
-                        ListCheckPoints.Add(c);
-
-                        if (SelectedTour.Id == currentCheckPointTourId)
-                        {
-                            FilteredCheckPoint.Add(c);
-                        }
-                    }
-                }
-
-                tour.CheckPoints.AddRange(ListCheckPoints);
-
-                _checkPoints = new ObservableCollection<CheckPoint>(_repositoryCheckPoint.GetAll());
-                _checkPoints.ElementAt(0).Active = true;
-                SelectedCheckPoint = _checkPoints.ElementAt(0);
-
-                ListCheckBox.ItemsSource = FilteredCheckPoint;
-                if (FilteredCheckPoint.Count > 0)
-                {
-                    FilteredCheckPoint[0].Active = true;
-                }
-            }
+            ListCheckBox.ItemsSource = FilteredCheckPoint;
+            _repositoryCheckPoint.FirstCheckPointActive(FilteredCheckPoint);
         }
 
+        private List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
+        {
+            List<Tour> convertedList = observableCollection.ToList();
+            return convertedList;
+        }
 
-    
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -101,9 +68,9 @@ namespace TravelService.View
             CheckBox checkBox = (CheckBox)this.FindName("myCheckBox");
             if (SelectedCheckPoint != null)
             {
-                    GuestPresence guestPresence = new GuestPresence(SelectedTour,SelectedCheckPoint);
-                    guestPresence.Show();
-                    Close();
+                GuestPresence guestPresence = new GuestPresence(SelectedTour, SelectedCheckPoint);
+                guestPresence.Show();
+                Close();
             }
         }
         private int numChecked = 0;
@@ -111,10 +78,10 @@ namespace TravelService.View
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             numChecked++;
-             ListCheckBox.ItemsSource = FilteredCheckPoint;
+            ListCheckBox.ItemsSource = FilteredCheckPoint;
             if (numChecked + 1 == ListCheckBox.Items.Count)
             {
-                    EndButton.IsEnabled = true;
+                EndButton.IsEnabled = true;
             }
         }
         private void End_Click(object sender, RoutedEventArgs e)
@@ -136,4 +103,3 @@ namespace TravelService.View
         }
     }
 }
-      

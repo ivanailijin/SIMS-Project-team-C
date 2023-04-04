@@ -3,9 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:val="clr-namespace:TravelService.Validation"
         xmlns:local="clr-namespace:TravelService.View"
         mc:Ignorable="d"
         Title="AddTour" Height="700" Width="800">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox">
+                    <Border BorderBrush="Red"
+                            BorderThickness="1"/>
+                </AdornedElementPlaceholder>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="500"></RowDefinition>
@@ -39,33 +53,170 @@
             <Label Content="Duration in hours" Grid.Row="7" Grid.Column="0" Height="25"></Label>
             <Label Content="Pictures" Grid.Row="8" Grid.Column="0" Height="25"></Label>
 
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=TourName, UpdateSourceTrigger=PropertyChanged}"
-                     
+            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" 
                      Height="25">
-            </TextBox>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Location, UpdateSourceTrigger=PropertyChanged}"
-                     
-                     Height="25">
-            </TextBox>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}"
-                     
-                     Height="25" ></TextBox>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=TourLanguage, UpdateSourceTrigger=PropertyChanged}"
-                     
-                     Height="25"></TextBox>
-            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=MaxGuestNumber, UpdateSourceTrigger=PropertyChanged}"
-                     
-                     Height="25"></TextBox>
+                <TextBox.Text>
+                    <Binding Path="TourName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                     Height="25">
+                <TextBox.Text>
+                    <Binding Path="Location" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:LocationValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" 
+                     Height="25">
+                <TextBox.Text>
+                    <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" 
+                     Height="25">
+                <TextBox.Text>
+                    <Binding Path="TourLanguage" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                     Height="25">
+                <TextBox.Text>
+                    <Binding Path="MaxGuestNumber" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NumberValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            
             <Button Grid.Row="5" Grid.Column="1" Content="Enter CheckPoints" IsDefault="True" Click="CheckPoint_Click"
                     
                     Height="25"></Button>
 
 
+            <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+                     Height="25">
+                <TextBox.Text>
+                    <Binding Path="TourStart" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:DateTimeValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=TourStart, UpdateSourceTrigger=PropertyChanged}"
-                     
-                     Height="25"></TextBox>
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+           
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path=Duration, UpdateSourceTrigger=PropertyChanged}"
                      
                      Height="25"></TextBox>
