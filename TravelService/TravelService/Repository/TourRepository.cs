@@ -60,9 +60,95 @@ namespace TravelService.Repository
             Tour current = _tours.Find(c => c.Id == tours.Id);
             int index = _tours.IndexOf(current);
             _tours.Remove(current);
-            _tours.Insert(index, tours);       
+            _tours.Insert(index, tours);
             _serializer.ToCSV(FilePath, _tours);
             return tours;
         }
+        public void Check(List<CheckPoint> checkPoints, Tour tour, int TourId)
+        {
+            int count = 0;
+            foreach (var checkpoint in checkPoints)
+            {
+                if (checkpoint.TourId == TourId)
+                {
+                    count++;
+                }
+            }
+
+            if (count >= 2)
+            {
+
+                Save(tour);
+
+            }
+
+        }
+
+
+        public void FindActiveTourList(Tour tour, List<Tour> ActiveTours)
+        {
+            if (IsInPorgress(tour))
+            {
+                AddActiveTours(tour, ActiveTours);
+            }
+        }
+        public void AddActiveTours(Tour tour, List<Tour> ActiveTours)
+        {
+            ActiveTours.Add(tour);
+        }
+        public bool IsInPorgress(Tour tour)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            if (tour.TourStart.Date == currentDate)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public List<Tour> showAllActiveTours(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> ActiveTours)
+        {
+
+            foreach (Tour tour in Tours)
+            {
+                
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+                ShowListCheckPointList(tour.Id, Tours, CheckPoints);
+                FindActiveTourList(tour, ActiveTours);
+            }
+            return ActiveTours;
+        }
+
+        public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours,List<CheckPoint> CheckPoints)
+        {
+            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            foreach (Tour tour in Tours)
+            {
+                if (tour.Id == TourId)
+                {
+
+                    tour.CheckPoints.Clear();
+                    ListCheckPoints.Clear();
+
+                    int currentId = tour.Id;
+                    foreach (CheckPoint c in CheckPoints)
+                    {
+                        int currentCheckPointTourId = c.TourId;
+                        if ((currentCheckPointTourId == currentId))
+                        {
+                            ListCheckPoints.Add(c);
+
+                        }
+                    }
+                }
+
+                tour.CheckPoints.AddRange(ListCheckPoints);
+
+            }
+            return ListCheckPoints;
+        }
+
     }
 }

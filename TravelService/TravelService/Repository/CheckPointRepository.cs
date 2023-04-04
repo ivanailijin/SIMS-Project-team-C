@@ -63,5 +63,14 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _checkpoints);
             return checkpoint;
         }
+
+
+        public void FirstCheckPointActive(List<CheckPoint> FilteredCheckPoint)
+        {
+            if (FilteredCheckPoint.Count > 0)
+            {
+                FilteredCheckPoint[0].Active = true;
+            }
+        }
     }
 }

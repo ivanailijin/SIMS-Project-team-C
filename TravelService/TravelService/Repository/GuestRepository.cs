@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using TravelService.Model;
 using TravelService.Serializer;
 
@@ -61,12 +57,30 @@ namespace TravelService.Repository
             Guest current = _guest.Find(c => c.Id == guest.Id);
             int index = _guest.IndexOf(current);
             _guest.Remove(current);
-            _guest.Insert(index, guest);       
+            _guest.Insert(index, guest);
             _serializer.ToCSV(FilePath, _guest);
             return guest;
         }
 
+        public List<Guest> filterGuests(List<Guest> guests,Tour SelectedTour)
+        {
+            List<Guest> filteredGuests = new List<Guest>();
+            foreach (Guest guest in guests)
+            {
+                if (guest.TourId == SelectedTour.Id)
+                {
+                    filteredGuests.Add(guest);
+                }
+            }
+            return filteredGuests;
+        }
+
+
     }
 
+
+
+
 }
+    
 

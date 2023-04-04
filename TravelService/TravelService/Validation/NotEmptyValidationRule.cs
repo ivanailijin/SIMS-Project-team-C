@@ -85,5 +85,31 @@ namespace TravelService.Validation
             }
         }
     }
+    public class DateTimeValidation : ValidationRule
+    {
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            try
+            {
+                var s = value as string;
+                DateTime dt;
+                if (!DateTime.TryParseExact(s, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                {
+                    return new ValidationResult(false, "Invalid date format. The expected format is 'M/d/yyyy h:mm:ss tt'.");
+                }
+                // Add your validation logic here, for example:
+                if (dt < DateTime.Now)
+                {
+                    return new ValidationResult(false, "Date must be in the future.");
+                }
+                return ValidationResult.ValidResult;
+            }
+            catch
+            {
+                return new ValidationResult(false, "Unknown error occurred.");
+            }
+        }
+    }
+
 
 }
