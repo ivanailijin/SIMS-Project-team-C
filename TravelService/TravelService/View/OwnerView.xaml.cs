@@ -39,5 +39,11 @@ namespace TravelService.View
             GuestRatingOverview ratingOverview = new GuestRatingOverview(Owner);
             ratingOverview.Show();
         }
+
+        private void ReviewSelection_Click(object sender, RoutedEventArgs e)
+        {
+            ReviewsSelectionView reviewSelection = new ReviewsSelectionView(Owner);
+            reviewSelection.Show();
+        }
     }
 }
