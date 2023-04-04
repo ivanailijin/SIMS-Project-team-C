@@ -30,6 +30,8 @@ namespace TravelService.View
         public AccommodationReservation SelectedUnratedOwner { get; set; }
         public ObservableCollection<AccommodationReservation> UnratedOwners { get; set; }
         public Guest1 LoggedInGuest1 { get; set; }
+        public GuestRatingView Child { get; set; }
+
         public RatingView(Guest1 guest1)
         {
             InitializeComponent();
@@ -51,8 +53,19 @@ namespace TravelService.View
 
         private void rateOwnerButton_Click(object sender, RoutedEventArgs e)
         {
-            OwnerRatingView ownerRatingView = new OwnerRatingView(SelectedUnratedOwner);
-            ownerRatingView.Show();
+            if (SelectedUnratedOwner != null)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    OwnerRatingView ownerRatingView = new OwnerRatingView(SelectedUnratedOwner);
+                    ownerRatingView.Parent = this;
+                    ownerRatingView.ShowDialog();
+                });
+            }
+            else
+            {
+                MessageBox.Show("Select accommodation and owner that you want to rate.");
+            }
         }
     }
 }

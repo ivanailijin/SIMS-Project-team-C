@@ -26,7 +26,9 @@ namespace TravelService.View
     {
         private readonly OwnerRatingRepository _ownerRatingRepository;
         private readonly AccommodationReservationRepository _reservationRepository;
+        private readonly OwnerRepository _ownerRepository;
         public AccommodationReservation SelectedUnratedOwner { get; set; }
+        public Window Parent { get; set; }
 
         private int _correctness;
         public int Correctness
@@ -138,7 +140,11 @@ namespace TravelService.View
             SelectedUnratedOwner = selectedUnratedOwner;
             _reservationRepository = new AccommodationReservationRepository();
             _ownerRatingRepository = new OwnerRatingRepository();
-            
+            _ownerRepository = new OwnerRepository();
+
+            AccommodationName.Text = selectedUnratedOwner.AccommodationName;
+            Owner owner = _ownerRepository.FindById(selectedUnratedOwner.OwnerId);
+            OwnerName.Text = owner.Username;
         }
 
         private void AddOwnerRating_Click(object sender, RoutedEventArgs e)
@@ -154,6 +160,14 @@ namespace TravelService.View
 
             OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
             _ownerRatingRepository.Save(ownerRating);
+
+            AccommodationReservation ratedOwner = _reservationRepository.FindById(SelectedUnratedOwner.Id);
+            ratedOwner.IsOwnerRated = true;
+            _reservationRepository.Update(ratedOwner);
+
+            RatingView ratingView = (RatingView)this.Parent;
+            ratingView.UnratedOwners.Remove(SelectedUnratedOwner);
+
             Close();
         }
 

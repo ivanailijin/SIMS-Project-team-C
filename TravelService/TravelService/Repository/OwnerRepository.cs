@@ -29,6 +29,19 @@ namespace TravelService.Repository
             return _owners.FirstOrDefault(u => u.Username == username);
         }
 
+        public Owner FindById(int id)
+        {
+            _owners = _serializer.FromCSV(FilePath);
+            foreach (Owner owner in _owners)
+            {
+                if (owner.Id == id)
+                {
+                    return owner;
+                }
+            }
+            return null;
+        }
+
         public List<Owner> GetAll()
         {
             return _serializer.FromCSV(FilePath);

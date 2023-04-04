@@ -5,22 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.View"
         mc:Ignorable="d"
-        Title="RatingView" Height="450" Width="700">
+        Title="RatingView" WindowStartupLocation="CenterScreen" Height="450" Width="700">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Button x:Name="rateOwnerButton" Width="100" Height="40" Click="rateOwnerButton_Click" HorizontalAlignment="Right" Margin="20">Oceni</Button>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="665"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="rateOwnerButton" Width="90" Height="30" Click="rateOwnerButton_Click" HorizontalAlignment="Right" Margin="20">Oceni</Button>
         </Grid>
 
         <Grid Grid.Row="1">
-            <DataGrid x:Name="dataGridAccommodations" Margin="20"
+            <DataGrid x:Name="dataGridUnratedOwners" Margin="10"
                   ItemsSource="{Binding Path=UnratedOwners, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path = SelectedUnratedOwner, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  Width="600" Height="300">
+                  Width="600" Height="330">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="150"></DataGridTextColumn>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="150"></DataGridTextColumn>
