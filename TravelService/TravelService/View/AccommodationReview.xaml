@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.View"
         mc:Ignorable="d"
-        Title="AccommodationReview" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="AccommodationReview" Height="500" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="290"></RowDefinition>
+            <RowDefinition Height="340"></RowDefinition>
             <RowDefinition Height="80"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -20,7 +20,7 @@
         <DataGrid  VerticalAlignment="Center" ItemsSource="{Binding Path=Guests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
                    AutoGenerateColumns="False" IsReadOnly="True"
-                   Width="240" Height="290" Grid.Row="1">
+                   Width="240" Height="310" Grid.Row="1">
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Name" Width="230" Binding="{Binding Username}">
                 </DataGridTextColumn>
@@ -48,8 +48,19 @@
                 <TextBox x:Name="Content"  Width="140"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Pictures:"/>
-                <TextBox Width="140"/>
+                <Label HorizontalContentAlignment="Center" Width="120" Height="90" Margin="10" Content="Pictures:"/>
+                <ItemsControl ItemsSource="{Binding RatingImages}" Width="320">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding}" Width="100" Height="100" Margin="5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </StackPanel>
         <WrapPanel Grid.Row="2" Grid.Column="0" FlowDirection="LeftToRight" Margin="10,10,5,5">

@@ -84,12 +84,12 @@ namespace TravelService.Repository
             }
             return null;
         }
-        public OwnerRating FindByGuestOwnerIds(int guestId, int ownerId)
+        public OwnerRating FindByGuestOwnerIds(int guestId, int ownerId, int accommodationId)
         {
             _ownerRatings = _serializer.FromCSV(FilePath);
             foreach (OwnerRating ownerRating in _ownerRatings)
             {
-                if (ownerRating.GuestId == guestId && ownerRating.OwnerId==ownerId)
+                if (ownerRating.GuestId == guestId && ownerRating.OwnerId==ownerId && ownerRating.AccommodationId==accommodationId)
                 {
                     return ownerRating;
                 }
