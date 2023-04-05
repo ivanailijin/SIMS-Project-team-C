@@ -11,11 +11,26 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\RatingView.xaml.cs">
+		<SubType>Code</SubType>
+	</Compile>
+    <Compile Update="View\AccommodationReview.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\OwnerReview.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\OwnerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ReviewsSelectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AccommodationReview.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\CheckPointView.xaml">
@@ -28,6 +43,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RatingView.xaml">
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Update="View\OwnerReview.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\OwnerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ReviewsSelectionView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\SecondGuestView.xaml">

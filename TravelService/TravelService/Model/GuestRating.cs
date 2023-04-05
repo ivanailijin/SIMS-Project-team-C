@@ -11,6 +11,8 @@ namespace TravelService.Model
     public class GuestRating : ISerializable
     {
         public int Id { get; set; } 
+        public int OwnerId { get; set; }
+        public int GuestId { get; set; }
         public int Cleanness { get; set; }
         public int RulesFollowing { get; set; }
         public int Communication { get; set; }
@@ -20,8 +22,10 @@ namespace TravelService.Model
         public int ReservationId { get; set; }
 
         public GuestRating() { }
-        public GuestRating(int cleanness, int rulesFollowing, int communication, int noiseLevel, int propertyRespect, string comment, int reservationId)
+        public GuestRating(int ownerId, int guestId, int cleanness, int rulesFollowing, int communication, int noiseLevel, int propertyRespect, string comment, int reservationId)
         {
+            OwnerId = ownerId;
+            GuestId = guestId;
             Cleanness = cleanness;
             RulesFollowing = rulesFollowing;
             Communication = communication;
@@ -34,13 +38,15 @@ namespace TravelService.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Cleanness = Convert.ToInt32(values[1]);
-            RulesFollowing = Convert.ToInt32(values[2]);
-            Communication = Convert.ToInt32(values[3]);
-            NoiseLevel = Convert.ToInt32(values[4]);
-            PropertyRespect = Convert.ToInt32(values[5]);
-            Comment = values[6];
-            ReservationId = Convert.ToInt32(values[7]);
+            OwnerId = Convert.ToInt32(values[1]);
+            GuestId = Convert.ToInt32(values[2]);
+            Cleanness = Convert.ToInt32(values[3]);
+            RulesFollowing = Convert.ToInt32(values[4]);
+            Communication = Convert.ToInt32(values[5]);
+            NoiseLevel = Convert.ToInt32(values[6]);
+            PropertyRespect = Convert.ToInt32(values[7]);
+            Comment = values[8];
+            ReservationId = Convert.ToInt32(values[9]);
         }
 
         public string[] ToCSV()
@@ -48,6 +54,8 @@ namespace TravelService.Model
             string[] csvValues =
            {
                 Id.ToString(),
+                OwnerId.ToString(),
+                GuestId.ToString(),
                 Cleanness.ToString(),
                 RulesFollowing.ToString(),
                 Communication.ToString(),

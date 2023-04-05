@@ -11,9 +11,12 @@ namespace TravelService.Repository
 {
     public class OwnerRatingRepository
     {
+
         private const string FilePath = "../../../Resources/Data/ownerRatings.csv";
 
         private readonly Serializer<OwnerRating> _serializer;
+
+        public Guest1Repository _guestRepository;
 
         private List<OwnerRating> _ownerRatings;
 
@@ -21,6 +24,7 @@ namespace TravelService.Repository
         {
             _serializer = new Serializer<OwnerRating>();
             _ownerRatings = _serializer.FromCSV(FilePath);
+            _guestRepository = new Guest1Repository();
         }
 
         public List<OwnerRating> GetAll()
@@ -54,6 +58,23 @@ namespace TravelService.Repository
             _ownerRatings.Remove(founded);
             _serializer.ToCSV(FilePath, _ownerRatings);
         }
+
+        public List<Guest1> FindGuestsByAccommodation(Accommodation selectedAccommodation)
+        {
+            List<Guest1> guests = new List<Guest1>();
+
+            foreach(OwnerRating ownerRating in _ownerRatings)
+            {
+                if(ownerRating.AccommodationId == selectedAccommodation.Id)
+                {
+                    Guest1 guest = _guestRepository.FindById(ownerRating.GuestId);
+                    guests.Add(guest);
+                }
+            }
+
+            return guests;
+        }
+
         public OwnerRating FindById(int id)
         {
             _ownerRatings = _serializer.FromCSV(FilePath);
@@ -66,6 +87,20 @@ namespace TravelService.Repository
             }
             return null;
         }
+
+        public OwnerRating FindByGuestOwnerIds(int guestId, int ownerId, int accommodationId)
+        {
+            _ownerRatings = _serializer.FromCSV(FilePath);
+            foreach (OwnerRating ownerRating in _ownerRatings)
+            {
+                if (ownerRating.GuestId == guestId && ownerRating.OwnerId==ownerId && ownerRating.AccommodationId==accommodationId)
+                {
+                    return ownerRating;
+                }
+            }
+            return null;
+        }
+
         public OwnerRating Update(OwnerRating ownerRating)
         {
             _ownerRatings = _serializer.FromCSV(FilePath);

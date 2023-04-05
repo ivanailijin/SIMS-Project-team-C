@@ -28,6 +28,20 @@ namespace TravelService.Repository
             return _serializer.FromCSV(FilePath);
         }
 
+        public List<Accommodation> GetOwnersAccommodations(int ownerId)
+        {
+            List<Accommodation> ownersAccommodations = new List<Accommodation>();
+            foreach(Accommodation accommodation in _accommodations)
+            {
+                if(accommodation.OwnerId == ownerId)
+                {
+                    ownersAccommodations.Add(accommodation);
+                }
+            }
+
+            return ownersAccommodations;
+        }
+
         public Accommodation Save(Accommodation accommodation)
         {
             accommodation.Id = NextId();

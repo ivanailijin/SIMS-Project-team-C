@@ -158,7 +158,7 @@ namespace TravelService.View
                 formattedPictures.Add(picture);
             }
 
-            OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
+            OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.AccommodationId, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
             _ownerRatingRepository.Save(ownerRating);
 
             AccommodationReservation ratedOwner = _reservationRepository.FindById(SelectedUnratedOwner.Id);

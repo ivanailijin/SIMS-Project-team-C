@@ -12,6 +12,8 @@ namespace TravelService.Model
     {
         public int Id { get; set; }
         public int ReservationId { get; set; }
+        public int AccommodationId { get; set; }
+        public Accommodation Accommodation { get; set; }
         public int GuestId { get; set; }
         public Guest1 Guest { get; set; }
         public int OwnerId { get; set; }
@@ -24,14 +26,16 @@ namespace TravelService.Model
         public string Comment { get; set; }
         public List<Uri> Pictures { get; set; }
 
-        public OwnerRating() 
+        public OwnerRating()
         {
             Pictures = new List<Uri>();
         }
 
-        public OwnerRating(int reservationId, int guestId, int ownerId, int correctness, int cleanliness, int location, int comfort, int content, string comment, List<string> pictures)
+
+        public OwnerRating(int reservationId,int accommodationId, int guestId, int ownerId, int correctness, int cleanliness, int location, int comfort, int content, string comment, List<string> pictures)
         {
             ReservationId = reservationId;
+            AccommodationId = accommodationId;
             GuestId = guestId;
             OwnerId = ownerId;
             Correctness = correctness;
@@ -40,6 +44,7 @@ namespace TravelService.Model
             Comfort = comfort;
             Content = content;
             Comment = comment;
+
             Pictures = new List<Uri>();
 
             foreach (string picture in pictures)
@@ -66,6 +71,7 @@ namespace TravelService.Model
             {
                 Id.ToString(),
                 ReservationId.ToString(),
+                AccommodationId.ToString(),
                 GuestId.ToString(),
                 OwnerId.ToString(), 
                 Correctness.ToString(),
@@ -83,17 +89,17 @@ namespace TravelService.Model
         {
             Id = Convert.ToInt32(values[0]);
             ReservationId = Convert.ToInt32(values[1]);
-            GuestId = Convert.ToInt32(values[2]);
-            OwnerId = Convert.ToInt32(values[3]);
-            Correctness = Convert.ToInt32(values[4]);
-            Cleanliness = Convert.ToInt32(values[5]);
-            Location = Convert.ToInt32(values[6]);
-            Comfort = Convert.ToInt32(values[7]);
-            Content = Convert.ToInt32(values[8]);
-            Comment = values[9];
+            AccommodationId = Convert.ToInt32(values[2]);
+            GuestId = Convert.ToInt32(values[3]);
+            OwnerId = Convert.ToInt32(values[4]);
+            Correctness = Convert.ToInt32(values[5]);
+            Cleanliness = Convert.ToInt32(values[6]);
+            Location = Convert.ToInt32(values[7]);
+            Comfort = Convert.ToInt32(values[8]);
+            Content = Convert.ToInt32(values[9]);
+            Comment = values[10];
 
-            string pictures = values[10];
-
+            string pictures = values[11];
             string[] delimitedPictures = pictures.Split(" ,");
 
             if (Pictures == null)
