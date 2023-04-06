@@ -31,6 +31,8 @@ namespace TravelService.View
         private readonly AccommodationRepository _accommodationRepository;
 
         private readonly Guest1Repository _guest1Repository;
+        public Owner Owner { get; set; }
+        public Guest1 Guest { get; set; }
 
         public Window Parent { get; set; }
 
@@ -126,31 +128,32 @@ namespace TravelService.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public GuestRatingView(AccommodationReservation selectedReservation)
+        public GuestRatingView(AccommodationReservation selectedReservation, Owner owner)
         {
             InitializeComponent();
             SelectedReservation = selectedReservation;
             ReservationId = selectedReservation.Id;
+            this.Owner = owner;
             _guestRatingRepository = new GuestRatingRepository();
             _reservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
             _guest1Repository = new Guest1Repository();
 
-            Guest1 guest = _guest1Repository.FindById(SelectedReservation.GuestId);
+            Guest = _guest1Repository.FindById(SelectedReservation.GuestId);
             AccommodationReservation ratedReservation = _reservationRepository.FindById(ReservationId);
             Accommodation accommodation = _accommodationRepository.FindById(ratedReservation.AccommodationId);
 
             AccommodationName.Text = accommodation.Name;
             CheckInDate.Text = ratedReservation.CheckInDate.ToString("dd-MMM-yyyy");
             CheckOutDate.Text = ratedReservation.CheckOutDate.ToString("dd-MMM-yyyy");
-            GuestName.Text = guest.Username;
+            GuestName.Text = Guest.Username;
 
             DataContext = this;
         }
 
         private void AddGuestRating_Click(object sender, RoutedEventArgs e)
         {
-            GuestRating guestRating = new GuestRating(Cleanness, RulesFollowing, Communication, NoiseLevel, PropertyRespect, Comment, ReservationId);
+            GuestRating guestRating = new GuestRating(Owner.Id, Guest.Id, Cleanness, RulesFollowing, Communication, NoiseLevel, PropertyRespect, Comment, ReservationId);
             _guestRatingRepository.Save(guestRating);
             AccommodationReservation ratedReservation = _reservationRepository.FindById(ReservationId);
             ratedReservation.IsRated = true;

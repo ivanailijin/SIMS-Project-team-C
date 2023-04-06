@@ -16,15 +16,34 @@ namespace TravelService.Repository
 
         private List<GuestRating> _guestRatings;
 
+        public Guest1Repository _guestRepository;
+
         public GuestRatingRepository()
         {
             _serializer = new Serializer<GuestRating>();
             _guestRatings = _serializer.FromCSV(FilePath);
+            _guestRepository = new Guest1Repository();
         }
 
         public List<GuestRating> GetAll()
         {
             return _serializer.FromCSV(FilePath);
+        }
+
+        public List<Guest1> FindRatedGuests(int ownerId)
+        {
+            List<Guest1> ratedGuests = new List<Guest1>();
+
+            foreach (GuestRating guestRating in _guestRatings)
+            {
+                if (guestRating.OwnerId == ownerId)
+                {
+                    Guest1 ratedGuest = _guestRepository.FindById(guestRating.GuestId);
+                    ratedGuests.Add(ratedGuest);
+                }
+            }
+
+            return ratedGuests;
         }
 
         public GuestRating Save(GuestRating guestRating)

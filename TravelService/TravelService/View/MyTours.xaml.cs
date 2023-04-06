@@ -55,7 +55,7 @@ namespace TravelService.View
 
             List<Tour> GuideTours = _tourRepository.FindGuidesTours(Guide.Id);
 
-            FutureTours = _tourRepository.ShowTourList(GuideTours, Locations, Languages, CheckPoints,FutureTours, Guide.Id,_tourRepository);
+            FutureTours = _tourRepository.ShowFutureTourList(GuideTours, Locations, Languages, CheckPoints,FutureTours, Guide.Id,_tourRepository);
 
 
 

@@ -7,12 +7,34 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+
     <Compile Update="View\MyTours.xaml.cs">
+		<SubType>Code</SubType>
+	</Compile>
+    <Compile Update="View\OwnerRatingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\RatingView.xaml.cs">
+		<SubType>Code</SubType>
+	</Compile>
+    <Compile Update="View\AccommodationReview.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\OwnerReview.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\OwnerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ReviewsSelectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AccommodationReview.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\CheckPointView.xaml">
@@ -21,7 +43,23 @@
     <Page Update="View\EnterCheckPoint.xaml">
       <SubType>Designer</SubType>
     </Page>
+
     <Page Update="View\MyTours.xaml">
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Update="View\OwnerRatingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\RatingView.xaml">
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Update="View\OwnerReview.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\OwnerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ReviewsSelectionView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\SecondGuestView.xaml">

@@ -57,7 +57,7 @@ namespace TravelService.View
         {
             Dispatcher.Invoke(() =>
             {
-                GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation);
+                GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation, Owner);
                 guestRatingView.Parent = this;
                 guestRatingView.ShowDialog();
             });

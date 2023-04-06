@@ -83,23 +83,9 @@ namespace TravelService.View
 
         private void Find_Accommodation_Click(object sender, RoutedEventArgs e)
         {
-            FilteredAccommodations.Clear();
+            Locations = new List<Location>(_locationRepository.GetAll());
+            List<Accommodation> Filtered = new List<Accommodation>();
 
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                if (IsAccommodationMatchingSearchCriteria(accommodation))
-                {
-                    if (!FilteredAccommodations.Contains(accommodation))
-                        FilteredAccommodations.Add(accommodation);
-
-                    dataGridAccommodations.ItemsSource = FilteredAccommodations;
-                }  
-            }
-            dataGridAccommodations.ItemsSource = FilteredAccommodations;
-        }
-
-        public bool IsAccommodationMatchingSearchCriteria(Accommodation accommodation)
-        {
             string name = NameBox.Text.ToLower();
             string[] nameWords = name.Split(' ');
             string location = (string)LocationComboBox.Text.Replace(",", "").Replace(" ", "");
@@ -107,63 +93,16 @@ namespace TravelService.View
             string guestNumber = GuestNumberBox.Text;
             string daysForReservation = NumberOfDaysForReservationBox.Text;
 
-            bool matches = false;
+            FilteredAccommodations.Clear();
 
-            if ((IsContainingNameWords(accommodation,nameWords) || string.IsNullOrEmpty(name)) &&
-               ((accommodation.Location.CityAndCountry.Replace(",", "").Replace(" ", "")).Contains(location) || string.IsNullOrEmpty(location)) &&
-               (HasMatchingAccommodationType(accommodation, type) || string.IsNullOrEmpty(type)) &&
-               (IsGuestNumberLessThanMaximum(accommodation, guestNumber) || string.IsNullOrEmpty(guestNumber)) &&
-               (IsReservationGreaterThanMinimum(accommodation, daysForReservation) || string.IsNullOrEmpty(daysForReservation)))
+            Filtered = _accomodationRepository.Search(name, nameWords, location, type, guestNumber, daysForReservation, Locations);
+
+            foreach(var accommodation in Filtered)
             {
-                matches = true;
+                FilteredAccommodations.Add(accommodation);
             }
-            return matches;
-        }
 
-        public bool IsContainingNameWords(Accommodation accommodation, string[] nameWords)
-        {
-            bool containsAllWords = true;
-
-            foreach(string word in nameWords)
-            {
-                if (!accommodation.Name.ToLower().Contains(word))
-                {
-                    containsAllWords = false;
-                    break;
-                }
-            }
-            return containsAllWords;
-        }
-
-        public bool HasMatchingAccommodationType(Accommodation accommodation, string type)
-        {
-            bool result = false;
-
-            if (!string.IsNullOrEmpty(type))
-            {
-                result = accommodation.Type.ToString().ToLower().Contains(type.ToLower());
-            }
-            return result;
-        }
-
-        public bool IsGuestNumberLessThanMaximum(Accommodation accommodation, string guestNumber)
-        {
-            bool isLess = false;
-            if(int.TryParse(guestNumber, out int parsedGuestNumber) && parsedGuestNumber <= accommodation.MaxGuestNumber)
-            {
-                isLess = true;
-            }
-            return isLess;
-        }
-
-        public bool IsReservationGreaterThanMinimum(Accommodation accommodation, string daysForReservation)
-        {
-            bool isGreater = false;
-            if(int.TryParse(daysForReservation, out int parsedDaysForReservation) && parsedDaysForReservation >= accommodation.MinReservationDays)
-            {
-                isGreater = true;
-            }
-            return isGreater;
+            dataGridAccommodations.ItemsSource = FilteredAccommodations;
         }
 
         private void AccommodationTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -186,6 +125,12 @@ namespace TravelService.View
                 MessageBox.Show("Please select accommodation for reservation.");
             }
         }
+
+        private void OwnerRating_Click(object sender, RoutedEventArgs e)
+        {
+            RatingView ratingView = new RatingView(Guest1);
+            ratingView.Show();
+;        }
     }
 }
 
