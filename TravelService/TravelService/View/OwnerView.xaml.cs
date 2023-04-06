@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,10 +24,34 @@ namespace TravelService.View
     {
         public Owner Owner { get; set; }
 
+        private bool _isSuperOwner;
+        public bool IsSuperOwner
+        {
+            get => _isSuperOwner;
+            set
+            {
+                if (value != _isSuperOwner)
+                {
+                    _isSuperOwner = value;
+                    OnPropertyChanged(nameof(IsSuperOwner));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public OwnerView(Owner owner)
         {
             this.Owner = owner;
+            IsSuperOwner = owner.SuperOwner;
+            //this.IsSuperOwner = true;
             InitializeComponent();
+            DataContext = this;
         }
 
         private void AddAccommodation_Click(object sender, RoutedEventArgs e)

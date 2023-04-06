@@ -11,6 +11,9 @@ namespace TravelService.Model
     public class Owner : User, ISerializable
     {
         public List<Accommodation> Accommodations { get; set; }
+        public bool SuperOwner { get; set; }
+        public double AverageRating { get; set; }
+        public int NumberOfRatings { get; set; }
         public Owner()
         {
             Accommodations = new List<Accommodation>();
