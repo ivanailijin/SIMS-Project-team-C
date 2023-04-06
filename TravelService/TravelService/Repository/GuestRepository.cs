@@ -62,7 +62,7 @@ namespace TravelService.Repository
             return guest;
         }
 
-        public List<Guest> filterGuests(List<Guest> guests,Tour SelectedTour)
+        public List<Guest> filterGuests(List<Guest> guests, Tour SelectedTour)
         {
             List<Guest> filteredGuests = new List<Guest>();
             foreach (Guest guest in guests)
@@ -75,12 +75,30 @@ namespace TravelService.Repository
             return filteredGuests;
         }
 
+        public List<Guest> FindByTourId(int tourId)
+        {
+            List<Guest> guests = GetAll();
+            List<Guest> guestsByTourId = new List<Guest>();
+            foreach (Guest guest in guests)
+            {
+                if (guest.TourId == tourId)
+                {
+                    guestsByTourId.Add(guest);
+                }
+            }
+            return guestsByTourId;
+        }
+
+
+
+
 
     }
 
 
-
-
 }
-    
+
+
+
+
 

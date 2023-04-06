@@ -10,6 +10,7 @@ namespace TravelService.Model
     public class Tour : ISerializable
     {
         public int Id { get; set; }
+        public int GuideId { get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
         public int LocationId { get; set; }
@@ -31,8 +32,9 @@ namespace TravelService.Model
             CheckPoints = new List<CheckPoint>();
 
         }
-        public Tour(string name, Location location, int locationdId,string description, Language language, int languageId, int maxGuestNumber, DateTime tourStart, int duration, List<string> pictures, bool done)
+        public Tour(int userId, string name, Location location, int locationdId,string description, Language language, int languageId, int maxGuestNumber, DateTime tourStart, int duration, List<string> pictures, bool done)
         {
+            GuideId = userId;
             Name = name;
             Location = location;
             LocationId = locationdId;
@@ -70,6 +72,7 @@ namespace TravelService.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                GuideId.ToString(),
                 Name,
                 LocationId.ToString(),
                 Description,
@@ -86,13 +89,14 @@ namespace TravelService.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Name = values[1];
-            LocationId = int.Parse(values[2]);
-            Description = values[3];
-            LanguageId = int.Parse(values[4]);
-            MaxGuestNumber = int.Parse(values[5]);
-            Duration = int.Parse(values[6]);
-            string pictures = values[7];
+            GuideId = Convert.ToInt32(values[1]);
+            Name = values[2];
+            LocationId = int.Parse(values[3]);
+            Description = values[4];
+            LanguageId = int.Parse(values[5]);
+            MaxGuestNumber = int.Parse(values[6]);
+            Duration = int.Parse(values[7]);
+            string pictures = values[8];
             string[] delimitedPictures = pictures.Split(",");
             if (Pictures == null)
             {
@@ -105,8 +109,8 @@ namespace TravelService.Model
                 Pictures.Add(file);
             }
 
-            TourStart = DateTime.Parse(values[8]);
-            Done = Boolean.Parse(values[9]);
+            TourStart = DateTime.Parse(values[9]);
+            Done = Boolean.Parse(values[10]);
         }
     }
 }

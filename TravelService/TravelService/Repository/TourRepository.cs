@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using TravelService.Model;
 using TravelService.Serializer;
 
@@ -13,13 +13,41 @@ namespace TravelService.Repository
         private const string FilePath = "../../../Resources/Data/tour.csv";
 
         private readonly Serializer<Tour> _serializer;
+        private readonly GuideRepository _guideRepository;
+        private readonly GuestRepository _guestRepository;
+        private readonly GuestVoucherRepository _guestVoucherRepository;
 
         private List<Tour> _tours;
+
+
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public TourRepository()
         {
             _serializer = new Serializer<Tour>();
             _tours = _serializer.FromCSV(FilePath);
+            _guideRepository = new GuideRepository();
+            _guestRepository = new GuestRepository();
+            _guestVoucherRepository = new GuestVoucherRepository(); 
         }
 
         public List<Tour> GetAll()
@@ -106,22 +134,47 @@ namespace TravelService.Repository
             return false;
         }
 
+        public void FindFutureActive(Tour tour, List<Tour> FutureTours)
+        {
+            if (IsInFuture(tour))
+            {
+                AddFutureTours(tour, FutureTours);
+            }
+        }
+        public void AddFutureTours(Tour tour, List<Tour> FutureTours)
+        {
+            FutureTours.Add(tour);
+        }
+
+        public bool IsInFuture(Tour tour)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            if (tour.TourStart.Date > currentDate )
+            {
+                return true;
+            }
+            return false;
+        }
+
+     
+
         public List<Tour> showAllActiveTours(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> ActiveTours)
         {
 
             foreach (Tour tour in Tours)
             {
-                
+
                 tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
                 tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
 
                 ShowListCheckPointList(tour.Id, Tours, CheckPoints);
                 FindActiveTourList(tour, ActiveTours);
+                
             }
             return ActiveTours;
         }
 
-        public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours,List<CheckPoint> CheckPoints)
+        public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours, List<CheckPoint> CheckPoints)
         {
             List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
             foreach (Tour tour in Tours)
@@ -149,6 +202,139 @@ namespace TravelService.Repository
             }
             return ListCheckPoints;
         }
+
+        public List<Tour> ShowTourList( List<Tour> Tours,List <Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> FutureTours, int guideId,TourRepository _tourRepository)
+        {
+            foreach (Tour tour in Tours)
+            {
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+                ShowListCheckPointList(tour.Id, _tours, CheckPoints);
+                FindFutureActive(tour, FutureTours);
+            }
+
+            return FutureTours;
+        }
+
+        public Tour FindById(int id)
+        {
+            _tours = _serializer.FromCSV(FilePath);
+            foreach (Tour tours in _tours)
+            {
+                if (tours.Id == id)
+                {
+                    return tours;
+                }
+            }
+            return null;
+        }
+
+        public List<Tour> FindGuidesTours(int guideId)
+        {
+            List<Tour> tours = new List<Tour>();
+            foreach (Tour tour in _tours)
+            {
+                if (tour.GuideId == guideId)
+                {
+                    tours.Add(tour);
+                }
+            }
+            return tours;
+        }
+
+
+        public bool CancelTour(int tourId)
+        {
+            Tour tour = FindById(tourId);
+            if (tour == null) return false;
+            TimeSpan timeDifference = tour.TourStart - DateTime.Now;
+            if (timeDifference.TotalHours >= 48)
+            {
+                Delete(tour);
+
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public void SendVouchers(Tour tour)
+        {
+            // Get the guests for the cancelled tour
+            List<Guest> guests = _guestRepository.FindByTourId(tour.Id);
+
+            // Generate vouchers for guests
+            foreach (Guest guest in guests)
+            {
+                string voucherCode = GenerateVoucherCode();
+                var newVoucher = new GuestVoucher { Code = voucherCode };
+
+                if (guest.VoucherList == null)
+                {
+                    guest.VoucherList = new List<GuestVoucher> { newVoucher };
+                }
+                else
+                {
+                    guest.VoucherList.Add(newVoucher);
+                }
+
+                _guestRepository.Save(guest);
+            }
+
+            // Save changes to the guest repository
+
+
+
+        }
+
+        public string GenerateVoucherCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var voucherCode = new string(
+                Enumerable.Repeat(chars, 8)
+                .Select(s => s[random.Next(s.Length)])
+                .ToArray());
+            List<Guest> guests = new List<Guest>();
+            // Check if voucher code is unique (not already used)
+            while (VoucherCodeExists(voucherCode,guests))
+            {
+                voucherCode = new string(
+                    Enumerable.Repeat(chars, 8)
+                    .Select(s => s[random.Next(s.Length)])
+                    .ToArray());
+            }
+
+            return voucherCode;
+        }
+
+        public bool VoucherCodeExists(string voucherCode, List<Guest> guests)
+        {
+            // Check if voucher code exists in the vouchers.csv file
+            List<GuestVoucher> vouchers = _guestVoucherRepository.GetAll();
+            bool codeExists = vouchers.Any(voucher => voucher.Code == voucherCode);
+
+            // Check if voucher code is already in use by a guest
+            if (!codeExists)
+            {
+                foreach (Guest guest in guests)
+                {
+                    if (guest.VoucherList.Any(voucher => voucher.Code == voucherCode && !voucher.Used))
+                    {
+                        codeExists = true;
+                        break;
+                    }
+                }
+            }
+
+            return codeExists;
+        }
+
+
+
+
 
     }
 }

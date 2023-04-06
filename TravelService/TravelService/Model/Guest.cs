@@ -15,11 +15,13 @@ namespace TravelService.Model
         public int CheckPointId { get; set; }
         public int TourId { get; set; }
         public bool Attendence { get; set; }
+        public string Email { get; set; }   
+        public List<GuestVoucher> VoucherList { get; set; }
 
 
         public Guest() { }
 
-        public Guest(string firstName, string lastName, int checkPointId,int tourId, bool attendence)
+        public Guest(string firstName, string lastName, int checkPointId,int tourId, bool attendence, string email, List<GuestVoucher> voucherList)
 
         {
             FirstName = firstName;
@@ -27,10 +29,12 @@ namespace TravelService.Model
             CheckPointId = checkPointId;
             TourId = tourId;
             Attendence = attendence;
+            Email = email;
+            VoucherList = voucherList;  
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), FirstName, LastName,CheckPointId.ToString(),TourId.ToString(),Attendence.ToString()};
+            string[] csvValues = { Id.ToString(), FirstName, LastName,CheckPointId.ToString(),TourId.ToString(),Attendence.ToString(),Email};
             return csvValues;
         }
 
@@ -42,6 +46,7 @@ namespace TravelService.Model
             CheckPointId = int.Parse(values[3]);
             TourId = int.Parse(values[4]);
             Attendence = Boolean.Parse(values[5]);
+            Email = values[6];
         }
 
     }

@@ -14,6 +14,7 @@ namespace TravelService.Model
         public int Id { get; set; }
         public int TourId { get; set; }
         public int GuestNumber { get; set; }
+      
 
         public TourReservation() { }
         public TourReservation(int id, int tourId, int guestNumber)

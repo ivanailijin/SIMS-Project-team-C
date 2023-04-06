@@ -34,7 +34,7 @@ namespace TravelService.View
         private readonly CheckPointRepository _repositoryCheckPoint;
 
         public int TourId;
-
+        public Guide Guide;
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -179,10 +179,11 @@ namespace TravelService.View
 
 
 
-        public AddTour()
+        public AddTour(Guide guide)
         {
             InitializeComponent();
             DataContext = this;
+            this.Guide = guide;
             _repositoryTour = new TourRepository();
             _repositoryLanguage = new LanguageRepository();
             _repositoryLocation = new LocationRepository();
@@ -224,7 +225,7 @@ namespace TravelService.View
 
 
 
-            Tour tour = new Tour(TourName, savedLocation,savedLocation.Id, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber,  TourStart, Duration, formattedPictures, Done);
+            Tour tour = new Tour(Guide.Id,TourName, savedLocation,savedLocation.Id, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber,  TourStart, Duration, formattedPictures, Done);
 
 
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelService.Model;
 using TravelService.Serializer;
 
@@ -60,10 +58,16 @@ namespace TravelService.Repository
             TourReservation current = _reservation.Find(c => c.Id == reservations.Id);
             int index = _reservation.IndexOf(current);
             _reservation.Remove(current);
-            _reservation.Insert(index, reservations);       
+            _reservation.Insert(index, reservations);
             _serializer.ToCSV(FilePath, _reservation);
             return reservations;
         }
+
+        
+
+       
+
+            
 
     }
 }

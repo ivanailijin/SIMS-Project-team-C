@@ -77,6 +77,10 @@ namespace TravelService.View
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            CheckBox chkBox = (CheckBox)sender;
+            CheckPoint selectedCheckPoint = (CheckPoint)chkBox.DataContext;
+            selectedCheckPoint.Active = true;
+            _repositoryCheckPoint.Update(selectedCheckPoint);
             numChecked++;
             ListCheckBox.ItemsSource = FilteredCheckPoint;
             if (numChecked + 1 == ListCheckBox.Items.Count)
@@ -84,6 +88,7 @@ namespace TravelService.View
                 EndButton.IsEnabled = true;
             }
         }
+
         private void End_Click(object sender, RoutedEventArgs e)
         {
             SelectedTour.Done = true;

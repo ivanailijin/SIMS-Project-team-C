@@ -11,7 +11,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding Active}" Content="{Binding Name}"  Checked="CheckBox_Checked"/>
+                        <CheckBox IsChecked="{Binding Active}" Content="{Binding Name}" Tag="{Binding CheckPointId}" Checked="CheckBox_Checked"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
