@@ -17,16 +17,33 @@ namespace TravelService.Repository
 
         private List<Owner> _owners;
 
+        public OwnerRatingRepository _ownerRatingRepository;
+
         public OwnerRepository()
         {
             _serializer = new Serializer<Owner>();
             _owners = _serializer.FromCSV(FilePath);
+            _ownerRatingRepository = new OwnerRatingRepository();
         }
 
         public Owner GetByUsername(string username)
         {
+            Owner owner = new Owner();
             _owners = _serializer.FromCSV(FilePath);
-            return _owners.FirstOrDefault(u => u.Username == username);
+            owner = _owners.FirstOrDefault(u => u.Username == username);
+            owner.NumberOfRatings = _ownerRatingRepository.GetNumberOfRatings(owner.Id);
+            owner.AverageRating = _ownerRatingRepository.GetAverageRating(owner.Id);
+
+            if(owner.NumberOfRatings > 50 && owner.AverageRating > 4.5)
+            {
+                owner.SuperOwner = true;
+            }
+            else
+            {
+                owner.SuperOwner = false;
+            }
+
+            return owner;
         }
 
         public Owner FindById(int id)

@@ -51,6 +51,35 @@ namespace TravelService.Repository
             return _ownerRatings.Max(c => c.Id) + 1;
         }
 
+        public int GetNumberOfRatings(int ownerId)
+        {
+            int ratingCount = 0;
+            foreach(OwnerRating rating in  _ownerRatings)
+            {
+                if(rating.Id == ownerId)
+                {
+                    ratingCount++;
+                }
+            }
+            return ratingCount;
+        }
+        public double GetAverageRating(int ownerId)
+        {
+            int ratingCount = 0;
+            double sumRatings = 0;
+  
+            foreach (OwnerRating rating in _ownerRatings)
+            {
+                double averageRating = 0;
+                if (rating.Id == ownerId)
+                {
+                    ratingCount++;
+                    averageRating = (rating.Cleanliness + rating.Comfort + rating.Correctness + rating.Content + rating.Location) / 5;
+                    sumRatings += averageRating;
+                }
+            }
+            return (double)sumRatings / ratingCount;
+        }
         public void Delete(OwnerRating ownerRating)
         {
             _ownerRatings = _serializer.FromCSV(FilePath);

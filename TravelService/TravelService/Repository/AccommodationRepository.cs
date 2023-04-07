@@ -9,7 +9,7 @@ using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class AccommodationRepository
+    public class AccommodationRepository 
     {
         private const string FilePath = "../../../Resources/Data/accommodations.csv";
 
