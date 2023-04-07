@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Model;
+using TravelService.Repository;
 
 namespace TravelService.View
 {
@@ -49,7 +50,6 @@ namespace TravelService.View
         {
             this.Owner = owner;
             IsSuperOwner = owner.SuperOwner;
-            //this.IsSuperOwner = true;
             InitializeComponent();
             DataContext = this;
         }
