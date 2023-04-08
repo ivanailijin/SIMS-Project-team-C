@@ -33,7 +33,6 @@ namespace TravelService.View
         public List<Tour> OtherOtherTours { get; set; }
         public List<TourReservation> ReservationsByTour { get; set; }
         public Tour SelectedTour { get; set; }
-
         public Guest2 Guest2 { get; set; }
 
         public TourReservationView(Tour selectedTour, Guest2 guest2)

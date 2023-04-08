@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelService.Model;
 using TravelService.Repository;
 
 namespace TravelService.View
 {
-    public partial class TourTrackingView : Window
+    /// <summary>
+    /// Interaction logic for JoinTourView.xaml
+    /// </summary>
+    public partial class JoinTourView : Window
     {
         public readonly TourReservationRepository _tourReservationRepository;
 
@@ -28,15 +23,21 @@ namespace TravelService.View
         public readonly LanguageRepository _languageRepository;
 
         public readonly CheckPointRepository _checkpointRepository;
+
+        public readonly GuestRepository _guestRepository;
         public static ObservableCollection<TourReservation> TourReservations { get; set; }
         public static ObservableCollection<Tour> Tours { get; set; }
         public static List<Location> Locations { get; set; }
         public static List<Language> Languages { get; set; }
         public static List<CheckPoint> CheckPoints { get; set; }
         public List<Tour> ActiveTours { get; set; }
+        public List<Tour> OtherTours { get; set; }
+        public List<Tour> OtherOtherTours { get; set; }
+        public static List<CheckPoint> FilteredCheckPoint { get; set; }
         public Tour SelectedTour { get; set; }
+        public CheckPoint SelectedCheckPoint { get; set; }
         public Guest2 Guest2 { get; set; }
-        public TourTrackingView(Tour selectedTour,Guest2 guest)
+        public JoinTourView(Tour selectedTour, Guest2 guest)
         {
             InitializeComponent();
             DataContext = this;
@@ -45,38 +46,51 @@ namespace TravelService.View
             _locationRepository = new LocationRepository();
             _languageRepository = new LanguageRepository();
             _checkpointRepository = new CheckPointRepository();
+            _guestRepository = new GuestRepository();
+
 
             TourReservations = new ObservableCollection<TourReservation>(_tourReservationRepository.GetAll());
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             Locations = new List<Location>(_locationRepository.GetAll());
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
-            ActiveTours = new List<Tour>();
-
+            FilteredCheckPoint = new List<CheckPoint>();
             this.Guest2 = guest;
-            SelectedTour = selectedTour;            
+            SelectedTour = selectedTour;
+            
 
-            ActiveTours = _tourReservationRepository.showGuestsTours(convertTourList(Tours), Locations, Languages, CheckPoints, ActiveTours, convertTourReservationList(TourReservations),Guest2);
+            FilteredCheckPoint = _tourRepository.ShowListCheckPointList(SelectedTour.Id, convertTourList(Tours), CheckPoints);
+            ListCheckBox.ItemsSource = FilteredCheckPoint;
+
+            SelectedCheckPoint = ListCheckBox.SelectedItem as CheckPoint;
+            ListCheckBox.SelectionChanged += ListCheckBox_SelectionChanged;
         }
         private List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
         {
             List<Tour> convertedList = observableCollection.ToList();
             return convertedList;
         }
-        private List<TourReservation> convertTourReservationList(ObservableCollection<TourReservation> observableCollection)
+        private void ListCheckBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<TourReservation> convertedList = observableCollection.ToList();
-            return convertedList;
+            SelectedCheckPoint = ListCheckBox.SelectedItem as CheckPoint;
         }
-        
-        private void trackTourButton_Click(object sender, RoutedEventArgs e)
+        private void joinTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTour != null)
+            if (SelectedCheckPoint.Active == false)
             {
-                JoinTourView joinTourView = new JoinTourView(SelectedTour,Guest2);
-                joinTourView.Show();
-                Close();
+                if (SelectedCheckPoint != null)
+                {
+                    string username = Guest2.Username;
+                    Guest guest = new Guest(username, SelectedCheckPoint.CheckPointId, SelectedCheckPoint.TourId, SelectedCheckPoint.Active);
+                    _guestRepository.Save(guest);
+                    Close();
+                    MessageBox.Show("You joined the tour!");
+                }
+                else
+                    MessageBox.Show("No checkpoint selected.");
             }
+            else
+                MessageBox.Show("Checkpoint is all ready visited.");
         }
     }
 }

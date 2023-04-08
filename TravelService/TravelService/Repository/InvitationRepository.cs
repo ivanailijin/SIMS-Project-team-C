@@ -66,7 +66,18 @@ namespace TravelService.Repository
             return invitation;
         }
 
+        public void confirmInvitation(List<Invitation> Invitations, Guest2 guest2)
+        {
+            foreach (Invitation invitation in Invitations)
+            {
+                if (invitation.GuestId == guest2.Id)
+                {
+                    invitation.GuestAttendence = true;
+                    Update(invitation);
+                }
 
+            }
+        }
 
     }
 

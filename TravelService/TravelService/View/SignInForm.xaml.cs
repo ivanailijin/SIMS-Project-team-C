@@ -13,7 +13,7 @@ namespace TravelService.View
     /// Interaction logic for SignInForm.xaml
     /// </summary>
     public partial class SignInForm : Window
-    { 
+    {
         private readonly UserRepository _repository;
 
         private readonly Guest1Repository _guest1Repository;
@@ -24,8 +24,9 @@ namespace TravelService.View
 
         private readonly AccommodationRepository _accommodationRepository;
 
+        private readonly InvitationRepository _invitationRepository;
+
         private readonly AccommodationReservationRepository _reservationRepository;
-        public readonly TourRepository _repositoryTour;
         public readonly GuestRepository _repositoryGuest;
         private CheckPointRepository _repositoryCheckPoint;
         public List<Tour> _tours;
@@ -67,11 +68,9 @@ namespace TravelService.View
             _guest2Repository = new Guest2Repository();
             _reservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
-            _repositoryTour = new TourRepository();
+            _invitationRepository = new InvitationRepository();
             _repositoryGuest = new GuestRepository();
             _repositoryCheckPoint = new CheckPointRepository();
-
-
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -119,14 +118,20 @@ namespace TravelService.View
                         }
                         else if (txtPassword.Password.Equals("guest2123"))
                         {
-                           Guest2 guest2 = _guest2Repository.GetByUsername(Username);
-                           MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, guest2);
-                           markAttendence.ShowDialog();
-                           Close();
-                            
-                           SecondGuestView secondGuestView = new SecondGuestView(guest2);
-                           secondGuestView.Show();
-                           Close();
+                            Guest2 guest2 = _guest2Repository.GetByUsername(Username);
+                            foreach (Invitation invitation in _invitationRepository.GetAll())
+                            {
+                                if (invitation.GuestId == guest2.Id && invitation.GuestAttendence == false) 
+                                {
+                                    MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, guest2);
+                                    markAttendence.ShowDialog();
+                                    Close();
+                                }
+                            }                 
+
+                            SecondGuestView secondGuestView = new SecondGuestView(guest2);
+                            secondGuestView.Show();
+                            Close();
                         }
                         else if (txtPassword.Password.Equals("guide123"))
                         {
@@ -142,7 +147,7 @@ namespace TravelService.View
                     else
                     {
                         MessageBox.Show("Wrong password!");
-                    }    
+                    }
                 }
                 else
                 {

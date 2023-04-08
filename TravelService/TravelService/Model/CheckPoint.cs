@@ -14,12 +14,9 @@ namespace TravelService.Model
         public string Name { get; set; }
         public bool Active { get; set; }
         public int TourId { get; set; }
-       
-        public CheckPoint()
-        {
-           
-        }
-       public CheckPoint(int checkPointId, string name, bool active, int tourId)
+
+        public CheckPoint() { }
+        public CheckPoint(int checkPointId, string name, bool active, int tourId)
         {
             CheckPointId = checkPointId;
             Name = name;
@@ -35,7 +32,7 @@ namespace TravelService.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString()};
+            string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString(), Active.ToString() };
             return csvValues;
         }
 
@@ -44,6 +41,7 @@ namespace TravelService.Model
             CheckPointId = Convert.ToInt32(values[0]);
             Name = values[1];
             TourId = Convert.ToInt32(values[2]);
+            Active = Boolean.Parse(values[3]);
         }
     }
 }

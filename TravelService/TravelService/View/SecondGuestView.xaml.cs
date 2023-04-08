@@ -15,13 +15,8 @@ using TravelService.Model;
 
 namespace TravelService.View
 {
-    /// <summary>
-    /// Interaction logic for SecondGuestView.xaml
-    /// </summary>
     public partial class SecondGuestView : Window
     {
-
-       
         public Tour SelectedTour { get; set; }
         public Guest2 Guest2 { get; set; }
         public SecondGuestView(Guest2 guest2)
@@ -31,7 +26,7 @@ namespace TravelService.View
         }        
         private void TourTrackingViewButton_CLick(object sender, RoutedEventArgs e)
         {
-            TourTrackingView tourTrackingView = new TourTrackingView(Guest2);
+            TourTrackingView tourTrackingView = new TourTrackingView(SelectedTour,Guest2);
             tourTrackingView.Show();
         }
         private void TourViewButton_CLick(object sender, RoutedEventArgs e)
@@ -44,6 +39,5 @@ namespace TravelService.View
             TourReservationView tourReservationView = new TourReservationView(SelectedTour,Guest2);
             tourReservationView.Show();
         }
-
     }
 }
