@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using TravelService.Model;
 using TravelService.Serializer;
 
@@ -151,8 +154,6 @@ namespace TravelService.Repository
             return false;
         }
 
-     
-
         public List<Tour> showAllActiveTours(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> ActiveTours)
         {
 
@@ -208,8 +209,6 @@ namespace TravelService.Repository
             }
             return ListCheckPoints;
         }
-
-
 
         public List<Tour> ShowFutureTourList( List<Tour> Tours,List <Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> FutureTours, int guideId,TourRepository _tourRepository)
 
@@ -289,14 +288,9 @@ namespace TravelService.Repository
                 {
                     guest.VoucherList.Add(newVoucher);
                 }
-
                 _guestRepository.Save(guest);
             }
-
             // Save changes to the guest repository
-
-
-
         }
 
         public string GenerateVoucherCode()
@@ -341,11 +335,6 @@ namespace TravelService.Repository
 
             return codeExists;
         }
-
-
-
-
-
 
         private void ShowCheckPointList(Tour tour, List<CheckPoint> CheckPoints)
         {
@@ -397,6 +386,5 @@ namespace TravelService.Repository
             }
             return false;
         }
-
     }
 }

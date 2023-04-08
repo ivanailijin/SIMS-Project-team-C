@@ -7,16 +7,15 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-
     <Compile Update="View\MyTours.xaml.cs">
-		<SubType>Code</SubType>
-	</Compile>
+		  <SubType>Code</SubType>
+	  </Compile>
     <Compile Update="View\OwnerRatingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\RatingView.xaml.cs">
-		<SubType>Code</SubType>
-	</Compile>
+		  <SubType>Code</SubType>
+	  </Compile>
     <Compile Update="View\AccommodationReview.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -27,6 +26,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\ReviewsSelectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\JoinTourView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\TourTrackingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -43,10 +48,9 @@
     <Page Update="View\EnterCheckPoint.xaml">
       <SubType>Designer</SubType>
     </Page>
-
     <Page Update="View\MyTours.xaml">
-		<SubType>Designer</SubType>
-	</Page>
+		  <SubType>Designer</SubType>
+	  </Page>
     <Page Update="View\OwnerRatingView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -62,6 +66,9 @@
     <Page Update="View\ReviewsSelectionView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\JoinTourView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\SecondGuestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -74,6 +81,9 @@
     <Page Update="View\MarkAttendence.xaml">
     </Page>
     <Page Update="View\TourOverview.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TourTrackingView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\TourView.xaml">

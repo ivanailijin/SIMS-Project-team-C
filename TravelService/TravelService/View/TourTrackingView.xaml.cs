@@ -1,19 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using TravelService.Model;
 using TravelService.Repository;
 
 namespace TravelService.View
 {
-    /// <summary>
-    /// Interaction logic for TourReservationView.xaml
-    /// </summary>
-    public partial class TourReservationView : Window
+    public partial class TourTrackingView : Window
     {
-        public string EnteredNumberOfGuests { get; set; } = string.Empty;
-
         public readonly TourReservationRepository _tourReservationRepository;
 
         public readonly TourRepository _tourRepository;
@@ -29,13 +34,9 @@ namespace TravelService.View
         public static List<Language> Languages { get; set; }
         public static List<CheckPoint> CheckPoints { get; set; }
         public List<Tour> ActiveTours { get; set; }
-        public List<Tour> OtherTours { get; set; }
-        public List<Tour> OtherOtherTours { get; set; }
-        public List<TourReservation> ReservationsByTour { get; set; }
         public Tour SelectedTour { get; set; }
         public Guest2 Guest2 { get; set; }
-
-        public TourReservationView(Tour selectedTour, Guest2 guest2)
+        public TourTrackingView(Tour selectedTour,Guest2 guest)
         {
             InitializeComponent();
             DataContext = this;
@@ -45,78 +46,37 @@ namespace TravelService.View
             _languageRepository = new LanguageRepository();
             _checkpointRepository = new CheckPointRepository();
 
-
             TourReservations = new ObservableCollection<TourReservation>(_tourReservationRepository.GetAll());
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             Locations = new List<Location>(_locationRepository.GetAll());
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
-            ReservationsByTour = new List<TourReservation>();
-            this.Guest2 = guest2;
-
             ActiveTours = new List<Tour>();
-            OtherTours = new List<Tour>();
-            OtherOtherTours = new List<Tour>();
 
-            SelectedTour = selectedTour;
+            this.Guest2 = guest;
+            SelectedTour = selectedTour;            
 
-            ActiveTours = _tourReservationRepository.showAllActiveTours(convertTourList(Tours), Locations, Languages, CheckPoints, ActiveTours);
-
+            ActiveTours = _tourReservationRepository.showGuestsTours(convertTourList(Tours), Locations, Languages, CheckPoints, ActiveTours, convertTourReservationList(TourReservations),Guest2);
         }
-
         private List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
         {
             List<Tour> convertedList = observableCollection.ToList();
             return convertedList;
         }
-
         private List<TourReservation> convertTourReservationList(ObservableCollection<TourReservation> observableCollection)
         {
             List<TourReservation> convertedList = observableCollection.ToList();
             return convertedList;
         }
-
-        private void CheckTourButton_Click(object sender, RoutedEventArgs e)
+        
+        private void trackTourButton_Click(object sender, RoutedEventArgs e)
         {
-            _tourReservationRepository.TryReserving(SelectedTour, EnteredNumberOfGuests, convertTourReservationList(TourReservations), ReservationsByTour, OtherTours, this, Guest2);
-        }
-
-        public void FindOtherTours(Tour selectedTour)
-        {
-            OtherTours.Remove(selectedTour);
-            ActiveTours.Remove(selectedTour);
-            foreach (Tour tour in ActiveTours)
+            if (SelectedTour != null)
             {
-                if (tour.LocationId == selectedTour.LocationId)
-                {
-                    OtherTours.Add(tour);
-                    allActiveTours.ItemsSource = OtherTours;
-                }
-
+                JoinTourView joinTourView = new JoinTourView(SelectedTour,Guest2);
+                joinTourView.Show();
+                Close();
             }
-            OtherTours.Remove(selectedTour);
-            ActiveTours.Remove(selectedTour);
-            allActiveTours.ItemsSource = OtherTours;
-
-            RunOutOfTours();
-        }
-
-        private void RunOutOfTours()
-        {
-            if (OtherTours.Count() < 1)
-            {
-                MessageBox.Show("There are no more avaliable tours, please change the number of people!");
-                ActiveTours.Clear();
-                foreach (Tour tour in Tours)
-                {
-                    _tourReservationRepository.FindActiveTourList(tour, ActiveTours);
-                }
-                allActiveTours.ItemsSource = ActiveTours;
-            }
-        }
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

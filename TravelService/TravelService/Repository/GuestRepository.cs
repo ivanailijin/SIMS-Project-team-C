@@ -74,7 +74,6 @@ namespace TravelService.Repository
             }
             return filteredGuests;
         }
-
         public List<Guest> FindByTourId(int tourId)
         {
             List<Guest> guests = GetAll();
@@ -88,14 +87,7 @@ namespace TravelService.Repository
             }
             return guestsByTourId;
         }
-
-
-
-
-
     }
-
-
 }
 
 

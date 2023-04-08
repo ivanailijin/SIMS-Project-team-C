@@ -15,18 +15,27 @@ namespace TravelService.View
     public partial class SignInForm : Window
     {
         private readonly UserRepository _repository;
+
         private readonly GuideRepository _guideRepository;
 
         private readonly Guest1Repository _guest1Repository;
+
+        private readonly Guest2Repository _guest2Repository;
 
         private readonly OwnerRepository _ownerRepository;
 
         private readonly AccommodationRepository _accommodationRepository;
 
+        private readonly InvitationRepository _invitationRepository;
+
         private readonly AccommodationReservationRepository _reservationRepository;
+
         public readonly TourRepository _tourRepository;
+
         public readonly GuestRepository _repositoryGuest;
+
         private CheckPointRepository _repositoryCheckPoint;
+
         public List<Tour> _tours;
         public static ObservableCollection<Guest> Guests { get; set; }
 
@@ -63,14 +72,14 @@ namespace TravelService.View
             _repository = new UserRepository();
             _ownerRepository = new OwnerRepository();
             _guest1Repository = new Guest1Repository();
+            _guest2Repository = new Guest2Repository();
             _reservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
             _tourRepository = new TourRepository();
             _repositoryGuest = new GuestRepository();
             _repositoryCheckPoint = new CheckPointRepository();
             _guideRepository = new GuideRepository();
-
-
+            _invitationRepository = new InvitationRepository();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -118,32 +127,18 @@ namespace TravelService.View
                         }
                         else if (txtPassword.Password.Equals("guest2123"))
                         {
-                            
-                           /* Guest guest = _repositoryGuest.GetBy
-                            // Check if the guest has any vouchers
-                            List<GuestVoucher> vouchers = guests.VoucherList;
-                            if (vouchers != null && vouchers.Count > 0) 
+                            Guest2 guest2 = _guest2Repository.GetByUsername(Username);
+                            foreach (Invitation invitation in _invitationRepository.GetAll())
                             {
-                                // Show a notification with a summary of their vouchers
-                                string voucherSummary = "You have " + vouchers.Count + " voucher(s):";
-                                foreach (GuestVoucher voucher in vouchers)
+                                if (invitation.GuestId == guest2.Id && invitation.GuestAttendence == false) 
                                 {
-                                    voucherSummary += "\n- " + voucher.Code;
+                                    MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, guest2);
+                                    markAttendence.ShowDialog();
+                                    Close();
                                 }
-                                MessageBoxResult result = MessageBox.Show(voucherSummary + "\n\nWould you like to view your vouchers now?", "Vouchers Available", MessageBoxButton.YesNo);
-                                if (result == MessageBoxResult.Yes)
-                                {
-                                    // Show a new window with the guest's vouchers
-                                   
-                                }
-                            }*/
+                            }                 
 
-
-                            MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, SelectedGuest);
-                            markAttendence.ShowDialog();
-                            Close();
-
-                            SecondGuestView secondGuestView = new SecondGuestView();
+                            SecondGuestView secondGuestView = new SecondGuestView(guest2);
                             secondGuestView.Show();
                             Close();
                         }

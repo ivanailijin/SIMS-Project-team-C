@@ -9,17 +9,13 @@ namespace TravelService.Model
 {
     public class CheckPoint : ISerializable
     {
-
         public int CheckPointId { get; set; }
         public string Name { get; set; }
         public bool Active { get; set; }
         public int TourId { get; set; }
-       
-        public CheckPoint()
-        {
-           
-        }
-       public CheckPoint(int checkPointId, string name, bool active, int tourId)
+
+        public CheckPoint() { }
+        public CheckPoint(int checkPointId, string name, bool active, int tourId)
         {
             CheckPointId = checkPointId;
             Name = name;

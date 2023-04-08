@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TravelService.Model;
 using TravelService.Repository;
 
@@ -23,39 +13,58 @@ namespace TravelService.View
     public partial class MarkAttendence : Window
     {
         public CheckPoint SelectedCheckPoint;
-        public Tour SelectedTour;
-        public Guest SelectedGuest;
-        public readonly TourRepository _repositoryTour;
-        public readonly GuestRepository _repositoryGuest;
-        public List<Tour> _tours;
-        public static ObservableCollection<Guest> Guests { get; set; }
 
-        public MarkAttendence(Tour selectedTour, CheckPoint selectedCheckPoint,Guest selectedGuest)
+        public Tour SelectedTour;
+
+        public Guest2 SelectedGuest;
+
+        public readonly TourRepository _repositoryTour;
+
+        public readonly Guest2Repository _repositoryGuest;
+
+        public readonly InvitationRepository _invitationRepository;
+
+        public List<Tour> _tours;
+        public static ObservableCollection<Guest2> Guests { get; set; }
+        public static ObservableCollection<Invitation> Invitations { get; set; }
+        public Guest2 Guest2 { get; set; }
+
+        public MarkAttendence(Tour selectedTour, CheckPoint selectedCheckPoint, Guest2 guest)
         {
             InitializeComponent();
             SelectedCheckPoint = selectedCheckPoint;
             SelectedTour = selectedTour;
-            SelectedGuest = selectedGuest;
+            this.Guest2 = guest;
+
             _repositoryTour = new TourRepository();
-            _repositoryGuest = new GuestRepository();
-            Guests = new ObservableCollection<Guest>(_repositoryGuest.GetAll());
+            _repositoryGuest = new Guest2Repository();
+            _invitationRepository = new InvitationRepository();
+
+            Guests = new ObservableCollection<Guest2>(_repositoryGuest.GetAll());
+            Invitations = new ObservableCollection<Invitation>(_invitationRepository.GetAll());
         }
-        private void Click_Cancel(object sender, RoutedEventArgs e)
+
+        private List<Invitation> convertInvitationList(ObservableCollection<Invitation> invitations)
+        {
+            List<Invitation> convertedList = invitations.ToList();
+            return convertedList;
+
+        }
+        private void NoButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Thank you for answering!");
-            SecondGuestView secondGuestView = new SecondGuestView();
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
             secondGuestView.Show();
             Close();
         }
 
-        private void Create_Click(object sender, RoutedEventArgs e)
+        private void YesButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            _invitationRepository.confirmInvitation(convertInvitationList(Invitations), Guest2);
             MessageBox.Show("Thank you for confirming!");
-            SecondGuestView secondGuestView = new SecondGuestView();
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
             secondGuestView.Show();
             Close();
         }
-
     }
 }
