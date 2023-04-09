@@ -6,6 +6,7 @@ namespace TravelService.View
     public partial class SecondGuestView : Window
     {
         public Tour SelectedTour { get; set; }
+        public GuestVoucher SelectedVoucher { get; set; }
         public Guest2 Guest2 { get; set; }
         public SecondGuestView(Guest2 guest2)
         {
@@ -24,13 +25,14 @@ namespace TravelService.View
         }
         private void TourReservationButton_Click(object sender, RoutedEventArgs e)
         {
-            TourReservationView tourReservationView = new TourReservationView(SelectedTour, Guest2);
+            TourReservationView tourReservationView = new TourReservationView(SelectedTour,SelectedVoucher, Guest2);
             tourReservationView.Show();
         }
 
         private void VoucherViewButton_CLick(object sender, RoutedEventArgs e)
         {
-            VoucherView voucherView = new VoucherView(Guest2);
+            TourReservationView tourReservationView = new TourReservationView(SelectedTour, SelectedVoucher, Guest2);
+            VoucherView voucherView = new VoucherView(tourReservationView,SelectedVoucher,SelectedTour,Guest2);
             voucherView.ResetItemSource(voucherView.GuestVouchers);
             voucherView.Show();
         }

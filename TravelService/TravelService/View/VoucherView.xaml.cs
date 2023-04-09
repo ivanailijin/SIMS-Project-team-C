@@ -23,12 +23,18 @@ namespace TravelService.View
         public readonly GuestVoucherRepository _guestVoucherRepository;
         public static ObservableCollection<GuestVoucher> Vouchers { get; set; }
         public List<GuestVoucher> GuestVouchers { get; set; }
+        public Tour SelectedTour { get; set; }
+        public GuestVoucher SelectedVoucher { get; set; }
         public Guest2 Guest2 { get; set; }
-        public VoucherView(Guest2 guest2)
+        private readonly TourReservationView _tourReservationView;
+        public VoucherView(TourReservationView tourReservationView,GuestVoucher selectedVoucher,Tour selectedTour, Guest2 guest2)
         {
             InitializeComponent();
             DataContext = this;
             this.Guest2 = guest2;
+            SelectedTour = selectedTour;
+            SelectedVoucher = selectedVoucher;
+            _tourReservationView = tourReservationView;
 
             _guestVoucherRepository = new GuestVoucherRepository();
             Vouchers = new ObservableCollection<GuestVoucher>(_guestVoucherRepository.GetAll());
@@ -46,6 +52,18 @@ namespace TravelService.View
         {
             allVouchers.ItemsSource = newItemsSource;
         }
+        private void UseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_guestVoucherRepository.IsVoucherUsable(SelectedVoucher, SelectedTour))
+            {
+                MessageBox.Show("You selected a valid voucher!");
+                _tourReservationView.SetSelectedVoucher(SelectedVoucher);
+                this.Close();
+            }
+            else
+                MessageBox.Show("This voucher does not apply on selected tour!");
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

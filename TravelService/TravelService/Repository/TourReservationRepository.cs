@@ -157,26 +157,13 @@ namespace TravelService.Repository
                     return true;
                 else
                     return false;
-
-                if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
-                {
-                    SaveValidReservation(selectedTour, numberOfGuests, TourReservations, guest2);
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("There is " + selectedTour.MaxGuestNumber + " more available spots!");
-                    return false;
-                }
-
             }
-
-
         }
 
         public bool SuccessOfTheLastReservation(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView, Guest2 guest2)
         {
-            TourReservation lastReservation = FindLastCurrentReservation(selectedTour.Id, TourReservations, ReservationsByTour);
+            TourReservation lastReservation = FindLastCurrentReservation(selectedTour.Id, TourReservations, ReservationsByTour, guest2);
+            string lastGuestNumber = lastReservation.GuestNumber.ToString();
             foreach (TourReservation tourReservation in TourReservations)
             {
                 if (tourReservation.Id == lastReservation.Id)
@@ -207,7 +194,7 @@ namespace TravelService.Repository
             return false;
         }
 
-        private TourReservation FindLastCurrentReservation(int tourId, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour)
+        private TourReservation FindLastCurrentReservation(int tourId, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, Guest2 guest2)
         {
             foreach (TourReservation tourReservation in TourReservations)
                 if (tourReservation.TourId == tourId)
@@ -225,7 +212,8 @@ namespace TravelService.Repository
 
         private void SaveSameReservation(Tour selectedTour, TourReservation reservation, string numberOfGuests, List<TourReservation> TourReservations, Guest2 guest2)
         {
-            TourReservations.Remove(reservation);
+            if (guest2.Id == reservation.GuestId)
+                TourReservations.Remove(reservation);
             int newGuestNumber = reservation.GuestNumber - int.Parse(numberOfGuests);
             TourReservation tourReservation = new TourReservation(NextId(), selectedTour.Id, newGuestNumber, guest2.Id);
             TourReservations.Add(tourReservation);

@@ -105,5 +105,22 @@ namespace TravelService.Repository
             }
             else return false;
         }
+
+        public bool IsVoucherUsable(GuestVoucher selectedVoucher, Tour selectedTour)
+        {
+            if (selectedTour.Id == selectedVoucher.TourId)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public void UseVoucher(GuestVoucher selectedVoucher, bool reservationSuccess)
+        {
+            if(reservationSuccess)
+                selectedVoucher.Used= true;
+            Update(selectedVoucher);
+        }
     }
 }

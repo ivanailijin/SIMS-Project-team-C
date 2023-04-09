@@ -13,13 +13,16 @@
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0" x:Name="allVouchers" Width="200" Margin="0,20,0,20"
-                  ItemsSource="{Binding Path=GuestVouchers, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path=GuestVouchers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedVoucher, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Type" Binding="{Binding VoucherType}" Width="75"></DataGridTextColumn>
                 <DataGridTextColumn Header="Expiration Date" Binding="{Binding ExpirationDate}" Width="125"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="30" FontSize="18" Click="CloseButton_Click">Close</Button>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button  VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Height="30" FontSize="18" Click="UseButton_Click" Margin="0,0,30,0">Use</Button>
+            <Button  VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="30" FontSize="18" Click="CloseButton_Click">Close</Button>
+        </StackPanel>
     </Grid>
 </Window>

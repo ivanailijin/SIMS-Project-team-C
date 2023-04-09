@@ -38,9 +38,10 @@ namespace TravelService.View
         public List<GuestVoucher> GuestVouchers { get; set; }
         public List<TourReservation> ReservationsByTour { get; set; }
         public Tour SelectedTour { get; set; }
+        public GuestVoucher SelectedVoucher { get; set; } = null;
         public Guest2 Guest2 { get; set; }
 
-        public TourReservationView(Tour selectedTour, Guest2 guest2)
+        public TourReservationView(Tour selectedTour,GuestVoucher selectedVoucher, Guest2 guest2)
         {
             InitializeComponent();
             DataContext = this;
@@ -67,6 +68,7 @@ namespace TravelService.View
             OtherOtherTours = new List<Tour>();
 
             SelectedTour = selectedTour;
+            SelectedVoucher = selectedVoucher;
 
             ActiveTours = _tourReservationRepository.showAllActiveTours(convertTourList(Tours), Locations, Languages, CheckPoints, ActiveTours);
             ValidVouchers = _guestVoucherRepository.showValidVouchers(convertVoucherList(Vouchers), Guest2,GuestVouchers,ValidVouchers);
@@ -87,11 +89,6 @@ namespace TravelService.View
         {
             List<TourReservation> convertedList = observableCollection.ToList();
             return convertedList;
-        }
-
-        private void CheckTourButton_Click(object sender, RoutedEventArgs e)
-        {
-            _tourReservationRepository.TryReserving(SelectedTour, EnteredNumberOfGuests, convertTourReservationList(TourReservations), ReservationsByTour, OtherTours, this, Guest2);
         }
 
         public void FindOtherTours(Tour selectedTour)
@@ -127,14 +124,28 @@ namespace TravelService.View
                 allActiveTours.ItemsSource = ActiveTours;
             }
         }
+
+        public void SetSelectedVoucher(GuestVoucher selectedVoucher)
+        {
+            SelectedVoucher = selectedVoucher;
+        }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        private void CheckTourButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool reservationSuccess = false;
+            reservationSuccess = _tourReservationRepository.TryReserving(SelectedTour, EnteredNumberOfGuests, convertTourReservationList(TourReservations), ReservationsByTour, OtherTours, this, Guest2);
+            if(SelectedVoucher!=null)
+                _guestVoucherRepository.UseVoucher(SelectedVoucher, reservationSuccess); 
+        }
+
         private void UseVoucherButton_Click(object sender, RoutedEventArgs e)
         {
-            VoucherView voucherView = new VoucherView(Guest2);
+            VoucherView voucherView = new VoucherView(this,SelectedVoucher,SelectedTour,Guest2);
             voucherView.ResetItemSource(ValidVouchers);
             voucherView.Show();
         }

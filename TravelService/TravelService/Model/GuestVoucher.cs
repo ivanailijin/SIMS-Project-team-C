@@ -14,9 +14,10 @@ namespace TravelService.Model
         public string Code { get; set; }
         public bool Used { get; set; }
         public int GuestId { get; set; }
+        public int TourId { get; set; }
         public DateTime ExpirationDate { get; set; }
         public GuestVoucher() { }
-        public GuestVoucher(int id, string name, VOUCHERTYPE voucherType, int value, string code, bool used, int guestId, DateTime expirationDate)
+        public GuestVoucher(int id, string name, VOUCHERTYPE voucherType, int value, string code, bool used, int guestId, int tourId, DateTime expirationDate)
         {
             Id = id;
             Name = name;
@@ -25,6 +26,7 @@ namespace TravelService.Model
             Code = code;
             Used = used;
             GuestId = guestId;
+            TourId = tourId;
             ExpirationDate = expirationDate;
         }
 
@@ -39,6 +41,7 @@ namespace TravelService.Model
                 Code,
                 Used.ToString(),
                 GuestId.ToString(),
+                TourId.ToString(),
                 ExpirationDate.ToString(),
             };
             return csvValues;
@@ -63,7 +66,8 @@ namespace TravelService.Model
             Code = values[4];
             Used = Boolean.Parse(values[5]);
             GuestId = Convert.ToInt32(values[6]);
-            ExpirationDate = DateTime.Parse(values[7]);
+            TourId = Convert.ToInt32(values[7]);
+            ExpirationDate = DateTime.Parse(values[8]);
         }
 
         public VOUCHERTYPE VoucherTypeFromCSV(string voucherType)
