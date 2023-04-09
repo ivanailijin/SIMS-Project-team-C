@@ -64,12 +64,15 @@
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid>
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="30,0,0,20">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="20,0,0,20">
                     <Label Content="Number of guests : " FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                    <TextBox x:Name="guestNumberBox" Text="{Binding Path=EnteredNumberOfGuests}" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+                    <TextBox x:Name="guestNumberBox" Text="{Binding Path=EnteredNumberOfGuests}" Width="65" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
                 </StackPanel>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,230,20"  Width="150" Height="30" FontSize="18" Click="CheckTourButton_Click">Check Tour</Button>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,40,20" Width="150" Height="30" FontSize="18" Click="CancelButton_Click">Cancel</Button>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Margin="30,0,0,20">
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" Width="150" Height="30" FontSize="18" Click="UseVoucherButton_Click">Use voucher</Button>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" Width="150" Height="30" FontSize="18" Click="CheckTourButton_Click">Check Tour</Button>
+                    <Button VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" Width="150" Height="30" FontSize="18" Click="CancelButton_Click">Cancel</Button>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

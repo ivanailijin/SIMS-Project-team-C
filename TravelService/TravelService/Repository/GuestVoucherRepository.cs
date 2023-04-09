@@ -76,5 +76,34 @@ namespace TravelService.Repository
             }
             return guestVouchers;
         }
+
+        public List<GuestVoucher> showValidVouchers(List<GuestVoucher> Vouchers, Guest2 guest2, List<GuestVoucher> guestVouchers, List<GuestVoucher> validVouchers)
+        {
+            bool isVoucherValid = false;
+            List<GuestVoucher> guestsVouchers = showVoucherList(Vouchers,guest2,guestVouchers);
+            foreach (GuestVoucher voucher in guestsVouchers)
+            {
+                isVoucherValid = checkVoucherExpirationDate(voucher,validVouchers);
+                deleteIfNotValid(isVoucherValid, voucher);
+            }
+            return validVouchers;
+        }
+
+        private void deleteIfNotValid(bool isVoucherValid, GuestVoucher voucher)
+        {
+            if (isVoucherValid == false)
+                Delete(voucher);
+        }
+
+        private bool checkVoucherExpirationDate(GuestVoucher voucher, List<GuestVoucher> validVouchers)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            if (voucher.ExpirationDate.Date >= currentDate)
+            {
+                validVouchers.Add(voucher);
+                return true;
+            }
+            else return false;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -40,6 +41,10 @@ namespace TravelService.View
         {
             List<GuestVoucher> convertedList = observableCollection.ToList();
             return convertedList;
+        }
+        public void ResetItemSource(IEnumerable newItemsSource)
+        {
+            allVouchers.ItemsSource = newItemsSource;
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {

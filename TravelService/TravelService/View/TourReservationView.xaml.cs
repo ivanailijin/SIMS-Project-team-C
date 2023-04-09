@@ -23,7 +23,10 @@ namespace TravelService.View
         public readonly LanguageRepository _languageRepository;
 
         public readonly CheckPointRepository _checkpointRepository;
+
+        public readonly GuestVoucherRepository _guestVoucherRepository;
         public static ObservableCollection<TourReservation> TourReservations { get; set; }
+        public static ObservableCollection<GuestVoucher> Vouchers { get; set; }
         public static ObservableCollection<Tour> Tours { get; set; }
         public static List<Location> Locations { get; set; }
         public static List<Language> Languages { get; set; }
@@ -31,6 +34,8 @@ namespace TravelService.View
         public List<Tour> ActiveTours { get; set; }
         public List<Tour> OtherTours { get; set; }
         public List<Tour> OtherOtherTours { get; set; }
+        public List<GuestVoucher> ValidVouchers { get; set; }
+        public List<GuestVoucher> GuestVouchers { get; set; }
         public List<TourReservation> ReservationsByTour { get; set; }
         public Tour SelectedTour { get; set; }
         public Guest2 Guest2 { get; set; }
@@ -44,14 +49,17 @@ namespace TravelService.View
             _locationRepository = new LocationRepository();
             _languageRepository = new LanguageRepository();
             _checkpointRepository = new CheckPointRepository();
-
+            _guestVoucherRepository = new GuestVoucherRepository();
 
             TourReservations = new ObservableCollection<TourReservation>(_tourReservationRepository.GetAll());
+            Vouchers = new ObservableCollection<GuestVoucher>(_guestVoucherRepository.GetAll());
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             Locations = new List<Location>(_locationRepository.GetAll());
             Languages = new List<Language>(_languageRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_checkpointRepository.GetAll());
             ReservationsByTour = new List<TourReservation>();
+            ValidVouchers = new List<GuestVoucher>();
+            GuestVouchers = new List<GuestVoucher>();
             this.Guest2 = guest2;
 
             ActiveTours = new List<Tour>();
@@ -61,12 +69,17 @@ namespace TravelService.View
             SelectedTour = selectedTour;
 
             ActiveTours = _tourReservationRepository.showAllActiveTours(convertTourList(Tours), Locations, Languages, CheckPoints, ActiveTours);
-
+            ValidVouchers = _guestVoucherRepository.showValidVouchers(convertVoucherList(Vouchers), Guest2,GuestVouchers,ValidVouchers);
         }
 
         private List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
         {
             List<Tour> convertedList = observableCollection.ToList();
+            return convertedList;
+        }
+        public List<GuestVoucher> convertVoucherList(ObservableCollection<GuestVoucher> observableCollection)
+        {
+            List<GuestVoucher> convertedList = observableCollection.ToList();
             return convertedList;
         }
 
@@ -117,6 +130,13 @@ namespace TravelService.View
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void UseVoucherButton_Click(object sender, RoutedEventArgs e)
+        {
+            VoucherView voucherView = new VoucherView(Guest2);
+            voucherView.ResetItemSource(ValidVouchers);
+            voucherView.Show();
         }
     }
 }

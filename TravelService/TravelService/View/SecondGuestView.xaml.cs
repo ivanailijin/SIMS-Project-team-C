@@ -31,6 +31,7 @@ namespace TravelService.View
         private void VoucherViewButton_CLick(object sender, RoutedEventArgs e)
         {
             VoucherView voucherView = new VoucherView(Guest2);
+            voucherView.ResetItemSource(voucherView.GuestVouchers);
             voucherView.Show();
         }
     }

@@ -1,3 +1,4 @@
-﻿1|John Doe|Quit|50|ABC123|false|4|1-Apr-2023 5:00:00 PM
-2|Jane Smith|Cancellation|100|XYZ456|true|4|08-May-2023 5:00:00 PM
-3|Bob Johnson|Bonus|75|DEF789|false|7|08-Apr-2023 5:00:00 PM
+2|Jane Smith|Cancellation|100|XYZ456|True|4|5/8/2023 5:00:00 PM
+3|Bob Johnson|Bonus|75|DEF789|False|7|4/8/2023 5:00:00 PM
+4|John Doe|Bonus|50|ABC123|False|4|4/9/2023 5:00:00 PM
+5|John Doe|Cancellation|50|ABC123|False|4|4/15/2023 5:00:00 PM
