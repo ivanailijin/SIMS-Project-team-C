@@ -15,12 +15,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 //using System.Windows.Shapes;
 using TravelService.Repository;
-using TravelService.Model;
 using TravelService.Validation;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using Microsoft.Win32;
 using System.IO;
+using TravelService.Domain.Model;
 
 namespace TravelService.View
 {

@@ -13,40 +13,41 @@
                 <StackPanel>
                     <Label Content="Name" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <TextBox x:Name="NameBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="100" Height="30"></TextBox>
+                 Width="90" Height="30"></TextBox>
                 </StackPanel>
-                <Separator Width="10" Background="White"></Separator>
+                <Separator Width="5" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Location" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                    <ComboBox x:Name="LocationComboBox" Width="100" Height="30" IsEditable="True">
+                    <ComboBox x:Name="LocationComboBox" Width="90" Height="30" IsEditable="True">
                     </ComboBox>
                 </StackPanel>
-                <Separator Width="10" Background="White"></Separator>
+                <Separator Width="5" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Type" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                    <ComboBox x:Name="AccommodationTypeComboBox" ItemsSource="{Binding Types}" Width="100" Height="30" Text="{Binding Path = AccommodationTypeInput, UpdateSourceTrigger=PropertyChanged}"
+                    <ComboBox x:Name="AccommodationTypeComboBox" ItemsSource="{Binding Types}" Width="90" Height="30" Text="{Binding Path = AccommodationTypeInput, UpdateSourceTrigger=PropertyChanged}"
                           SelectionChanged="AccommodationTypeComboBox_SelectionChanged"></ComboBox>
                 </StackPanel>
-                <Separator Width="10" Background="White"></Separator>
+                <Separator Width="5" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Guest number" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <TextBox x:Name="GuestNumberBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="100" Height="30"></TextBox>
+                 Width="90" Height="30"></TextBox>
                 </StackPanel>
-                <Separator Width="10" Background="White"></Separator>
+                <Separator Width="5" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Reservation days" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <TextBox x:Name="NumberOfDaysForReservationBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="100" Height="30"></TextBox>
+                 Width="90" Height="30"></TextBox>
                 </StackPanel>
-                <Separator Width="10" Background="White"></Separator>
+                <Separator Width="5" Background="White"></Separator>
                 <Button Margin="0,15,0,0"  Width="50" Height="30" Click="Find_Accommodation_Click" BorderBrush="Black">Search
                 </Button>
-                <Separator Width="50" Background="White"></Separator>
+                <Separator Width="10" Background="White"></Separator>
                 <Button x:Name="ReserveAccommodation" Margin="0,15,0,0" Width="70" Height="30" Click="ReserveAccommodation_Click" BorderBrush="Black">Reservation</Button>
                 <Separator Width="5" Background="White"></Separator>
-                <Button x:Name="OwnerRating" Margin="0,15,0,0" Width="50" Height="30" Click="OwnerRating_Click" BorderBrush="Black">Rating</Button>
-                
+                <Button x:Name="OwnerRating" Margin="0,15,0,0" Width="40" Height="30" Click="OwnerRating_Click" BorderBrush="Black">Rating</Button>
+                <Separator Width="5" Background="White" ></Separator>
+                <Button x:Name="ShowReservations" Margin="0,15,0,0" Width="75" Height="30" Click="ShowReservations_Click" BorderBrush="Black">Reservations</Button>
             </ToolBar>
             <DataGrid x:Name="dataGridAccommodations" DockPanel.Dock="Bottom"
                   ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"

@@ -7,7 +7,7 @@ using TravelService.Serializer;
 using static System.Net.Mime.MediaTypeNames;
 
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
     public class Location : ISerializable
     {
@@ -22,7 +22,7 @@ namespace TravelService.Model
 
         public Location() { }
 
-        public Location(string country, string city) 
+        public Location(string country, string city)
         {
             City = city;
             Country = country;

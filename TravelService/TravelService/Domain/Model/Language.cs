@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Serializer;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
-    public class Language: ISerializable
+    public class Language : ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -22,7 +22,7 @@ namespace TravelService.Model
         public string[] ToCSV()
         {
 
-            string[] csvValues = { Id.ToString(), Name};
+            string[] csvValues = { Id.ToString(), Name };
             return csvValues;
         }
 

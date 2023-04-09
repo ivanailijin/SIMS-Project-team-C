@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Serializer;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
-    public class Invitation: ISerializable
+    public class Invitation : ISerializable
     {
         public int Id { get; set; }
         public int GuestId { get; set; }
         public bool GuestAttendence { get; set; }
-        
+
 
 
 
@@ -36,7 +36,7 @@ namespace TravelService.Model
                 Id.ToString(),
                 GuestId.ToString(),
                 GuestAttendence.ToString(),
-               
+
             };
             return csvValues;
         }
@@ -45,8 +45,8 @@ namespace TravelService.Model
         {
             Id = Convert.ToInt32(values[0]);
             GuestId = Convert.ToInt32(values[1]);
-            GuestAttendence=Boolean.Parse(values[2]);   
-           
+            GuestAttendence = bool.Parse(values[2]);
+
 
         }
     }

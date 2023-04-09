@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using TravelService.Model;
+using TravelService.Domain.Model;
 using TravelService.Repository;
 
 namespace TravelService.View

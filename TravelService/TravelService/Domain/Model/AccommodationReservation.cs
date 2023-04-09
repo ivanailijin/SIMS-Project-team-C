@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Serializer;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
     public class AccommodationReservation : ISerializable
     {
@@ -45,8 +45,8 @@ namespace TravelService.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = 
-            { 
+            string[] csvValues =
+            {
                 Id.ToString(),
                 AccommodationId.ToString(),
                 AccommodationName,

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Serializer;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
     public class Guest : ISerializable
     {
@@ -19,7 +19,7 @@ namespace TravelService.Model
 
         public Guest() { }
 
-        public Guest(string firstName, string lastName, int checkPointId,int tourId, bool attendence)
+        public Guest(string firstName, string lastName, int checkPointId, int tourId, bool attendence)
 
         {
             FirstName = firstName;
@@ -30,7 +30,7 @@ namespace TravelService.Model
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), FirstName, LastName,CheckPointId.ToString(),TourId.ToString(),Attendence.ToString()};
+            string[] csvValues = { Id.ToString(), FirstName, LastName, CheckPointId.ToString(), TourId.ToString(), Attendence.ToString() };
             return csvValues;
         }
 
@@ -41,7 +41,7 @@ namespace TravelService.Model
             LastName = values[2];
             CheckPointId = int.Parse(values[3]);
             TourId = int.Parse(values[4]);
-            Attendence = Boolean.Parse(values[5]);
+            Attendence = bool.Parse(values[5]);
         }
 
     }

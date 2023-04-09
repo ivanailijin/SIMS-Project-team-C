@@ -1,26 +1,27 @@
 ﻿using System;
+using TravelService.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TravelService.Serializer;
+using System.Collections.ObjectModel;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
-    public class Guest1 : User, ISerializable
+    public class User : ISerializable
     {
-        public List<AccommodationReservation> AccommodationReservations { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string UserType { get; set; }
 
-        public Guest1(string username, string password, string userType)
+        public User() { }
+
+        public User(string username, string password, string userType)
         {
             Username = username;
             Password = password;
             UserType = userType;
-        }
-
-        public Guest1() 
-        {
-            AccommodationReservations = new List<AccommodationReservation>();
         }
 
         public string[] ToCSV()

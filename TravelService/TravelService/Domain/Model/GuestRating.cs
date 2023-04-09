@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using TravelService.Serializer;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
     public class GuestRating : ISerializable
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public int OwnerId { get; set; }
         public int GuestId { get; set; }
         public int Cleanness { get; set; }

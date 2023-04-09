@@ -7,9 +7,9 @@ using System.Windows.Automation;
 using TravelService.Serializer;
 using static System.Net.Mime.MediaTypeNames;
 
-public enum TYPE { APARTMENT, HOUSE, COTTAGE};
+public enum TYPE { APARTMENT, HOUSE, COTTAGE };
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
     public class Accommodation : ISerializable
     {
@@ -34,7 +34,8 @@ namespace TravelService.Model
         public List<Uri> Pictures { get; set; }
 
 
-        public Accommodation() { 
+        public Accommodation()
+        {
             Pictures = new List<Uri>();
         }
 
@@ -50,7 +51,7 @@ namespace TravelService.Model
             DaysBeforeCancellingReservation = daysBeforeCancellingReservation;
             Pictures = new List<Uri>();
 
-            foreach(string picture in pictures)
+            foreach (string picture in pictures)
             {
                 Uri file = new Uri(picture);
                 Pictures.Add(file);
@@ -59,9 +60,9 @@ namespace TravelService.Model
 
         public string TypeToCSV()
         {
-            if (this.Type == TYPE.APARTMENT)
+            if (Type == TYPE.APARTMENT)
                 return "Apartment";
-            else if (this.Type == TYPE.HOUSE)
+            else if (Type == TYPE.HOUSE)
                 return "House";
             else
                 return "Cottage";
@@ -81,7 +82,7 @@ namespace TravelService.Model
         {
             StringBuilder pictureList = new StringBuilder();
 
-            foreach(Uri picture in Pictures)
+            foreach (Uri picture in Pictures)
             {
                 string pictureString = picture.ToString();
                 pictureList.Append(picture);
@@ -113,19 +114,19 @@ namespace TravelService.Model
             LocationId = Convert.ToInt32(values[3]);
             Type = TypeFromCSV(values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
-            MinReservationDays  = Convert.ToInt32(values[6]);
+            MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancellingReservation = Convert.ToInt32(values[7]);
-            
+
             string pictures = values[8];
 
             string[] delimitedPictures = pictures.Split(" ,");
 
-            if(Pictures == null)
+            if (Pictures == null)
             {
                 Pictures = new List<Uri>();
             }
 
-            foreach(string picture in delimitedPictures)
+            foreach (string picture in delimitedPictures)
             {
                 Uri file = new Uri(picture);
                 Pictures.Add(file);

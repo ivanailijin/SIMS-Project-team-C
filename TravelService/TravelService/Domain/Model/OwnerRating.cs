@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using TravelService.Serializer;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
     public class OwnerRating : ISerializable
     {
@@ -20,7 +20,7 @@ namespace TravelService.Model
         public Owner Owner { get; set; }
         public int Correctness { get; set; }
         public int Cleanliness { get; set; }
-        public int Location  { get; set; }
+        public int Location { get; set; }
         public int Comfort { get; set; }
         public int Content { get; set; }
         public string Comment { get; set; }
@@ -32,7 +32,7 @@ namespace TravelService.Model
         }
 
 
-        public OwnerRating(int reservationId,int accommodationId, int guestId, int ownerId, int correctness, int cleanliness, int location, int comfort, int content, string comment, List<string> pictures)
+        public OwnerRating(int reservationId, int accommodationId, int guestId, int ownerId, int correctness, int cleanliness, int location, int comfort, int content, string comment, List<string> pictures)
         {
             ReservationId = reservationId;
             AccommodationId = accommodationId;
@@ -73,7 +73,7 @@ namespace TravelService.Model
                 ReservationId.ToString(),
                 AccommodationId.ToString(),
                 GuestId.ToString(),
-                OwnerId.ToString(), 
+                OwnerId.ToString(),
                 Correctness.ToString(),
                 Cleanliness.ToString(),
                 Location.ToString(),

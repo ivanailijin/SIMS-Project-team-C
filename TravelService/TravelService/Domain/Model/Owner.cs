@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Serializer;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
     public class Owner : User, ISerializable
     {

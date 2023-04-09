@@ -7,7 +7,7 @@ using System.Windows;
 using System.Xml.Linq;
 using TravelService.Serializer;
 
-namespace TravelService.Model
+namespace TravelService.Domain.Model
 {
     public class TourReservation : ISerializable
     {

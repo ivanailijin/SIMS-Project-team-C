@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using TravelService.Model;
+using TravelService.Domain.Model;
 using TravelService.Repository;
 
 namespace TravelService.View

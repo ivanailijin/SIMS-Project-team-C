@@ -14,8 +14,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TravelService.Domain.Model;
 //using System.Windows.Shapes;
-using TravelService.Model;
 using TravelService.Repository;
 
 namespace TravelService.View

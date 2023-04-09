@@ -11,8 +11,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\RatingView.xaml.cs">
-		<SubType>Code</SubType>
-	</Compile>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\AccommodationReview.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -23,6 +23,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\ReviewsSelectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\CancelReservationConfirmView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\ReservationRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\Views\ReservationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -43,8 +52,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RatingView.xaml">
-		<SubType>Designer</SubType>
-	</Page>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\OwnerReview.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -74,6 +83,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Window1.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\CancelReservationConfirmView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\ReservationRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\Views\ReservationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

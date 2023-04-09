@@ -14,7 +14,8 @@ using System.Windows.Shapes;
 using TravelService.Observer;
 using TravelService.Repository;
 using System.Collections.ObjectModel;
-using TravelService.Model;
+using TravelService.Domain.Model;
+using TravelService.WPF.Views;
 using System.Printing;
 using System.Diagnostics.Metrics;
 using System.ComponentModel;
@@ -131,6 +132,12 @@ namespace TravelService.View
             RatingView ratingView = new RatingView(Guest1);
             ratingView.Show();
 ;        }
+
+        private void ShowReservations_Click(object sender, RoutedEventArgs e)
+        {
+            ReservationsView reservationsView = new ReservationsView(Guest1);
+            reservationsView.Show();
+        }
     }
 }
 
