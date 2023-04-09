@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using TravelService.Model;
 
 namespace TravelService.View
@@ -23,10 +11,10 @@ namespace TravelService.View
         {
             InitializeComponent();
             this.Guest2 = guest2;
-        }        
+        }
         private void TourTrackingViewButton_CLick(object sender, RoutedEventArgs e)
         {
-            TourTrackingView tourTrackingView = new TourTrackingView(SelectedTour,Guest2);
+            TourTrackingView tourTrackingView = new TourTrackingView(SelectedTour, Guest2);
             tourTrackingView.Show();
         }
         private void TourViewButton_CLick(object sender, RoutedEventArgs e)
@@ -36,8 +24,14 @@ namespace TravelService.View
         }
         private void TourReservationButton_Click(object sender, RoutedEventArgs e)
         {
-            TourReservationView tourReservationView = new TourReservationView(SelectedTour,Guest2);
+            TourReservationView tourReservationView = new TourReservationView(SelectedTour, Guest2);
             tourReservationView.Show();
+        }
+
+        private void VoucherViewButton_CLick(object sender, RoutedEventArgs e)
+        {
+            VoucherView voucherView = new VoucherView(Guest2);
+            voucherView.Show();
         }
     }
 }

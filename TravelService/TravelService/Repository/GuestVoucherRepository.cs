@@ -64,5 +64,17 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _vouchers);
             return voucher;
         }
+
+        public List<GuestVoucher> showVoucherList(List<GuestVoucher> Vouchers, Guest2 guest2, List<GuestVoucher> guestVouchers)
+        {
+            foreach (GuestVoucher voucher in Vouchers)
+            { 
+                if(guest2.Id == voucher.GuestId && voucher.Used == false) 
+                {
+                    guestVouchers.Add(voucher);
+                }
+            }
+            return guestVouchers;
+        }
     }
 }

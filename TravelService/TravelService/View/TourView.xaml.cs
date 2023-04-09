@@ -22,15 +22,7 @@ namespace TravelService.View
         public static List<CheckPoint> CheckPoints { get; set; }
         public ObservableCollection<Tour> FilteredTours { get; set; }
         public static List<CheckPoint> FilteredCheckPoints { get; set; }
-
-        public readonly TourRepository _repositoryTour;
-        public readonly GuestRepository _repositoryGuest;
-        private CheckPointRepository _repositoryCheckPoint;
-        public List<Tour> _tours;
         public static ObservableCollection<Guest> Guests { get; set; }
-
-        public CheckPoint SelectedCheckPoint;
-        public Tour SelectedTour;
         public Guest2 Guest2 { get; set; }
         public TourView(Guest2 guest2)
         {
@@ -40,9 +32,6 @@ namespace TravelService.View
             _locationRepository = new LocationRepository();
             _languageRepository = new LanguageRepository();
             _checkpointRepository = new CheckPointRepository();
-            _repositoryTour = new TourRepository();
-            _repositoryGuest = new GuestRepository();
-            _repositoryCheckPoint = new CheckPointRepository();
 
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             FilteredTours = new ObservableCollection<Tour>();
