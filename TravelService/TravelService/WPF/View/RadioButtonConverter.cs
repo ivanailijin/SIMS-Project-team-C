@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     public class RadioButtonConverter : IValueConverter
     {

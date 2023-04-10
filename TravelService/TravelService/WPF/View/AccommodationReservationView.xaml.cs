@@ -131,6 +131,20 @@ namespace TravelService.View
             }
         }
 
+        private bool _isCancelled;
+        public bool IsCancelled
+        {
+            get => _isCancelled;
+            set
+            {
+                if (value != _isCancelled)
+                {
+                    _isCancelled = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string Error
         {
             get
@@ -212,7 +226,8 @@ namespace TravelService.View
                 CheckOutDate = SelectedAvailableDatePair.Item2;
                 IsRated = false;
                 IsOwnerRated = false;
-                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, SelectedAccommodation.Name, LoggedInGuest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated, IsOwnerRated);
+                IsCancelled = false;
+                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, SelectedAccommodation.Name, LoggedInGuest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated, IsOwnerRated, IsCancelled);
                 _reservationRepository.Save(reservation);
                 Close();
             }

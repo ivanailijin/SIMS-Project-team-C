@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelService.WPF.ViewModels
+namespace TravelService.WPF.ViewModel
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
-using TravelService.Domain.RepositoryInterfaces;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.Application.UseCases
 {

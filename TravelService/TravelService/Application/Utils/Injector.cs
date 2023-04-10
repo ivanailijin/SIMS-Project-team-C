@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TravelService.Domain.RepositoryInterfaces;
+using TravelService.Domain.RepositoryInterface;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

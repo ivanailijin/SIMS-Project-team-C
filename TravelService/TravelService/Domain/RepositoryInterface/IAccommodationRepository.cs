@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 
-namespace TravelService.Domain.RepositoryInterfaces
+namespace TravelService.Domain.RepositoryInterface
 {
     public interface IAccommodationRepository
     {

@@ -19,10 +19,10 @@
                   AutoGenerateColumns="False" IsReadOnly="True"
                   Width="410" Height="380">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="110"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding AccommodationName}" Width="110"></DataGridTextColumn>
                         <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="110"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Check-in" Binding="{Binding CheckInDate}" Width="100"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Checkout" Binding="{Binding CheckOutDate}" Width="100"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Check-in" Binding="{Binding CheckInDate, StringFormat='{}{0:d}'}" Width="90"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Checkout" Binding="{Binding CheckOutDate, StringFormat='{}{0:d}'}" Width="90"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
-using TravelService.WPF.ViewModels;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.Views
 {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 
-namespace TravelService.Domain.RepositoryInterfaces
+namespace TravelService.Domain.RepositoryInterface
 {
     public interface IAccommodationReservationRepository
     {
@@ -22,6 +22,7 @@ namespace TravelService.Domain.RepositoryInterfaces
         public List<Tuple<DateTime, DateTime>> FindAvailableDatesOutsideRange(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying);
         public List<DateTime> FindReservedDates(Accommodation selectedAccommodation);
         public List<AccommodationReservation> FindUnratedOwners(int guestId);
+        public List<AccommodationReservation> FindReservationsByGuestId(int guestId);
         public void SetAccommodationForUnratedOwners(List<Accommodation> accomodations);
         public void SetLocationForUnratedOwners(List<Location> locations);
         public void SetNameForUnratedOwners(List<Owner> owners);

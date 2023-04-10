@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using TravelService.Domain.Model;
-using TravelService.Domain.RepositoryInterfaces;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
@@ -164,7 +164,7 @@ namespace TravelService.Repository
 
             foreach (AccommodationReservation reservation in _accommodationReservations)
             {
-                if (selectedAccommodation.Id == reservation.AccommodationId)
+                if (selectedAccommodation.Id == reservation.AccommodationId && reservation.IsCancelled == false)
                 {
                     DateTime checkIn = reservation.CheckInDate;
                     DateTime checkOut = reservation.CheckOutDate;
@@ -195,6 +195,20 @@ namespace TravelService.Repository
             return UnratedOwners;
         }
 
+        public List<AccommodationReservation> FindReservationsByGuestId(int guestId)
+        {
+            List<AccommodationReservation> Reservations = new List<AccommodationReservation>();
+
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                if (reservation.GuestId == guestId && reservation.IsCancelled == false)
+                {
+                    Reservations.Add(reservation);
+                }
+            }
+            return Reservations;
+        }
+
         public void SetAccommodationForUnratedOwners(List<Accommodation> accomodations)
         {
             foreach (AccommodationReservation reservation in _accommodationReservations)
@@ -219,5 +233,4 @@ namespace TravelService.Repository
             }
         }
     }
-
 }
