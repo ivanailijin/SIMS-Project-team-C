@@ -53,15 +53,5 @@ namespace TravelService.Repository
         {
             return _serializer.FromCSV(FilePath);
         }
-
-       /* public ObservableCollection<AccommodationReservation> FindReservationGuest(ObservableCollection<AccommodationReservation> UnratedReservations)
-        {
-            foreach (AccommodationReservation unratedReservation in UnratedReservations)
-            {
-                unratedReservation.Guest1 = _guests.Find(g => g.Id == unratedReservation.GuestId);
-            }
-
-            return UnratedReservations;
-        }*/
     }
 }

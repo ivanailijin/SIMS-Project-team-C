@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="WPF\View\AddReview.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\MostVisited.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -52,6 +55,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\AccommodationReview.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AddReview.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\CheckPointView.xaml">
