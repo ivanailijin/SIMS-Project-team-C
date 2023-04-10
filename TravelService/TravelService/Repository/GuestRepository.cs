@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -103,13 +104,19 @@ namespace TravelService.Repository
             return guestsByTourId;
         }
 
-        public TourStatistics ShowTourStatistics(int tourId)
+        public TourStatistics ShowTourStatistics(Tour tour)
         {
             // Get all guests with their vouchers
             List<Guest> guests = GetAllGuestsWithVouchers();
 
             // Get the selected tour guests
-            List<Guest> selectedTourGuests = guests.Where(g => g.TourId == tourId).ToList();
+            List<Guest> selectedTourGuests = guests.Where(g => g.TourId == tour.Id).ToList();
+
+            // Check if the tour is done
+            if (!tour.Done)
+            {
+                throw new ArgumentException("The selected tour is not done.");
+            }
 
             // Group the guests by age range
             int under18Count = selectedTourGuests.Count(g => g.Age < 18);
@@ -126,7 +133,7 @@ namespace TravelService.Repository
             // Create a new TourStatistics instance with the calculated values
             TourStatistics stats = new TourStatistics
             {
-                TourId = tourId,
+                TourId = tour.Id,
                 Under18Count = under18Count,
                 Between18And50Count = between18And50Count,
                 Over50Count = over50Count,
@@ -136,6 +143,7 @@ namespace TravelService.Repository
 
             return stats;
         }
+
 
 
         public List<Guest> GetAllGuestsWithVouchers()

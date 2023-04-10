@@ -37,6 +37,9 @@
     <Compile Update="WPF\View\JoinTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ShowTourReviewView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\TourTrackingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -88,6 +91,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SecondGuestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ShowTourReviewView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\TourReservationView.xaml">
