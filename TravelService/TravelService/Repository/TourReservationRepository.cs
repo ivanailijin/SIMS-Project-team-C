@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 
 using System.Windows;
-using TravelService.Model;
+using TravelService.Domain.Model;
 using TravelService.Serializer;
 using TravelService.View;
 

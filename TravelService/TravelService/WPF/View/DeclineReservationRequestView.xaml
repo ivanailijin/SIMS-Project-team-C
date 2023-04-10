@@ -1,0 +1,55 @@
+﻿<Window x:Class="TravelService.WPF.View.DeclineReservationRequestView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
+        mc:Ignorable="d"
+        Title="DeclineReservationRequestView" WindowStartupLocation="CenterScreen" Height="450" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="140"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.ColumnSpan="2" Grid.Row="0" TextAlignment="Center" Margin="20" FontSize="15" Foreground="DarkSlateBlue" FontWeight="Bold">Rejection of the request to change the booking date</TextBlock>
+        <StackPanel Grid.ColumnSpan="2" Height="140" Orientation="Vertical" Grid.Row="1">
+            <StackPanel Orientation="Horizontal" Height="23" Margin="20,5,10,3">
+                <Label FontWeight="Bold">Accommodation:</Label>
+                <TextBlock Text="{Binding AccommodationName}" Margin="0, 5, 0, 0" Width="200"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="23" Margin="20,5,10,3">
+                <Label FontWeight="Bold">Guest:</Label>
+                <TextBlock Text="{Binding GuestName}" Margin="0, 5, 0, 0" Width="200"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="23" Margin="20,5,10,3">
+                <Label FontWeight="Bold">Previous reservation date:</Label>
+                <TextBlock  Text="{Binding PreviousCheckIn, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="120" TextAlignment="Right"></TextBlock>
+                <TextBlock Margin="5, 5, 5, 0"> - </TextBlock>
+                <TextBlock Text="{Binding PreviousCheckOut, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="120" TextAlignment="Left"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="23" Margin="20,5,10,3">
+                <Label FontWeight="Bold" >New reservation date:</Label>
+                <TextBlock Text="{Binding NewCheckIn, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="120" TextAlignment="Right"></TextBlock>
+                <TextBlock Margin="5, 5, 5, 0"> - </TextBlock>
+                <TextBlock Text="{Binding NewCheckOut, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="120" TextAlignment="Left"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center" Margin="10, 0, 0, 0"> Reasoning</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5, 15, 30, 15" Text="{Binding Reasoning}"></TextBox>
+
+        <Button Grid.Row="3" Grid.Column="0" Width="110" Height="35" FontSize="15" Content="Confirm"
+                Command="{Binding ConfirmCommand}">
+        </Button>
+        <Button Grid.Row="3" Grid.Column="1" Width="110" Height="35" FontSize="15" Content="Cancel"
+                Command="{Binding CancelCommand}">
+        </Button>
+    </Grid>
+</Window>

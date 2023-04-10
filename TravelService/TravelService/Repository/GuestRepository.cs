@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TravelService.Model;
+using TravelService.Domain.Model;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
