@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using TravelService.Model;
+using TravelService.Domain.Model;
 using TravelService.Serializer;
 
 namespace TravelService.Repository

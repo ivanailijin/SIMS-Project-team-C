@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TravelService.Model;
+using TravelService.Domain.Model;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
