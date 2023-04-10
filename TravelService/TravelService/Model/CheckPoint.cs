@@ -14,7 +14,8 @@ namespace TravelService.Model
         public string Name { get; set; }
         public bool Active { get; set; }
         public int TourId { get; set; }
-       
+        
+
         public CheckPoint()
         {
            

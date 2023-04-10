@@ -23,6 +23,7 @@ namespace TravelService.View
 
         private readonly AccommodationRepository _accommodationRepository;
 
+
         private readonly AccommodationReservationRepository _reservationRepository;
         public readonly TourRepository _tourRepository;
         public readonly GuestRepository _repositoryGuest;
@@ -69,6 +70,7 @@ namespace TravelService.View
             _repositoryGuest = new GuestRepository();
             _repositoryCheckPoint = new CheckPointRepository();
             _guideRepository = new GuideRepository();
+
 
 
         }
@@ -118,25 +120,6 @@ namespace TravelService.View
                         }
                         else if (txtPassword.Password.Equals("guest2123"))
                         {
-                            
-                           /* Guest guest = _repositoryGuest.GetBy
-                            // Check if the guest has any vouchers
-                            List<GuestVoucher> vouchers = guests.VoucherList;
-                            if (vouchers != null && vouchers.Count > 0) 
-                            {
-                                // Show a notification with a summary of their vouchers
-                                string voucherSummary = "You have " + vouchers.Count + " voucher(s):";
-                                foreach (GuestVoucher voucher in vouchers)
-                                {
-                                    voucherSummary += "\n- " + voucher.Code;
-                                }
-                                MessageBoxResult result = MessageBox.Show(voucherSummary + "\n\nWould you like to view your vouchers now?", "Vouchers Available", MessageBoxButton.YesNo);
-                                if (result == MessageBoxResult.Yes)
-                                {
-                                    // Show a new window with the guest's vouchers
-                                   
-                                }
-                            }*/
 
 
                             MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, SelectedGuest);

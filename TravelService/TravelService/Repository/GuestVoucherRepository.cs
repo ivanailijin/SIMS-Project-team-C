@@ -65,6 +65,25 @@ namespace TravelService.Repository
             return voucher;
         }
 
+        public List<GuestVoucher> GetVouchersForGuest(int guestId)
+        {
+            List<GuestVoucher> vouchers = new List<GuestVoucher>();
+
+            // Get all vouchers
+            List<GuestVoucher> allVouchers = GetAll();
+
+            // Filter the vouchers for the selected guest
+            foreach (GuestVoucher voucher in allVouchers)
+            {
+                if (voucher.GuestId == guestId)
+                {
+                    vouchers.Add(voucher);
+                }
+            }
+
+            return vouchers;
+        }
+
 
     }
 

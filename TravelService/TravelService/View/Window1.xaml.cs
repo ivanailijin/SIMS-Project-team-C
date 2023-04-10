@@ -27,6 +27,7 @@ namespace TravelService.View
         private readonly GuideRepository _guideRepository;
         public Tour SelectedTour { get; set; }
         public Guide Guide { get; set; }    
+        public List<Guest> Guests { get; set; }
         public Window1(Guide guide)
         {
             InitializeComponent();
@@ -72,5 +73,21 @@ namespace TravelService.View
             myTours.Show();
             Close();
         }
+
+        private void PastTours_Click(object sender, RoutedEventArgs e)
+        {
+
+            PastTours pastTours = new PastTours(SelectedTour, Guide);
+            pastTours.Show();
+            Close();
+        }
+
+        private void MostVisited_Click(object sender, RoutedEventArgs e)
+        {
+            MostVisited mostVisited = new MostVisited(Guide);
+            mostVisited.Show();
+            Close();
+        }
+
     }
 }
