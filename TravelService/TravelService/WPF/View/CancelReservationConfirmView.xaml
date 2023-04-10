@@ -1,0 +1,30 @@
+﻿<Window x:Class="TravelService.WPF.View.CancelReservationConfirmView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
+        mc:Ignorable="d"
+        Title="Cancelling Reservation" 
+        Height="180" Width="300"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="Are you sure you want to cancel reservation?" TextAlignment="Center" Width="250" Height="40" FontSize="14" TextWrapping="Wrap"></TextBlock>
+        </Grid>
+        <WrapPanel Grid.Row="1" FlowDirection="LeftToRight" Margin="10,5,10,5">
+            <Separator Width="40" Background="White"></Separator>
+            <Button Content="Yes"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="23" Margin="20, 5, 20, 5"
+                    Command="{Binding ConfirmCommand}"/>
+            <Separator Width="15" Background="White"></Separator>
+            <Button Content="No" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="23" Margin="20, 5, 20, 5" 
+                    Command="{Binding CancelCommand}"/>
+            <Separator Width="50" Background="White"></Separator>
+        </WrapPanel>
+    </Grid>
+</Window>

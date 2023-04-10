@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TravelService.Model;
+using TravelService.Domain.Model;
 using TravelService.Serializer;
 
 namespace TravelService.Repository

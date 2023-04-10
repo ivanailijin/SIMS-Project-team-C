@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Repository;
-using TravelService.View;
+using TravelService.WPF.View;
 
 namespace TravelService
 {

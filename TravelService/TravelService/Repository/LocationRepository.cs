@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TravelService.Model;
+using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class LocationRepository
+    public class LocationRepository : ILocationRepository
     {
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
