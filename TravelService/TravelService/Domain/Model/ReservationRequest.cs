@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using TravelService.Serializer;
 
 public enum STATUS {Approved, Rejected, OnHold};
+public enum AVAILABILITY { Available, Unavailable};
 
 namespace TravelService.Domain.Model
 {
@@ -21,6 +22,7 @@ namespace TravelService.Domain.Model
         public DateTime NewEndDate { get; set; }
         public STATUS Status { get; set; }
         public String Comment { get; set; }
+        public AVAILABILITY Availability { get; set; }
         public ReservationRequest() { }
 
         public ReservationRequest(int guestId, int reservationId, DateTime newStartDate, DateTime newEndDate )
@@ -30,6 +32,7 @@ namespace TravelService.Domain.Model
             NewStartDate = newStartDate;
             NewEndDate = newEndDate;
             Status = STATUS.OnHold;
+            Availability = AVAILABILITY.Available;
             Comment = "";
         }
 
@@ -52,7 +55,20 @@ namespace TravelService.Domain.Model
             else
                 return STATUS.OnHold;
         }
-
+        public string AvailabilityToCSV()
+        {
+            if (Availability == AVAILABILITY.Available)
+                return "Available";
+            else
+                return "Unavailable";
+        }
+        public AVAILABILITY AvailabilityFromCSV(string availability)
+        {
+            if (string.Equals(availability, "Available"))
+                return AVAILABILITY.Available;
+            else
+                return AVAILABILITY.Unavailable;
+        }
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -63,6 +79,7 @@ namespace TravelService.Domain.Model
                 NewStartDate.ToString(),
                 NewEndDate.ToString(),
                 StatusToCSV(),
+                AvailabilityToCSV(),
                 Comment,
             };
             return csvValues;
@@ -77,7 +94,8 @@ namespace TravelService.Domain.Model
             NewStartDate = DateTime.Parse(values[3]);
             NewEndDate = DateTime.Parse(values[4]);
             Status = StatusFromCSV(values[5]);
-            Comment = values[6];
+            Availability = AvailabilityFromCSV(values[6]);
+            Comment = values[7];
         }
     }
 }

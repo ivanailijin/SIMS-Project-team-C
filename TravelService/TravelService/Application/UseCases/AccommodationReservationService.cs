@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
     public class AccommodationReservationService
     {
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private readonly IAccommodationReservationRepository _accommodationReservationRepository;
 
         public AccommodationService _accommodationService;
 
-        public AccommodationReservationService(AccommodationReservationRepository accommodationReservationRepository)
+        public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository)
         {
             _accommodationReservationRepository = accommodationReservationRepository;
             _accommodationService = new AccommodationService(new AccommodationRepository());
@@ -64,12 +66,13 @@ namespace TravelService.Application.UseCases
             }
             return true;
         }
-        public string CheckAvailability(int reservationId, DateTime newStartDate, DateTime newEndDate)
+        public AVAILABILITY CheckAvailability(int reservationId, DateTime newStartDate, DateTime newEndDate)
         {
             AccommodationReservation reservation = FindById(reservationId);
             Accommodation accommodation = _accommodationService.FindById(reservation.AccommodationId);
 
             List<AccommodationReservation> reservationsForCheck = FindReservationsByAccommodation(accommodation.Id);
+            reservationsForCheck.Remove(reservation);
             bool hasOverlap = false;
 
             foreach (AccommodationReservation checkReservation in reservationsForCheck)
@@ -84,11 +87,11 @@ namespace TravelService.Application.UseCases
 
             if (hasOverlap)
             {
-                return "Unavailable";
+                return AVAILABILITY.Unavailable;
             }
             else
             {
-                return "Available";
+                return AVAILABILITY.Available;
             }
         }
     }

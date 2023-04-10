@@ -76,17 +76,15 @@ namespace TravelService.Application.UseCases
             return reservationRequests;
         }
 
-        public List<string> GetAvailabilities(List<ReservationRequest> reservationRequests)
+        public List<ReservationRequest> GetAvailabilities(List<ReservationRequest> reservationRequests)
         {
-            List<string> availabilities = new List<string>();
-
             foreach(ReservationRequest request in reservationRequests)
             {
-                String availability = _reservationService.CheckAvailability(request.ReservationId, request.NewStartDate, request.NewEndDate);
-                availabilities.Add(availability);
+                AVAILABILITY availability = _reservationService.CheckAvailability(request.ReservationId, request.NewStartDate, request.NewEndDate);
+                request.Availability = availability;
             }
 
-            return availabilities;
+            return reservationRequests;
         }
         public void Update(ReservationRequest reservationRequest)
         {

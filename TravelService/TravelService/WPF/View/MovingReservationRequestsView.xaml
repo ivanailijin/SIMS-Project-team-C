@@ -21,14 +21,14 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="670"></ColumnDefinition>
+            <ColumnDefinition Width="770"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0"  Text="Requests to move the reservation date" Foreground="DarkSlateBlue" FontWeight="Bold" TextAlignment="Center" Margin="0,17"  FontSize="15" ></TextBlock>
         <DataGrid x:Name="RequestViewGrid"  VerticalAlignment="Center" HorizontalAlignment="Right" ItemsSource="{Binding Path=ReservationRequests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedRequest, UpdateSourceTrigger=PropertyChanged}"
                    AutoGenerateColumns="False" IsReadOnly="True"
-                   Width="630" Height="300" Grid.Row="1">
+                   Width="720" Height="300" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="100"  Binding="{Binding Guest.Username}">
                 </DataGridTextColumn>
@@ -42,17 +42,10 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="New end date" Binding="{Binding NewEndDate, StringFormat='{}{0:d}'}"  Width="100" >
                 </DataGridTextColumn>
-                <!--<DataGridTextColumn Header="Availability" Binding="{Binding Availability}"  Width="100" >
-                </DataGridTextColumn> -->
-            </DataGrid.Columns>
-        </DataGrid>
-        <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Availabilities, UpdateSourceTrigger=PropertyChanged}"
-                  Height="300" IsReadOnly="True" Width="110" HorizontalAlignment="Left" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Availability" Width="100" Binding="{Binding}" >
+                <DataGridTextColumn Header="Availability" Binding="{Binding Availability}"  Width="100" >
                 </DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid> 
+        </DataGrid>
         <WrapPanel Grid.Row="2" FlowDirection="LeftToRight" Margin="10,10,5,5">
             <Separator Width="170" Background="White"></Separator>
             <Button Content ="Decline the request" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="23" Margin="20, 5, 20, 5"

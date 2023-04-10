@@ -13,6 +13,7 @@ namespace TravelService.Application.Utils
         private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
         {
         { typeof(IReservationRequestRepository), new ReservationRequestRepository() },
+        { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
         //{ typeof(IReservationRequestService), new ReservationRequestService(new ReservationRequestRepository())},
         // Add more implementations here
     };

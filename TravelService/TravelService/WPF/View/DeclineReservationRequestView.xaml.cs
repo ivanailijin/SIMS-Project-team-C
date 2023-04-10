@@ -24,10 +24,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class DeclineReservationRequestView : Window, INotifyPropertyChanged
     {
-        public DeclineReservationRequestView(ReservationRequest selectedRequest, ReservationRequestService reservationRequestService, ObservableCollection<ReservationRequest> ReservationRequests, ObservableCollection<string> Availabilities)
+        public DeclineReservationRequestView(ReservationRequest selectedRequest, ReservationRequestService reservationRequestService, ObservableCollection<ReservationRequest> ReservationRequests )
         {
             InitializeComponent();
-            DeclineReservationRequestViewModel declineReservationRequestViewModel = new DeclineReservationRequestViewModel(selectedRequest, reservationRequestService, ReservationRequests, Availabilities);
+            DeclineReservationRequestViewModel declineReservationRequestViewModel = new DeclineReservationRequestViewModel(selectedRequest, reservationRequestService, ReservationRequests);
             DataContext = declineReservationRequestViewModel;
             if (declineReservationRequestViewModel.CloseAction == null)
                 declineReservationRequestViewModel.CloseAction = new Action(this.Close);

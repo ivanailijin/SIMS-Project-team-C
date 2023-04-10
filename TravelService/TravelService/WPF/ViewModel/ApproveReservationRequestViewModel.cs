@@ -5,22 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TravelService.Application.ServiceInterface;
 using TravelService.Application.UseCases;
+using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.WPF.ViewModel
 {
-    public class DeclineReservationRequestViewModel : ViewModelBase
+    public class ApproveReservationRequestViewModel : ViewModelBase
     {
         public ReservationRequestService _reservationRequestService { get; set; }
+        public AccommodationReservationService _accommodationReservationService { get; set; }
         public ReservationRequest SelectedRequest { get; set; }
-        public ObservableCollection<ReservationRequest> ReservationRequests { get; set; } 
+        public ObservableCollection<ReservationRequest> ReservationRequests { get; set; }
 
         public ICommand CancelCommand { get; set; }
-        public ICommand ConfirmCommand { get; set; } 
+        public ICommand ConfirmCommand { get; set; }
         public Action CloseAction { get; set; }
-
 
         private string _accommodationName;
 
@@ -106,24 +109,12 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        private string _reasoning;
 
-        public string Reasoning
-        {
-            get => _reasoning;
-            set
-            {
-                if (value != _reasoning)
-                {
-                    _reasoning = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public DeclineReservationRequestViewModel(ReservationRequest selectedRequest, ReservationRequestService reservationRequestService, ObservableCollection<ReservationRequest> reservationRequests)
+        public ApproveReservationRequestViewModel(ReservationRequest selectedRequest, ReservationRequestService reservationRequestService, ObservableCollection<ReservationRequest> reservationRequests)
         {
             InitializeCommands();
             _reservationRequestService = reservationRequestService;
+            _accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             SelectedRequest = selectedRequest;
             ReservationRequests = reservationRequests;
 
@@ -143,8 +134,12 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_ConfirmCommand(object obj)
         {
-            SelectedRequest.Status = STATUS.Rejected;
-            SelectedRequest.Comment = Reasoning;
+            AccommodationReservation updatedReservation = _accommodationReservationService.FindById(SelectedRequest.ReservationId);
+            updatedReservation.CheckInDate = SelectedRequest.NewStartDate;
+            updatedReservation.CheckOutDate = SelectedRequest.NewEndDate;
+            _accommodationReservationService.Update(updatedReservation);
+
+            SelectedRequest.Status = STATUS.Approved;
             _reservationRequestService.Update(SelectedRequest);
             ReservationRequests.Remove(SelectedRequest);
             CloseAction();

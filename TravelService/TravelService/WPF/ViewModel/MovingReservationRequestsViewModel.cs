@@ -27,6 +27,7 @@ namespace TravelService.WPF.ViewModel
 
         public Action CloseAction { get; set; }
         public ICommand DeclineRequestCommand { get; set; }
+        public ICommand ApproveRequestCommand { get; set; }
 
 
         private ObservableCollection<string> _availabilities;
@@ -51,24 +52,34 @@ namespace TravelService.WPF.ViewModel
             List<ReservationRequest> reservationRequests = _reservationRequestService.GetAllUnsolvedRequests();
             reservationRequests = _reservationRequestService.GetReservationData(reservationRequests);
             reservationRequests = _reservationRequestService.GetGuestData(reservationRequests);
+            reservationRequests = _reservationRequestService.GetAvailabilities(reservationRequests);
             ReservationRequests = new ObservableCollection<ReservationRequest>(reservationRequests);
-            Availabilities = new ObservableCollection<string>(_reservationRequestService.GetAvailabilities(reservationRequests));
-
-            CollectionViewSource combinedViewSource = new CollectionViewSource();
-            combinedViewSource.Source = new List<object> { ReservationRequests, Availabilities };
         }
 
         private void InitializeCommands()
         {
             DeclineRequestCommand = new RelayCommand(Execute_DeclineRequestCommand, CanExecute_Command);
+            ApproveRequestCommand = new RelayCommand(Execute_ApproveRequestCommand, CanExecute_Command);
         }
 
         private void Execute_DeclineRequestCommand(object obj)
         {
             if (SelectedRequest != null)
             {
-                DeclineReservationRequestView declineReservationRequestView = new DeclineReservationRequestView(SelectedRequest, _reservationRequestService, ReservationRequests, Availabilities);
+                DeclineReservationRequestView declineReservationRequestView = new DeclineReservationRequestView(SelectedRequest, _reservationRequestService, ReservationRequests);
                 declineReservationRequestView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Choose reservation request!");
+            }
+        }
+        private void Execute_ApproveRequestCommand(object obj)
+        {
+            if (SelectedRequest != null)
+            {
+                ApproveReservationRequestView approveReservationRequestView = new ApproveReservationRequestView(SelectedRequest, _reservationRequestService, ReservationRequests);
+                approveReservationRequestView.Show();
             }
             else
             {

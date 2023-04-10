@@ -78,5 +78,21 @@ namespace TravelService.Domain.Model
             IsRated = bool.Parse(values[10]);
             IsOwnerRated = bool.Parse(values[11]);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            AccommodationReservation other = (AccommodationReservation)obj;
+            return this.Id == other.Id; 
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
