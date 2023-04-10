@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelService.Serializer;
 
 namespace TravelService.Model
@@ -15,6 +11,7 @@ namespace TravelService.Model
         public int TourId { get; set; }
 
         public CheckPoint() { }
+
         public CheckPoint(int checkPointId, string name, bool active, int tourId)
         {
             CheckPointId = checkPointId;
@@ -31,7 +28,7 @@ namespace TravelService.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString(),Active.ToString()};
+            string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString(), Active.ToString() };
             return csvValues;
         }
 

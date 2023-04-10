@@ -19,6 +19,7 @@ namespace TravelService.Repository
         private readonly GuideRepository _guideRepository;
         private readonly GuestRepository _guestRepository;
         private readonly GuestVoucherRepository _guestVoucherRepository;
+        private readonly CheckPointRepository _repositoryCheckPoint;
 
         private List<Tour> _tours;
 
@@ -51,6 +52,7 @@ namespace TravelService.Repository
             _guideRepository = new GuideRepository();
             _guestRepository = new GuestRepository();
             _guestVoucherRepository = new GuestVoucherRepository(); 
+            _repositoryCheckPoint = new CheckPointRepository();
         }
 
         public List<Tour> GetAll()
@@ -154,6 +156,30 @@ namespace TravelService.Repository
             return false;
         }
 
+        public void FindPastTurs(Tour tour, List<Tour> PastTours)
+        {
+            if (IsInPast(tour))
+            {
+                AddPastTours(tour, PastTours);
+            }
+        }
+        public void AddPastTours(Tour tour, List<Tour> PastTours)
+        {
+            PastTours.Add(tour);
+        }
+
+        public bool IsInPast(Tour tour)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            if (tour.TourStart.Date < currentDate)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
         public List<Tour> showAllActiveTours(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> ActiveTours)
         {
 
@@ -181,34 +207,6 @@ namespace TravelService.Repository
             }
         }
 
-        public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours, List<CheckPoint> CheckPoints)
-        {
-            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
-            foreach (Tour tour in Tours)
-            {
-                if (tour.Id == TourId)
-                {
-
-                    tour.CheckPoints.Clear();
-                    ListCheckPoints.Clear();
-
-                    int currentId = tour.Id;
-                    foreach (CheckPoint c in CheckPoints)
-                    {
-                        int currentCheckPointTourId = c.TourId;
-                        if ((currentCheckPointTourId == currentId))
-                        {
-                            ListCheckPoints.Add(c);
-
-                        }
-                    }
-                }
-
-                tour.CheckPoints.AddRange(ListCheckPoints);
-
-            }
-            return ListCheckPoints;
-        }
 
         public List<Tour> ShowFutureTourList( List<Tour> Tours,List <Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> FutureTours, int guideId,TourRepository _tourRepository)
 
@@ -226,6 +224,21 @@ namespace TravelService.Repository
             return FutureTours;
         }
 
+        public List<Tour> ShowPastTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> PastTours, int guideId, TourRepository _tourRepository)
+
+        {
+            foreach (Tour tour in Tours)
+            {
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+
+                ShowListCheckPointList(tour.Id, _tours, CheckPoints);
+                FindPastTurs(tour, PastTours);
+            }
+
+            return PastTours;
+        }
         public Tour FindById(int id)
         {
             _tours = _serializer.FromCSV(FilePath);
@@ -271,15 +284,14 @@ namespace TravelService.Repository
 
         public void SendVouchers(Tour tour)
         {
-            // Get the guests for the cancelled tour
+
             List<Guest> guests = _guestRepository.FindByTourId(tour.Id);
 
-            // Generate vouchers for guests
             foreach (Guest guest in guests)
             {
-                string voucherCode = GenerateVoucherCode();
-                var newVoucher = new GuestVoucher { Code = voucherCode };
 
+                GuestVoucher newVoucher = new GuestVoucher("Vaucer", VOUCHERTYPE.QUIT, 200, "17f", false, guest.Id,tour.Id, DateTime.Now.AddYears(1));
+                _guestVoucherRepository.Save(newVoucher);
                 if (guest.VoucherList == null)
                 {
                     guest.VoucherList = new List<GuestVoucher> { newVoucher };
@@ -288,52 +300,44 @@ namespace TravelService.Repository
                 {
                     guest.VoucherList.Add(newVoucher);
                 }
+
                 _guestRepository.Save(guest);
+                _guestRepository.Update(guest);
+
             }
-            // Save changes to the guest repository
+           
         }
 
-        public string GenerateVoucherCode()
+
+
+
+        public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours, List<CheckPoint> CheckPoints)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            var random = new Random();
-            var voucherCode = new string(
-                Enumerable.Repeat(chars, 8)
-                .Select(s => s[random.Next(s.Length)])
-                .ToArray());
-            List<Guest> guests = new List<Guest>();
-            // Check if voucher code is unique (not already used)
-            while (VoucherCodeExists(voucherCode,guests))
+            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            foreach (Tour tour in Tours)
             {
-                voucherCode = new string(
-                    Enumerable.Repeat(chars, 8)
-                    .Select(s => s[random.Next(s.Length)])
-                    .ToArray());
-            }
-
-            return voucherCode;
-        }
-
-        public bool VoucherCodeExists(string voucherCode, List<Guest> guests)
-        {
-            // Check if voucher code exists in the vouchers.csv file
-            List<GuestVoucher> vouchers = _guestVoucherRepository.GetAll();
-            bool codeExists = vouchers.Any(voucher => voucher.Code == voucherCode);
-
-            // Check if voucher code is already in use by a guest
-            if (!codeExists)
-            {
-                foreach (Guest guest in guests)
+                if (tour.Id == TourId)
                 {
-                    if (guest.VoucherList.Any(voucher => voucher.Code == voucherCode && !voucher.Used))
+
+                    tour.CheckPoints.Clear();
+                    ListCheckPoints.Clear();
+
+                    int currentId = tour.Id;
+                    foreach (CheckPoint c in CheckPoints)
                     {
-                        codeExists = true;
-                        break;
+                        int currentCheckPointTourId = c.TourId;
+                        if ((currentCheckPointTourId == currentId))
+                        {
+                            ListCheckPoints.Add(c);
+
+                        }
                     }
                 }
-            }
 
-            return codeExists;
+                tour.CheckPoints.AddRange(ListCheckPoints);
+
+            }
+            return ListCheckPoints;
         }
 
         private void ShowCheckPointList(Tour tour, List<CheckPoint> CheckPoints)
@@ -386,5 +390,53 @@ namespace TravelService.Repository
             }
             return false;
         }
+
+        public Tour GetTourByCheckPointId(int checkPointId)
+        {
+            var checkPoint = _repositoryCheckPoint.GetById(checkPointId);
+            if (checkPoint != null)
+            {
+                var tour = GetAll().FirstOrDefault(t => t.CheckPoints.Contains(checkPoint));
+                return tour;
+            }
+            return null;
+        }
+
+        public Tour GetMostVisitedTour(List<Tour> tours, List<Guest> guests,List<Location> Locations, int year = 0)
+        {
+            int maxVisits = 0;
+            Tour mostVisitedTour = null;
+
+            foreach (Tour tour in tours)
+            {
+
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                int visits = 0;
+                foreach (Guest guest in guests)
+                {
+                    if (guest.TourId == tour.Id && (year == 0 || tour.TourStart.Year == year))
+                    {
+                        visits++;
+                    }
+                }
+
+                if (visits >= maxVisits)
+                {
+                    if (visits > maxVisits)
+                    {
+                        maxVisits = visits;
+                        mostVisitedTour = tour;
+                    }
+                   
+                    else if (mostVisitedTour == null)
+                    {
+                        mostVisitedTour = tour;
+                    }
+                }
+            }
+
+            return mostVisitedTour;
+        }
+
     }
 }

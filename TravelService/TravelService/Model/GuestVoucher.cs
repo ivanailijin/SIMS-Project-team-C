@@ -17,9 +17,10 @@ namespace TravelService.Model
         public int TourId { get; set; }
         public DateTime ExpirationDate { get; set; }
         public GuestVoucher() { }
-        public GuestVoucher(int id, string name, VOUCHERTYPE voucherType, int value, string code, bool used, int guestId, int tourId, DateTime expirationDate)
+
+        public GuestVoucher(string name, VOUCHERTYPE voucherType, int value, string code, bool used, int guestId, int tourId, DateTime expirationDate)
         {
-            Id = id;
+
             Name = name;
             VoucherType = voucherType;
             Value = value;
@@ -47,7 +48,10 @@ namespace TravelService.Model
             return csvValues;
         }
 
-        public string VoucherTypeToCSV() 
+
+
+        public string VoucherTypeToCSV()
+
         {
             if (this.VoucherType == VOUCHERTYPE.QUIT)
                 return "Quit";

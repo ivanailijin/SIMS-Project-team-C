@@ -25,6 +25,8 @@ namespace TravelService.View
         public readonly CheckPointRepository _repositoryCheckPoint;
         public List<Tour> ActiveTours { get; set; }
         public readonly TourRepository _tourRepository;
+        public readonly GuestRepository _guestRepository;
+        public List<Guest> _guests { get; set; }
 
 
         public CheckPointView(Tour selectedTour)
@@ -34,12 +36,14 @@ namespace TravelService.View
 
             _tourRepository = new TourRepository();
             _repositoryCheckPoint = new CheckPointRepository();
+            _guestRepository = new GuestRepository();   
 
             Tours = new ObservableCollection<Tour>(_tourRepository.GetAll());
             CheckPoints = new List<CheckPoint>(_repositoryCheckPoint.GetAll());
             SelectedTour = selectedTour;
             FilteredCheckPoint = new List<CheckPoint>();
             ActiveTours = new List<Tour>();
+            _guests = new List<Guest>();
 
             FilteredCheckPoint = _tourRepository.ShowListCheckPointList(SelectedTour.Id, convertTourList(Tours), CheckPoints);
 
@@ -62,17 +66,19 @@ namespace TravelService.View
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         private void Mark_Click(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = (CheckBox)this.FindName("myCheckBox");
             if (SelectedCheckPoint != null)
             {
+                List<Guest> guestsAtCheckpoint = _guestRepository.filterGuestsByCheckpointAndTour(_guests, SelectedCheckPoint, SelectedTour);
                 GuestPresence guestPresence = new GuestPresence(SelectedTour, SelectedCheckPoint);
                 guestPresence.Show();
                 Close();
             }
         }
+
+
         private int numChecked = 0;
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

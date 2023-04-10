@@ -28,6 +28,7 @@ namespace TravelService.View
         private ObservableCollection<Tour> _activeTours;
 
         public Tour SelectedTour { get; set; }
+        public CheckPoint SelectedCheckPoint { get; set; }
 
 
         public TourOverview(Tour selectedTour)

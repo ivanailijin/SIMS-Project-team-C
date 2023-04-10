@@ -72,5 +72,18 @@ namespace TravelService.Repository
                 FilteredCheckPoint[0].Active = true;
             }
         }
+
+        public CheckPoint GetById(int id)
+        {
+            _checkpoints = _serializer.FromCSV(FilePath);
+            foreach (CheckPoint checkpoints in _checkpoints)
+            {
+                if (checkpoints.CheckPointId == id)
+                {
+                    return checkpoints;
+                }
+            }
+            return null;
+        }
     }
 }

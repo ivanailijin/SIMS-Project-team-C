@@ -81,7 +81,8 @@ namespace TravelService.View
                 if (SelectedCheckPoint != null)
                 {
                     string username = Guest2.Username;
-                    Guest guest = new Guest(username, SelectedCheckPoint.CheckPointId, SelectedCheckPoint.TourId, SelectedCheckPoint.Active);
+                    int age = Guest2.Age;
+                    Guest guest = new Guest(username, SelectedCheckPoint.CheckPointId, SelectedCheckPoint.TourId, SelectedCheckPoint.Active, age);
                     _guestRepository.Save(guest);
                     Close();
                     MessageBox.Show("You joined the tour!");

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CheckPointView" Height="350" Width="346">
     <Grid Margin="9,0,0,25">
-        <ListView x:Name="ListCheckBox" Margin="10,9,24,-2" ItemsSource="{Binding FilteredCheckPoint}">
+        <ListView x:Name="ListCheckBox" Margin="10,9,24,-2" ItemsSource="{Binding FilteredCheckPoint}" SelectedItem="{Binding SelectedCheckPoint}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -20,4 +20,6 @@
         <Button  x:Name="EndButton" Content="End Tour" Click ="End_Click"  HorizontalAlignment="Left" Height="32" Margin="118,238,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.455,1.039" IsEnabled="False"/>
         <Button Content="Cancel" Click ="Cancel_Click" HorizontalAlignment="Left" Height="32" Margin="224,239,0,0" VerticalAlignment="Top" Width="87" />
     </Grid>
+
 </Window>
+

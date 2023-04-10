@@ -80,6 +80,7 @@ namespace TravelService.View
             _repositoryCheckPoint = new CheckPointRepository();
             _guideRepository = new GuideRepository();
             _invitationRepository = new InvitationRepository();
+
         }
 
         private void SignIn(object sender, RoutedEventArgs e)

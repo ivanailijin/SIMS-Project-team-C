@@ -68,14 +68,31 @@ namespace TravelService.Repository
         public List<GuestVoucher> showVoucherList(List<GuestVoucher> Vouchers, Guest2 guest2, List<GuestVoucher> guestVouchers)
         {
             foreach (GuestVoucher voucher in Vouchers)
-            { 
-                if(guest2.Id == voucher.GuestId && voucher.Used == false) 
+            {
+                if (guest2.Id == voucher.GuestId && voucher.Used == false)
                 {
                     guestVouchers.Add(voucher);
                 }
             }
             return guestVouchers;
         }
+
+        public List<GuestVoucher> GetVouchersForGuest(int guestId)
+        {
+            List<GuestVoucher> vouchers = new List<GuestVoucher>();
+
+            List<GuestVoucher> allVouchers = GetAll();
+            foreach (GuestVoucher voucher in allVouchers)
+            {
+                if (voucher.GuestId == guestId)
+                {
+                    vouchers.Add(voucher);
+                }
+            }
+
+            return vouchers;
+        }
+
 
         public List<GuestVoucher> showValidVouchers(List<GuestVoucher> Vouchers, Guest2 guest2, List<GuestVoucher> guestVouchers, List<GuestVoucher> validVouchers)
         {

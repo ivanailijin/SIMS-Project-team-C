@@ -138,7 +138,10 @@ namespace TravelService.Repository
 
         public bool ReservationSuccess(Tour selectedTour, string numberOfGuests, List<TourReservation> TourReservations, List<TourReservation> ReservationsByTour, List<Tour> OtherTours, TourReservationView tourReservationView, Guest2 guest2)
         {
-            if (TourReservations.Count() == 0)
+
+            TourReservation lastReservation = FindLastCurrentReservation(selectedTour.Id, TourReservations, ReservationsByTour, guest2);
+
+            if (TourReservations.Count() == 0 || lastReservation == null)
             {
                 if (int.Parse(numberOfGuests) <= selectedTour.MaxGuestNumber)
                 {
@@ -199,8 +202,15 @@ namespace TravelService.Repository
             foreach (TourReservation tourReservation in TourReservations)
                 if (tourReservation.TourId == tourId)
                     ReservationsByTour.Add(tourReservation);
-            TourReservation lastReservation = ReservationsByTour.Last();
-            return lastReservation;
+            if (ReservationsByTour.Count() == 0)
+            {
+                return null;
+            }
+            else
+            {
+                TourReservation lastReservation = ReservationsByTour.Last();
+                return lastReservation;
+            }
         }
 
         public bool FullyBookedTour(Tour selectedTour, List<Tour> OtherTours, TourReservationView tourReservationView)

@@ -7,10 +7,19 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+
+
+    <Compile Update="View\MostVisited.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+
     <Compile Update="View\MyTours.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\OwnerRatingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PastTours.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\RatingView.xaml.cs">
@@ -28,6 +37,7 @@
     <Compile Update="View\ReviewsSelectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+
     <Compile Update="View\JoinTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,7 +45,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\VoucherView.xaml.cs">
-      <SubType>Code</SubType>
+    <SubType>Code</SubType>
+	</Compile>
+    <Compile Update="View\TourStats.xaml.cs">
+    <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -51,10 +64,16 @@
     <Page Update="View\EnterCheckPoint.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\MostVisited.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\MyTours.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\OwnerRatingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PastTours.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RatingView.xaml">
@@ -86,7 +105,12 @@
     <Page Update="View\TourOverview.xaml">
       <SubType>Designer</SubType>
     </Page>
+
     <Page Update="View\TourTrackingView.xaml">
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Update="View\TourStats.xaml">
+
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\TourView.xaml">
