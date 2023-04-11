@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {

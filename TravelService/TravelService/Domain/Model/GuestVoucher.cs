@@ -52,9 +52,9 @@ namespace TravelService.Domain.Model
         public string VoucherTypeToCSV()
 
         {
-            if (this.VoucherType == VOUCHERTYPE.QUIT)
+            if (VoucherType == VOUCHERTYPE.QUIT)
                 return "Quit";
-            else if (this.VoucherType == VOUCHERTYPE.CANCELLATION)
+            else if (VoucherType == VOUCHERTYPE.CANCELLATION)
                 return "Cancellation";
             else
                 return "Bonus";
@@ -67,7 +67,7 @@ namespace TravelService.Domain.Model
             VoucherType = VoucherTypeFromCSV(values[2]);
             Value = Convert.ToInt32(values[3]);
             Code = values[4];
-            Used = Boolean.Parse(values[5]);
+            Used = bool.Parse(values[5]);
             GuestId = Convert.ToInt32(values[6]);
             TourId = Convert.ToInt32(values[7]);
             ExpirationDate = DateTime.Parse(values[8]);

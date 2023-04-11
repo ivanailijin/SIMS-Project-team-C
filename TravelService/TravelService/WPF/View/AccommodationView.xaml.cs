@@ -19,7 +19,6 @@ using TravelService.WPF.View;
 using System.Printing;
 using System.Diagnostics.Metrics;
 using System.ComponentModel;
-using TravelService.Domain.Model;
 
 namespace TravelService.WPF.View
 {

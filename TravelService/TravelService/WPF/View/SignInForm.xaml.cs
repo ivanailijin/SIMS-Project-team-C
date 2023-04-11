@@ -7,7 +7,6 @@ using System.Windows;
 using TravelService.Domain.Model;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
-using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
 
@@ -24,7 +23,7 @@ namespace TravelService.WPF.View
 
         private readonly Guest1Service _guest1Service;
 
-        private readonly Guest2Repository _guest2Repository;
+        private readonly Guest2Service _guest2Service;
 
         private readonly OwnerService _ownerService;
 
@@ -34,9 +33,7 @@ namespace TravelService.WPF.View
 
         private readonly GuestRepository _repositoryGuest;
 
-        private readonly InvitationRepository _invitationRepository;
-
-        private readonly AccommodationReservationRepository _reservationRepository;
+        private readonly InvitationService _invitationService;
 
         private readonly TourRepository _tourRepository;
 
@@ -75,16 +72,21 @@ namespace TravelService.WPF.View
         {
             InitializeComponent();
             DataContext = this;
-            _guest2Repository = new Guest2Repository();
             _userService = new UserService(Injector.CreateInstance<IUserRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
             _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
+            _userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
+            _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
+            _guest2Service = new Guest2Service(Injector.CreateInstance<IGuest2Repository>());
+            _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
+            _invitationService = new InvitationService(Injector.CreateInstance<IInvitationRepository>());
             _tourRepository = new TourRepository();
             _repositoryCheckPoint = new CheckPointRepository();
             _guideRepository = new GuideRepository();
-            _invitationRepository = new InvitationRepository();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -132,17 +134,16 @@ namespace TravelService.WPF.View
                         }
                         else if (txtPassword.Password.Equals("guest2123"))
                         {
-                            Guest2 guest2 = _guest2Repository.GetByUsername(Username);
-                            foreach (Invitation invitation in _invitationRepository.GetAll())
+                            Guest2 guest2 = _guest2Service.GetByUsername(Username);
+                            foreach (Invitation invitation in _invitationService.GetAll())
                             {
-                                if (invitation.GuestId == guest2.Id && invitation.GuestAttendence == false) 
+                                if (invitation.GuestId == guest2.Id && invitation.GuestAttendence == false)
                                 {
                                     MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, guest2);
                                     markAttendence.ShowDialog();
                                     Close();
                                 }
-                            }                 
-
+                            }
                             SecondGuestView secondGuestView = new SecondGuestView(guest2);
                             secondGuestView.Show();
                             Close();

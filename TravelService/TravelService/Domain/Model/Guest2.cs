@@ -9,7 +9,7 @@ namespace TravelService.Domain.Model
 {
     public class Guest2 : User, ISerializable
     {
-        public int Age { get; set; }    
+        public int Age { get; set; }
 
         public Guest2(string username, string password, string userType, int age)
         {
@@ -24,7 +24,7 @@ namespace TravelService.Domain.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, UserType, Age.ToString()};
+            string[] csvValues = { Id.ToString(), Username, Password, UserType, Age.ToString() };
             return csvValues;
         }
 
@@ -34,7 +34,7 @@ namespace TravelService.Domain.Model
             Username = values[1];
             Password = values[2];
             UserType = values[3];
-            Age = Convert.ToInt32(values[4]);   
+            Age = Convert.ToInt32(values[4]);
         }
     }
 }

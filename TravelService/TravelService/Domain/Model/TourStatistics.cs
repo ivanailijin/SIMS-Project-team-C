@@ -30,5 +30,5 @@ namespace TravelService.Domain.Model
         }
     }
 
-    
+
 }

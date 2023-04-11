@@ -12,11 +12,7 @@ namespace TravelService.Domain.Model
         public int Id { get; set; }
         public int GuestId { get; set; }
         public bool GuestAttendence { get; set; }
-
-        public Invitation()
-        {
-
-        }
+        public Invitation() { }
 
         public Invitation(int guestId, bool guestAttendence)
         {
@@ -41,8 +37,6 @@ namespace TravelService.Domain.Model
             Id = Convert.ToInt32(values[0]);
             GuestId = Convert.ToInt32(values[1]);
             GuestAttendence = bool.Parse(values[2]);
-
-
         }
     }
 }

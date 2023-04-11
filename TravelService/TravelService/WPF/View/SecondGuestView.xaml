@@ -13,6 +13,7 @@
             <Button Width="300" Height="50" Click="TourViewButton_CLick">Tour view</Button>
             <Button Width="300" Height="50"  Click="TourReservationButton_Click">Tour reservation</Button>
             <Button Width="300" Height="50" Click="VoucherViewButton_CLick">My Vouchers</Button>
+            <Button Width="300" Height="50" Click="RateToursViewButton_CLick">Rate tours</Button>
         </StackPanel>
 
     </Grid>

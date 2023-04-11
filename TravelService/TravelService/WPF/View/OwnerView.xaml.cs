@@ -17,7 +17,6 @@ using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
-using TravelService.Domain.Model;
 using TravelService.View;
 
 namespace TravelService.WPF.View

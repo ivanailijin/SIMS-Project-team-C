@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.View
 {
@@ -49,6 +49,12 @@ namespace TravelService.WPF.View
             VoucherView voucherView = new VoucherView(tourReservationView,SelectedVoucher,SelectedTour,Guest2);
             voucherView.ResetItemSource(voucherView.GuestVouchers);
             voucherView.Show();
+        }
+        
+        private void RateToursViewButton_CLick(object sender, RoutedEventArgs e)
+        {
+            GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
+            guestsToursView.Show();
         }
     }
 }

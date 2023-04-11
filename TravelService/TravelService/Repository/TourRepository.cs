@@ -7,11 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
+using TravelService.View;
 
 namespace TravelService.Repository
 {
-    public class TourRepository
+    public class TourRepository : ITourRepository
     {
         private const string FilePath = "../../../Resources/Data/tour.csv";
 
@@ -232,9 +234,12 @@ namespace TravelService.Repository
                 tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
                 tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
 
-
                 ShowListCheckPointList(tour.Id, _tours, CheckPoints);
-                FindPastTurs(tour, PastTours);
+
+                if (tour.Done)
+                {
+                    PastTours.Add(tour);
+                }
             }
 
             return PastTours;

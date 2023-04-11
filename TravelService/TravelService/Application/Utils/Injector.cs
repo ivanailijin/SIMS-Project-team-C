@@ -21,7 +21,16 @@ namespace TravelService.Application.Utils
         { typeof(IGuest1Repository), new Guest1Repository() },
         { typeof(IOwnerRepository), new OwnerRepository() },
         { typeof(IUserRepository), new UserRepository() },
+        { typeof(ITourReviewRepository), new TourReviewRepository() },
+        { typeof(ITourRepository), new TourRepository() },
+        { typeof(IGuest2Repository), new Guest2Repository() },
+        { typeof(ICheckPointRepository), new CheckPointRepository() },
+        { typeof(IGuestRepository), new GuestRepository() },
+        { typeof(IGuideRepository), new GuideRepository() },
+        { typeof(ILanguageRepository), new LanguageRepository() },
+        { typeof(IInvitationRepository), new InvitationRepository() },
         //{ typeof(IReservationRequestService), new ReservationRequestService(new ReservationRequestRepository())},
+        // Add more implementations here
     };
 
         public static T CreateInstance<T>()

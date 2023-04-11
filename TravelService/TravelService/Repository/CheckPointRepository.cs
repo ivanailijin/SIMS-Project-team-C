@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class CheckPointRepository
+    public class CheckPointRepository : ICheckPointRepository
     {
         private const string FilePath = "../../../Resources/Data/checkpoint.csv";
 

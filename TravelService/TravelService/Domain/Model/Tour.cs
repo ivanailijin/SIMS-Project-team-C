@@ -32,8 +32,7 @@ namespace TravelService.Domain.Model
             CheckPoints = new List<CheckPoint>();
 
         }
-
-        public Tour(int userId, string name, Location location, int locationdId,string description, Language language, int languageId, int maxGuestNumber, DateTime tourStart, int duration, List<string> pictures, bool done)
+        public Tour(int userId, string name, Location location, int locationdId, string description, Language language, int languageId, int maxGuestNumber, DateTime tourStart, int duration, List<string> pictures, bool done)
         {
             GuideId = userId;
             Name = name;

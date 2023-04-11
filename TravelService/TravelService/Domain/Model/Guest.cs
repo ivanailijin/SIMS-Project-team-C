@@ -17,27 +17,21 @@ namespace TravelService.Domain.Model
         public bool Attendence { get; set; }
         public int Age { get; set; }
         public List<GuestVoucher> VoucherList { get; set; }
-
-        public Guest() { }
-
-        public Guest(string firstName, string lastName, int checkPointId, int tourId, bool attendence)
-
+        public Guest()
         {
             VoucherList = new List<GuestVoucher>();
         }
-
-        public Guest(string username, int checkPointId, int tourId, bool attendence,int age)
+        public Guest(string username, int checkPointId, int tourId, bool attendence, int age)
         {
             Username = username;
             CheckPointId = checkPointId;
             TourId = tourId;
-            Attendence = attendence; 
-            Age = age;  
+            Attendence = attendence;
+            Age = age;
         }
-       
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, CheckPointId.ToString(),TourId.ToString(), Attendence.ToString(),Age.ToString()};
+            string[] csvValues = { Id.ToString(), Username, CheckPointId.ToString(), TourId.ToString(), Attendence.ToString(), Age.ToString() };
             return csvValues;
         }
 
@@ -47,7 +41,7 @@ namespace TravelService.Domain.Model
             Username = values[1];
             CheckPointId = int.Parse(values[2]);
             TourId = int.Parse(values[3]);
-            Attendence = Boolean.Parse(values[4]);
+            Attendence = bool.Parse(values[4]);
             Age = int.Parse(values[5]);
         }
     }
