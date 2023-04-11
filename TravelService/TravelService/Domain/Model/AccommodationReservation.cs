@@ -13,7 +13,6 @@ namespace TravelService.Domain.Model
         public int Id { get; set; }
         public int AccommodationId { get; set; }
         public Accommodation Accommodation { get; set; }
-        public string AccommodationName { get; set; }
         public int GuestId { get; set; }
         public Guest1 Guest1 { get; set; }
         public int OwnerId { get; set; }
@@ -29,10 +28,9 @@ namespace TravelService.Domain.Model
         public bool IsCancelled { get; set; }
         public AccommodationReservation() { }
 
-        public AccommodationReservation(int accommodationId, string accommodationName, int guestId, int ownerId, int locationId, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber, bool isRated, bool isOwnerRated, bool isCancelled)
+        public AccommodationReservation(int accommodationId, int guestId, int ownerId, int locationId, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber, bool isRated, bool isOwnerRated, bool isCancelled)
         {
             AccommodationId = accommodationId;
-            AccommodationName = accommodationName;
             GuestId = guestId;
             OwnerId = ownerId;
             LocationId = locationId;
@@ -51,7 +49,6 @@ namespace TravelService.Domain.Model
             {
                 Id.ToString(),
                 AccommodationId.ToString(),
-                AccommodationName,
                 GuestId.ToString(),
                 OwnerId.ToString(),
                 LocationId.ToString(),
@@ -70,17 +67,16 @@ namespace TravelService.Domain.Model
         {
             Id = Convert.ToInt32(values[0]);
             AccommodationId = Convert.ToInt32(values[1]);
-            AccommodationName = values[2];
-            GuestId = Convert.ToInt32(values[3]);
-            OwnerId = Convert.ToInt32(values[4]);
-            LocationId = Convert.ToInt32(values[5]);
-            CheckInDate = DateTime.Parse(values[6]);
-            CheckOutDate = DateTime.Parse(values[7]);
-            LengthOfStay = Convert.ToInt32(values[8]);
-            GuestNumber = Convert.ToInt32(values[9]);
-            IsRated = bool.Parse(values[10]);
-            IsOwnerRated = bool.Parse(values[11]);
-            IsCancelled = bool.Parse(values[12]);
+            GuestId = Convert.ToInt32(values[2]);
+            OwnerId = Convert.ToInt32(values[3]);
+            LocationId = Convert.ToInt32(values[4]);
+            CheckInDate = DateTime.Parse(values[5]);
+            CheckOutDate = DateTime.Parse(values[6]);
+            LengthOfStay = Convert.ToInt32(values[7]);
+            GuestNumber = Convert.ToInt32(values[8]);
+            IsRated = bool.Parse(values[9]);
+            IsOwnerRated = bool.Parse(values[10]);
+            IsCancelled = bool.Parse(values[11]);
         }
 
         public override bool Equals(object obj)

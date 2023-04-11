@@ -65,5 +65,19 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _reservationRequests);
             return reservationRequest;
         }
+
+        public List<ReservationRequest> FindRequestsByGuestId(int guestId)
+        {
+            List<ReservationRequest> Requests = new List<ReservationRequest>();
+
+            foreach (ReservationRequest request in _reservationRequests)
+            {
+                if (request.GuestId == guestId)
+                {
+                    Requests.Add(request);
+                }
+            }
+            return Requests;
+        }
     }
 }

@@ -76,12 +76,7 @@ namespace TravelService.WPF.View
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
             _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
-            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
-            _userService = new UserService(Injector.CreateInstance<IUserRepository>());
-            _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
-            _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
             _guest2Service = new Guest2Service(Injector.CreateInstance<IGuest2Repository>());
-            _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             _invitationService = new InvitationService(Injector.CreateInstance<IInvitationRepository>());
             _tourRepository = new TourRepository();

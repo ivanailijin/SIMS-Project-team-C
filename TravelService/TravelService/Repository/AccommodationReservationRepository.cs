@@ -222,7 +222,7 @@ namespace TravelService.Repository
             return Reservations;
         }
 
-        public void SetAccommodationForUnratedOwners(List<Accommodation> accomodations)
+        public void SetAccommodation(List<Accommodation> accomodations)
         {
             foreach (AccommodationReservation reservation in _accommodationReservations)
             {
@@ -230,7 +230,7 @@ namespace TravelService.Repository
             }
         }
 
-        public void SetLocationForUnratedOwners(List<Location> locations)
+        public void SetLocation(List<Location> locations)
         {
             foreach (AccommodationReservation reservation in _accommodationReservations)
             {
@@ -238,7 +238,7 @@ namespace TravelService.Repository
             }
         }
 
-        public void SetNameForUnratedOwners(List<Owner> owners)
+        public void SetName(List<Owner> owners)
         {
             foreach (AccommodationReservation reservation in _accommodationReservations)
             {

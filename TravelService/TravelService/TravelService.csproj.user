@@ -92,6 +92,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\TourStats.xaml.cs">
+		<SubType>Code</SubType>
+	</Compile>
+    <Compile Update="WPF\View\SendReservationRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -217,6 +220,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\Window1.xaml">
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Update="WPF\View\SendReservationRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

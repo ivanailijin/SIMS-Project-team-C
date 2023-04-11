@@ -16,9 +16,5 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(Accommodation accommodation);
         public Accommodation FindById(int id);
         public Accommodation Update(Accommodation accommodation);
-        public List<Accommodation> Search(string name, string[] nameWords, string location, string type, string guestNumber, string daysForReservation, List<Location> Locations);
-        public void SetLocationForAccommodation(List<Location> locations, List<Accommodation> accommodations);
-        public void SetTypeForAccommodation(List<Accommodation> accommodations);
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace TravelService.Domain.Model
         public DateTime NewStartDate { get; set; }
         public DateTime NewEndDate { get; set; }
         public STATUS Status { get; set; }
+        public string StatusText { get; set; }
         public String Comment { get; set; }
         public AVAILABILITY Availability { get; set; }
+
         public ReservationRequest() { }
 
         public ReservationRequest(int guestId, int reservationId, DateTime newStartDate, DateTime newEndDate )

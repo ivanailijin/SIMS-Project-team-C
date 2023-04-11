@@ -122,6 +122,14 @@ namespace TravelService.Repository
             }
         }
 
+        public void SetOwnerForAccommodation(List<Owner> owners, List<Accommodation> accommodations)
+        {
+            foreach (Accommodation accommodation in accommodations)
+            {
+                accommodation.Owner = owners.Find(o => o.Id == accommodation.OwnerId);
+            }
+        }
+
         public List<Accommodation> Search(string name, string[] nameWords, string location, string type, string guestNumber, string daysForReservation, List<Location> Locations)
         {
             _accommodations = _serializer.FromCSV(FilePath);
@@ -147,7 +155,6 @@ namespace TravelService.Repository
         public bool IsContainingNameWords(Accommodation accommodation, string[] nameWords)
         {
             bool containsAllWords = true;
-
             foreach (string word in nameWords)
             {
                 if (!accommodation.Name.ToLower().Contains(word))
@@ -162,7 +169,6 @@ namespace TravelService.Repository
         public bool HasMatchingAccommodationType(Accommodation accommodation, string type)
         {
             bool result = false;
-
             if (!string.IsNullOrEmpty(type))
             {
                 result = accommodation.Type.ToString().ToLower().Contains(type.ToLower());
@@ -189,6 +195,5 @@ namespace TravelService.Repository
             }
             return isGreater;
         }
-
     }
 }

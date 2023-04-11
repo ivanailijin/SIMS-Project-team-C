@@ -10,26 +10,26 @@ namespace TravelService.Application.UseCases
 {
     public class OwnerService
     {
-        private readonly IOwnerRepository _repository;
+        public IOwnerRepository _ownerRepository;
 
-        public OwnerService(IOwnerRepository repository)
+        public OwnerService(IOwnerRepository ownerRepository)
         {
-            _repository = repository;
+            _ownerRepository = ownerRepository;
         }
 
         public Owner GetByUsername(string username)
         {
-            Owner owner = _repository.GetByUsername(username);
+            Owner owner = _ownerRepository.GetByUsername(username);
             return owner;
         }
         public Owner FindById(int id)
         {
-            Owner owner = _repository.FindById(id);
+            Owner owner = _ownerRepository.FindById(id);
             return owner;
         }
         public List<Owner> GetAll()
         {
-            List<Owner> owners = _repository.GetAll();
+            List<Owner> owners = _ownerRepository.GetAll();
             return owners;
         }
     }
