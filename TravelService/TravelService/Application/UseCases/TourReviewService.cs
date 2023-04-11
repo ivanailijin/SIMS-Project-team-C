@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-
+using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
     public class TourReviewService 
     {
         private readonly ITourReviewRepository _tourReviewRepository;
-
+        public readonly GuestRepository _guestReposiotry;
         public TourReviewService(ITourReviewRepository tourReviewRepository)
         {
             _tourReviewRepository = tourReviewRepository;
@@ -38,22 +38,22 @@ namespace TravelService.Application.UseCases
             _tourReviewRepository.Update(tourReview);
         }
 
-        public List<TourReview> FindTourReviewsByGuestId(int guestId)
+        public List<TourReview> FindGuestsTourReviews(List<TourReview> tourReviews, Guest guest)
         {
-            List<TourReview> tourReviews = GetAll();
-
             List<TourReview> matchingTourReviews = new List<TourReview>();
 
-            foreach (TourReview review in tourReviews)
+            foreach (TourReview tourReview in tourReviews)
             {
-                if (review.GuestId == guestId)
+                if (tourReview.GuestId == guest.Id)
                 {
-                    matchingTourReviews.Add(review);
+                    matchingTourReviews.Add(tourReview);
                 }
             }
 
             return matchingTourReviews;
         }
+
+
 
 
     }

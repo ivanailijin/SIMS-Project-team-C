@@ -25,12 +25,11 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class ShowTourReviewView : Window, INotifyPropertyChanged
     {
-        public Guest SelectedGuest{ get; set; } 
-        public ShowTourReviewView(Guest selectedGuest)
+        
+        public ShowTourReviewView(Guest selectGuest,TourReview selectedTourReview)
         {
-            SelectedGuest = selectedGuest;
-            InitializeComponent();
-            ShowTourReviewsViewModel showTourReviewsViewModel = new ShowTourReviewsViewModel(selectedGuest); 
+            InitializeComponent();  
+            ShowTourReviewsViewModel showTourReviewsViewModel = new ShowTourReviewsViewModel(selectGuest, selectedTourReview); 
             DataContext=showTourReviewsViewModel;
 
 

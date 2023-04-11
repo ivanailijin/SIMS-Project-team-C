@@ -8,11 +8,11 @@
             <RowDefinition Height="auto" MinHeight="75.04" />
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0" ItemsSource="{Binding FilteredGuests}" SelectedItem="{Binding SelectedGuest}" >
+        <ListView Grid.Row="0" ItemsSource="{Binding GuestList}" SelectedItem="{Binding SelectedGuest}" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Item1}" />
-                    <GridViewColumn Header="Current Checkpoint" DisplayMemberBinding="{Binding Item2}" />
+                    <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Username}" />
+                    <GridViewColumn Header="Current Checkpoint" DisplayMemberBinding="{Binding CheckPointId}" />
                 </GridView>
             </ListView.View>
         </ListView>

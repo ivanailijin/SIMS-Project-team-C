@@ -31,6 +31,9 @@
     <Compile Update="WPF\View\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ReportView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ReviewsSelectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,6 +88,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\OwnerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ReportView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ReviewsSelectionView.xaml">

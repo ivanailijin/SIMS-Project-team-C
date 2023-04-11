@@ -17,18 +17,17 @@ using TravelService.WPF.ViewModel;
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for ShowGuestsView.xaml
+    /// Interaction logic for ReportView.xaml
     /// </summary>
-    public partial class ShowGuestsView : Window
+    public partial class ReportView : Window
     {
-
-        public ShowGuestsView(Tour selectedTour, Guest selectedGuest)
+        
+        public ReportView(TourReview selectedTourReview,Guest selectedguest)
         {
             InitializeComponent();
-            ShowGuestsViewModel showGuestsViewModel = new ShowGuestsViewModel(selectedTour,selectedGuest);
-            DataContext = showGuestsViewModel;
-            
+            ReportViewModel reportViewModel = new ReportViewModel(selectedTourReview, selectedguest);
+            DataContext = reportViewModel;  
+
         }
     }
-
 }

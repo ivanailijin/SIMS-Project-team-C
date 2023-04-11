@@ -6,17 +6,23 @@
     xmlns:local="clr-namespace:TravelService.WPF.View"
     mc:Ignorable="d"
     Title="ShowTourReviewView" Height="450" Width="800">
-    <Grid>
-        <DataGrid ItemsSource="{Binding TourReviews}" AutoGenerateColumns="False">
+    <Grid Margin="5,0,0,-15">
+        <DataGrid ItemsSource="{Binding Reviews,  UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTourReview}" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,0,140" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Guide Knowledge" Binding="{Binding GuideKnowledge, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Guide Language" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Tour Entertainment" Binding="{Binding TourEntertainment, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridCheckBoxColumn Header="Valid" Binding="{Binding Valid, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Valid" Binding="{Binding Valid, UpdateSourceTrigger=PropertyChanged}" />
+
 
             </DataGrid.Columns>
+
+
+
         </DataGrid>
+        <Button Content="REport" Command="{Binding showReportCommand}" HorizontalAlignment="Left" Margin="331,318,0,0" VerticalAlignment="Top" Width="140"/>
+
 
     </Grid>
 </Window>

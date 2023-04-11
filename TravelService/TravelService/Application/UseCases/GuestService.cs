@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 
 
 namespace TravelService.Application.UseCases
 {
-    public class GuestService 
+    public class GuestService
     {
 
         private readonly IGuestRepository _guestRepository;
-        
+
 
         public GuestService(IGuestRepository guestRepository)
         {
@@ -41,39 +37,44 @@ namespace TravelService.Application.UseCases
         }
 
 
-        public List<Tuple<string, string>> GetGuestsOnTour(Guest guest, Tour selectedTour, List<CheckPoint> checkPoints)
+        public List<Guest> GetGuestsOnTour(Guest guest, Tour selectedTour, List<CheckPoint> checkPoints)
         {
-            List<Tuple<string, string>> filteredGuests = new List<Tuple<string, string>>();
-
-            // Find guests on the same tour as the current guest
+            CheckPoint currentCheckPoint;
+            List<Guest> filteredGuests = new List<Guest>();
             List<Guest> guestsOnTour = FindByTourId(selectedTour.Id);
-
-            // Find check points that are relevant to the current guest
-            List<CheckPoint> checkPointsForGuest = FindGuestByCheckPointId(checkPoints, guest);
-
             foreach (Guest currentGuest in guestsOnTour)
             {
-                // Skip the current guest because we don't want to include them in the list
                 if (currentGuest.Id == guest.Id)
                 {
                     continue;
                 }
+                
+                currentCheckPoint = checkPoints.Find(checkPoint => checkPoint.CheckPointId == guest.CheckPointId);
 
-                // Find the check point for the current guest
-                CheckPoint currentCP = checkPointsForGuest.Find(cp => cp.CheckPointId == currentGuest.CheckPointId);
 
-                // Only add guest if they have not already been added
-                if (!filteredGuests.Any(tuple => tuple.Item1 == currentGuest.Username))
-                {
-                    if (currentCP != null)
-                    {
-                        filteredGuests.Add(new Tuple<string, string>(currentGuest.Username, currentCP.Name));
-                    }
-                }
+                filteredGuests.Add(currentGuest);
             }
 
             return filteredGuests;
         }
+
+        
+
+        public List<string> FindCheckPointName(List<Guest> Guests, List<CheckPoint> CheckPoints)
+        {
+            CheckPoint currentCheckPoint;
+            string checkPointName= null;
+            List<string> checkPointList = new List<string>();  
+            foreach (Guest guest in Guests)
+            {
+                currentCheckPoint = CheckPoints.Find(checkPoint => checkPoint.CheckPointId == guest.CheckPointId);
+                checkPointName = currentCheckPoint.Name;
+                checkPointList.Add(checkPointName); 
+
+            }
+            return checkPointList;
+        }
+
 
         public List<CheckPoint> FindGuestByCheckPointId(List<CheckPoint> checkPoints, Guest guest)
         {
@@ -81,7 +82,7 @@ namespace TravelService.Application.UseCases
 
             foreach (CheckPoint checkPoint in checkPoints)
             {
-                if (guest.CheckPointId == checkPoint.CheckPointId )
+                if (guest.CheckPointId == checkPoint.CheckPointId)
                 {
                     checkPointList.Add(checkPoint);
                 }
@@ -104,6 +105,6 @@ namespace TravelService.Application.UseCases
         }
 
 
+
     }
 }
-    

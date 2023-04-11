@@ -17,12 +17,14 @@ namespace TravelService.WPF.ViewModel
     {
         private readonly GuestService _guestService;
         private readonly CheckPointService _checkPointService;
-        public ObservableCollection<Guest> Guests { get; set; }
         public Tour SelectedTour { get; set; }
         public Guest SelectedGuest { get; set; }
         public List<CheckPoint> CheckPoints { get; set; }
-        public ObservableCollection<Tuple<string, string>> FilteredGuests { get; set; }
-        public ICollectionView GuestsListView { get; set; }
+        public List<Guest> GuestList { get; set; }
+        public List<Guest> Guest { get; set; }
+        public List<string> checkPoint { get; set; }
+        public TourReview SelectedTourReview { get; set; }  
+        public Guide Guide { get; set; }
 
         public ShowGuestsViewModel(Tour selectedTour,Guest selectedGuest)
         {
@@ -31,40 +33,19 @@ namespace TravelService.WPF.ViewModel
             _guestService = new GuestService(Injector.CreateInstance<IGuestRepository>());
             _checkPointService = new CheckPointService(Injector.CreateInstance<ICheckPointRepository>());
 
-            FilteredGuests = new ObservableCollection<Tuple<string, string>>(); // obrisi prethodne podatke
-            var checkPoints = _checkPointService.GetAll();
-            var guests = _guestService.FindByTourId(selectedTour.Id);
-            var filteredGuests = new List<Tuple<string, string>>();
-
-            foreach (var guest in guests)
+            CheckPoints = _checkPointService.GetAll();
+            Guest = _guestService.FindByTourId(selectedTour.Id);
+            
+            foreach (Guest guest in Guest)
             {
-                var guestsOnTour = _guestService.GetGuestsOnTour(guest, selectedTour, checkPoints);
-                foreach (var tuple in guestsOnTour)
-                {
-                    // Only add tuple if it is not already in filteredGuests
-                    if (!filteredGuests.Any(t => t.Item1 == tuple.Item1 && t.Item2 == tuple.Item2))
-                    {
-                        filteredGuests.Add(tuple);
-                    }
-
-                }
+                GuestList = _guestService.GetGuestsOnTour(guest, selectedTour, CheckPoints);
+                checkPoint = _guestService.FindCheckPointName(GuestList, CheckPoints);
             }
-           
-
-            FilteredGuests = new ObservableCollection<Tuple<string, string>>(filteredGuests);
-
-            CollectionViewSource guestsListViewSource = new CollectionViewSource();
-            guestsListViewSource.Source = FilteredGuests;
-            GuestsListView = guestsListViewSource.View;
-
+            
             showReviewsCommand = new RelayCommand(Execute_ShowReviews,CanExecute_Command);
         }
 
-
         public event PropertyChangedEventHandler? PropertyChanged;
-
-       
-
 
         private RelayCommand showReview;
         public RelayCommand showReviewsCommand
@@ -80,16 +61,17 @@ namespace TravelService.WPF.ViewModel
 
             }
         }
+       
         private bool CanExecute_Command(object parameter)
         {
             return true;
         }
-
-
         private void Execute_ShowReviews(object sender)
         {
-            ShowTourReviewView showTourReviewsView = new ShowTourReviewView(SelectedGuest);
+
+            ShowTourReviewView showTourReviewsView = new ShowTourReviewView(SelectedGuest,SelectedTourReview);
             showTourReviewsView.Show();
         }
+        
     }
-}
+    }
