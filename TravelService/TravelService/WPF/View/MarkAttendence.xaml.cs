@@ -60,7 +60,9 @@ namespace TravelService.WPF.View
 
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
-            _invitationRepository.confirmInvitation(convertInvitationList(Invitations), Guest2);
+          
+
+           _invitationRepository.confirmInvitation(convertInvitationList(Invitations), Guest2);
             MessageBox.Show("Thank you for confirming!");
             SecondGuestView secondGuestView = new SecondGuestView(Guest2);
             secondGuestView.Show();

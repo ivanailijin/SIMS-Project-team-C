@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.WPF.View;
 
+
 namespace TravelService.WPF.View
 {
     public partial class SecondGuestView : Window

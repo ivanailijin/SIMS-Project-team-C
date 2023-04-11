@@ -19,6 +19,7 @@ using TravelService.Repository;
 
 namespace TravelService.WPF.View
 {
+
     /// <summary>
     /// Interaction logic for GuestPresence.xaml
     /// </summary>
@@ -61,10 +62,6 @@ namespace TravelService.WPF.View
             List<Guest> convertedList = observableCollection.ToList();
             return convertedList;
         }
-
-
-
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.Domain.Model;
 using TravelService.Repository;
 using TravelService.View;
 

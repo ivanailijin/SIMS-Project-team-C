@@ -23,19 +23,19 @@ namespace TravelService.Domain.Model
         public int GuestId { get; set; }
         public bool Valid { get; set; }
 
-        public TourReview() 
-        { 
+        public TourReview()
+        {
             Pictures = new List<Uri>();
         }
         public TourReview(int guideKnowledge, int guideLanguage, int tourEntertainment, string comment, List<string> pictures, int guideId, int guestId, bool valid)
         {
             GuideKnowledge = guideKnowledge;
             GuideLanguage = guideLanguage;
-            TourEntertainment= tourEntertainment;
+            TourEntertainment = tourEntertainment;
             Comment = comment;
             Pictures = new List<Uri>();
-            GuideId= guideId;
-            GuestId= guestId;
+            GuideId = guideId;
+            GuestId = guestId;
             Valid = valid;
 
             foreach (string picture in pictures)

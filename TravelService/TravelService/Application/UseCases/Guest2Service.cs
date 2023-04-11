@@ -10,7 +10,9 @@ using TravelService.Serializer;
 
 namespace TravelService.Application.UseCases
 {
-    public class Guest2Service 
+    
+    public class Guest2Service
+
     {
         private readonly IGuest2Repository _repository;
 
@@ -34,4 +36,6 @@ namespace TravelService.Application.UseCases
             return _repository.GetAll();
         }
     }
+
 }
+

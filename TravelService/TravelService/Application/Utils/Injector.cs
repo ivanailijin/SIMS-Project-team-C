@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Repository;
 using TravelService.Application;
+using TravelService.Repository;
 using TravelService.Application.UseCases;
 
 namespace TravelService.Application.Utils
@@ -29,6 +30,7 @@ namespace TravelService.Application.Utils
         { typeof(IGuideRepository), new GuideRepository() },
         { typeof(ILanguageRepository), new LanguageRepository() },
         { typeof(IInvitationRepository), new InvitationRepository() },
+
         //{ typeof(IReservationRequestService), new ReservationRequestService(new ReservationRequestRepository())},
         // Add more implementations here
     };

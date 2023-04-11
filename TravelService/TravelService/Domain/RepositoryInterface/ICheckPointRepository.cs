@@ -20,4 +20,5 @@ namespace TravelService.Domain.RepositoryInterface
 
         public CheckPoint Update(CheckPoint checkPoint);
     }
+
 }

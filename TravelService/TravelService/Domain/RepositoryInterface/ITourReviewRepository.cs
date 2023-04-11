@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TravelService.Domain.RepositoryInterface
 {
-    public interface ITourReviewRepository
+    public interface  ITourReviewRepository
     {
         public List<TourReview> GetAll();
 

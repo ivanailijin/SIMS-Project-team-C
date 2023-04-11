@@ -4,12 +4,15 @@ using System.IO;
 using System.Windows;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
     public class TourReviewService
     {
         private readonly ITourReviewRepository _tourReviewRepository;
+
+        public readonly GuestRepository _guestReposiotry;
 
         public TourReviewService(ITourReviewRepository tourReviewRepository)
         {
@@ -35,6 +38,7 @@ namespace TravelService.Application.UseCases
         {
             _tourReviewRepository.Update(tourReview);
         }
+
 
         public void addReview(int guideKnowledge, int guideLanguage, int tourEntertainment, string comment, string pictures, Tour selectedTour, Guest2 guest2)
         {
@@ -98,6 +102,21 @@ namespace TravelService.Application.UseCases
                 Pictures += newPictures;
             }
             return Pictures;
+        }
+
+        public List<TourReview> FindGuestsTourReviews(List<TourReview> tourReviews, Guest guest)
+        {
+            List<TourReview> matchingTourReviews = new List<TourReview>();
+
+            foreach (TourReview tourReview in tourReviews)
+            {
+                if (tourReview.GuestId == guest.Id)
+                {
+                    matchingTourReviews.Add(tourReview);
+                }
+            }
+
+            return matchingTourReviews;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.Repository
 {
@@ -86,5 +87,6 @@ namespace TravelService.Repository
             }
             return null;
         }
+
     }
 }

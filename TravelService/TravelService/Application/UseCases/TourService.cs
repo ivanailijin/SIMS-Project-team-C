@@ -1,6 +1,15 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
+
 
 namespace TravelService.Application.UseCases
 {
@@ -32,6 +41,7 @@ namespace TravelService.Application.UseCases
         {
             _tourRepository.Update(tour);
         }
+
 
         public List<Tour> ShowPastTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Guest> Guests, Guest2 guest2)
         {
@@ -109,3 +119,4 @@ namespace TravelService.Application.UseCases
         }
     }
 }
+

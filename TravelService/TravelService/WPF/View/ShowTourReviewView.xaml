@@ -1,0 +1,28 @@
+﻿<Window x:Class="TravelService.WPF.View.ShowTourReviewView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:TravelService.WPF.View"
+    mc:Ignorable="d"
+    Title="ShowTourReviewView" Height="450" Width="800">
+    <Grid Margin="5,0,0,-15">
+        <DataGrid ItemsSource="{Binding Reviews,  UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTourReview}" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,0,140" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Guide Knowledge" Binding="{Binding GuideKnowledge, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Guide Language" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Tour Entertainment" Binding="{Binding TourEntertainment, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Valid" Binding="{Binding Valid, UpdateSourceTrigger=PropertyChanged}" />
+
+
+            </DataGrid.Columns>
+
+
+
+        </DataGrid>
+        <Button Content="REport" Command="{Binding showReportCommand}" HorizontalAlignment="Left" Margin="331,318,0,0" VerticalAlignment="Top" Width="140"/>
+
+
+    </Grid>
+</Window>

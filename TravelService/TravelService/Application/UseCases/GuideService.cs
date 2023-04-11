@@ -8,7 +8,7 @@ using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.Application.UseCases
 {
-    internal class GuideService
+    public class GuideService
     {
         private readonly IGuideRepository _guideRepository;
 
@@ -32,4 +32,6 @@ namespace TravelService.Application.UseCases
             return _guideRepository.GetAll();
         }
     }
+
 }
+

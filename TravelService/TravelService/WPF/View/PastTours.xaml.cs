@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.View
 {
@@ -39,6 +40,7 @@ namespace TravelService.WPF.View
 
     public Tour SelectedTour { get; set; }
     public Guide Guide { get; set; }
+    public Guest SelectedGuest { get; set; }    
 
     public PastTours(Tour selectedTour, Guide guide)
     {
@@ -83,6 +85,12 @@ namespace TravelService.WPF.View
             // Show the statistics for the selected tour
             TourStats statsWindow = new TourStats(SelectedTour);
             statsWindow.ShowDialog();
+        }
+
+        private void Reviews_Click(object sender, RoutedEventArgs e)
+        {
+           ShowGuestsView showGuestsView = new ShowGuestsView(SelectedTour,SelectedGuest);
+            showGuestsView.ShowDialog();    
         }
     }
 }

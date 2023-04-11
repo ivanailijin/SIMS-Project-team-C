@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace TravelService.WPF.ViewModel
 {
+
     public class ViewModelBase : INotifyPropertyChanged
+
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

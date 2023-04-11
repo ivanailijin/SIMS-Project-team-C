@@ -37,7 +37,7 @@ namespace TravelService.WPF.View
             _guestRepository = new GuestRepository();
 
             // Call the ShowTourStatistics method with the selected tour's Id
-            TourStatisticsList= new List<TourStatistics> { _guestRepository.ShowTourStatistics(selectedTour.Id) };
+            TourStatisticsList= new List<TourStatistics> { _guestRepository.ShowTourStatistics(selectedTour) };
 
             // Update the properties in TourStats with the results from the repository
             Under18Count = _guestRepository.Under18Count;
