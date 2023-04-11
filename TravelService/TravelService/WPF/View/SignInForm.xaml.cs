@@ -4,7 +4,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using TravelService.Application.UseCases;
+using TravelService.Application.Utils;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
 
 namespace TravelService.View
@@ -14,25 +17,25 @@ namespace TravelService.View
     /// </summary>
     public partial class SignInForm : Window
     {
-        private readonly UserRepository _repository;
+        private readonly UserService _userService;
 
         private readonly GuideRepository _guideRepository;
 
-        private readonly Guest1Repository _guest1Repository;
+        private readonly Guest1Service _guest1Service;
 
-        private readonly Guest2Repository _guest2Repository;
+        private readonly Guest2Service _guest2Service;
 
-        private readonly OwnerRepository _ownerRepository;
+        private readonly OwnerService _ownerService;
 
-        private readonly AccommodationRepository _accommodationRepository;
+        private readonly AccommodationService _accommodationService;
 
-        private readonly InvitationRepository _invitationRepository;
+        private readonly AccommodationReservationService _reservationService;
 
-        private readonly AccommodationReservationRepository _reservationRepository;
+        private readonly InvitationService _invitationService;
 
-        public readonly TourRepository _tourRepository;
+        private readonly TourRepository _tourRepository;
 
-        public readonly GuestRepository _repositoryGuest;
+        private readonly GuestRepository _repositoryGuest;
 
         private CheckPointRepository _repositoryCheckPoint;
 
@@ -69,25 +72,24 @@ namespace TravelService.View
         {
             InitializeComponent();
             DataContext = this;
-            _repository = new UserRepository();
-            _ownerRepository = new OwnerRepository();
-            _guest1Repository = new Guest1Repository();
-            _guest2Repository = new Guest2Repository();
-            _reservationRepository = new AccommodationReservationRepository();
-            _accommodationRepository = new AccommodationRepository();
+            _userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
+            _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
+            _guest2Service = new Guest2Service(Injector.CreateInstance<IGuest2Repository>());
+            _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
+            _invitationService = new InvitationService(Injector.CreateInstance<IInvitationRepository>());
             _tourRepository = new TourRepository();
             _repositoryGuest = new GuestRepository();
             _repositoryCheckPoint = new CheckPointRepository();
             _guideRepository = new GuideRepository();
-            _invitationRepository = new InvitationRepository();
-
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(txtPassword.Password))
             {
-                User user = _repository.GetByUsername(Username);
+                User user = _userService.GetByUsername(Username);
 
                 if (user != null)
                 {
@@ -96,15 +98,15 @@ namespace TravelService.View
                     {
                         if (txtPassword.Password.Equals("owner123"))
                         {
-                            Owner owner = _ownerRepository.GetByUsername(Username);
+                            Owner owner = _ownerService.GetByUsername(Username);
                             OwnerView ownerView = new OwnerView(owner);
                             ownerView.Show();
 
-                            List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
+                            List<AccommodationReservation> reservationList = _reservationService.GetAll();
 
                             foreach (AccommodationReservation reservation in reservationList)
                             {
-                                Accommodation reservedAccommodation = _accommodationRepository.FindById(reservation.AccommodationId);
+                                Accommodation reservedAccommodation = _accommodationService.FindById(reservation.AccommodationId);
                                 TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
                                 if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservedAccommodation.OwnerId == owner.Id)
                                 {
@@ -121,15 +123,15 @@ namespace TravelService.View
                         }
                         else if (txtPassword.Password.Equals("guest1123"))
                         {
-                            Guest1 guest1 = _guest1Repository.GetByUsername(Username);
+                            Guest1 guest1 = _guest1Service.GetByUsername(Username);
                             AccommodationView accommodationView = new AccommodationView(guest1);
                             accommodationView.Show();
                             Close();
                         }
                         else if (txtPassword.Password.Equals("guest2123"))
                         {
-                            Guest2 guest2 = _guest2Repository.GetByUsername(Username);
-                            foreach (Invitation invitation in _invitationRepository.GetAll())
+                            Guest2 guest2 = _guest2Service.GetByUsername(Username);
+                            foreach (Invitation invitation in _invitationService.GetAll())
                             {
                                 if (invitation.GuestId == guest2.Id && invitation.GuestAttendence == false)
                                 {
@@ -138,7 +140,6 @@ namespace TravelService.View
                                     Close();
                                 }
                             }
-
                             SecondGuestView secondGuestView = new SecondGuestView(guest2);
                             secondGuestView.Show();
                             Close();
@@ -189,4 +190,5 @@ namespace TravelService.View
 
     }
 }
+
 
