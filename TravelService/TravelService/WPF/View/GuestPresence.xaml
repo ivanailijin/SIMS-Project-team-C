@@ -42,15 +42,8 @@
                     </TransformGroup>
                 </DataGrid.RenderTransform>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Attendance" Width="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding Attendance}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Attendence" Width="100" Binding="{Binding Attendence}"/>
                     <DataGridTextColumn Header="Username" Width="100" Binding="{Binding Username}"/>
-                    
                     <DataGridTextColumn Header="CheckPoint Id" Width="100" Binding="{Binding CheckPointId}"/>
                     <DataGridTextColumn Header="TourId" Width="100" Binding="{Binding TourId}"/>
                 </DataGrid.Columns>

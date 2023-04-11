@@ -76,8 +76,6 @@ namespace TravelService.Repository
         }
 
 
-
-
         public List<Guest> filterGuestsByCheckpointAndTour(List<Guest> guests, CheckPoint selectedCheckPoint, Tour selectedTour)
         {
             List<Guest> filteredGuests = new List<Guest>();
@@ -107,13 +105,8 @@ namespace TravelService.Repository
 
         public TourStatistics ShowTourStatistics(Tour tour)
         {
-            // Get all guests with their vouchers
             List<Guest> guests = GetAllGuestsWithVouchers();
-
-            // Get the selected tour guests
             List<Guest> selectedTourGuests = guests.Where(g => g.TourId == tour.Id).ToList();
-
-            // Check if the tour is done
             if (!tour.Done)
             {
                 throw new ArgumentException("The selected tour is not done.");

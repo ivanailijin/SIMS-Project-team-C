@@ -12,10 +12,6 @@ namespace TravelService.Domain.Model
         public int Id { get; set; }
         public int GuestId { get; set; }
         public bool GuestAttendence { get; set; }
-        
-
-
-
 
         public Invitation()
         {
