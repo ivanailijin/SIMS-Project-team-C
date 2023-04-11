@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -19,12 +20,12 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for AddReview.xaml
     /// </summary>
-    public partial class AddReview : Window, INotifyPropertyChanged
+    public partial class AddReviewView : Window, INotifyPropertyChanged
     {
-        public AddReview()
+        public AddReviewView(Tour selectedTour, Guest2 guest2)
         {
             InitializeComponent();
-            AddReviewViewModel addReviewViewModel = new AddReviewViewModel();
+            AddReviewViewModel addReviewViewModel = new AddReviewViewModel(selectedTour,guest2);
             DataContext= addReviewViewModel;
         }
 

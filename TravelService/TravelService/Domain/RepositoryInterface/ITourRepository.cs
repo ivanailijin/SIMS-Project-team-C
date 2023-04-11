@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TravelService.Domain.Model;
 using System.Threading.Tasks;
+using TravelService.Repository;
 
 namespace TravelService.Domain.RepositoryInterface
 {

@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class Guest2Repository
+    public class Guest2Repository : IGuest2Repository
     {
         private const string FilePath = "../../../Resources/Data/guests2.csv";
 

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using TravelService.Domain.Model;
+using TravelService.WPF.View;
 
 namespace TravelService.View
 {
@@ -35,6 +36,12 @@ namespace TravelService.View
             VoucherView voucherView = new VoucherView(tourReservationView,SelectedVoucher,SelectedTour,Guest2);
             voucherView.ResetItemSource(voucherView.GuestVouchers);
             voucherView.Show();
+        }
+        
+        private void RateToursViewButton_CLick(object sender, RoutedEventArgs e)
+        {
+            GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
+            guestsToursView.Show();
         }
     }
 }

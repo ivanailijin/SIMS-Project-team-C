@@ -17,6 +17,8 @@ namespace TravelService.Application.Utils
         { typeof(ICheckPointRepository), new CheckPointRepository() },
         { typeof(IGuestRepository), new GuestRepository() },
         { typeof(IGuideRepository), new GuideRepository() },
+        { typeof(ILocationRepository), new LocationRepository() },
+        { typeof(ILanguageRepository), new LanguageRepository() },
         //{ typeof(IReservationRequestService), new ReservationRequestService(new ReservationRequestRepository())},
         // Add more implementations here
     };

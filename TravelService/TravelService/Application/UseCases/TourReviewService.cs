@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.View;
+using TravelService.WPF.View;
 
 namespace TravelService.Application.UseCases
 {

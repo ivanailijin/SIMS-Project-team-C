@@ -3,11 +3,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class GuestRepository
+    public class GuestRepository : IGuestRepository
     {
         private const string FilePath = "../../../Resources/Data/guest.csv";
 
