@@ -131,13 +131,13 @@ namespace TravelService.View
                             Guest2 guest2 = _guest2Repository.GetByUsername(Username);
                             foreach (Invitation invitation in _invitationRepository.GetAll())
                             {
-                                if (invitation.GuestId == guest2.Id && invitation.GuestAttendence == false) 
+                                if (invitation.GuestId == guest2.Id && invitation.GuestAttendence == false)
                                 {
                                     MarkAttendence markAttendence = new MarkAttendence(SelectedTour, SelectedCheckPoint, guest2);
                                     markAttendence.ShowDialog();
                                     Close();
                                 }
-                            }                 
+                            }
 
                             SecondGuestView secondGuestView = new SecondGuestView(guest2);
                             secondGuestView.Show();
@@ -189,5 +189,4 @@ namespace TravelService.View
 
     }
 }
-
 

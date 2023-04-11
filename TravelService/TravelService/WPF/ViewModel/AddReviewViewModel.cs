@@ -76,7 +76,6 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-
         private int guideLanguage;
         public int GuideLanguage
         {
@@ -155,9 +154,7 @@ namespace TravelService.WPF.ViewModel
             RateCommand = new RelayCommand(Execute_Rate, CanExecute_Command);
             AddPictureCommand = new RelayCommand(Execute_AddPicture, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_Cancel, CanExecute_Command);
-            Pictures = this.Pictures;
         }
-
         private bool CanExecute_Command(object parameter)
         {
             return true;

@@ -107,20 +107,5 @@ namespace TravelService.Application.UseCases
             }
             return guestList;
         }
-
-        public List<TourReview> FindRatedTourReviews(List<TourReview> tourReviews, Guest2 guest2)
-        {
-            List<TourReview> matchingTourReviews = new List<TourReview>();
-
-            foreach (TourReview tourReview in tourReviews)
-            {
-                if (tourReview.GuestId == guest2.Id)
-                {
-                    matchingTourReviews.Add(tourReview);
-                }
-            }
-
-            return matchingTourReviews;
-        }
     }
 }

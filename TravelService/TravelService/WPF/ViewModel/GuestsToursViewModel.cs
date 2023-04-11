@@ -75,7 +75,7 @@ namespace TravelService.WPF.ViewModel
             SelectedTour = selectedTour;
             Guest2 = guest2;
 
-            GuestsTours = _tourService.ShowGuestTourList(Tours, Locations, Languages, CheckPoints, Guests,Guest2);
+            GuestsTours = _tourService.ShowGuestTourList(Tours, Locations, Languages, CheckPoints, Guests, Guest2);
             RateTourCommand = new RelayCommand(Execute_RateTour, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_Cancel, CanExecute_Command);
         }
