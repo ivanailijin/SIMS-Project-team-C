@@ -10,7 +10,7 @@ namespace TravelService.Domain.Model
 {
     public class Guide : User, ISerializable
     {
-        
+
         public List<Tour> Tours { get; set; }
         public Guide()
         {
@@ -23,12 +23,12 @@ namespace TravelService.Domain.Model
             Password = password;
             UserType = userType;
             Tours = new List<Tour>();
-             
+
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, UserType};
+            string[] csvValues = { Id.ToString(), Username, Password, UserType };
             return csvValues;
         }
 

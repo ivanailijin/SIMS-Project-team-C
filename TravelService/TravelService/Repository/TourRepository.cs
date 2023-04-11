@@ -308,9 +308,6 @@ namespace TravelService.Repository
            
         }
 
-
-
-
         public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours, List<CheckPoint> CheckPoints)
         {
             List<CheckPoint> ListCheckPoints = new List<CheckPoint>();

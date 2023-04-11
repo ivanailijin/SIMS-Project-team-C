@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Repository;
+using TravelService.Serializer;
 
 namespace TravelService.Domain.RepositoryInterface
 {
@@ -16,7 +17,7 @@ namespace TravelService.Domain.RepositoryInterface
         public int NextId();
         public void Delete(AccommodationReservation accommodationReservation);
         public AccommodationReservation FindById(int id);
-        public ObservableCollection<AccommodationReservation> FindUnratedReservations(AccommodationRepository _accommodationRepository, int OwnerId);
+        public List<AccommodationReservation> FindUnratedReservations(AccommodationRepository _accommodationRepository, int OwnerId);
         public AccommodationReservation Update(AccommodationReservation accommodationReservation);
         public List<Tuple<DateTime, DateTime>> FindAvailableDates(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying);
         public List<Tuple<DateTime, DateTime>> FindAvailableDatesOutsideRange(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying);
@@ -26,7 +27,5 @@ namespace TravelService.Domain.RepositoryInterface
         public void SetAccommodationForUnratedOwners(List<Accommodation> accomodations);
         public void SetLocationForUnratedOwners(List<Location> locations);
         public void SetNameForUnratedOwners(List<Owner> owners);
-
-
     }
 }

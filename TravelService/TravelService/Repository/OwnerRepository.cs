@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class OwnerRepository
+    public class OwnerRepository : IOwnerRepository
     {
         private const string FilePath = "../../../Resources/Data/owners.csv";
 
@@ -34,7 +35,7 @@ namespace TravelService.Repository
             owner.NumberOfRatings = _ownerRatingRepository.GetNumberOfRatings(owner.Id);
             owner.AverageRating = _ownerRatingRepository.GetAverageRating(owner.Id);
 
-            if(owner.NumberOfRatings > 50 && owner.AverageRating > 4.5)
+            if(owner.NumberOfRatings >= 50 && owner.AverageRating > 4.5)
             {
                 owner.SuperOwner = true;
             }
@@ -42,10 +43,19 @@ namespace TravelService.Repository
             {
                 owner.SuperOwner = false;
             }
+            Update(owner);
 
             return owner;
         }
-
+        public int NextId()
+        {
+            _owners = _serializer.FromCSV(FilePath);
+            if (_owners.Count < 1)
+            {
+                return 1;
+            }
+            return _owners.Max(o => o.Id) + 1;
+        }
         public Owner FindById(int id)
         {
             _owners = _serializer.FromCSV(FilePath);
@@ -58,7 +68,24 @@ namespace TravelService.Repository
             }
             return null;
         }
-
+        public Owner Update(Owner owner)
+        {
+            _owners = _serializer.FromCSV(FilePath);
+            Owner current = _owners.Find(c => c.Id == owner.Id);
+            int index = _owners.IndexOf(current);
+            _owners.Remove(current);
+            _owners.Insert(index, owner);
+            _serializer.ToCSV(FilePath, _owners);
+            return owner;
+        }
+        public Owner Save(Owner owner)
+        {
+            owner.Id = NextId();
+            _owners = _serializer.FromCSV(FilePath);
+            _owners.Add(owner);
+            _serializer.ToCSV(FilePath, _owners);
+            return owner;
+        }
         public List<Owner> GetAll()
         {
             return _serializer.FromCSV(FilePath);

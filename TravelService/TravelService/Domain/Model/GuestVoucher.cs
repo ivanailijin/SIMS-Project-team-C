@@ -49,7 +49,6 @@ namespace TravelService.Domain.Model
         }
 
 
-
         public string VoucherTypeToCSV()
 
         {

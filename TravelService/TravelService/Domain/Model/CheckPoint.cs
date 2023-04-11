@@ -28,7 +28,6 @@ namespace TravelService.Domain.Model
         public string[] ToCSV()
         {
             string[] csvValues = { CheckPointId.ToString(), Name, TourId.ToString(), Active.ToString() };
-
             return csvValues;
         }
 
@@ -37,7 +36,7 @@ namespace TravelService.Domain.Model
             CheckPointId = Convert.ToInt32(values[0]);
             Name = values[1];
             TourId = Convert.ToInt32(values[2]);
-            Active = Boolean.Parse(values[3]);
+            Active = bool.Parse(values[3]);
         }
     }
 }

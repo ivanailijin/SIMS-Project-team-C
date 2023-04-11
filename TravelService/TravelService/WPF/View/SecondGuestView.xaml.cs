@@ -34,6 +34,7 @@ namespace TravelService.WPF.View
         private void TourViewButton_CLick(object sender, RoutedEventArgs e)
         {
             TourView tourView = new TourView(Guest2);
+
             tourView.Show();
         }
         private void TourReservationButton_Click(object sender, RoutedEventArgs e)

@@ -74,6 +74,7 @@ namespace TravelService.WPF.View
                     if (guest.Id == ratedGuest.Id)
                     {
                         commonGuests.Add(guest);
+                        break;
                     }
                 }
             }

@@ -111,7 +111,7 @@ namespace TravelService.Domain.Model
             }
 
             TourStart = DateTime.Parse(values[9]);
-            Done = Boolean.Parse(values[10]);
+            Done = bool.Parse(values[10]);
         }
     }
 }

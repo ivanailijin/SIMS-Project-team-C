@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Repository;
-using TravelService.Domain.RepositoryInterface;
+using TravelService.Application;
+using TravelService.Application.UseCases;
 
 namespace TravelService.Application.Utils
 {
@@ -17,7 +18,10 @@ namespace TravelService.Application.Utils
         { typeof(ILocationRepository), new LocationRepository() },
         { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
         { typeof(IAccommodationRepository), new AccommodationRepository() },
-        // Add more implementations here
+        { typeof(IGuest1Repository), new Guest1Repository() },
+        { typeof(IOwnerRepository), new OwnerRepository() },
+        { typeof(IUserRepository), new UserRepository() },
+        //{ typeof(IReservationRequestService), new ReservationRequestService(new ReservationRequestRepository())},
     };
 
         public static T CreateInstance<T>()

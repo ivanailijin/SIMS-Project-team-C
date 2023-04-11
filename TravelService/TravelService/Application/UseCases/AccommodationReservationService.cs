@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.Application.Utils;
-using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
     public class AccommodationReservationService
     {
         private readonly IAccommodationReservationRepository _accommodationReservationRepository;
-        private readonly AccommodationService _accommodationService;
+
+        public readonly AccommodationService _accommodationService;
         public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository)
         {
             _accommodationReservationRepository = accommodationReservationRepository;
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
         }
-
         public List<AccommodationReservation> GetAll()
         {
             return _accommodationReservationRepository.GetAll();
@@ -65,8 +61,8 @@ namespace TravelService.Application.UseCases
         public bool IsCancellingLimitFulfilled(int id)
         {
             AccommodationReservation accommodationReservation = _accommodationReservationRepository.FindById(id);
-            TimeSpan dayDifference = accommodationReservation.CheckInDate - DateTime.Now; 
-            if(dayDifference.TotalHours > 24)
+            TimeSpan dayDifference = accommodationReservation.CheckInDate - DateTime.Now;
+            if (dayDifference.TotalHours > 24)
             {
                 return true;
             }
@@ -77,11 +73,66 @@ namespace TravelService.Application.UseCases
         {
             Accommodation accommodation = _accommodationService.FindById(reservation.AccommodationId);
             TimeSpan daydifference = reservation.CheckInDate - DateTime.Now;
-            if(daydifference.TotalDays > accommodation.DaysBeforeCancellingReservation)
+            if (daydifference.TotalDays > accommodation.DaysBeforeCancellingReservation)
             {
                 return true;
             }
             return false;
         }
+
+            List<AccommodationReservation> FindReservationsByAccommodation(int accommodationId)
+            {
+                List<AccommodationReservation> filteredReservations = new List<AccommodationReservation>();
+                List<AccommodationReservation> allReservations = GetAll();
+
+                foreach (AccommodationReservation reservation in allReservations)
+                {
+                    if (reservation.AccommodationId == accommodationId)
+                    {
+                        filteredReservations.Add(reservation);
+                    }
+                }
+                return filteredReservations;
+            }
+        
+
+        public bool CheckMatchingDates(AccommodationReservation checkReservation, DateTime newStartDate, DateTime newEndDate)
+        {
+            if (checkReservation.CheckOutDate < newStartDate || newEndDate < checkReservation.CheckInDate)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public AVAILABILITY CheckAvailability(int reservationId, DateTime newStartDate, DateTime newEndDate)
+        {
+            AccommodationReservation reservation = FindById(reservationId);
+            Accommodation accommodation = _accommodationService.FindById(reservation.AccommodationId);
+
+            List<AccommodationReservation> reservationsForCheck = FindReservationsByAccommodation(accommodation.Id);
+            reservationsForCheck.Remove(reservation);
+            bool hasOverlap = false;
+
+            foreach (AccommodationReservation checkReservation in reservationsForCheck)
+            {
+                bool matchingDates = CheckMatchingDates(checkReservation, newStartDate, newEndDate);
+                if (matchingDates)
+                {
+                    hasOverlap = true;
+                    break;
+                }
+            }
+
+            if (hasOverlap)
+            {
+                return AVAILABILITY.Unavailable;
+            }
+            else
+            {
+                return AVAILABILITY.Available;
+            }
+        }
     }
+
 }

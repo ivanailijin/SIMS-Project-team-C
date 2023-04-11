@@ -21,7 +21,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="170" Binding="{Binding Guest1.Username}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Accommodation"  Width="150" Binding="{Binding AccommodationName}">
+                <DataGridTextColumn Header="Accommodation"  Width="150" Binding="{Binding Accommodation.Name}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

@@ -40,13 +40,13 @@ namespace TravelService.WPF.View
             _reservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
             _guest1Repository = new Guest1Repository();
-            UnratedReservations = new ObservableCollection<AccommodationReservation>();
+            List<AccommodationReservation> unratedReservations = new List<AccommodationReservation>();
 
             List<AccommodationReservation> reservationList = _reservationRepository.GetAll();
-
-            UnratedReservations = _reservationRepository.FindUnratedReservations(_accommodationRepository, Owner.Id);
-
-            UnratedReservations = _guest1Repository.FindReservationGuest(UnratedReservations);
+            unratedReservations = _reservationRepository.FindUnratedReservations(_accommodationRepository, Owner.Id);
+            unratedReservations = _reservationRepository.GetAccommodationData(unratedReservations);
+            unratedReservations = _guest1Repository.FindReservationGuest(unratedReservations);
+            UnratedReservations = new ObservableCollection<AccommodationReservation>(unratedReservations);
 
             DataContext = this;
         }

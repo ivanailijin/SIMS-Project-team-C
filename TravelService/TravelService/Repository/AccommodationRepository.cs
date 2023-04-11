@@ -11,7 +11,6 @@ using TravelService.Serializer;
 namespace TravelService.Repository
 {
     public class AccommodationRepository : IAccommodationRepository
-
     {
         private const string FilePath = "../../../Resources/Data/accommodations.csv";
 

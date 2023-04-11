@@ -13,8 +13,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelService.Application.Utils;
+using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
 using TravelService.Domain.Model;
+using TravelService.View;
 
 namespace TravelService.WPF.View
 {
@@ -70,6 +74,19 @@ namespace TravelService.WPF.View
         {
             ReviewsSelectionView reviewSelection = new ReviewsSelectionView(Owner);
             reviewSelection.Show();
+        }
+
+        private void ReservationRequests_Click(object sender, RoutedEventArgs e)
+        {
+            MovingReservationRequestsView movingReservationRequests = new MovingReservationRequestsView();
+            movingReservationRequests.Show();
+        }
+
+        private void LogOutClick_Click(object sender, RoutedEventArgs e)
+        {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            Close();
         }
     }
 }

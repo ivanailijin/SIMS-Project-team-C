@@ -13,15 +13,10 @@ namespace TravelService.Domain.Model
         public int GuestId { get; set; }
         public bool GuestAttendence { get; set; }
 
-
-
-
-
         public Invitation()
         {
 
         }
-
 
         public Invitation(int guestId, bool guestAttendence)
         {

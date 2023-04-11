@@ -26,7 +26,6 @@ namespace TravelService.Domain.Model
             VoucherList = new List<GuestVoucher>();
         }
 
-
         public Guest(string username, int checkPointId, int tourId, bool attendence,int age)
         {
             Username = username;
@@ -35,12 +34,10 @@ namespace TravelService.Domain.Model
             Attendence = attendence; 
             Age = age;  
         }
-
        
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), Username, CheckPointId.ToString(),TourId.ToString(), Attendence.ToString(),Age.ToString()};
-
             return csvValues;
         }
 

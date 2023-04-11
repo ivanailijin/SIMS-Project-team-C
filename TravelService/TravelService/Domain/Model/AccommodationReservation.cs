@@ -61,7 +61,7 @@ namespace TravelService.Domain.Model
                 GuestNumber.ToString(),
                 IsRated.ToString(),
                 IsOwnerRated.ToString(),
-                IsCancelled.ToString()
+                IsCancelled.ToString(),
             };
             return csvValues;
         }
@@ -81,6 +81,22 @@ namespace TravelService.Domain.Model
             IsRated = bool.Parse(values[10]);
             IsOwnerRated = bool.Parse(values[11]);
             IsCancelled = bool.Parse(values[12]);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            AccommodationReservation other = (AccommodationReservation)obj;
+            return this.Id == other.Id; 
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }
