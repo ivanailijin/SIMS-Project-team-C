@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class Guest1Repository
+    public class Guest1Repository : IGuest1Repository
     {
         private const string FilePath = "../../../Resources/Data/guests1.csv";
 
@@ -54,7 +55,7 @@ namespace TravelService.Repository
             return _serializer.FromCSV(FilePath);
         }
 
-        public ObservableCollection<AccommodationReservation> FindReservationGuest (ObservableCollection<AccommodationReservation> UnratedReservations)
+        public List<AccommodationReservation> FindReservationGuest (List<AccommodationReservation> UnratedReservations)
         {
             foreach (AccommodationReservation unratedReservation in UnratedReservations)
             {
@@ -63,5 +64,6 @@ namespace TravelService.Repository
 
             return UnratedReservations;
         }
+
     }
 }

@@ -15,11 +15,13 @@ namespace TravelService.Repository
         private readonly Serializer<AccommodationReservation> _serializer;
 
         private List<AccommodationReservation> _accommodationReservations;
+        private AccommodationRepository _accommodationRepository;
 
         public AccommodationReservationRepository()
         {
             _serializer = new Serializer<AccommodationReservation>();
             _accommodationReservations = _serializer.FromCSV(FilePath);
+            _accommodationRepository = new AccommodationRepository();
         }
 
         public List<AccommodationReservation> GetAll()
@@ -67,9 +69,9 @@ namespace TravelService.Repository
             return null;
         }
 
-        public ObservableCollection<AccommodationReservation> FindUnratedReservations(AccommodationRepository _accommodationRepository, int OwnerId)
+        public List<AccommodationReservation> FindUnratedReservations(AccommodationRepository _accommodationRepository, int OwnerId)
         {
-            ObservableCollection<AccommodationReservation> UnratedReservations = new ObservableCollection<AccommodationReservation>();
+            List<AccommodationReservation> UnratedReservations = new List<AccommodationReservation>();
 
             foreach (AccommodationReservation reservation in _accommodationReservations)
             {
@@ -82,6 +84,17 @@ namespace TravelService.Repository
             }
 
             return UnratedReservations;
+        }
+
+        public List<AccommodationReservation> GetAccommodationData(List<AccommodationReservation> reservations)
+        {
+            List<Accommodation> accommodations = _accommodationRepository.GetAll();
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                reservation.Accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
+            }
+
+            return reservations;
         }
         public AccommodationReservation Update(AccommodationReservation accommodationReservation)
         {

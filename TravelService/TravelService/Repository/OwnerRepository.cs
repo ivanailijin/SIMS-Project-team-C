@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class OwnerRepository
+    public class OwnerRepository : IOwnerRepository
     {
         private const string FilePath = "../../../Resources/Data/owners.csv";
 
@@ -34,7 +35,7 @@ namespace TravelService.Repository
             owner.NumberOfRatings = _ownerRatingRepository.GetNumberOfRatings(owner.Id);
             owner.AverageRating = _ownerRatingRepository.GetAverageRating(owner.Id);
 
-            if(owner.NumberOfRatings > 50 && owner.AverageRating > 4.5)
+            if(owner.NumberOfRatings >= 50 && owner.AverageRating > 4.5)
             {
                 owner.SuperOwner = true;
             }

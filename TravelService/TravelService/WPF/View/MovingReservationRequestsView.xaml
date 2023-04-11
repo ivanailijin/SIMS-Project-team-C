@@ -32,7 +32,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="100"  Binding="{Binding Guest.Username}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Accommodation" Width="140"   Binding="{Binding Reservation.AccommodationName}">
+                <DataGridTextColumn Header="Accommodation" Width="140"   Binding="{Binding Reservation.Accommodation.Name}">
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Start date" Binding="{Binding Reservation.CheckInDate, StringFormat='{}{0:d}'}"  Width="90" >
                 </DataGridTextColumn>

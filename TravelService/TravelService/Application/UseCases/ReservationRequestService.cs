@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Application.ServiceInterface;
+using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
@@ -15,14 +16,15 @@ namespace TravelService.Application.UseCases
         private readonly IReservationRequestRepository _reservationRequestRepository;
         
         public AccommodationReservationService _reservationService;
-
+        public AccommodationService _accommodationService;
         public Guest1Service _guestService;
 
         public ReservationRequestService(IReservationRequestRepository reservationRequestRepository)
         {
             _reservationRequestRepository = reservationRequestRepository;
-            _reservationService = new AccommodationReservationService(new AccommodationReservationRepository());
-            _guestService = new Guest1Service(new Guest1Repository());
+            _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            _guestService = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
         }
         public void Delete(ReservationRequest reservationRequest)
         {
@@ -60,6 +62,17 @@ namespace TravelService.Application.UseCases
             {
                 AccommodationReservation reservation = _reservationService.FindById(reservationRequest.ReservationId);
                 reservationRequest.Reservation = reservation;
+            }
+
+            return reservationRequests;
+        }
+
+        public List<ReservationRequest> GetAccommodationData(List<ReservationRequest> reservationRequests)
+        {
+            List<Accommodation> accommodations = _accommodationService.GetAll();
+            foreach (ReservationRequest reservationRequest in reservationRequests)
+            {
+                reservationRequest.Reservation.Accommodation = accommodations.Find(a => a.Id == reservationRequest.Reservation.AccommodationId);
             }
 
             return reservationRequests;

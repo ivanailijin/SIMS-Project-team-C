@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
 using TravelService.Serializer;
 
@@ -11,9 +12,9 @@ namespace TravelService.Application.UseCases
 {
     public class Guest1Service
     {
-        private readonly Guest1Repository _repository;
+        private readonly IGuest1Repository _repository;
 
-        public Guest1Service(Guest1Repository repository)
+        public Guest1Service(IGuest1Repository repository)
         {
             _repository = repository;
         }

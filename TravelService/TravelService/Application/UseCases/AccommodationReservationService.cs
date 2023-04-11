@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
@@ -16,7 +17,7 @@ namespace TravelService.Application.UseCases
         public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository)
         {
             _accommodationReservationRepository = accommodationReservationRepository;
-            _accommodationService = new AccommodationService(new AccommodationRepository());
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
         }
         public List<AccommodationReservation> GetAll()
         {

@@ -51,6 +51,7 @@ namespace TravelService.WPF.ViewModel
             _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
             List<ReservationRequest> reservationRequests = _reservationRequestService.GetAllUnsolvedRequests();
             reservationRequests = _reservationRequestService.GetReservationData(reservationRequests);
+            reservationRequests = _reservationRequestService.GetAccommodationData(reservationRequests);
             reservationRequests = _reservationRequestService.GetGuestData(reservationRequests);
             reservationRequests = _reservationRequestService.GetAvailabilities(reservationRequests);
             ReservationRequests = new ObservableCollection<ReservationRequest>(reservationRequests);

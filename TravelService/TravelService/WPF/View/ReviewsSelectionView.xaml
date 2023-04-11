@@ -46,10 +46,10 @@
 
         <WrapPanel Grid.Row="1" FlowDirection="LeftToRight">
             <Separator Background="White" Width="210"></Separator>
-            <Button Content="Zatvori"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
+            <Button Content="Close"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
                     Click="Cancel_Click"/>
             <Separator Background="White" Width="180"></Separator>
-            <Button Content="Prikazi recenziju" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
+            <Button Content="Show reviews" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
                     Click="ShowReview_Click"/>
             <Separator Background="White" Width="180"></Separator>
         </WrapPanel>

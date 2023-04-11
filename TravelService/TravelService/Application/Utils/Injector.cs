@@ -14,8 +14,11 @@ namespace TravelService.Application.Utils
         {
         { typeof(IReservationRequestRepository), new ReservationRequestRepository() },
         { typeof(IAccommodationReservationRepository), new AccommodationReservationRepository() },
+        { typeof(IAccommodationRepository), new AccommodationRepository() },
+        { typeof(IGuest1Repository), new Guest1Repository() },
+        { typeof(IOwnerRepository), new OwnerRepository() },
+        { typeof(IUserRepository), new UserRepository() },
         //{ typeof(IReservationRequestService), new ReservationRequestService(new ReservationRequestRepository())},
-        // Add more implementations here
     };
 
         public static T CreateInstance<T>()

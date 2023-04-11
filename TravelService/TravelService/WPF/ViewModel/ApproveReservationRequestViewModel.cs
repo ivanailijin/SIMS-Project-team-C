@@ -118,7 +118,7 @@ namespace TravelService.WPF.ViewModel
             SelectedRequest = selectedRequest;
             ReservationRequests = reservationRequests;
 
-            AccommodationName = SelectedRequest.Reservation.AccommodationName;
+            AccommodationName = SelectedRequest.Reservation.Accommodation.Name;
             GuestName = SelectedRequest.Guest.Username;
             PreviousCheckIn = SelectedRequest.Reservation.CheckInDate;
             PreviousCheckOut = SelectedRequest.Reservation.CheckOutDate;
