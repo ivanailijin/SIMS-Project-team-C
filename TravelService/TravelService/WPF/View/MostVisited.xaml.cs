@@ -9,7 +9,7 @@ using TravelService.Domain.Model;
 
 using TravelService.Repository;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     public partial class MostVisited : Window
     {

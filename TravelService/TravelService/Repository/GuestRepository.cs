@@ -5,10 +5,11 @@ using System.IO;
 using System.Linq;
 using TravelService.Domain.Model;
 using TravelService.Serializer;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.Repository
 {
-    public class GuestRepository
+    public class GuestRepository : IGuestRepository
     {
         private const string FilePath = "../../../Resources/Data/guest.csv";
 
@@ -118,19 +119,15 @@ namespace TravelService.Repository
                 throw new ArgumentException("The selected tour is not done.");
             }
 
-            // Group the guests by age range
             int under18Count = selectedTourGuests.Count(g => g.Age < 18);
             int between18And50Count = selectedTourGuests.Count(g => g.Age >= 18 && g.Age <= 50);
             int over50Count = selectedTourGuests.Count(g => g.Age > 50);
-
-            // Calculate the percentage of guests who used a voucher
             int voucherUsedCount = selectedTourGuests.Count(g => g.VoucherList?.Any(v => v.GuestId == g.Id && v.Used) ?? false);
             int voucherNotUsedCount = selectedTourGuests.Count(g => g.VoucherList?.Any(v => v.GuestId == g.Id && !v.Used) ?? false);
             int totalGuests = selectedTourGuests.Count;
             double withVoucherPercentage = (double)voucherUsedCount / (double)totalGuests * 100;
             double withoutVoucherPercentage = (double)voucherNotUsedCount / (double)totalGuests * 100;
 
-            // Create a new TourStatistics instance with the calculated values
             TourStatistics stats = new TourStatistics
             {
                 TourId = tour.Id,

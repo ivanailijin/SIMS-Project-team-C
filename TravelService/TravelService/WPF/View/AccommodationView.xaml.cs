@@ -19,7 +19,7 @@ using System.Printing;
 using System.Diagnostics.Metrics;
 using System.ComponentModel;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     /// <summary>
     /// Interaction logic for AccommodationView.xaml

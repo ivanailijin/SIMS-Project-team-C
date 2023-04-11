@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Serializer;
+using TravelService.Domain.RepositoryInterface;
 
-namespace TravelService.Repository
+namespace TravelService.Repository 
 {
     public class GuideRepository
     {

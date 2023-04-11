@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     public class BooleanToTextConverter : IValueConverter
     {

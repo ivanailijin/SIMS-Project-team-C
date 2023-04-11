@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
     public class CheckPointService 
     {
-
+        public readonly CheckPointRepository _checkPointRepository;
         private readonly ICheckPointRepository _checkPointRepsitory;
 
         public CheckPointService(ICheckPointRepository checkPointRepository)
@@ -37,5 +38,13 @@ namespace TravelService.Application.UseCases
         {
             _checkPointRepsitory.Update(checkPoint);
         }
+
+        public CheckPoint GetById(int id)
+        {
+            CheckPoint checkpoint = _checkPointRepository.GetById(id);
+            return checkpoint;  
+        }
+        
+
     }
 }

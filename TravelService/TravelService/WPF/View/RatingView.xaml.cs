@@ -16,7 +16,7 @@ using System.Xaml.Schema;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     /// <summary>
     /// Interaction logic for RatingView.xaml

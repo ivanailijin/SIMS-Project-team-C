@@ -5,7 +5,7 @@ using System.Windows;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     public partial class TourView : Window
     {

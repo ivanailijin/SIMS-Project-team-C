@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,25 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
-using TravelService.Repository;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for OwnerReview.xaml
+    /// Interaction logic for ShowGuestsView.xaml
     /// </summary>
-    public partial class OwnerReview : Window, INotifyPropertyChanged
+    public partial class ShowGuestsView : Window
     {
-        public ObservableCollection<Guest1> Guests { get; set; }
-        public Guest1Repository _guestRepository { get; set; }
-        public OwnerReview()
+        public Tour SelectedTour;
+        public Guest SelectedGuest;
+        public ShowGuestsView(Tour selectedTour, Guest selectedGuest)
         {
-            
-
             InitializeComponent();
-            DataContext = this;
+            SelectedTour = selectedTour;
+            ShowGuestsViewModel showGuestsViewModel = new ShowGuestsViewModel(selectedTour,selectedGuest);
+            DataContext = showGuestsViewModel;
+            SelectedGuest = selectedGuest;  
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
     }
+
 }

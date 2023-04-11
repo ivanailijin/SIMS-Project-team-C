@@ -18,5 +18,6 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(TourReview tourReview);
 
         public TourReview Update(TourReview tourReview);
+
     }
 }

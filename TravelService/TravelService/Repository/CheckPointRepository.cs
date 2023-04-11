@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Serializer;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.Repository
 {
-    public class CheckPointRepository
+    public class CheckPointRepository : ICheckPointRepository
     {
         private const string FilePath = "../../../Resources/Data/checkpoint.csv";
 
@@ -85,5 +86,9 @@ namespace TravelService.Repository
             }
             return null;
         }
+
+      
+
+
     }
 }

@@ -5,7 +5,7 @@ using System.Windows;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     /// <summary>
     /// Interaction logic for TourReservationView.xaml
@@ -62,6 +62,7 @@ namespace TravelService.View
             ValidVouchers = new List<GuestVoucher>();
             GuestVouchers = new List<GuestVoucher>();
             this.Guest2 = guest2;
+            
 
             ActiveTours = new List<Tour>();
             OtherTours = new List<Tour>();

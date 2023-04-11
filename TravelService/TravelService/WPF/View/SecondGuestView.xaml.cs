@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using TravelService.Domain.Model;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     public partial class SecondGuestView : Window
     {

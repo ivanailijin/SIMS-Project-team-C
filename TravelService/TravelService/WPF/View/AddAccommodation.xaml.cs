@@ -22,7 +22,7 @@ using System.Globalization;
 using Microsoft.Win32;
 using System.IO;
 
-namespace TravelService.View
+namespace TravelService.WPF.View
 {
     /// <summary>
     /// Interaction logic for AddAccommodation.xaml

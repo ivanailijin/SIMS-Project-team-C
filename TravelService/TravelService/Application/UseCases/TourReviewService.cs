@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.View;
+
 
 namespace TravelService.Application.UseCases
 {
@@ -37,5 +37,24 @@ namespace TravelService.Application.UseCases
         {
             _tourReviewRepository.Update(tourReview);
         }
+
+        public List<TourReview> FindTourReviewsByGuestId(int guestId)
+        {
+            List<TourReview> tourReviews = GetAll();
+
+            List<TourReview> matchingTourReviews = new List<TourReview>();
+
+            foreach (TourReview review in tourReviews)
+            {
+                if (review.GuestId == guestId)
+                {
+                    matchingTourReviews.Add(review);
+                }
+            }
+
+            return matchingTourReviews;
+        }
+
+
     }
 }
