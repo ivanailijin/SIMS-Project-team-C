@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
 using System.Windows;
 using System.Windows.Threading;
 using TravelService.Application.UseCases;
@@ -17,10 +18,11 @@ namespace TravelService.WPF.ViewModel
         private readonly AccommodationReservationService _accommodationReservationService;
         private readonly LocationService _locationService;
         private readonly AccommodationService _accommodationService;
+        private readonly ReservationRequestService _reservationRequestService;
         public AccommodationReservation SelectedActiveReservation { get; set; }
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
-        public static ObservableCollection<ReservationRequest> RequestsForDelaying { get; set; }
+        //public static ObservableCollection<ReservationRequest> RequestsForDelaying { get; set; }
 
 
         private ObservableCollection<AccommodationReservation> _reservations;
@@ -31,6 +33,17 @@ namespace TravelService.WPF.ViewModel
             {
                 _reservations = value;
                 OnPropertyChanged(nameof(ActiveReservations));
+            }
+        }
+
+        private ObservableCollection<ReservationRequest> _requests;
+        public ObservableCollection<ReservationRequest> RequestsForDelaying
+        {
+            get { return _requests; }
+            set
+            {
+                _requests = value;
+                OnPropertyChanged(nameof(RequestsForDelaying));
             }
         }
 
@@ -75,6 +88,9 @@ namespace TravelService.WPF.ViewModel
             List<Location> locations = new List<Location>(_locationService.GetAll());
             _accommodationReservationService.SetLocation(locations);
 
+            _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
+            RequestsForDelaying = new ObservableCollection<ReservationRequest>(_reservationRequestService.FindRequestsByGuestId(Guest1.Id));
+            _reservationRequestService.SetStatus();
 
             SendRequestCommand = new RelayCommand(Execute_SendRequest, CanExecute_Command);
             CancelReservationCommand = new RelayCommand(Execute_CancelReservation, CanExecute_Command);
@@ -87,7 +103,15 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_SendRequest(object sender)
         {
-
+            if (SelectedActiveReservation != null)
+            {
+                SendReservationRequestView sendReservationRequestView = new SendReservationRequestView(SelectedActiveReservation, Guest1);
+                sendReservationRequestView.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please select reservation for sending moving request.");
+            }
         }
 
         private void Execute_CancelReservation(object sender)
@@ -110,7 +134,6 @@ namespace TravelService.WPF.ViewModel
             {
                 CancelReservationConfirmView cancelReservation = new CancelReservationConfirmView(ActiveReservations, SelectedActiveReservation, Guest1);
                 cancelReservation.Show();
-                
             }
             else
             {

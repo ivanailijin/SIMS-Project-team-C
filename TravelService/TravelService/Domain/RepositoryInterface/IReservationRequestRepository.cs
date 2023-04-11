@@ -19,5 +19,9 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(ReservationRequest reservationRequest);
 
         public ReservationRequest Update(ReservationRequest reservationRequest);
+
+        public List<ReservationRequest> FindRequestsByGuestId(int guestId);
+
+        public void SetStatus();
     }
 }

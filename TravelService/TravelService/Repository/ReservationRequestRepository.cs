@@ -65,5 +65,48 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _reservationRequests);
             return reservationRequest;
         }
+
+        public List<ReservationRequest> FindRequestsByGuestId(int guestId)
+        {
+            List<ReservationRequest> Requests = new List<ReservationRequest>();
+
+            foreach (ReservationRequest request in _reservationRequests)
+            {
+                if (request.GuestId == guestId)
+                {
+                    Requests.Add(request);
+                }
+            }
+            return Requests;
+        }
+
+        public void SetLocationForAccommodation(List<Location> locations, List<Accommodation> accommodations)
+        {
+
+            foreach (Accommodation accommodation in accommodations)
+            {
+                accommodation.Location = locations.Find(l => l.Id == accommodation.LocationId);
+            }
+        }
+
+        public void SetStatus()
+        {
+            _reservationRequests = _serializer.FromCSV(FilePath);
+            foreach (ReservationRequest request in _reservationRequests)
+            {
+                if (request.Status == STATUS.OnHold)
+                {
+                    request.StatusText = "On hold";
+                }
+                else if (request.Status == STATUS.Approved)
+                {
+                    request.StatusText = "Approved";
+                }
+                else
+                {
+                    request.StatusText = "Rejected";
+                }
+            }
+        }
     }
 }

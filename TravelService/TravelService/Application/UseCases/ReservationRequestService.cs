@@ -32,5 +32,15 @@ namespace TravelService.Application.UseCases
         {
             return _reservationRequestRepository.Update(reservationRequest);
         }
+
+        public List<ReservationRequest> FindRequestsByGuestId(int guestId)
+        {
+            return _reservationRequestRepository.FindRequestsByGuestId(guestId);
+        }
+
+        public void SetStatus()
+        {
+            _reservationRequestRepository.SetStatus();
+        }
     }
 }

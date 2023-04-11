@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,12 @@ namespace TravelService.Domain.Model
         public int Id { get; set; }
         public int GuestId { get; set; }
         public int ReservationId { get; set; }
+        public AccommodationReservation Reservation { get; set; }
         public DateTime NewStartDate { get; set; }
         public DateTime NewEndDate { get; set; }
         public STATUS Status { get; set; }
+        public string StatusText { get; set; }
+        public string Comment { get; set; }
         public ReservationRequest() { }
 
         public ReservationRequest(int guestId, int reservationId, DateTime newStartDate, DateTime newEndDate)
@@ -27,6 +31,7 @@ namespace TravelService.Domain.Model
             NewStartDate = newStartDate;
             NewEndDate = newEndDate;
             Status = STATUS.OnHold;
+            Comment = "";
         }
 
         public string StatusToCSV()
@@ -59,6 +64,7 @@ namespace TravelService.Domain.Model
                 NewStartDate.ToString(),
                 NewEndDate.ToString(),
                 StatusToCSV(),
+                Comment,
             };
             return csvValues;
         }
@@ -72,6 +78,7 @@ namespace TravelService.Domain.Model
             NewStartDate = DateTime.Parse(values[3]);
             NewEndDate = DateTime.Parse(values[4]);
             Status = StatusFromCSV(values[5]);
+            Comment = values[6];
         }
     }
 }
