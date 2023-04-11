@@ -47,7 +47,7 @@ namespace TravelService.WPF.View
             List<Location> Locations = new List<Location>(_locationRepository.GetAll());
             List<Owner> Owners = new List<Owner>(_ownerRepository.GetAll());
             _reservationRepository.SetAccommodationForUnratedOwners(Accommodations);
-            _reservationRepository.SetLocationForUnratedOwners(Locations);
+            _reservationRepository.SetLocation(Locations);
             _reservationRepository.SetNameForUnratedOwners(Owners);
         }
 

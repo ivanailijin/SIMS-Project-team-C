@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         Title="AccommodationView" WindowStartupLocation="CenterScreen" Height="500" Width="900">
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <DockPanel>
             <ToolBar DockPanel.Dock="Top" Height="70">
@@ -13,31 +16,31 @@
                 <StackPanel>
                     <Label Content="Name" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <TextBox x:Name="NameBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="90" Height="30"></TextBox>
+                 Width="80" Height="30"></TextBox>
                 </StackPanel>
                 <Separator Width="5" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Location" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                    <ComboBox x:Name="LocationComboBox" Width="90" Height="30" IsEditable="True">
+                    <ComboBox x:Name="LocationComboBox" Width="80" Height="30" IsEditable="True">
                     </ComboBox>
                 </StackPanel>
                 <Separator Width="5" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Type" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                    <ComboBox x:Name="AccommodationTypeComboBox" ItemsSource="{Binding Types}" Width="90" Height="30" Text="{Binding Path = AccommodationTypeInput, UpdateSourceTrigger=PropertyChanged}"
+                    <ComboBox x:Name="AccommodationTypeComboBox" ItemsSource="{Binding Types}" Width="80" Height="30" Text="{Binding Path = AccommodationTypeInput, UpdateSourceTrigger=PropertyChanged}"
                           SelectionChanged="AccommodationTypeComboBox_SelectionChanged"></ComboBox>
                 </StackPanel>
                 <Separator Width="5" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Guest number" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <TextBox x:Name="GuestNumberBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="90" Height="30"></TextBox>
+                 Width="80" Height="30"></TextBox>
                 </StackPanel>
                 <Separator Width="5" Background="White"></Separator>
                 <StackPanel>
                     <Label Content="Reservation days" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <TextBox x:Name="NumberOfDaysForReservationBox" BorderBrush="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Width="90" Height="30"></TextBox>
+                 Width="80" Height="30"></TextBox>
                 </StackPanel>
                 <Separator Width="5" Background="White"></Separator>
                 <Button Margin="0,15,0,0"  Width="50" Height="30" Click="Find_Accommodation_Click" BorderBrush="Black">Search
@@ -48,6 +51,9 @@
                 <Button x:Name="OwnerRating" Margin="0,15,0,0" Width="40" Height="30" Click="OwnerRating_Click" BorderBrush="Black">Rating</Button>
                 <Separator Width="5" Background="White" ></Separator>
                 <Button x:Name="ShowReservations" Margin="0,15,0,0" Width="75" Height="30" Click="ShowReservations_Click" BorderBrush="Black">Reservations</Button>
+                <Separator Width="20" Background="White" ></Separator>
+                <Button x:Name="LogOut" Margin="0,15,0,0" Width="50" Height="30" Click="LogOut_Click" BorderBrush="Black">Log out</Button>
+                
             </ToolBar>
             <DataGrid x:Name="dataGridAccommodations" DockPanel.Dock="Bottom"
                   ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
@@ -55,7 +61,16 @@
                   AutoGenerateColumns="False" IsReadOnly="True"
                   Width="800" Height="350">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="90"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Name">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="15" Height="15" Margin="0,0,0,90" Source="/TravelService;component/Resources/Images/star.png" Visibility="{Binding Owner.SuperOwner, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    <TextBlock TextAlignment="Right" Text="{Binding Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn Header="Type" Binding="{Binding TypeText}" Width="90"></DataGridTextColumn>
                     <DataGridTextColumn Header="MaxGuest" Binding="{Binding MaxGuestNumber}" Width="100"></DataGridTextColumn>

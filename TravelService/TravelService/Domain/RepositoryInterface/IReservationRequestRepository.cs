@@ -21,7 +21,5 @@ namespace TravelService.Domain.RepositoryInterface
         public ReservationRequest Update(ReservationRequest reservationRequest);
 
         public List<ReservationRequest> FindRequestsByGuestId(int guestId);
-
-        public void SetStatus();
     }
 }

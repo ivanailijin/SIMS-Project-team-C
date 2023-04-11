@@ -79,34 +79,5 @@ namespace TravelService.Repository
             }
             return Requests;
         }
-
-        public void SetLocationForAccommodation(List<Location> locations, List<Accommodation> accommodations)
-        {
-
-            foreach (Accommodation accommodation in accommodations)
-            {
-                accommodation.Location = locations.Find(l => l.Id == accommodation.LocationId);
-            }
-        }
-
-        public void SetStatus()
-        {
-            _reservationRequests = _serializer.FromCSV(FilePath);
-            foreach (ReservationRequest request in _reservationRequests)
-            {
-                if (request.Status == STATUS.OnHold)
-                {
-                    request.StatusText = "On hold";
-                }
-                else if (request.Status == STATUS.Approved)
-                {
-                    request.StatusText = "Approved";
-                }
-                else
-                {
-                    request.StatusText = "Rejected";
-                }
-            }
-        }
     }
 }

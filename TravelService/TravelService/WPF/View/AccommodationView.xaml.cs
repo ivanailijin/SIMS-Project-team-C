@@ -29,10 +29,10 @@ namespace TravelService.WPF.View
     {
         private readonly AccommodationRepository _accomodationRepository;
         private readonly LocationRepository _locationRepository;
+        private readonly OwnerRepository _ownerRepository;
         public Guest1 Guest1 { get; set; }
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
-        public static List<Location> Locations { get; set; }
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
         public ObservableCollection<string> Types { get; set; }
 
@@ -42,31 +42,18 @@ namespace TravelService.WPF.View
             DataContext = this;
             _accomodationRepository = new AccommodationRepository();
             _locationRepository = new LocationRepository();
+            _ownerRepository = new OwnerRepository();
 
             this.Guest1 = guest1;
-            Accommodations = new ObservableCollection<Accommodation>(_accomodationRepository.GetAll());
-            Locations = new List<Location>(_locationRepository.GetAll());
+            List<Location> locations = new List<Location>(_locationRepository.GetAll());
+            List<Accommodation> accommodations = new List<Accommodation>(_accomodationRepository.GetAll());
+            List<Owner> owners = new List<Owner>(_ownerRepository.GetAll());
+            _accomodationRepository.SetLocationForAccommodation(locations, accommodations);
+            _accomodationRepository.SetTypeForAccommodation(accommodations);
+            _accomodationRepository.SetOwnerForAccommodation(owners, accommodations);
+            List<Accommodation> sortedAccommodations = accommodations.OrderByDescending(a => a.Owner.SuperOwner).ToList();
 
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
-            }
-
-            foreach(Accommodation accommodation in Accommodations)
-            {
-                if(accommodation.Type == TYPE.HOUSE)
-                {
-                    accommodation.TypeText = "House";
-                }
-                else if(accommodation.Type == TYPE.APARTMENT)
-                {
-                    accommodation.TypeText = "Apartment";
-                }
-                else
-                {
-                    accommodation.TypeText = "Cottage";
-                }
-            }
+            Accommodations = new ObservableCollection<Accommodation>(sortedAccommodations);
 
             foreach(Accommodation accommodation in Accommodations)
             {
@@ -84,8 +71,9 @@ namespace TravelService.WPF.View
 
         private void Find_Accommodation_Click(object sender, RoutedEventArgs e)
         {
-            Locations = new List<Location>(_locationRepository.GetAll());
+            List<Location> locations = new List<Location>(_locationRepository.GetAll());
             List<Accommodation> Filtered = new List<Accommodation>();
+            List<Accommodation> SortedFiltered = new List<Accommodation>();
 
             string name = NameBox.Text.ToLower();
             string[] nameWords = name.Split(' ');
@@ -96,9 +84,12 @@ namespace TravelService.WPF.View
 
             FilteredAccommodations.Clear();
 
-            Filtered = _accomodationRepository.Search(name, nameWords, location, type, guestNumber, daysForReservation, Locations);
+            Filtered = _accomodationRepository.Search(name, nameWords, location, type, guestNumber, daysForReservation, locations);
+            List<Owner> owners = new List<Owner>(_ownerRepository.GetAll());
+            _accomodationRepository.SetOwnerForAccommodation(owners, Filtered);
+            SortedFiltered = Filtered.OrderByDescending(a => a.Owner.SuperOwner).ToList();
 
-            foreach(var accommodation in Filtered)
+            foreach (var accommodation in SortedFiltered)
             {
                 FilteredAccommodations.Add(accommodation);
             }
@@ -137,6 +128,13 @@ namespace TravelService.WPF.View
         {
             ReservationsView reservationsView = new ReservationsView(Guest1);
             reservationsView.Show();
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            SignInForm signIn = new SignInForm();
+            signIn.Show();
+            Close();
         }
     }
 }

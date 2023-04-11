@@ -29,7 +29,7 @@ namespace TravelService.Domain.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, UserType };
+            string[] csvValues = { Id.ToString(), Username, Password, UserType, SuperOwner.ToString() };
             return csvValues;
         }
 
@@ -39,6 +39,7 @@ namespace TravelService.Domain.Model
             Username = values[1];
             Password = values[2];
             UserType = values[3];
+            SuperOwner = bool.Parse(values[4]);
         }
     }
 }

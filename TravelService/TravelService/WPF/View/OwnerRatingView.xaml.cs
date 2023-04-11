@@ -142,7 +142,8 @@ namespace TravelService.WPF.View
             _ownerRatingRepository = new OwnerRatingRepository();
             _ownerRepository = new OwnerRepository();
 
-            AccommodationName.Text = selectedUnratedOwner.AccommodationName;
+
+            AccommodationName.Text = selectedUnratedOwner.Accommodation.Name;
             Owner owner = _ownerRepository.FindById(selectedUnratedOwner.OwnerId);
             OwnerName.Text = owner.Username;
         }

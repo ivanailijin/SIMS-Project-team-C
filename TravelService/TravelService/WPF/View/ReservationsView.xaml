@@ -7,46 +7,57 @@
         mc:Ignorable="d"
         Title="ReservationsView" WindowStartupLocation="CenterScreen" Height="600" Width="700">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="450"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" Height="400" VerticalAlignment="Top" Margin="0,20,0,0">
+        <TabControl Grid.Row="0" Height="560" VerticalAlignment="Top" Margin="0,20,0,0">
             <TabItem x:Name="ActiveReservations" Header="Active reservations">
-                <DataGrid x:Name="dataGridActiveReservations"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="390"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="dataGridActiveReservations" Grid.Row="0"
                   ItemsSource="{Binding Path=ActiveReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path = SelectedActiveReservation, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  Width="700" Height="380">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding AccommodationName}" Width="170"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="170"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Check-in" Binding="{Binding CheckInDate, StringFormat='{}{0:d}'}" Width="150"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Checkout" Binding="{Binding CheckOutDate, StringFormat='{}{0:d}'}" Width="150"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-
+                  Width="700" Height="390">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="170"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="170"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Check-in" Binding="{Binding CheckInDate, StringFormat='{}{0:d}'}" Width="150"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Checkout" Binding="{Binding CheckOutDate, StringFormat='{}{0:d}'}" Width="150"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Separator Width="150" Background="White"></Separator>
+                        <Button Margin="0,20,0,0" Width="120" Height="50" Command="{Binding SendRequestCommand}">
+                            <TextBlock Text="Send request for delaying" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                        </Button>
+                        <Separator Width="100" Background="White"></Separator>
+                        <Button Margin="0,20,0,0" Width="120" Height="50" Command="{Binding CancelReservationCommand}">
+                            <TextBlock Text="Cancel reservation" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                        </Button>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem x:Name="Req" Header="Requests for delaying">
                 <DataGrid x:Name="dataGridReservationRequests"
                   ItemsSource="{Binding Path=RequestsForDelaying, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  Width="700" Height="380">
+                  Width="700" Height="480">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding AccommodationName}" Width="90"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="90"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Old Dates" Width="120">
+                        <DataGridTextColumn Header="Name" Binding="{Binding Reservation.Accommodation.Name}" Width="90"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Location.CityAndCountry}" Width="100"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Old Dates" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock>
-                                <Run Text="{Binding CheckInDate, StringFormat='{}{0:d}'}"/>
+                                <Run Text="{Binding Reservation.CheckInDate, StringFormat='{}{0:d}'}"/>
                                 <Run Text=" - "/>
-                                <Run Text="{Binding CheckOutDate, StringFormat='{}{0:d}'}"/>
+                                <Run Text="{Binding Reservation.CheckOutDate, StringFormat='{}{0:d}'}"/>
                                     </TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="New Dates" Width="120">
+                        <DataGridTemplateColumn Header="New Dates" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock>
@@ -57,22 +68,12 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="90"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Status" Binding="{Binding StatusText}" Width="90"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="120"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 
             </TabItem>
         </TabControl>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Separator Width="150" Background="White"></Separator>
-            <Button Margin="0,20,0,0" Width="120" Height="50" Command="{Binding SendRequestCommand}">
-                <TextBlock Text="Send request for delaying" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-            </Button>
-            <Separator Width="100" Background="White"></Separator>
-            <Button Margin="0,20,0,0" Width="120" Height="50" Command="{Binding CancelReservationCommand}">
-                <TextBlock Text="Cancel reservation" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-            </Button>
-        </StackPanel>
     </Grid>
 </Window>

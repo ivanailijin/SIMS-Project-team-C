@@ -217,7 +217,7 @@ namespace TravelService.Repository
             }
         }
 
-        public void SetLocationForUnratedOwners(List<Location> locations)
+        public void SetLocation(List<Location> locations)
         {
             foreach (AccommodationReservation reservation in _accommodationReservations)
             {

@@ -21,5 +21,10 @@ namespace TravelService.Application.UseCases
         {
             return _accommodationRepository.FindById(id);
         }
+
+        public List<Accommodation> GetAll()
+        {
+            return _accommodationRepository.GetAll();
+        }
     }
 }

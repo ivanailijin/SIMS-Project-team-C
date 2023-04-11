@@ -8,6 +8,7 @@ using TravelService.Domain.Model;
 using TravelService.Application.Utils;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Commands;
+using System.Collections.ObjectModel;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -15,6 +16,8 @@ namespace TravelService.WPF.ViewModel
     {
         private readonly ReservationRequestService _reservationRequestService;
         public AccommodationReservation SelectedReservation { get; set; }
+
+        public ObservableCollection<ReservationRequest> RequestsForDelaying { get; set; }
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
 
@@ -76,10 +79,11 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public SendReservationRequestViewModel(AccommodationReservation accommodationReservation, Guest1 guest1)
+        public SendReservationRequestViewModel(ObservableCollection<ReservationRequest> requestsForDelaying, AccommodationReservation accommodationReservation, Guest1 guest1)
         {
             SelectedReservation = accommodationReservation;
             Guest1 = guest1;
+            RequestsForDelaying = requestsForDelaying;
 
             _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
             _newCheckInDate = DateTime.Today;
@@ -98,6 +102,7 @@ namespace TravelService.WPF.ViewModel
         {
             ReservationRequest reservationRequest = new ReservationRequest(Guest1.Id, SelectedReservation.Id, NewCheckInDate, NewCheckOutDate);
             _reservationRequestService.Save(reservationRequest);
+            RequestsForDelaying.Add(reservationRequest);
             CloseAction();
         }
 
