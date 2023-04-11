@@ -26,6 +26,7 @@ namespace TravelService.Domain.Model
         public int GuestNumber { get; set; }
         public bool IsRated { get; set; }
         public bool IsOwnerRated { get; set; }
+        public bool IsCancelled { get; set; }
         public AccommodationReservation() { }
 
         public AccommodationReservation(int accommodationId, string accommodationName, int guestId, int ownerId, int locationId, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber, bool isRated, bool isOwnerRated)
@@ -58,7 +59,8 @@ namespace TravelService.Domain.Model
                 LengthOfStay.ToString(),
                 GuestNumber.ToString(),
                 IsRated.ToString(),
-                IsOwnerRated.ToString()
+                IsOwnerRated.ToString(),
+                IsCancelled.ToString(),
             };
             return csvValues;
         }
@@ -77,6 +79,7 @@ namespace TravelService.Domain.Model
             GuestNumber = Convert.ToInt32(values[9]);
             IsRated = bool.Parse(values[10]);
             IsOwnerRated = bool.Parse(values[11]);
+            IsCancelled = bool.Parse(values[12]);
         }
 
         public override bool Equals(object obj)

@@ -12,7 +12,10 @@ namespace TravelService.Domain.RepositoryInterface
     public interface IOwnerRepository
     {
         public Owner GetByUsername(string username);
+        public int NextId();
         public Owner FindById(int id);
+        public Owner Update(Owner owner);
+        public Owner Save(Owner owner);
         public List<Owner> GetAll();
     }
 }

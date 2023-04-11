@@ -79,5 +79,12 @@ namespace TravelService.View
             MovingReservationRequestsView movingReservationRequests = new MovingReservationRequestsView();
             movingReservationRequests.Show();
         }
+
+        private void LogOutClick_Click(object sender, RoutedEventArgs e)
+        {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            Close();
+        }
     }
 }
