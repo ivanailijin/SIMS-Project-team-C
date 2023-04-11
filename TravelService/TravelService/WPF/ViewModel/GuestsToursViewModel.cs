@@ -17,6 +17,8 @@ namespace TravelService.WPF.ViewModel
     {
         private readonly TourService _tourService;
 
+        private readonly TourReviewService _tourReviewService;
+
         private readonly LocationService _locationService;
 
         private readonly LanguageService _languageService;
@@ -43,9 +45,23 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand cancelCommand;
+        public RelayCommand CancelCommand
+        {
+            get => cancelCommand;
+            set
+            {
+                if (value != cancelCommand)
+                {
+                    cancelCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public GuestsToursViewModel(Tour selectedTour, Guest2 guest2) 
         {
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
+            _tourReviewService = new TourReviewService(Injector.CreateInstance<ITourReviewRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());
             _checkpointService = new CheckPointService(Injector.CreateInstance<ICheckPointRepository>());
@@ -55,12 +71,13 @@ namespace TravelService.WPF.ViewModel
             List<Language> Languages = _languageService.GetAll();
             List<CheckPoint> CheckPoints = _checkpointService.GetAll();
             List<Guest> Guests = _guestService.GetAll();
-            //GuestsTours = new List<Tour>();
+            List<TourReview> TourReviews = _tourReviewService.GetAll();
             SelectedTour = selectedTour;
             Guest2 = guest2;
-            GuestsTours = _tourService.ShowGuestTourList(Tours, Locations, Languages, CheckPoints, Guests,Guest2);
 
+            GuestsTours = _tourService.ShowGuestTourList(Tours, Locations, Languages, CheckPoints, Guests,Guest2);
             RateTourCommand = new RelayCommand(Execute_RateTour, CanExecute_Command);
+            CancelCommand = new RelayCommand(Execute_Cancel, CanExecute_Command);
         }
         private bool CanExecute_Command(object parameter)
         {
@@ -70,6 +87,10 @@ namespace TravelService.WPF.ViewModel
         { 
             AddReviewView addReviewView = new AddReviewView(SelectedTour,Guest2);
             addReviewView.Show();
+        }
+        private void Execute_Cancel(object sender)
+        {
+            CloseAction();
         }
     }
 }

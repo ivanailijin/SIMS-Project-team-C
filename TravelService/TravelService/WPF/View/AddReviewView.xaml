@@ -3,10 +3,72 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:local="clr-namespace:TravelService.WPF.View" xmlns:val="clr-namespace:TravelService.Validation"
         mc:Ignorable="d"
-        Title="AddReview" Height="450" Width="800">
+        Title="AddReview" Height="450" Width="600">
+    <Window.Resources>
+        <local:RadioButtonConverter x:Key="RadioButtonConverter" />
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,0,0,0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Height="350">
+            <Label Width="auto" Margin="20">Guide's knowledge:</Label>
+            <Label Width="auto" Margin="20">Guide's language:</Label>
+            <Label Width="auto" Margin="20">Tour entertainment:</Label>
+            <Label Width="auto" Margin="20">Your comment:</Label>
+            <Label Width="auto" Margin="20">Add pictures:</Label>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Height="338" Margin="150,0,0,0">
+            <GroupBox Grid.Row="0" Grid.Column="1" Height="30" Margin="5,15,0,0">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+                    <RadioButton Width="37" Content="1" GroupName="GuideKnowledgeCriteria" IsChecked="{Binding GuideKnowledge, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" GroupName="GuideKnowledgeCriteria" IsChecked="{Binding GuideKnowledge, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" GroupName="GuideKnowledgeCriteria" IsChecked="{Binding GuideKnowledge, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" GroupName="GuideKnowledgeCriteria" IsChecked="{Binding GuideKnowledge, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" GroupName="GuideKnowledgeCriteria" IsChecked="{Binding GuideKnowledge, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="0" Grid.Column="1" Height="30" Margin="5,30,0,0">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+                    <RadioButton Width="37" Content="1" GroupName="GuideLanguageCriteria" IsChecked="{Binding GuideLanguage, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" GroupName="GuideLanguageCriteria" IsChecked="{Binding GuideLanguage, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" GroupName="GuideLanguageCriteria" IsChecked="{Binding GuideLanguage, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" GroupName="GuideLanguageCriteria" IsChecked="{Binding GuideLanguage, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" GroupName="GuideLanguageCriteria" IsChecked="{Binding GuideLanguage, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Grid.Row="0" Grid.Column="1" Height="30" Margin="5,40,0,0">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+                    <RadioButton Width="37" Content="1" GroupName="TourEntertainmentCriteria" IsChecked="{Binding TourEntertainment, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="2" GroupName="TourEntertainmentCriteria" IsChecked="{Binding TourEntertainment, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="3" GroupName="TourEntertainmentCriteria" IsChecked="{Binding TourEntertainment, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="4" GroupName="TourEntertainmentCriteria" IsChecked="{Binding TourEntertainment, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    <RadioButton Width="37" Content="5" GroupName="TourEntertainmentCriteria" IsChecked="{Binding TourEntertainment, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                </StackPanel>
+            </GroupBox>
+            <TextBox x:Name="commentTextBox" Width="100" Height="50" Margin="10" Visibility="Visible" BorderBrush="Black">
+                <TextBox.Text>
+                    <Binding Path="Comment" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Command="{Binding AddPictureCommand}" Width="100" Height="20" Margin="20">Add</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Command="{Binding RateCommand}"  Width="100" Height="20" Margin="10,0,0,0">Rate</Button>
+            <Button Command="{Binding CancelCommand}"  Width="100" Height="20" Margin="50,0,0,0">Cancel</Button>
+        </StackPanel>
     </Grid>
 </Window>

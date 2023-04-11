@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Windows;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.WPF.View;
 
 namespace TravelService.Application.UseCases
 {
-    public class TourReviewService 
+    public class TourReviewService
     {
         private readonly ITourReviewRepository _tourReviewRepository;
 
@@ -36,6 +34,70 @@ namespace TravelService.Application.UseCases
         public void Update(TourReview tourReview)
         {
             _tourReviewRepository.Update(tourReview);
+        }
+
+        public void addReview(int guideKnowledge, int guideLanguage, int tourEntertainment, string comment, string pictures, Tour selectedTour, Guest2 guest2)
+        {
+
+            List<string> formattedPictures = new List<string>();
+
+            string[] delimitedPictures = pictures.Split(new char[] { '|' });
+
+            foreach (string picture in delimitedPictures)
+            {
+                formattedPictures.Add(picture);
+            }
+
+            TourReview tourReview = new TourReview(guideKnowledge, guideLanguage, tourEntertainment, comment, formattedPictures, selectedTour.GuideId, guest2.Id, false);
+            _tourReviewRepository.Save(tourReview);
+        }
+
+        public string addPictures(string Pictures)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            dlg.Filter = "Image files (*.jpg;*.jpeg;*.png;*.jfif)|*.jpg;*.jpeg;*.png;*.jfif";
+            dlg.Multiselect = true;
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            if (result == true)
+            {
+                string[] selectedFiles = dlg.FileNames;
+
+                string destinationFolder = @"../../../Resources/Images/";
+
+                if (!Directory.Exists(destinationFolder))
+                {
+                    Directory.CreateDirectory(destinationFolder);
+                }
+
+                foreach (string file in selectedFiles)
+                {
+                    Pictures += file;
+                    Pictures += "|";
+                    string destinationFilePath = System.IO.Path.Combine(destinationFolder, System.IO.Path.GetFileName(file));
+                    File.Copy(file, destinationFilePath);
+                }
+
+                Pictures = Pictures.Substring(0, Pictures.Length - 1);
+            }
+            return Pictures;
+        }
+
+        public string addToPictureList(string newPictures, string Pictures)
+        {
+
+            if (!string.IsNullOrEmpty(newPictures))
+            {
+                if (!string.IsNullOrEmpty(Pictures))
+                {
+                    Pictures += "|";
+                }
+                Pictures += newPictures;
+            }
+            return Pictures;
         }
     }
 }

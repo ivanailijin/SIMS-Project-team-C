@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.View;
-using TravelService.WPF.View;
 
 namespace TravelService.Application.UseCases
 {
@@ -39,13 +33,7 @@ namespace TravelService.Application.UseCases
             _tourRepository.Update(tour);
         }
 
-        /*public List<Tour> FindDoneTours(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> PastTours)
-        {
-            _tourRepository.ShowPastTourList(Tours, Locations, Languages, CheckPoints, PastTours);
-            return PastTours;
-        }*/
-
-        public List<Tour> ShowPastTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints,List<Guest> Guests,Guest2 guest2)
+        public List<Tour> ShowPastTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Guest> Guests, Guest2 guest2)
         {
             List<Tour> PastTours = new List<Tour>();
             foreach (Tour tour in Tours)
@@ -89,17 +77,17 @@ namespace TravelService.Application.UseCases
             return ListCheckPoints;
         }
 
-        public List<Tour> ShowGuestTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Guest> guests, Guest2 guest2)
+        public List<Tour> ShowGuestTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Guest> guests,  Guest2 guest2)
         {
             List<Tour> pastTours = ShowPastTourList(Tours, Locations, Languages, CheckPoints, guests, guest2);
-            List<Tour> tourList = new List<Tour>();
             List<Guest> guestList = FindGuestByUsername(guests, guest2);
+            List<Tour> tourList = new List<Tour>();
+
             foreach (Tour pastTour in pastTours)
             {
-                int tourId = pastTour.Id;
                 Guest currentGuest = guestList.Find(guest => guest.TourId == pastTour.Id);
-                
-                if(currentGuest != null && guestList.Contains(currentGuest))
+
+                if (currentGuest != null && guestList.Contains(currentGuest))
                 {
                     tourList.Add(pastTour);
                 }
@@ -110,15 +98,29 @@ namespace TravelService.Application.UseCases
         public List<Guest> FindGuestByUsername(List<Guest> guests, Guest2 guest2)
         {
             List<Guest> guestList = new List<Guest>();
-            foreach (Guest guest in guests) 
+            foreach (Guest guest in guests)
             {
-                if(guest.Username == guest2.Username && guest.Attendence == true) 
-                { 
+                if (guest.Username == guest2.Username && guest.Attendence == true)
+                {
                     guestList.Add(guest);
                 }
             }
-
             return guestList;
+        }
+
+        public List<TourReview> FindRatedTourReviews(List<TourReview> tourReviews, Guest2 guest2)
+        {
+            List<TourReview> matchingTourReviews = new List<TourReview>();
+
+            foreach (TourReview tourReview in tourReviews)
+            {
+                if (tourReview.GuestId == guest2.Id)
+                {
+                    matchingTourReviews.Add(tourReview);
+                }
+            }
+
+            return matchingTourReviews;
         }
     }
 }

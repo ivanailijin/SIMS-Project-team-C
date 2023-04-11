@@ -27,6 +27,10 @@ namespace TravelService.WPF.View
             InitializeComponent();
             AddReviewViewModel addReviewViewModel = new AddReviewViewModel(selectedTour,guest2);
             DataContext= addReviewViewModel;
+            if (addReviewViewModel.CloseAction == null)
+            {
+                addReviewViewModel.CloseAction = new Action(this.Close);
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

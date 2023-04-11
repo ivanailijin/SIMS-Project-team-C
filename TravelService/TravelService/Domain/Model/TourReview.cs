@@ -21,14 +21,13 @@ namespace TravelService.Domain.Model
         public List<Uri> Pictures { get; set; }
         public int GuideId { get; set; }
         public int GuestId { get; set; }
-        public int TourReservationId { get; set; }
         public bool Valid { get; set; }
 
         public TourReview() 
         { 
             Pictures = new List<Uri>();
         }
-        public TourReview(int guideKnowledge, int guideLanguage, int tourEntertainment, string comment, List<string> pictures, int guideId, int guestId, int tourReservationId, bool valid)
+        public TourReview(int guideKnowledge, int guideLanguage, int tourEntertainment, string comment, List<string> pictures, int guideId, int guestId, bool valid)
         {
             GuideKnowledge = guideKnowledge;
             GuideLanguage = guideLanguage;
@@ -37,7 +36,6 @@ namespace TravelService.Domain.Model
             Pictures = new List<Uri>();
             GuideId= guideId;
             GuestId= guestId;
-            TourReservationId= tourReservationId;
             Valid = valid;
 
             foreach (string picture in pictures)
@@ -72,7 +70,6 @@ namespace TravelService.Domain.Model
                 pictureList.ToString(),
                 GuideId.ToString(),
                 GuestId.ToString(),
-                TourReservationId.ToString(),
                 Valid.ToString()
             };
             return csvValues;
@@ -99,8 +96,7 @@ namespace TravelService.Domain.Model
             }
             GuideId = Convert.ToInt32(values[6]);
             GuestId = Convert.ToInt32(values[7]);
-            TourReservationId = Convert.ToInt32(values[8]);
-            Valid = bool.Parse(values[9]);
+            Valid = bool.Parse(values[8]);
         }
     }
 }

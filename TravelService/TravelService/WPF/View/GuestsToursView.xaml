@@ -61,6 +61,7 @@
                 </TransformGroup>
             </StackPanel.RenderTransform>
         </StackPanel>
-        <Button Content="Rate tour" Command="{Binding RateTourCommand}" HorizontalAlignment="Left" Margin="324,348,0,0" VerticalAlignment="Top" Height="34" Width="94"/>
+        <Button Content="Rate tour" Command="{Binding RateTourCommand}" HorizontalAlignment="Left" Margin="250,348,0,0" VerticalAlignment="Top" Height="34" Width="94"/>
+        <Button Content="Cancel" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="500,348,0,0" VerticalAlignment="Top" Height="34" Width="94"/>
     </Grid>
 </Window>
