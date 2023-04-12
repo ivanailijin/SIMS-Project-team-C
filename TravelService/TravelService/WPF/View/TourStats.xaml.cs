@@ -33,13 +33,10 @@ namespace TravelService.WPF.View
             DataContext = this;
             SelectedTour = selectedTour;
 
-            // Create an instance of GuestRepository
             _guestRepository = new GuestRepository();
 
-            // Call the ShowTourStatistics method with the selected tour's Id
             TourStatisticsList= new List<TourStatistics> { _guestRepository.ShowTourStatistics(selectedTour) };
 
-            // Update the properties in TourStats with the results from the repository
             Under18Count = _guestRepository.Under18Count;
             Between18And50Count = _guestRepository.Between18And50Count;
             Over50Count = _guestRepository.Over50Count;
@@ -47,8 +44,6 @@ namespace TravelService.WPF.View
             WithoutVoucherPercentage = _guestRepository.WithoutVoucherPercentage;
 
             Stats.ItemsSource = TourStatisticsList;
-
-
         }
 
 

@@ -60,12 +60,11 @@ namespace TravelService.WPF.View
             this.Owner = owner;
             _ownerRatingRepository = new OwnerRatingRepository();
             _guestRatingRepository = new GuestRatingRepository();
-            Guests = new ObservableCollection<Guest1>();
 
-            List<Guest1> guestsList = _ownerRatingRepository.FindGuestsByAccommodation(SelectedAccommodation);  //gosti koji su ocenili ovaj smestaj
-            List<Guest1> ratedGuests = _guestRatingRepository.FindRatedGuests(Owner.Id);    //gosti koje je ovaj vlasnik ocenio
+            List<Guest1> guestsList = _ownerRatingRepository.FindGuestsByAccommodation(SelectedAccommodation);  
+            List<Guest1> ratedGuests = _guestRatingRepository.FindRatedGuests(Owner.Id);    
 
-            List<Guest1> commonGuests = new List<Guest1>();     //gosti koji su ocenili smestaj a i ocenjeni su od ovog vlasnika
+            List<Guest1> commonGuests = new List<Guest1>();  
 
             foreach (Guest1 guest in guestsList)
             {
@@ -78,12 +77,7 @@ namespace TravelService.WPF.View
                     }
                 }
             }
-
-            foreach (Guest1 g1 in commonGuests)
-            {
-                Guests.Add(g1);
-            }
-
+            Guests = new ObservableCollection<Guest1>(commonGuests);
             DataContext = this;
         }
 

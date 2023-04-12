@@ -78,7 +78,6 @@ namespace TravelService.WPF.View
             }
         }
 
-
         private int numChecked = 0;
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -94,7 +93,6 @@ namespace TravelService.WPF.View
                 EndButton.IsEnabled = true;
             }
         }
-
         private void End_Click(object sender, RoutedEventArgs e)
         {
             SelectedTour.Done = true;

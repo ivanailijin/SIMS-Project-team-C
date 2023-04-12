@@ -54,7 +54,6 @@ namespace TravelService.WPF.View
                 }
             }
         }
-
         private void Create_Click(object sender, RoutedEventArgs e)
         {
             CheckPoint checkPoint = new CheckPoint();

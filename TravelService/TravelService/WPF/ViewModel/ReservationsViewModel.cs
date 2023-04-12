@@ -82,6 +82,7 @@ namespace TravelService.WPF.ViewModel
             Guest1 = guest1;
             _accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
 
             List<AccommodationReservation> Reservations = new List<AccommodationReservation>(_accommodationReservationService.FindByGuestId(Guest1.Id));
             _accommodationReservationService.GetAccommodationData(Reservations);

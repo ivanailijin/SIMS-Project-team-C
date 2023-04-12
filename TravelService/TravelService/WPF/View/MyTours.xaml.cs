@@ -57,11 +57,6 @@ namespace TravelService.WPF.View
 
             FutureTours = _tourRepository.ShowFutureTourList(GuideTours, Locations, Languages, CheckPoints,FutureTours, Guide.Id,_tourRepository);
 
-
-
-
-
-
         }
 
         private List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
@@ -100,9 +95,5 @@ namespace TravelService.WPF.View
                 }
             }
         }
-
-
-
-
     }
 }

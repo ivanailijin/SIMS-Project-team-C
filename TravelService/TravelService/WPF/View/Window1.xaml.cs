@@ -90,5 +90,12 @@ namespace TravelService.WPF.View
             Close();
         }
 
+        private void LogOutClick_Click(object sender, RoutedEventArgs e)
+        {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            Close();
+        }
+
     }
 }

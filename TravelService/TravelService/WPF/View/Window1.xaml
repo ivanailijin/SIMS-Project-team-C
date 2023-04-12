@@ -9,7 +9,7 @@
             <Button Width="300" Height="50"  Click="TourOverview_Click">Active today</Button>
             <Button Width="300" Height="50" Click="ThisWeekTours_Click">My Tours</Button>
             <Button Width="300" Height="50" Click="AddTourView_CLick">Add Tour</Button>
+            <Button Grid.Row="0" Width="80" Height="30" Content="Log Out" Click="LogOutClick_Click"/>
         </StackPanel>
-
     </Grid>
 </Window>

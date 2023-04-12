@@ -52,9 +52,6 @@ namespace TravelService.WPF.View
 
             _guests = new ObservableCollection<Guest>(_repositoryGuest.filterGuestsByCheckpointAndTour(convertGuestList(_guests), SelectedCheckPoint, SelectedTour));
             GuestDataGrid.ItemsSource = _guests;
-
-
-
         }
 
         private List<Guest> convertGuestList(ObservableCollection<Guest> observableCollection)
@@ -77,7 +74,6 @@ namespace TravelService.WPF.View
             {
                 Invitation invitation = new Invitation(SelectedGuest.Id, false);
                 _repositoryInvitation.Save(invitation);
-
             }
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)

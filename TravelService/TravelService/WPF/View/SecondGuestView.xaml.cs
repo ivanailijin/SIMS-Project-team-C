@@ -57,5 +57,12 @@ namespace TravelService.WPF.View
             GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
             guestsToursView.Show();
         }
+
+        private void LogOutClick_Click(object sender, RoutedEventArgs e)
+        {
+            SignInForm signInForm = new SignInForm();
+            signInForm.Show();
+            Close();
+        }
     }
 }

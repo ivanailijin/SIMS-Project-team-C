@@ -75,6 +75,8 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_CancelCommand(object obj)
         {
+            SelectedTourReview.Valid = true;
+            _tourReviewService.Update(SelectedTourReview);
             ShowTourReviewView showTourReviewsView = new ShowTourReviewView(SelectedGuest, SelectedTourReview);
             showTourReviewsView.Show();
         }
