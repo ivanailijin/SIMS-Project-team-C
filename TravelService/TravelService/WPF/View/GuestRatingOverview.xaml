@@ -5,34 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="GuestRatingOverview" Height="370" Width="400"
+        Title="GuestRatingOverview" Height="600" Width="900"
              WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="210"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="43"></RowDefinition>
+            <RowDefinition Height="395"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"  Text="Guest data to be evaluated" Foreground="DarkSlateBlue" FontWeight="Bold" TextAlignment="Center" Margin="0,17"  FontSize="15" ></TextBlock>
+        <TextBlock Grid.Row="1" Height="40"  Text="Neocenjeni gosti" Foreground="Black" FontWeight="DemiBold"  TextAlignment="Center" Margin="0,10, 0, 0"  FontSize="25" ></TextBlock>
         <DataGrid  VerticalAlignment="Center" ItemsSource="{Binding Path=UnratedReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
                    AutoGenerateColumns="False" IsReadOnly="True"
-                   Width="330" Height="200" Grid.Row="1">
+                   Width="660" Height="330" Grid.Row="2" Margin="0,20,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="170" Binding="{Binding Guest1.Username}">
+                <DataGridTextColumn Header="Ime i prezime" Width="170" Binding="{Binding Guest1.Username}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Accommodation"  Width="150" Binding="{Binding Accommodation.Name}">
+                <DataGridTextColumn Header="Smestaj"  Width="150" Binding="{Binding Accommodation.Name}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Datum prijavljivanja"  Width="166"  Binding="{Binding CheckInDate, StringFormat='{}{0:dd-MMM-yyyy}'}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Datum odjavljivanja"  Width="166"  Binding="{Binding CheckOutDate, StringFormat='{}{0:dd-MMM-yyyy}'}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <WrapPanel Grid.Row="2" FlowDirection="LeftToRight" Margin="10,10,5,5">
-            <Separator Width="75" Background="White"></Separator>
-            <Button Content ="Rate it" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="23" Margin="20, 5, 20, 5"
+        <WrapPanel Grid.Row="3" FlowDirection="LeftToRight" Margin="10,10,5,5">
+            <Separator Width="370" Background="White"></Separator>
+            <Button Content ="Oceni gosta" HorizontalAlignment="Left" Background="LightBlue" VerticalAlignment="Top" Width="100" Height="38" Margin="20, 0, 20, 5"
                     Click="Rating_Click"/>
             <Separator Width="20" Background="White"></Separator>
-            <Button Content="Close" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="23" Margin="20, 5, 20, 5" 
-                    Click="Cancel_Click"/>
             <Separator Width="80" Background="White"></Separator>
         </WrapPanel>
+        <Button Grid.Row="0" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="23, 11, 20, 5" 
+                    Click="Cancel_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/home-icon.png" />
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

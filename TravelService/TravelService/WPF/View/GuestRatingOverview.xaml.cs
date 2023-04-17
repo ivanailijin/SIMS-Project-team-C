@@ -55,12 +55,19 @@ namespace TravelService.WPF.View
 
         private void Rating_Click(object sender, RoutedEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            if (SelectedReservation != null)
             {
-                GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation, Owner);
-                guestRatingView.Parent = this;
-                guestRatingView.ShowDialog();
-            });
+                Dispatcher.Invoke(() =>
+                {
+                    GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation, Owner);
+                    guestRatingView.Parent = this;
+                    guestRatingView.ShowDialog();
+                });
+            }
+            else
+            {
+                MessageBox.Show("You have not selected a guest!");
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

@@ -5,60 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="GuestRatingView" WindowStartupLocation="CenterScreen" Height="500" Width="630">
+        Title="GuestRatingView" WindowStartupLocation="CenterScreen" Height="520" Width="610">
     <Window.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
     </Window.Resources>
     <Grid>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="43"></RowDefinition>
+            <RowDefinition Height="67"></RowDefinition>
             <RowDefinition Height="320"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row ="0" Grid.Column="0" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="170"></ColumnDefinition>
-                <ColumnDefinition Width="170"></ColumnDefinition>
-                <ColumnDefinition Width="160"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Text="Data of the guest's reservation:" Foreground="DarkSlateBlue" FontWeight="Bold" TextAlignment="Center" Margin="0,9"  FontSize="15" ></TextBlock>
-            <Label Grid.Row="1" Grid.Column="0"   Foreground="CadetBlue" FontWeight="Bold" Content="Guest name:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="1"  Foreground="CadetBlue" FontWeight="Bold" Content="Name of accommodation:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="2"  Foreground="CadetBlue" FontWeight="Bold" Content="Check in date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <Label Grid.Row="1" Grid.Column="3"  Foreground="CadetBlue" FontWeight="Bold" Content="Check out date:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-            <TextBlock x:Name="GuestName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"></TextBlock>
-            <TextBlock x:Name="AccommodationName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
-            <TextBlock x:Name="CheckInDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2"></TextBlock>
-            <TextBlock x:Name="CheckOutDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="3"></TextBlock>
-        </Grid>
+        <TextBlock Grid.Row="0" Height="23" Grid.ColumnSpan="5" Text="Podaci o rezervaciji gosta:" Foreground="Black" FontWeight="Normal"  TextAlignment="Center" Margin="0,9"  FontSize="18" ></TextBlock>
+        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" Margin="10, 0, 10, 0" BorderBrush="LightGray">
+            <Grid Margin="-13, 0, 0, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="29"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130"></ColumnDefinition>
+                    <ColumnDefinition Width="170"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0"  Foreground="CadetBlue" FontWeight="Bold" Content="Ime gosta:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Grid.Row="0" Grid.Column="1"  Foreground="CadetBlue" FontWeight="Bold" Content="Naziv smestaja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Grid.Row="0" Grid.Column="2"  Foreground="CadetBlue" FontWeight="Bold" Content="Datum prijavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Grid.Row="0" Grid.Column="3"  Foreground="CadetBlue" FontWeight="Bold" Content="Datum odjavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <TextBlock x:Name="GuestName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBlock x:Name="AccommodationName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+                <TextBlock x:Name="CheckInDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"></TextBlock>
+                <TextBlock x:Name="CheckOutDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"></TextBlock>
+            </Grid>
+        </Border>
         
-        <Grid Grid.Row="1" Grid.Column="0" Width="350" Height="270">
+        <Grid Grid.Row="2" Grid.Column="0" Width="470" Height="300" Margin="0, -10, 0, 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Cleanness" Grid.Row="0" Grid.Column="0" Height="25" ></Label>
-            <Label Content="Following the rules" Grid.Row="1" Grid.Column="0" Height="25"></Label>
-            <Label Content="Communication" Grid.Row="2" Grid.Column="0" Height="25"></Label>
-            <Label Content="Noise Level" Grid.Row="3" Grid.Column="0" Height="25"></Label>
-            <Label Content="Respect for property" Grid.Row="4" Grid.Column="0" Height="25"></Label>
-            <Label Content="Other comment" Grid.Row="5" Grid.Column="0" Height="25"></Label>
+            <Label HorizontalAlignment="Center" Content="Cistoca" Grid.Row="0" Grid.Column="0" Height="25" ></Label>
+            <Label HorizontalAlignment="Center" Content="Postovanje pravila" Grid.Row="1" Grid.Column="0" Height="25"></Label>
+            <Label HorizontalAlignment="Center" Content="Komunikacija" Grid.Row="2" Grid.Column="0" Height="25"></Label>
+            <Label HorizontalAlignment="Center" Content="Nivo bucnosti" Grid.Row="3" Grid.Column="0" Height="25"></Label>
+            <Label HorizontalAlignment="Center" Content="Postovanje imovine" Grid.Row="4" Grid.Column="0" Height="25"></Label>
+            <Label HorizontalAlignment="Center" Content="Dodatni komentar" Grid.Row="5" Grid.Column="0" Height="25"></Label>
             <GroupBox Grid.Row="0" Grid.Column="1" Height="30">
                 <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
                         <RadioButton Width="37" Content="1" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
@@ -104,8 +106,8 @@
                     <RadioButton Width="37" Content="5" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
-            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
-                     Height="40">
+            <TextBox Grid.Row="5" BorderThickness="1.5" BorderBrush="Black" Grid.Column="1" Grid.ColumnSpan="2"
+                     Height="60">
                 <TextBox.Text >
                     <Binding Path="Comment" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
@@ -123,7 +125,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-
                             <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
                             <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
                         </Grid>
@@ -131,12 +132,12 @@
                 </Validation.ErrorTemplate>
             </TextBox>
         </Grid>
-        <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
-            <Separator Background="White" Width="170"></Separator>
-            <Button Content="Save"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
+        <WrapPanel Grid.Row="3" FlowDirection="LeftToRight" Margin="0,-5,0,0">
+            <Separator Background="White" Width="147"></Separator>
+            <Button Content="Sacuvaj" Background="LightBlue" Width="70" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
                     Click="AddGuestRating_Click"/>
             <Separator Background="White" Width="100"></Separator>
-            <Button Content="Cancel" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
+            <Button Content="Zatvori" Background="LightBlue" Width="70" Height="26" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
                     Click ="CancelGuestRating_Click"/>
             <Separator Background="White" Width="180"></Separator>
         </WrapPanel>

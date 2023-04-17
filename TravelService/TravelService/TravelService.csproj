@@ -8,10 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\home-icon.png" />
     <None Remove="Resources\Images\star.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\home-icon.png" />
     <Resource Include="Resources\Images\star.png" />
   </ItemGroup>
 
