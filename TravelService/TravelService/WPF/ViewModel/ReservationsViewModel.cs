@@ -97,9 +97,7 @@ namespace TravelService.WPF.ViewModel
             RequestsForDelaying = new ObservableCollection<ReservationRequest>(Requests);
 
             SendRequestCommand = new RelayCommand(Execute_SendRequest, CanExecute_Command);
-            CancelReservationCommand = new RelayCommand(Execute_CancelReservation, CanExecute_Command);
-
-            
+            CancelReservationCommand = new RelayCommand(Execute_CancelReservation, CanExecute_Command); 
         }
 
         private bool CanExecute_Command(object parameter)

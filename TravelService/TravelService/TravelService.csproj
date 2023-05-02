@@ -8,10 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\leftarrow.jpg" />
     <None Remove="Resources\Images\star.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\leftarrow.jpg" />
     <Resource Include="Resources\Images\star.png" />
   </ItemGroup>
 

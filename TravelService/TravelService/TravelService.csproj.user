@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="WPF\View\AccommodationAvailabilityView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ApproveReservationRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +38,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\OwnerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ReserveAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ReviewsSelectionView.xaml.cs">
@@ -73,6 +79,9 @@
     <Compile Update="WPF\View\JoinTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\SearchAccommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ShowGuestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AccommodationAvailabilityView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\DeclineReservationRequestView.xaml">
@@ -132,10 +144,16 @@
     <Page Update="WPF\View\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\ReserveAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\ReviewsSelectionView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\JoinTourView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\SearchAccommodationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SecondGuestView.xaml">
