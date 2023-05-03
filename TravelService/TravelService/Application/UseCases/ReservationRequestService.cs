@@ -105,15 +105,6 @@ namespace TravelService.Application.UseCases
             return _reservationRequestRepository.FindRequestsByGuestId(guestId);
         }
 
-        /*   public void GetReservationData(List<ReservationRequest> requests)
-           {
-               List<AccommodationReservation> reservations = _reservationService.GetAll();
-               foreach (ReservationRequest request in requests)
-               {
-                   request.Reservation = reservations.Find(r => r.Id == request.ReservationId);
-               }
-           }*/
-
         public List<ReservationRequest> SetStatus(List<ReservationRequest> requests)
         { 
             foreach (ReservationRequest request in requests)
@@ -143,14 +134,5 @@ namespace TravelService.Application.UseCases
             }
             return requests;
         }
-
-       /* public void GetAccommodationData(List<ReservationRequest> requests)
-        {
-            List<Accommodation> accommodations = _accommodationService.GetAll();
-            foreach (ReservationRequest request in requests)
-            {
-                request.Reservation.Accommodation = accommodations.Find(a => a.Id == request.Reservation.AccommodationId);
-            }
-        }*/
     }
 }

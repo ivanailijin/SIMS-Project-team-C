@@ -227,8 +227,8 @@ namespace TravelService.WPF.View
                 IsRated = false;
                 IsOwnerRated = false;
                 IsCancelled = false;
-                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, LoggedInGuest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated, IsOwnerRated, IsCancelled);
-                _reservationRepository.Save(reservation);
+              //  AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, LoggedInGuest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated, IsOwnerRated, IsCancelled);
+               // _reservationRepository.Save(reservation);
                 Close();
             }
             else

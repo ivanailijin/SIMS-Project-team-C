@@ -114,9 +114,9 @@ namespace TravelService.WPF.ViewModel
                 AvailableDatesOutsideRange = _reservationService.FindAvailableDatesOutsideRange(SelectedAccommodation, CheckInDate, CheckOutDate, LengthOfStay);
             }
 
-            ReserveAccommodationView reserveAccommodationView = new ReserveAccommodationView(SelectedAccommodation, Guest1, AvailableDateRange, AvailableDatesOutsideRange, CheckInDate, CheckOutDate, LengthOfStay);
+            ReserveAccommodationView reserveAccommodationView = new ReserveAccommodationView(SelectedAccommodation, Guest1, AvailableDateRange, AvailableDatesOutsideRange, LengthOfStay);
             reserveAccommodationView.Show();
-            
+            CloseAction();
         }
     }
 }

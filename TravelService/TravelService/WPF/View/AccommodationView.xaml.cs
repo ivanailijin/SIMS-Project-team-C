@@ -38,40 +38,6 @@ namespace TravelService.WPF.View
                 accommodationViewModel.CloseAction = new Action(this.Close);
             }
         }
-        
-        /*
-        private void ReserveAccommodation_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedAccommodation != null)
-            {
-                ReserveAccommodationView reservationView = new ReserveAccommodationView(SelectedAccommodation, Guest1);
-                reservationView.Show();
-            }
-            else
-            {
-                MessageBox.Show("Please select accommodation for reservation.");
-            }
-        }
-
-        private void OwnerRating_Click(object sender, RoutedEventArgs e)
-        {
-            RatingView ratingView = new RatingView(Guest1);
-            ratingView.Show();
-;        }
-
-        private void ShowReservations_Click(object sender, RoutedEventArgs e)
-        {
-            ReservationsView reservationsView = new ReservationsView(Guest1);
-            reservationsView.Show();
-        }
-
-        private void LogOut_Click(object sender, RoutedEventArgs e)
-        {
-            SignInForm signIn = new SignInForm();
-            signIn.Show();
-            Close();
-        }*/
-    
     }
 }
 

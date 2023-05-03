@@ -167,7 +167,7 @@ namespace TravelService.WPF.View
             _reservationRepository.Update(ratedOwner);
 
             RatingView ratingView = (RatingView)this.Parent;
-            ratingView.UnratedOwners.Remove(SelectedUnratedOwner);
+         //   ratingView.UnratedOwners.Remove(SelectedUnratedOwner);
 
             Close();
         }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Xaml.Schema;
 using TravelService.Domain.Model;
 using TravelService.Repository;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
@@ -23,48 +24,14 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class RatingView : Window
     {
-        private readonly AccommodationReservationRepository _reservationRepository;
-        private readonly AccommodationRepository _accommodationRepository;
-        private readonly LocationRepository _locationRepository;
-        private readonly OwnerRepository _ownerRepository;
-        public AccommodationReservation SelectedUnratedOwner { get; set; }
-        public ObservableCollection<AccommodationReservation> UnratedOwners { get; set; }
-        public Guest1 LoggedInGuest1 { get; set; }
-        public GuestRatingView Child { get; set; }
-
         public RatingView(Guest1 guest1)
         {
             InitializeComponent();
-            DataContext = this;
-            this.LoggedInGuest1 = guest1;
-            _reservationRepository = new AccommodationReservationRepository();
-            _accommodationRepository = new AccommodationRepository();
-            _locationRepository = new LocationRepository();
-            _ownerRepository = new OwnerRepository();
-
-            UnratedOwners = new ObservableCollection<AccommodationReservation>(_reservationRepository.FindUnratedOwners(guest1.Id));
-            List<Accommodation> Accommodations = new List<Accommodation>(_accommodationRepository.GetAll());
-            List<Location> Locations = new List<Location>(_locationRepository.GetAll());
-            List<Owner> Owners = new List<Owner>(_ownerRepository.GetAll());
-            _reservationRepository.SetAccommodation(Accommodations);
-            _reservationRepository.SetLocation(Locations);
-            _reservationRepository.SetName(Owners);
-        }
-
-        private void rateOwnerButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedUnratedOwner != null)
+            RatingViewModel ratingViewModel = new RatingViewModel(guest1);
+            DataContext = ratingViewModel;
+            if (ratingViewModel.CloseAction == null)
             {
-                Dispatcher.Invoke(() =>
-                {
-                    OwnerRatingView ownerRatingView = new OwnerRatingView(SelectedUnratedOwner);
-                    ownerRatingView.Parent = this;
-                    ownerRatingView.ShowDialog();
-                });
-            }
-            else
-            {
-                MessageBox.Show("Select accommodation and owner that you want to rate.");
+                ratingViewModel.CloseAction = new Action(this.Close);
             }
         }
     }

@@ -11,12 +11,14 @@ namespace TravelService.Application.UseCases
         private readonly IAccommodationReservationRepository _accommodationReservationRepository;
         private readonly AccommodationService _accommodationService;
         private readonly LocationService _locationService;
+        private OwnerService _ownerService;
 
         public AccommodationReservationService(IAccommodationReservationRepository accommodationReservationRepository)
         {
             _accommodationReservationRepository = accommodationReservationRepository;
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
+            _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
         }
         public List<AccommodationReservation> GetAll()
         {
@@ -216,23 +218,51 @@ namespace TravelService.Application.UseCases
             }
         }
 
-        public void GetAccommodationData(List<AccommodationReservation> reservations)
+        public List<AccommodationReservation> FindUnratedOwners(int guestId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            List<AccommodationReservation> UnratedOwners = new List<AccommodationReservation>();
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
+                if (!reservation.IsOwnerRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservation.GuestId == guestId)
+                {
+                    UnratedOwners.Add(reservation);
+                }
+            }
+
+            return UnratedOwners;
+        }
+
+        public List<AccommodationReservation> GetAccommodationData(List<AccommodationReservation> reservations)
         {
             List<Accommodation> accommodations = _accommodationService.GetAll();
             foreach (AccommodationReservation reservation in reservations)
             {
                 reservation.Accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
             }
+            return reservations;
         }
 
-        public void GetLocationData(List<AccommodationReservation> reservations)
+        public List<AccommodationReservation> GetLocationData(List<AccommodationReservation> reservations)
         {
             List<Location> locations = _locationService.GetAll();
             foreach (AccommodationReservation reservation in reservations)
             {
                 reservation.Location = locations.Find(l => l.Id == reservation.LocationId);
-
             }
+            return reservations;
+        }
+
+        public List<AccommodationReservation> GetOwnerData(List<AccommodationReservation> reservations)
+        {
+            List<Owner> owners = _ownerService.GetAll();
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                reservation.Owner = owners.Find(o => o.Id == reservation.OwnerId);
+            }
+            return reservations;
         }
     }
 

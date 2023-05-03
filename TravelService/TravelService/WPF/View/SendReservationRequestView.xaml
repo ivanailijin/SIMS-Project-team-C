@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Request for moving reservation" WindowStartupLocation="CenterScreen" Height="400" Width="350">
     <Grid>
@@ -20,9 +21,9 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Check-in" FontSize="15" VerticalAlignment="Bottom"></Label>
-            <DatePicker x:Name="startDatePicker" Grid.Row="1" VerticalAlignment="Center" Height="35" SelectedDate="{Binding NewCheckInDate, Mode=TwoWay}"></DatePicker>
+            <DatePicker x:Name="startDatePicker" Grid.Row="1" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding NewCheckInDate, Mode=OneWayToSource}"></DatePicker>
             <Label Grid.Row="2" Content="Checkout" FontSize="15" VerticalAlignment="Bottom"></Label>
-            <DatePicker x:Name="endDatePicker" Grid.Row="3" VerticalAlignment="Center" Height="35" SelectedDate="{Binding NewCheckOutDate, Mode=TwoWay}"></DatePicker>
+            <DatePicker x:Name="endDatePicker" Grid.Row="3" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding NewCheckOutDate, Mode=OneWayToSource}"></DatePicker>
         </Grid>
 
         <WrapPanel Grid.Row="1" FlowDirection="LeftToRight" Margin="10,5,10,5">

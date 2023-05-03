@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Serializer;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.Repository
 {
-    public class OwnerRatingRepository
+    public class OwnerRatingRepository : IOwnerRatingRepository
     {
 
         private const string FilePath = "../../../Resources/Data/ownerRatings.csv";

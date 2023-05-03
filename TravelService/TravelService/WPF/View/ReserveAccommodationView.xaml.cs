@@ -21,10 +21,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class ReserveAccommodationView : Window
     {
-        public ReserveAccommodationView(Accommodation selectedAccommodation, Guest1 guest1, List<Tuple<DateTime, DateTime>> availableDateRange, List<Tuple<DateTime, DateTime>> availableDateOutsideRange, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay)
+        public ReserveAccommodationView(Accommodation selectedAccommodation, Guest1 guest1, List<Tuple<DateTime, DateTime>> availableDateRange, List<Tuple<DateTime, DateTime>> availableDateOutsideRange, int lengthOfStay)
         {
             InitializeComponent();
-            ReserveAccommodationViewModel reserveAccommodationViewModel = new ReserveAccommodationViewModel(selectedAccommodation, guest1, availableDateRange, availableDateOutsideRange, checkInDate, checkOutDate, lengthOfStay);
+            ReserveAccommodationViewModel reserveAccommodationViewModel = new ReserveAccommodationViewModel(selectedAccommodation, guest1, availableDateRange, availableDateOutsideRange, lengthOfStay);
             DataContext = reserveAccommodationViewModel;
             if (reserveAccommodationViewModel.CloseAction == null)
             {

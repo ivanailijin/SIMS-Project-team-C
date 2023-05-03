@@ -17,8 +17,7 @@ namespace TravelService.WPF.ViewModel
 {
     public class AccommodationViewModel : ViewModelBase
     {
-        private readonly AccommodationService _accommodationService;
-        private readonly OwnerRepository _ownerRepository;
+        private AccommodationService _accommodationService;
         public Guest1 Guest1 { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
@@ -104,18 +103,16 @@ namespace TravelService.WPF.ViewModel
 
         public AccommodationViewModel(Guest1 guest1)
         {
-            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
-            _ownerRepository = new OwnerRepository();
-
             this.Guest1 = guest1;
+
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             List<Accommodation> accommodations = new List<Accommodation>(_accommodationService.GetAll());
-            List<Owner> owners = new List<Owner>(_ownerRepository.GetAll());
             accommodations = _accommodationService.GetLocationData(accommodations);
             accommodations = _accommodationService.GetTypeData(accommodations);
             accommodations = _accommodationService.GetOwnerData(accommodations);
             accommodations = _accommodationService.SortBySuperowner(accommodations);
-
             Accommodations = new ObservableCollection<Accommodation>(accommodations);
+
             SearchWindowCommand = new RelayCommand(Execute_SearchWindow, CanExecute_Command);
             ReserveCommand = new RelayCommand(Execute_ReserveWindow, CanExecute_Command);
             RatingWindowCommand = new RelayCommand(Execute_RatingWindow, CanExecute_Command);
