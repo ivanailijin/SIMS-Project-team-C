@@ -23,6 +23,7 @@ namespace TravelService.WPF.ViewModel
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
         public ObservableCollection<string> Types { get; set; }
         public Action CloseAction { get; set; }
+
         private ObservableCollection<Accommodation> _accommodations;
         public ObservableCollection<Accommodation> Accommodations
         {

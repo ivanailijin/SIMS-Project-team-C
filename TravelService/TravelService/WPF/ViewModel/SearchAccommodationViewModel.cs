@@ -15,8 +15,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class SearchAccommodationViewModel : ViewModelBase
     {
-        private readonly AccommodationViewModel _accommodationViewModel;
-        private readonly AccommodationService _accommodationService;
+        private AccommodationViewModel _accommodationViewModel;
+        private AccommodationService _accommodationService;
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
         public ObservableCollection<string> LocationsComboBox { get; set; }
         public Action CloseAction { get; set; }

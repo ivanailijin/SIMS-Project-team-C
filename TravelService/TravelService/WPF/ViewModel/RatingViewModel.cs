@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
@@ -15,9 +16,22 @@ namespace TravelService.WPF.ViewModel
     {
         private AccommodationReservationService _reservationService;
         public AccommodationReservation SelectedUnratedOwner { get; set; }
-        public ObservableCollection<AccommodationReservation> UnratedOwners { get; set; }
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
+
+        private ObservableCollection<AccommodationReservation> _unratedOwners;
+        public ObservableCollection<AccommodationReservation> UnratedOwners
+        {
+            get => _unratedOwners;
+            set
+            {
+                if (value != _unratedOwners)
+                {
+                    _unratedOwners = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private RelayCommand _ownerRatingWindowCommand;
         public RelayCommand OwnerRatingWindowCommand
@@ -56,7 +70,7 @@ namespace TravelService.WPF.ViewModel
         {
             if (SelectedUnratedOwner != null)
             {
-                OwnerRatingView ownerRatingView = new OwnerRatingView(SelectedUnratedOwner);
+                OwnerRatingView ownerRatingView = new OwnerRatingView(this, SelectedUnratedOwner);
                 ownerRatingView.ShowDialog();
             }
             else
