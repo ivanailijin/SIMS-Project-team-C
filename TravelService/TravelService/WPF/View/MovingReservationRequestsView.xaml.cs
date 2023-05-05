@@ -26,7 +26,7 @@ namespace TravelService.View
     public partial class MovingReservationRequestsView : Window, INotifyPropertyChanged
     {
         
-        public MovingReservationRequestsView( )
+        public MovingReservationRequestsView()
         {
             InitializeComponent();
             MovingReservationRequestsViewModel movingReservationRequestsViewModel = new MovingReservationRequestsViewModel();

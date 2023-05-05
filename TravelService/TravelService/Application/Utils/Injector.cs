@@ -21,6 +21,7 @@ namespace TravelService.Application.Utils
         { typeof(IAccommodationRepository), new AccommodationRepository() },
         { typeof(IGuest1Repository), new Guest1Repository() },
         { typeof(IOwnerRepository), new OwnerRepository() },
+        { typeof(IOwnerRatingRepository), new OwnerRatingRepository() },
         { typeof(IUserRepository), new UserRepository() },
         { typeof(ITourReviewRepository), new TourReviewRepository() },
         { typeof(ITourRepository), new TourRepository() },
@@ -30,6 +31,7 @@ namespace TravelService.Application.Utils
         { typeof(IGuideRepository), new GuideRepository() },
         { typeof(ILanguageRepository), new LanguageRepository() },
         { typeof(IInvitationRepository), new InvitationRepository() },
+        { typeof(IGuestRatingRepository), new GuestRatingRepository() },
 
         // Add more implementations here
     };

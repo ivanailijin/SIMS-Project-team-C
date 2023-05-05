@@ -17,7 +17,6 @@ namespace TravelService.Domain.RepositoryInterface
         public int NextId();
         public void Delete(AccommodationReservation accommodationReservation);
         public AccommodationReservation FindById(int id);
-        public List<AccommodationReservation> FindUnratedReservations(AccommodationRepository _accommodationRepository, int OwnerId);
         public AccommodationReservation Update(AccommodationReservation accommodationReservation);
         public List<AccommodationReservation> FindReservationsByGuestId(int guestId);
         public void SetAccommodation(List<Accommodation> accomodations);

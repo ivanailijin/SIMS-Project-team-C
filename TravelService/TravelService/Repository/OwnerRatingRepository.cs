@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Serializer;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.Repository
 {
-    public class OwnerRatingRepository
+    public class OwnerRatingRepository : IOwnerRatingRepository
     {
 
         private const string FilePath = "../../../Resources/Data/ownerRatings.csv";
@@ -50,57 +51,12 @@ namespace TravelService.Repository
             return _ownerRatings.Max(c => c.Id) + 1;
         }
 
-        public int GetNumberOfRatings(int ownerId)
-        {
-            int ratingCount = 0;
-            foreach(OwnerRating rating in  _ownerRatings)
-            {
-                if(rating.OwnerId == ownerId)
-                {
-                    ratingCount++;
-                }
-            }
-            return ratingCount;
-        }
-        public double GetAverageRating(int ownerId)
-        {
-            int ratingCount = 0;
-            double sumRatings = 0;
-  
-            foreach (OwnerRating rating in _ownerRatings)
-            {
-                double averageRating = 0;
-                if (rating.Id == ownerId)
-                {
-                    ratingCount++;
-                    averageRating = (rating.Cleanliness + rating.Comfort + rating.Correctness + rating.Content + rating.Location) / 5;
-                    sumRatings += averageRating;
-                }
-            }
-            return (double)sumRatings / ratingCount;
-        }
         public void Delete(OwnerRating ownerRating)
         {
             _ownerRatings = _serializer.FromCSV(FilePath);
             OwnerRating founded = _ownerRatings.Find(o => o.Id == ownerRating.Id);
             _ownerRatings.Remove(founded);
             _serializer.ToCSV(FilePath, _ownerRatings);
-        }
-
-        public List<Guest1> FindGuestsByAccommodation(Accommodation selectedAccommodation)
-        {
-            List<Guest1> guests = new List<Guest1>();
-
-            foreach(OwnerRating ownerRating in _ownerRatings)
-            {
-                if(ownerRating.AccommodationId == selectedAccommodation.Id)
-                {
-                    Guest1 guest = _guestRepository.FindById(ownerRating.GuestId);
-                    guests.Add(guest);
-                }
-            }
-
-            return guests;
         }
 
         public OwnerRating FindById(int id)
@@ -116,18 +72,6 @@ namespace TravelService.Repository
             return null;
         }
 
-        public OwnerRating FindByGuestOwnerIds(int guestId, int ownerId, int accommodationId)
-        {
-            _ownerRatings = _serializer.FromCSV(FilePath);
-            foreach (OwnerRating ownerRating in _ownerRatings)
-            {
-                if (ownerRating.GuestId == guestId && ownerRating.OwnerId==ownerId && ownerRating.AccommodationId==accommodationId)
-                {
-                    return ownerRating;
-                }
-            }
-            return null;
-        }
 
         public OwnerRating Update(OwnerRating ownerRating)
         {

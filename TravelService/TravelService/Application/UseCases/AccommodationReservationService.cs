@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
@@ -128,23 +129,23 @@ namespace TravelService.Application.UseCases
 
             if (hasOverlap)
             {
-                return AVAILABILITY.Unavailable;
+                return AVAILABILITY.Zauzet;
             }
             else
             {
-                return AVAILABILITY.Available;
+                return AVAILABILITY.Slobodan;
 
             }
         }
 
-        public void GetAccommodationData(List<AccommodationReservation> reservations)
+        /*public void GetAccommodationData(List<AccommodationReservation> reservations)
         {
             List<Accommodation> accommodations = _accommodationService.GetAll();
             foreach (AccommodationReservation reservation in reservations)
             {
                 reservation.Accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
             }
-        }
+        }*/
 
         public void GetLocationData(List<AccommodationReservation> reservations)
         {
@@ -154,6 +155,33 @@ namespace TravelService.Application.UseCases
                 reservation.Location = locations.Find(l => l.Id == reservation.LocationId);
 
             }
+        }
+
+        public List<AccommodationReservation> FindUnratedReservations(int OwnerId)
+        {
+            List<AccommodationReservation> UnratedReservations = new List<AccommodationReservation>();
+            List<AccommodationReservation> accommodationReservations = GetAll();
+
+            foreach (AccommodationReservation reservation in accommodationReservations)
+            {
+                Accommodation reservedAccommodation = _accommodationService.FindById(reservation.AccommodationId);
+                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
+                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservedAccommodation.OwnerId == OwnerId)
+                {
+                    UnratedReservations.Add(reservation);
+                }
+            }
+
+            return UnratedReservations;
+        }
+        public List<AccommodationReservation> GetAccommodationData(List<AccommodationReservation> reservations)
+        {
+            List<Accommodation> accommodations = _accommodationService.GetAll();
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                reservation.Accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
+            }
+            return reservations;
         }
     }
 

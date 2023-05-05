@@ -47,10 +47,10 @@
         <WrapPanel Grid.Row="1" FlowDirection="LeftToRight">
             <Separator Background="White" Width="210"></Separator>
             <Button Content="Close"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
-                    Click="Cancel_Click"/>
+                   Command="{Binding CancelCommand}"/>
             <Separator Background="White" Width="180"></Separator>
             <Button Content="Show reviews" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
-                    Click="ShowReview_Click"/>
+                    Command="{Binding ShowReviewCommand}"/>
             <Separator Background="White" Width="180"></Separator>
         </WrapPanel>
     </Grid>

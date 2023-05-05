@@ -23,26 +23,12 @@ namespace TravelService.WPF.ViewModel
         public ObservableCollection<ReservationRequest> ReservationRequests { get; set; }
 
         public ReservationRequest SelectedRequest { get; set; }
-
         public Action CloseAction { get; set; }
         public ICommand DeclineRequestCommand { get; set; }
         public ICommand ApproveRequestCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
 
-        private ObservableCollection<string> _availabilities;
-
-        public ObservableCollection<string> Availabilities
-        {
-            get => _availabilities;
-            set
-            {
-                if (value != _availabilities)
-                {
-                    _availabilities = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         public MovingReservationRequestsViewModel()
         {
             InitializeCommands();
@@ -60,8 +46,13 @@ namespace TravelService.WPF.ViewModel
         {
             DeclineRequestCommand = new RelayCommand(Execute_DeclineRequestCommand, CanExecute_Command);
             ApproveRequestCommand = new RelayCommand(Execute_ApproveRequestCommand, CanExecute_Command);
+            CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
         }
 
+        private void Execute_CancelCommand(object obj)
+        {
+            CloseAction();
+        }
         private void Execute_DeclineRequestCommand(object obj)
         {
             if (SelectedRequest != null)

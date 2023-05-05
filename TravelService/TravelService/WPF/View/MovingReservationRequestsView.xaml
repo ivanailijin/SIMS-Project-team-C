@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.View"
         mc:Ignorable="d"
-        Title="MovingReservationRequestsView" WindowStartupLocation="CenterScreen" Height="470" Width="800">
+        Title="MovingReservationRequestsView" WindowStartupLocation="CenterScreen"  Height="768" Width="1024" Background="#dff2f2">
     <Window.Resources>
         <CollectionViewSource x:Key="FirstList" Source="{Binding ReservationRequests}" />
         <CollectionViewSource x:Key="SecondList" Source="{Binding Availabilities}" />
@@ -13,47 +13,100 @@
             <CollectionContainer Collection="{Binding Source={StaticResource FirstList}}" />
             <CollectionContainer Collection="{Binding Source={StaticResource SecondList}}" />
         </CompositeCollection>
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#476a6b" Background="#89c5c7" BorderThickness="1.5" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+        <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#b9c7c7"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="310"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="530"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="770"></ColumnDefinition>
+            <ColumnDefinition Width="950"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0"  Text="Requests to move the reservation date" Foreground="DarkSlateBlue" FontWeight="Bold" TextAlignment="Center" Margin="0,17"  FontSize="15" ></TextBlock>
-        <DataGrid x:Name="RequestViewGrid"  VerticalAlignment="Center" HorizontalAlignment="Right" ItemsSource="{Binding Path=ReservationRequests, UpdateSourceTrigger=PropertyChanged}"
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Image  Width="40" Height="40" Margin="255,32, 0, 0" Source="/TravelService;component/Resources/Images/moving-requests-icon.png"></Image>
+            <TextBlock  FontFamily="Candara" Text="Zahtevi za pomeranje rezervacije" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Foreground="Black" FontWeight="SemiBold" TextAlignment="Center" Margin="10,15, 0, 0"  FontSize="28" ></TextBlock>
+        </StackPanel>
+        <DataGrid x:Name="RequestViewGrid" BorderThickness="1.5" BorderBrush="Black" VerticalAlignment="Center" HorizontalAlignment="Right" Background="LightGray" ItemsSource="{Binding Path=ReservationRequests, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedRequest, UpdateSourceTrigger=PropertyChanged}"
+                  RowBackground="#fcfced" AlternatingRowBackground="#f7f6da" Foreground="Black"
+                  FontSize="14" FontFamily="Calibri"
+                  ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
                    AutoGenerateColumns="False" IsReadOnly="True"
-                   Width="720" Height="300" Grid.Row="1">
+                   Width="880" Height="440" Grid.Row="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="100"  Binding="{Binding Guest.Username}">
+                <DataGridTextColumn Header="Ime" Width="150"  Binding="{Binding Guest.Username}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Accommodation" Width="140"   Binding="{Binding Reservation.Accommodation.Name}">
+                <DataGridTextColumn Header="Smestaj" Width="170"   Binding="{Binding Reservation.Accommodation.Name}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Start date" Binding="{Binding Reservation.CheckInDate, StringFormat='{}{0:d}'}"  Width="90" >
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="End date" Binding="{Binding Reservation.CheckOutDate, StringFormat='{}{0:d}'}"  Width="90" >
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="New start date" Binding="{Binding NewStartDate, StringFormat='{}{0:d}'}"  Width="100" >
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="New end date" Binding="{Binding NewEndDate, StringFormat='{}{0:d}'}"  Width="100" >
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Availability" Binding="{Binding Availability}"  Width="100" >
+                <DataGridTemplateColumn Header="Termin rezervacije" Width="198">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0:d-MMM-yyyy}  -  {1:d-MMM-yyyy}">
+                                        <Binding Path="Reservation.CheckInDate" />
+                                        <Binding Path="Reservation.CheckOutDate" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Trazeni novi termin" Width="198">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0:d-MMM-yyyy}  -  {1:d-MMM-yyyy}">
+                                        <Binding Path="NewStartDate" />
+                                        <Binding Path="NewEndDate" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Raspolozivost smestaja" Binding="{Binding Availability}"  Width="155" >
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <WrapPanel Grid.Row="2" FlowDirection="LeftToRight" Margin="10,10,5,5">
-            <Separator Width="170" Background="White"></Separator>
-            <Button Content ="Decline the request" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="23" Margin="20, 5, 20, 5"
+        <WrapPanel Grid.Row="3" FlowDirection="LeftToRight" Margin="10,0,5,5">
+            <Separator Width="210" Background="#dff2f2"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content ="Odbij zahtev" Foreground="#323738" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" Margin="20, 5, 20, 5"
                     Command="{Binding DeclineRequestCommand}"/>
-            <Separator Width="110" Background="White"></Separator>
-            <Button Content="Approve the request" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="23" Margin="20, 5, 20, 5" 
+            <Separator Width="180" Background="#dff2f2"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content="Odobri zahtev" Foreground="#323738" FontSize="14" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" Margin="20, 5, 20, 5" 
                     Command="{Binding ApproveRequestCommand}"/>
-            <Separator Width="80" Background="White"></Separator>
+            <Separator Width="80" Background="#dff2f2"></Separator>
         </WrapPanel>
+        <Button Grid.Row="0" IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="23, 11, 20, 5" 
+                    Command="{Binding CancelCommand}">
+            <Button.Background>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/home-icon.png" />
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

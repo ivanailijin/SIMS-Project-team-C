@@ -42,7 +42,22 @@ namespace TravelService.Application.UseCases
         {
             Accommodation updatedAccommodation = _accommodationRepository.Update(accommodation);
             return updatedAccommodation;
+        }
 
+        public List<Accommodation> GetOwnersAccommodations(int ownerId)
+        {
+            List<Accommodation> ownersAccommodations = new List<Accommodation>();
+            List<Accommodation> accommodations = GetAll();
+
+            foreach (Accommodation accommodation in accommodations)
+            {
+                if (accommodation.OwnerId == ownerId)
+                {
+                    ownersAccommodations.Add(accommodation);
+                }
+            }
+
+            return ownersAccommodations;
         }
     }
 }

@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:val="clr-namespace:TravelService.Validation"
-         xmlns:local="clr-namespace:TravelService.WPF.View"
+         xmlns:local="clr-namespace:TravelService.WPF.View" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddAccommodationViewModel}"
         mc:Ignorable="d"
-        Title="AddAccommodation" WindowStartupLocation="CenterScreen" Height="590" Width="600">
+        Title="AddAccommodation" WindowStartupLocation="CenterScreen" Height="630" Width="550" BorderBrush="Black" BorderThickness="0.5" Background="#dff2f2">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -16,13 +16,24 @@
                 </AdornedElementPlaceholder>
                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
             </StackPanel>
-
         </ControlTemplate>
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="#088599"  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <local:RadioButtonConverter x:Key="RadioButtonConverter" />
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="500"></RowDefinition>
+            <RowDefinition Height="540"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -30,25 +41,36 @@
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="105"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="240"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Name" Grid.Row="0" Grid.Column="0" Height="25" ></Label>
-            <Label Content="Location" Grid.Row="1" Grid.Column="0" Height="25"></Label>
-            <Label Content="Type" Grid.Row="2" Grid.Column="0" Height="25"></Label>
-            <Label Content="Maximum Guest Number" Grid.Row="3" Grid.Column="0" Height="25"></Label>
-            <Label Content="Minimum Reservation Days" Grid.Row="4" Grid.Column="0" Height="25"></Label>
-            <Label Content="Days Before Cancelling Reservation" Grid.Row="5" Grid.Column="0" Height="25"></Label>
-            <Label Content="Pictures" Grid.Row="6" Grid.Column="0" Height="25"></Label>
-            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" 
+            <Label Content="Naziv" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="0" Grid.Column="0" Height="28" FontSize="15" HorizontalContentAlignment="Center"></Label>
+            <Label Content="Lokacija" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="1" Grid.Column="0" Height="28" FontSize="15" HorizontalContentAlignment="Center"></Label>
+            <Label Content="Tip" Grid.Row="2" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Column="0" Height="28" FontSize="15" HorizontalContentAlignment="Center"></Label>
+            <Label Content="Maksimalan broj gostiju" Grid.Row="4" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Column="0" Height="28" FontSize="15" HorizontalContentAlignment="Center"></Label>
+            <Label FontFamily="Times New Roman" Height="50" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="5" Grid.Column="0"  FontSize="15" HorizontalContentAlignment="Center">
+                <TextBlock>
+                    Minimalan broj dana
+                    <LineBreak/>
+                    za rezervaciju
+                </TextBlock>
+            </Label>
+            <Label Grid.Row="6" Grid.Column="0" Height="50" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 5 0 0" FontSize="15" HorizontalContentAlignment="Center">
+                <TextBlock>
+                    Broj dana pred rezervaciju do kog
+                    <LineBreak/>
+                    je moguce otkazati rezervaciju
+                </TextBlock>
+            </Label>
+            <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="0" Grid.Column="1" Width="150"
                      Height="25">
                 <TextBox.Text>
                     <Binding Path="AccommodationName" UpdateSourceTrigger="PropertyChanged">
@@ -74,7 +96,7 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="1" Grid.Column="1" Width="150"
                      Height="25">
                 <TextBox.Text>
                     <Binding Path="Location" UpdateSourceTrigger="PropertyChanged">
@@ -100,9 +122,57 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <ComboBox x:Name="typeAccommodationCombo" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding types}" Grid.ColumnSpan="2"
-                     Height="25" SelectionChanged="typeAccommodationCombo_SelectionChanged"></ComboBox>
-            <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+            <GroupBox Grid.Row="2" Grid.Column="1" Width="160" Height="30" Background="#dff2f2" Foreground="#dff2f2" BorderThickness="0" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal" Width="200"  >
+                    <RadioButton Width="37" Margin="0 5 0 0" GroupName="TypesCriteria" IsChecked="{Binding Type, ConverterParameter=Apartment, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" >
+                        <RadioButton.Template>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Grid>
+                                    <Rectangle x:Name="RadioSquare" Width="13" Height="13" Stroke="Black" StrokeThickness="1" Fill="White"/>
+                                    <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter TargetName="RadioSquare" Property="Fill" Value="DarkSlateGray"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </RadioButton.Template>
+                    </RadioButton>
+                    <RadioButton Width="37" Margin="23 5 0 0" GroupName="TypesCriteria" IsChecked="{Binding Type, ConverterParameter=House, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" >
+                        <RadioButton.Template>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Grid>
+                                    <Rectangle x:Name="RadioSquare" Width="13" Height="13" Stroke="Black" StrokeThickness="1" Fill="White"/>
+                                    <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter TargetName="RadioSquare" Property="Fill" Value="DarkSlateGray"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </RadioButton.Template>
+                    </RadioButton>
+                    <RadioButton Width="37" Margin="17 5 0 0" GroupName="TypesCriteria" IsChecked="{Binding Type, ConverterParameter=Cottage, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" >
+                        <RadioButton.Template>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Grid>
+                                    <Rectangle x:Name="RadioSquare" Width="13" Height="13" Stroke="Black" StrokeThickness="1" Fill="White"/>
+                                    <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter TargetName="RadioSquare" Property="Fill" Value="DarkSlateGray"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </RadioButton.Template>
+                    </RadioButton>
+                </StackPanel>
+            </GroupBox>
+            <TextBlock FontFamily="Times New Roman" Text="        Apartman        Kuca         Koliba"  Grid.Row="3" Grid.Column="1"></TextBlock>
+            <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="4" Grid.Column="1" Width="150"
                      Height="25">
                 <TextBox.Text>
                     <Binding Path="MaxGuestNumber" UpdateSourceTrigger="PropertyChanged">
@@ -128,7 +198,7 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="5" Grid.Column="1" Width="150"
                      Height="25">
                 <TextBox.Text>
                     <Binding Path="MinReservationDays" UpdateSourceTrigger="PropertyChanged">
@@ -154,7 +224,7 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <TextBox x:Name="CancelDaysBox"  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBox BorderThickness="1.5" BorderBrush="Black" x:Name="CancelDaysBox"  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Width="150"
                      Height="25">
                 <TextBox.Text >
                     <Binding Path="DaysBeforeCancellingReservation" UpdateSourceTrigger="PropertyChanged" >
@@ -180,19 +250,20 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <ListBox x:Name="MyListBox" Grid.Column="1" Grid.Row="6" />
-            <Button Grid.Column="2" Grid.Row="6" Margin="5 17" Width="70" x:Name="findPictures" Content="Dodaj slike" HorizontalAlignment="Center"  BorderBrush="White"  Click="findPictures_Click">
+            <ListBox BorderThickness="1.5" BorderBrush="Black" x:Name="MyListBox"  ItemsSource="{Binding ListBoxPictures}" Grid.Column="1" Grid.Row="7" Width="150" Height="78"/>
+            <Button Background="LightGray" Foreground="#1e2d30" BorderThickness="1" FontFamily="Times New Roman" Grid.Column="0" Grid.Row="7" Margin="0 5 0 0" Width="80" Height="47" x:Name="findPictures" Content="Dodaj slike" HorizontalAlignment="Center" FontSize="14" BorderBrush="#104d4f" 
+                    Command="{Binding FindPicturesCommand}">
             </Button>
 
         </Grid>
         <WrapPanel Grid.Row="1" FlowDirection="LeftToRight">
-            <Separator Background="White" Width="170"></Separator>
-            <Button Content="Add"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
-                    Click="AddAccommodation_Click "/>
-            <Separator Background="White" Width="100"></Separator>
-            <Button Content="Cancel" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
-                    Click="CancelAccommodation_Click"/>
-            <Separator Background="White" Width="180"></Separator>
+            <Separator Background="#dff2f2" Width="90"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Times New Roman" FontSize="14" Content="Odustani" IsDefault="True" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5" 
+                    Command="{Binding CancelCommand}"></Button>
+            <Separator Background="#dff2f2" Width="80"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Times New Roman" FontSize="14" Content="Potvrdi"  HorizontalAlignment="Left" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5"
+                    Command="{Binding AddAccommodationCommand}"/>
+            <Separator Background="#dff2f2" Width="180"></Separator>
         </WrapPanel>
     </Grid>
 </Window>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using TravelService.Serializer;
 public enum STATUS {Approved, Rejected, OnHold};
-public enum AVAILABILITY { Available, Unavailable};
+public enum AVAILABILITY { Slobodan, Zauzet};
 
 namespace TravelService.Domain.Model
 {
@@ -34,7 +34,7 @@ namespace TravelService.Domain.Model
             NewStartDate = newStartDate;
             NewEndDate = newEndDate;
             Status = STATUS.OnHold;
-            Availability = AVAILABILITY.Available;
+            Availability = AVAILABILITY.Slobodan;
             Comment = "";
         }
 
@@ -59,7 +59,7 @@ namespace TravelService.Domain.Model
         }
         public string AvailabilityToCSV()
         {
-            if (Availability == AVAILABILITY.Available)
+            if (Availability == AVAILABILITY.Slobodan)
                 return "Available";
             else
                 return "Unavailable";
@@ -67,9 +67,9 @@ namespace TravelService.Domain.Model
         public AVAILABILITY AvailabilityFromCSV(string availability)
         {
             if (string.Equals(availability, "Available"))
-                return AVAILABILITY.Available;
+                return AVAILABILITY.Slobodan;
             else
-                return AVAILABILITY.Unavailable;
+                return AVAILABILITY.Zauzet;
         }
         public string[] ToCSV()
         {

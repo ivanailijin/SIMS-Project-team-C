@@ -19,6 +19,7 @@ using TravelService.Domain.RepositoryInterface;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 using TravelService.View;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
@@ -27,66 +28,15 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class OwnerView : Window
     {
-        public Owner Owner { get; set; }
-
-        private bool _isSuperOwner;
-        public bool IsSuperOwner
+        public OwnerView(Owner owner)
         {
-            get => _isSuperOwner;
-            set
-            {
-                if (value != _isSuperOwner)
-                {
-                    _isSuperOwner = value;
-                    OnPropertyChanged(nameof(IsSuperOwner));
-                }
-            }
+            InitializeComponent();
+            OwnerViewModel ownerViewModel = new OwnerViewModel(owner);
+            DataContext = ownerViewModel;
+            if (ownerViewModel.CloseAction == null)
+                ownerViewModel.CloseAction = new Action(this.Close);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public OwnerView(Owner owner)
-        {
-            this.Owner = owner;
-            IsSuperOwner = owner.SuperOwner;
-            InitializeComponent();
-            DataContext = this;
-        }
-
-        private void AddAccommodation_Click(object sender, RoutedEventArgs e)
-        {
-            AddAccommodation addAccommodation = new AddAccommodation(Owner);
-            addAccommodation.Show();
-        }
-
-        private void GuestRating_Click(object sender, RoutedEventArgs e)
-        {
-            GuestRatingOverview ratingOverview = new GuestRatingOverview(Owner);
-            ratingOverview.Show();
-        }
-
-        private void ReviewSelection_Click(object sender, RoutedEventArgs e)
-        {
-            ReviewsSelectionView reviewSelection = new ReviewsSelectionView(Owner);
-            reviewSelection.Show();
-        }
-
-        private void ReservationRequests_Click(object sender, RoutedEventArgs e)
-        {
-            MovingReservationRequestsView movingReservationRequests = new MovingReservationRequestsView();
-            movingReservationRequests.Show();
-        }
-
-        private void LogOutClick_Click(object sender, RoutedEventArgs e)
-        {
-            SignInForm signInForm = new SignInForm();
-            signInForm.Show();
-            Close();
-        }
     }
 }

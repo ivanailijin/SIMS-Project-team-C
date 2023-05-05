@@ -5,7 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="DeclineReservationRequestView" WindowStartupLocation="CenterScreen" Height="450" Width="500">
+        Title="DeclineReservationRequestView" WindowStartupLocation="CenterScreen" Background="AliceBlue" Height="450" Width="500">
+    <Window.Resources>
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="LightSteelBlue" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>
@@ -14,41 +27,43 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="210"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.ColumnSpan="2" Grid.Row="0" TextAlignment="Center" Margin="20" FontSize="15" Foreground="DarkSlateBlue" FontWeight="Bold">Rejection of the request to change the booking date</TextBlock>
-        <StackPanel Grid.ColumnSpan="2" Height="140" Orientation="Vertical" Grid.Row="1">
-            <StackPanel Orientation="Horizontal" Height="23" Margin="20,5,10,3">
-                <Label FontWeight="Bold">Accommodation:</Label>
+        <TextBlock Grid.ColumnSpan="2" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom" Margin="20" FontSize="18" Foreground="Black" FontWeight="SemiBold">Odbijanje zahteva za promenu datuma rezervacije</TextBlock>
+        <Border Grid.Row="1" BorderThickness="1" BorderBrush="Black" Margin="28, 3, 28, 3" Background="Beige" Grid.ColumnSpan="2">
+            <StackPanel Grid.ColumnSpan="2" Height="140" Orientation="Vertical" Grid.Row="1">
+            <StackPanel Orientation="Horizontal" Height="25" Margin="20,5,10,3">
+                <Label FontWeight="SemiBold">Smestaj:</Label>
                 <TextBlock Text="{Binding AccommodationName}" Margin="0, 5, 0, 0" Width="200"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="23" Margin="20,5,10,3">
-                <Label FontWeight="Bold">Guest:</Label>
+                <Label FontWeight="SemiBold">Gost:</Label>
                 <TextBlock Text="{Binding GuestName}" Margin="0, 5, 0, 0" Width="200"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="23" Margin="20,5,10,3">
-                <Label FontWeight="Bold">Previous reservation date:</Label>
+                <Label FontWeight="SemiBold">Termin stare rezervacije:</Label>
                 <TextBlock  Text="{Binding PreviousCheckIn, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="120" TextAlignment="Right"></TextBlock>
                 <TextBlock Margin="5, 5, 5, 0"> - </TextBlock>
                 <TextBlock Text="{Binding PreviousCheckOut, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="120" TextAlignment="Left"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="23" Margin="20,5,10,3">
-                <Label FontWeight="Bold" >New reservation date:</Label>
+                <Label FontWeight="SemiBold" >Trazeni novi termin:</Label>
                 <TextBlock Text="{Binding NewCheckIn, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="120" TextAlignment="Right"></TextBlock>
                 <TextBlock Margin="5, 5, 5, 0"> - </TextBlock>
                 <TextBlock Text="{Binding NewCheckOut, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="120" TextAlignment="Left"></TextBlock>
             </StackPanel>
         </StackPanel>
+        </Border>
 
-        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center" Margin="10, 0, 0, 0"> Reasoning</Label>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5, 15, 30, 15" Text="{Binding Reasoning}"></TextBox>
+        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center" Margin="28, 0, 0, 0"> Obrazlozenje</Label>
+        <TextBox Background="Beige" BorderThickness="1" HorizontalAlignment="Right" Width="240" Height="70" BorderBrush="Black" Grid.Row="2" Grid.Column="1" Margin="5, 15, 28, 15" Text="{Binding Reasoning}"></TextBox>
 
-        <Button Grid.Row="3" Grid.Column="0" Width="110" Height="35" FontSize="15" Content="Confirm"
+        <Button Style="{StaticResource ResourceKey=RoundedButton}" HorizontalAlignment="Right" Margin="0, 0, 10,0" Grid.Row="3" Grid.Column="0" Width="110" Height="35" FontSize="15" Content="Potvrdi"
                 Command="{Binding ConfirmCommand}">
         </Button>
-        <Button Grid.Row="3" Grid.Column="1" Width="110" Height="35" FontSize="15" Content="Cancel"
+        <Button Style="{StaticResource ResourceKey=RoundedButton}" Grid.Row="3" Grid.Column="1" Width="110" Height="35" FontSize="15" Content="Odustani"
                 Command="{Binding CancelCommand}">
         </Button>
     </Grid>

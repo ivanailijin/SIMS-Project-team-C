@@ -33,28 +33,9 @@ namespace TravelService.Repository
             _owners = _serializer.FromCSV(FilePath);
             owner = _owners.FirstOrDefault(u => u.Username == username);
 
-            owner = CheckIsSuperOwner(owner);
-
             return owner;
         }
 
-        public Owner CheckIsSuperOwner(Owner owner)
-        {
-            owner.NumberOfRatings = _ownerRatingRepository.GetNumberOfRatings(owner.Id);
-            owner.AverageRating = _ownerRatingRepository.GetAverageRating(owner.Id);
-
-            if (owner.NumberOfRatings >= 50 && owner.AverageRating > 4.5)
-            {
-                owner.SuperOwner = true;
-            }
-            else
-            {
-                owner.SuperOwner = false;
-            }
-            Update(owner);
-
-            return owner;
-        }
         public int NextId()
         {
             _owners = _serializer.FromCSV(FilePath);

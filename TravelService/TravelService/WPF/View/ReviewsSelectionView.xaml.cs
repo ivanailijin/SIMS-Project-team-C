@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
@@ -23,66 +24,16 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class ReviewsSelectionView : Window, INotifyPropertyChanged
     {
-        public AccommodationRepository _accommodationRepository;
-
-        public LocationRepository _locationRepository;
-
-        public Accommodation SelectedAccommodation { get; set; }
-        public static ObservableCollection<Accommodation> Accommodations { get; set; }
-        public static List<Location> Locations { get; set; }
-        public Owner Owner { get; set; }
-
         public ReviewsSelectionView(Owner owner)
         {
             InitializeComponent();
-            this.Owner = owner;
-            _accommodationRepository = new AccommodationRepository();
-            _locationRepository = new LocationRepository();
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationRepository.GetOwnersAccommodations(Owner.Id));
-            Locations = new List<Location>(_locationRepository.GetAll());
-
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
-            }
-
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                if (accommodation.Type == TYPE.HOUSE)
-                {
-                    accommodation.TypeText = "House";
-                }
-                else if (accommodation.Type == TYPE.APARTMENT)
-                {
-                    accommodation.TypeText = "Apartment";
-                }
-                else
-                {
-                    accommodation.TypeText = "Cottage";
-                }
-            }
-
-            DataContext = this;
+            ReviewsSelectionViewModel reviewsSelectionViewModel = new ReviewsSelectionViewModel(owner);
+            DataContext = reviewsSelectionViewModel;
+            if (reviewsSelectionViewModel.CloseAction == null)
+                reviewsSelectionViewModel.CloseAction = new Action(this.Close);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void ShowReview_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedAccommodation != null && Owner != null)
-            {
-                AccommodationReview accommodationReview = new AccommodationReview(SelectedAccommodation, Owner);
-                accommodationReview.Show();
-            }
-            else
-            {
-                MessageBox.Show("Please select accommodation to show the review.");
-            }
-        }
     }
 }

@@ -33,5 +33,15 @@ namespace TravelService.Application.UseCases
         {
             return _repository.GetAll();
         }
+        public List<AccommodationReservation> FindReservationGuest(List<AccommodationReservation> UnratedReservations)
+        {
+            List<Guest1> guests = GetAll();
+            foreach (AccommodationReservation unratedReservation in UnratedReservations)
+            {
+                unratedReservation.Guest1 = guests.Find(g => g.Id == unratedReservation.GuestId);
+            }
+
+            return UnratedReservations;
+        }
     }
 }

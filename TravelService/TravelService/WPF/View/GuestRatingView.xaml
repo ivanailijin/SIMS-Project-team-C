@@ -5,9 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="GuestRatingView" WindowStartupLocation="CenterScreen" Height="520" Width="610">
+        Title="GuestRatingView" WindowStartupLocation="CenterScreen" Background="AliceBlue" Height="520" Width="610">
     <Window.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="LightSteelBlue" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         
@@ -31,14 +42,14 @@
                     <ColumnDefinition Width="150"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0"  Foreground="CadetBlue" FontWeight="Bold" Content="Ime gosta:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-                <Label Grid.Row="0" Grid.Column="1"  Foreground="CadetBlue" FontWeight="Bold" Content="Naziv smestaja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-                <Label Grid.Row="0" Grid.Column="2"  Foreground="CadetBlue" FontWeight="Bold" Content="Datum prijavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-                <Label Grid.Row="0" Grid.Column="3"  Foreground="CadetBlue" FontWeight="Bold" Content="Datum odjavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-                <TextBlock x:Name="GuestName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <TextBlock x:Name="AccommodationName" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
-                <TextBlock x:Name="CheckInDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"></TextBlock>
-                <TextBlock x:Name="CheckOutDate" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"></TextBlock>
+                <Label Grid.Row="0" Grid.Column="0"  Foreground="CornflowerBlue" FontWeight="Bold" Content="Ime gosta:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Grid.Row="0" Grid.Column="1"  Foreground="CornflowerBlue" FontWeight="Bold" Content="Naziv smestaja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Grid.Row="0" Grid.Column="2"  Foreground="CornflowerBlue" FontWeight="Bold" Content="Datum prijavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Grid.Row="0" Grid.Column="3"  Foreground="CornflowerBlue" FontWeight="Bold" Content="Datum odjavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <TextBlock Text="{Binding GuestName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBlock Text="{Binding AccommodationName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+                <TextBlock Text="{Binding CheckInDate, StringFormat='{}{0:d}'}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"></TextBlock>
+                <TextBlock Text="{Binding CheckOutDate, StringFormat='{}{0:d}'}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"></TextBlock>
             </Grid>
         </Border>
         
@@ -55,7 +66,8 @@
                 <ColumnDefinition Width="250"></ColumnDefinition>
                 <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label HorizontalAlignment="Center" Content="Cistoca" Grid.Row="0" Grid.Column="0" Height="25" ></Label>
+            <Label HorizontalAlignment="Center" Content="Cistoca" Grid.Row="0" Grid.Column="0" Height="25" >
+            </Label>
             <Label HorizontalAlignment="Center" Content="Postovanje pravila" Grid.Row="1" Grid.Column="0" Height="25"></Label>
             <Label HorizontalAlignment="Center" Content="Komunikacija" Grid.Row="2" Grid.Column="0" Height="25"></Label>
             <Label HorizontalAlignment="Center" Content="Nivo bucnosti" Grid.Row="3" Grid.Column="0" Height="25"></Label>
@@ -134,11 +146,11 @@
         </Grid>
         <WrapPanel Grid.Row="3" FlowDirection="LeftToRight" Margin="0,-5,0,0">
             <Separator Background="White" Width="147"></Separator>
-            <Button Content="Sacuvaj" Background="LightBlue" Width="70" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
-                    Click="AddGuestRating_Click"/>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content="Sacuvaj" Width="70" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
+                    Command="{Binding AddGuestRatingCommand}"/>
             <Separator Background="White" Width="100"></Separator>
-            <Button Content="Zatvori" Background="LightBlue" Width="70" Height="26" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
-                    Click ="CancelGuestRating_Click"/>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content="Zatvori" Width="70" Height="26" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
+                     Command="{Binding CancelCommand}"/>
             <Separator Background="White" Width="180"></Separator>
         </WrapPanel>
     </Grid>

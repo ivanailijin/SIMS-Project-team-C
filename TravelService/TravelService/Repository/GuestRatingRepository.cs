@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class GuestRatingRepository
+    public class GuestRatingRepository : IGuestRatingRepository
     {
         private const string FilePath = "../../../Resources/Data/guestRatings.csv";
 
@@ -28,22 +29,6 @@ namespace TravelService.Repository
         public List<GuestRating> GetAll()
         {
             return _serializer.FromCSV(FilePath);
-        }
-
-        public List<Guest1> FindRatedGuests(int ownerId)
-        {
-            List<Guest1> ratedGuests = new List<Guest1>();
-
-            foreach (GuestRating guestRating in _guestRatings)
-            {
-                if (guestRating.OwnerId == ownerId)
-                {
-                    Guest1 ratedGuest = _guestRepository.FindById(guestRating.GuestId);
-                    ratedGuests.Add(ratedGuest);
-                }
-            }
-
-            return ratedGuests;
         }
 
         public GuestRating Save(GuestRating guestRating)
@@ -72,7 +57,21 @@ namespace TravelService.Repository
             _guestRatings.Remove(founded);
             _serializer.ToCSV(FilePath, _guestRatings);
         }
+        public List<Guest1> FindRatedGuests(int ownerId)
+        {
+            List<Guest1> ratedGuests = new List<Guest1>();
 
+            foreach (GuestRating guestRating in _guestRatings)
+            {
+                if (guestRating.OwnerId == ownerId)
+                {
+                    Guest1 ratedGuest = _guestRepository.FindById(guestRating.GuestId);
+                    ratedGuests.Add(ratedGuest);
+                }
+            }
+
+            return ratedGuests;
+        }
         public GuestRating Update(GuestRating guestRating)
         {
             _guestRatings = _serializer.FromCSV(FilePath);

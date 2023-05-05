@@ -68,34 +68,6 @@ namespace TravelService.Repository
             }
             return null;
         }
-
-        public List<AccommodationReservation> FindUnratedReservations(AccommodationRepository _accommodationRepository, int OwnerId)
-        {
-            List<AccommodationReservation> UnratedReservations = new List<AccommodationReservation>();
-
-            foreach (AccommodationReservation reservation in _accommodationReservations)
-            {
-                Accommodation reservedAccommodation = _accommodationRepository.FindById(reservation.AccommodationId);
-                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
-                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservedAccommodation.OwnerId == OwnerId)
-                {
-                    UnratedReservations.Add(reservation);
-                }
-            }
-
-            return UnratedReservations;
-        }
-
-        public List<AccommodationReservation> GetAccommodationData(List<AccommodationReservation> reservations)
-        {
-            List<Accommodation> accommodations = _accommodationRepository.GetAll();
-            foreach(AccommodationReservation reservation in reservations)
-            {
-                reservation.Accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
-            }
-
-            return reservations;
-        }
         public AccommodationReservation Update(AccommodationReservation accommodationReservation)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);

@@ -29,23 +29,23 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <StackPanel Orientation="Horizontal">
                 <Label HorizontalContentAlignment="Center" Width="120" Margin="10"  Content="Correctness:"/>
-                <TextBox x:Name="Correctness"  Width="140"/>
+                <TextBox x:Name="Correctness" Text="{Binding Correctness}"  Width="140"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Cleanliness:"/>
-                <TextBox x:Name="Cleanliness"  Width="140"/>
+                <TextBox x:Name="Cleanliness" Text="{Binding Cleanliness}"  Width="140"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Location:"/>
-                <TextBox x:Name="Location"  Width="140"/>
+                <TextBox x:Name="Location" Text="{Binding Location}" Width="140"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Comfort:"/>
-                <TextBox x:Name="Comfort"  Width="140"/>
+                <TextBox x:Name="Comfort" Text="{Binding Comfort}" Width="140"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Content:"/>
-                <TextBox x:Name="Content"  Width="140"/>
+                <TextBox x:Name="Content" Text="{Binding Content}" Width="140"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label HorizontalContentAlignment="Center" Width="120" Height="90" Margin="10" Content="Pictures:"/>
@@ -66,7 +66,7 @@
         <WrapPanel Grid.Row="2" Grid.Column="0" FlowDirection="LeftToRight" Margin="10,10,5,5">
             <Separator Width="75" Background="White"></Separator>
             <Button Content ="Show review" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="23" Margin="20, 5, 20, 5"
-                    Click="ShowReview_Click"/>
+                    Command="{Binding ShowReviewCommand}"/>
             <Separator Width="20" Background="White"></Separator>
         </WrapPanel>
     </Grid>

@@ -9,7 +9,6 @@ namespace TravelService.Domain.RepositoryInterface
 {
     public interface IGuestRepository
     {
-
         public List<Guest> GetAll();
 
         public Guest Save(Guest Guest);

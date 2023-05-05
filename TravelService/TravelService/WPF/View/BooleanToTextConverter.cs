@@ -10,10 +10,10 @@ namespace TravelService.WPF.View
         {
             if (value is true)
             {
-                return "Super Owner";
+                return "Super-vlasnik";
             }
 
-            return "User is not the super owner";
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
