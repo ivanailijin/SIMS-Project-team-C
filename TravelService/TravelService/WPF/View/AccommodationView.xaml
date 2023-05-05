@@ -4,67 +4,95 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:modelData="clr-namespace:TravelService.Domain.Model"
         mc:Ignorable="d"
-        Height="670" Width="420">
+        Height="655" Width="420">
     <UserControl.Resources>
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </UserControl.Resources>
-    <Grid>
-        <DockPanel>
-            <ToolBar DockPanel.Dock="Top" Height="70">
-                <Separator Width="200" Background="White"></Separator>
-                <Button Margin="0,15,0,0"  Width="50" Height="30" Command="{Binding SearchWindowCommand}" BorderBrush="Black">Search
-                </Button>
-                <Separator Width="10" Background="White"></Separator>
-                <Button x:Name="ReserveAccommodation" Margin="0,15,0,0" Width="70" Height="30" Command="{Binding ReserveCommand}" BorderBrush="Black">Reservation</Button>
-                <Separator Width="5" Background="White"></Separator>
-                <Button x:Name="OwnerRating" Margin="0,15,0,0" Width="40" Height="30" Command="{Binding RatingWindowCommand}" BorderBrush="Black">Rating</Button>
-                <Separator Width="5" Background="White" ></Separator>
-                <Button x:Name="ShowReservations" Margin="0,15,0,0" Width="75" Height="30" Command="{Binding ReservationsWindowCommand}" BorderBrush="Black">Reservations</Button>
-                <Separator Width="20" Background="White" ></Separator>
-                <Button x:Name="LogOut" Margin="0,15,0,0" Width="50" Height="30" BorderBrush="Black">Log out</Button>
-            </ToolBar>
-            <DataGrid x:Name="dataGridAccommodations" DockPanel.Dock="Bottom"
-                  ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path = SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True"
-                  Width="800" Height="350">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Name">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="15" Height="15" Margin="0,0,0,90" Source="/TravelService;component/Resources/Images/star.png" Visibility="{Binding Owner.SuperOwner, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                    <TextBlock TextAlignment="Right" Text="{Binding Name}" />
+        <Style x:Key="searchButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="CadetBlue"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="15">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="/TravelService;component/Resources/Images/search.png" Width="25" Height="25" Margin="10"/>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="Pretrazi"  VerticalAlignment="Bottom" Margin="30,7,0,0"></TextBlock>
+                                    <TextBlock Text="Dodaj filtere" Margin="23,3,0,0" FontSize="12"></TextBlock>
                                 </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="120"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Type" Binding="{Binding TypeText}" Width="90"></DataGridTextColumn>
-                    <DataGridTextColumn Header="MaxGuest" Binding="{Binding MaxGuestNumber}" Width="100"></DataGridTextColumn>
-                    <DataGridTextColumn Header="MinDays" Binding="{Binding MinReservationDays}" Width="100"></DataGridTextColumn>
-                    <DataGridTextColumn Header="DaysBeforeCancel" Binding="{Binding DaysBeforeCancellingReservation}" Width="110"></DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Images">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <ItemsControl ItemsSource="{Binding Pictures}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                           <StackPanel Orientation="Horizontal" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding}" Width="120" Height="100" Margin="5" />
-                                         </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                             </DataTemplate>
-                       </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="280"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <StackPanel>
+                    <TextBlock Text="Bilo gde, bilo kada" FontSize="15" Margin="18,10,0,2"></TextBlock>
+                    <Button Width="120" Height="30" Margin="20,0,0,0" Content="Rezervisi" FontSize="15"></Button>
+                </StackPanel>
+            </Grid>
+            <Button Grid.Column="1" Style="{StaticResource searchButtonStyle}" Command="{Binding SearchWindowCommand}" BorderBrush="Black">
+            </Button>
+        </Grid>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" Margin="5,5,5,5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="{Binding Pictures[0]}" Width="170" Height="120" Margin="10,5,10,5"></Image>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding Name}" FontSize="18" Margin="5,5,0,0"></TextBlock>
+                            <StackPanel Orientation="Horizontal" Margin="5,5,0,0">
+                                <TextBlock Text="• "></TextBlock>
+                                <TextBlock Text="{Binding Location.CityAndCountry}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                <TextBlock Text="• "></TextBlock>
+                                <TextBlock Text="{Binding TypeText}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                <TextBlock Text="• "></TextBlock>
+                                <TextBlock Text=" Ugostice vas "></TextBlock>
+                                <TextBlock Text="{Binding Owner.Username}"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+
     </Grid>
+    
 </UserControl>

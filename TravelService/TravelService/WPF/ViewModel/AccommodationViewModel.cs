@@ -53,7 +53,6 @@ namespace TravelService.WPF.ViewModel
                     _searchWindowCommand = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -68,7 +67,6 @@ namespace TravelService.WPF.ViewModel
                     _reserveCommand = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -83,7 +81,6 @@ namespace TravelService.WPF.ViewModel
                     _ratingWindowCommand = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -98,7 +95,6 @@ namespace TravelService.WPF.ViewModel
                     _reservationsWindowCommand = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -116,8 +112,6 @@ namespace TravelService.WPF.ViewModel
 
             SearchWindowCommand = new RelayCommand(Execute_SearchWindow, CanExecute_Command);
             ReserveCommand = new RelayCommand(Execute_ReserveWindow, CanExecute_Command);
-            RatingWindowCommand = new RelayCommand(Execute_RatingWindow, CanExecute_Command);
-            ReservationsWindowCommand = new RelayCommand(Execute_ReservationsWindow, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -135,18 +129,6 @@ namespace TravelService.WPF.ViewModel
         {
             AccommodationAvailabilityView accommodationAvailabilityView = new AccommodationAvailabilityView(SelectedAccommodation, Guest1);
             accommodationAvailabilityView.Show();
-        }
-
-        private void Execute_RatingWindow(object sender)
-        {
-           // RatingView ratingView = new RatingView(Guest1);
-            //ratingView.Show();
-        }
-
-        private void Execute_ReservationsWindow(object sender)
-        {
-           // ReservationsView reservationsView = new ReservationsView(Guest1);
-            //reservationsView.Show();
         }
     }
 }
