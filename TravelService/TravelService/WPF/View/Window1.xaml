@@ -4,11 +4,12 @@
         Title="Window1" Height="450" Width="800">
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            <Button Width="300" Height="50" Click="MostVisited_Click">Most Visited</Button>
-            <Button Width="300" Height="50" Click="PastTours_Click">Tour in Past</Button>
-            <Button Width="300" Height="50"  Click="TourOverview_Click">Active today</Button>
-            <Button Width="300" Height="50" Click="ThisWeekTours_Click">My Tours</Button>
-            <Button Width="300" Height="50" Click="AddTourView_CLick">Add Tour</Button>
+            
+            <Button Width="300" Height="50" Click="MostVisited_Click" Content="Most Visited"/>
+            <Button Width="300" Height="50" Click="PastTours_Click" Content="Tour in Past"/>
+            <Button Width="300" Height="50"  Click="TourOverview_Click" Content="Active today"/>
+            <Button Width="300" Height="50" Click="ThisWeekTours_Click" Content="My Tours"/>
+            <Button Width="300" Height="50" Click="AddTourView_CLick" Content="Add Tour"/>
             <Button Grid.Row="0" Width="80" Height="30" Content="Log Out" Click="LogOutClick_Click"/>
         </StackPanel>
     </Grid>

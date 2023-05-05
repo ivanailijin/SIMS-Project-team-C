@@ -8,9 +8,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
+            <TextBlock Text="Select Year: " FontSize="16"/>
+            <ComboBox Name="SelectYear" ItemsSource="{Binding AvailableYears}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}" 
+      DisplayMemberPath="." FontSize="16" Width="100" Margin="10"
+      SelectionChanged="YearComboBox_SelectionChanged"/>
+        </StackPanel>
+
         <TextBlock Text="Most Visited Tours" FontSize="20" FontWeight="Bold" 
-                   HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding MostVisitedTours, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="236,21,262,284">
+               HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding MostVisitedTours, UpdateSourceTrigger=PropertyChanged}" 
+              AutoGenerateColumns="False" Margin="236,21,161,249">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
@@ -18,9 +28,10 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBlock Grid.Row="1" Text="Most Visited Tours in Current Year" FontSize="20" FontWeight="Bold" 
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="232,154,0,0"/>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding MostVisitedToursInYear, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="224,211,261,74" SelectionChanged="DataGrid_SelectionChanged">
+        <TextBlock Grid.Row="1" Text="Most Visited Tours in Selected Year" FontSize="20" FontWeight="Bold" 
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="232,154,0,0"/>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding MostVisitedToursInYear, UpdateSourceTrigger=PropertyChanged}" 
+              AutoGenerateColumns="False" Margin="224,211,160,43" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
@@ -28,4 +39,6 @@
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
+
+   
 </Window>
