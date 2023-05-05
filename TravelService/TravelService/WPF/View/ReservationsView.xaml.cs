@@ -19,17 +19,13 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for ReservationsView.xaml
     /// </summary>
-    public partial class ReservationsView : Window
+    public partial class ReservationsView : UserControl
     {
         public ReservationsView(Guest1 guest1)
         {
             InitializeComponent();
             ReservationsViewModel reservationsView = new ReservationsViewModel(guest1);
             DataContext = reservationsView;
-            if(reservationsView.CloseAction == null ) 
-            {
-                reservationsView.CloseAction = new Action(this.Close);
-            }
         }
     }
 }

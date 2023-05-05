@@ -8,13 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\forums.png" />
     <None Remove="Resources\Images\leftarrow.jpg" />
+    <None Remove="Resources\Images\ratings.png" />
+    <None Remove="Resources\Images\reservations.png" />
+    <None Remove="Resources\Images\search.png" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\user.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\forums.png" />
     <Resource Include="Resources\Images\leftarrow.jpg" />
+    <Resource Include="Resources\Images\ratings.png" />
+    <Resource Include="Resources\Images\reservations.png" />
+    <Resource Include="Resources\Images\search.png" />
     <Resource Include="Resources\Images\star.png" />
+    <Resource Include="Resources\Images\user.png" />
   </ItemGroup>
 
 </Project>

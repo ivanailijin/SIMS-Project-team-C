@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,23 +11,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xaml.Schema;
 using TravelService.Domain.Model;
-using TravelService.Repository;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for RatingView.xaml
+    /// Interaction logic for FirstGuestView.xaml
     /// </summary>
-    public partial class RatingView : UserControl
+    public partial class FirstGuestView : Window
     {
-        public RatingView(Guest1 guest1)
+        public FirstGuestViewModel firstGuestViewModel { get; set; }
+        public FirstGuestView(Guest1 guest1)
         {
             InitializeComponent();
-            RatingViewModel ratingViewModel = new RatingViewModel(guest1);
-            DataContext = ratingViewModel;
+            var accommodationView = new AccommodationView(guest1);
+            frame.Content = accommodationView;
+            this.firstGuestViewModel = new FirstGuestViewModel(frame, guest1);
+            this.DataContext = this.firstGuestViewModel;
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿<Window x:Class="TravelService.WPF.View.ReservationsView"
+﻿<UserControl x:Class="TravelService.WPF.View.ReservationsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="ReservationsView" WindowStartupLocation="CenterScreen" Height="600" Width="700">
+        Height="600" Width="700">
     <Grid>
         <TabControl Grid.Row="0" Height="560" VerticalAlignment="Top" Margin="0,20,0,0">
             <TabItem x:Name="ActiveReservations" Header="Active reservations">
@@ -76,4 +76,4 @@
             </TabItem>
         </TabControl>
     </Grid>
-</Window>
+</UserControl>

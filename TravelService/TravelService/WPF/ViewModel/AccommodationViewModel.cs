@@ -139,14 +139,14 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_RatingWindow(object sender)
         {
-            RatingView ratingView = new RatingView(Guest1);
-            ratingView.Show();
+           // RatingView ratingView = new RatingView(Guest1);
+            //ratingView.Show();
         }
 
         private void Execute_ReservationsWindow(object sender)
         {
-            ReservationsView reservationsView = new ReservationsView(Guest1);
-            reservationsView.Show();
+           // ReservationsView reservationsView = new ReservationsView(Guest1);
+            //reservationsView.Show();
         }
     }
 }

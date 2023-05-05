@@ -123,8 +123,10 @@ namespace TravelService.WPF.View
                         else if (txtPassword.Password.Equals("guest1123"))
                         {
                             Guest1 guest1 = _guest1Service.GetByUsername(Username);
-                            AccommodationView accommodationView = new AccommodationView(guest1);
-                            accommodationView.Show();
+                            // AccommodationView accommodationView = new AccommodationView(guest1);
+                            //accommodationView.Show();
+                            FirstGuestView firstGuestView = new FirstGuestView(guest1);
+                            firstGuestView.Show();
                             Close();
                         }
                         else if (txtPassword.Password.Equals("guest2123"))

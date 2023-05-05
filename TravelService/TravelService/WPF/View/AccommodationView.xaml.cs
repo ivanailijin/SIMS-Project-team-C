@@ -26,17 +26,13 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for AccommodationView.xaml
     /// </summary>
-    public partial class AccommodationView : Window
+    public partial class AccommodationView : UserControl
     {
         public AccommodationView(Guest1 guest1)
         {
             InitializeComponent();
             AccommodationViewModel accommodationViewModel = new AccommodationViewModel(guest1);
             DataContext = accommodationViewModel;
-            if (accommodationViewModel.CloseAction == null)
-            {
-                accommodationViewModel.CloseAction = new Action(this.Close);
-            }
         }
     }
 }

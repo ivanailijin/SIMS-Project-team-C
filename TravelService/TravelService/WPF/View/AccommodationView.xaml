@@ -1,14 +1,14 @@
-﻿<Window x:Class="TravelService.WPF.View.AccommodationView"
+﻿<UserControl x:Class="TravelService.WPF.View.AccommodationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="AccommodationView" WindowStartupLocation="CenterScreen" Height="500" Width="900">
-    <Window.Resources>
+        Height="670" Width="420">
+    <UserControl.Resources>
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid>
         <DockPanel>
             <ToolBar DockPanel.Dock="Top" Height="70">
@@ -67,4 +67,4 @@
             </DataGrid>
         </DockPanel>
     </Grid>
-</Window>
+</UserControl>
