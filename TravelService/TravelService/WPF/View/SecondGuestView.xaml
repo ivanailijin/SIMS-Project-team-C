@@ -8,13 +8,160 @@
         WindowStartupLocation="CenterScreen"
         Title="SecondGuestView" Height="450" Width="800">
     <Grid>
-        <StackPanel VerticalAlignment="Center">
-            <Button Width="300" Height="50" Click="TourTrackingViewButton_CLick">Track tour</Button>
-            <Button Width="300" Height="50" Click="TourViewButton_CLick">Tour view</Button>
-            <Button Width="300" Height="50"  Click="TourReservationButton_Click">Tour reservation</Button>
-            <Button Width="300" Height="50" Click="VoucherViewButton_CLick">My Vouchers</Button>
-            <Button Width="300" Height="50" Click="RateToursViewButton_CLick">Rate tours</Button>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="5.79*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="#435D75">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="4.5*"></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Height="50" Width="147" BorderThickness="1" CornerRadius="25,0,25,0" Background="#BECCDA"  HorizontalAlignment="Left" Margin="15,14,0,0"></Border>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,14,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Icons/play.png" Height="30" Width="37" HorizontalAlignment="Left" Margin="15,3,10,0"/>
+                    <Button Content="DEMO" Height="50" Width="150" Margin="-46,0,-9,0" FontSize="25" Background="Transparent" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Center" >
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"></Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+                <Button  Width="22" Height="22" Content="?" FontSize="20" Foreground="White">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Stroke="White" StrokeThickness="2"/>
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <!--Rectangle Grid.Column="0" VerticalAlignment="Bottom" Fill="Black" Height="3" ></Rectangle-->
+            <StackPanel Grid.Row="1" Margin="15,0,0,0" VerticalAlignment="Center">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/home.png" Height="22" Width="33" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Home page" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="197" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="250" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/keyboard.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Page navigation" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/ticket.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Vouchers" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/document.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Requests" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/stats.png" Height="22" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Statistics" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/calendar.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Reservations" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/help.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Help" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Border Grid.Row="2" Height="88" Width="200" BorderThickness="5" CornerRadius="40,0,40,0" Background="#D36582" HorizontalAlignment="Left" Margin="5,2,1,14"></Border>
+            <StackPanel Grid.Row="2" Margin="19,0,0,7" Orientation="Horizontal">
+                <Image Source="/Resources/Icons/user.png" Height="60" Width="60" HorizontalAlignment="Left" />
+                <StackPanel VerticalAlignment="Center" Margin="7">
+                    <TextBlock Text="Name" FontSize="20" Foreground="White"/>
+                    <TextBlock Text="Lastname" FontSize="20" Foreground="White"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="11*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,0,0,0" Width="50" HorizontalAlignment="Left">
+                <Button Width="30" Height="40" Background="Transparent" BorderBrush="Transparent">
+                    <Image Source="/Resources/Icons/bell.png" Width="27" Height="29"></Image>
+                </Button>
+                <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="Black">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Stroke="Black" StrokeThickness="2"/>
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <Button Height="40" Width="80" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0,0,5,0">
+                <StackPanel Height="33" Width="80" Orientation="Horizontal">
+                    <TextBlock Text="Help" FontSize="17" VerticalAlignment="Center" />
+                    <Image Source="/Resources/Icons/help2.png" Height="25" Width="33" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                </StackPanel>
+            </Button>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="0.6*"></RowDefinition>
+                    <RowDefinition Height="1.3*"></RowDefinition>
+                    <RowDefinition Height="1.3*"></RowDefinition>
+                    <RowDefinition Height="0.05*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20,60,20,30" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="25,0,25,0"></Border>
+                <StackPanel Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <TextBlock Margin="0,12,0,0" FontSize="30" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center">These are the tours we offer</TextBlock>
+                    <Button  Grid.RowSpan="2" Height="42" Width="150" VerticalAlignment="Bottom" Margin="22,17,22,0" Background="#435D75" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold">Show all tours</Button>
+                </StackPanel>
 
+                <Border Grid.Row="2" Grid.RowSpan="1" Margin="20,0,10,30" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="25,0,25,0"></Border>
+                <StackPanel Grid.Row="1" Grid.RowSpan="2">
+                    <TextBlock Grid.Row="1" Margin="0,30,0,0" FontSize="20" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" VerticalAlignment="Bottom">Reserve your tour now!</TextBlock>
+                    <Button  Grid.RowSpan="2" Height="42" Margin="22,22,22,0" Background="#435D75" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150">Reserve tour</Button>
+                </StackPanel>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,12,0,0" FontSize="20" FontWeight="DemiBold" Foreground="#435D75" HorizontalAlignment="Center" VerticalAlignment="Bottom">Your tours</TextBlock>
+                <Border Grid.Row="3" Grid.RowSpan="1" Margin="20,0,10,30" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="25,0,25,0"></Border>
+                <TextBlock Grid.Row="2" Margin="0,12,0,0" FontSize="20" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" VerticalAlignment="Bottom">Didn't find a tour you like?</TextBlock>
+                <Button  Grid.Row="3" Height="42" Margin="22,22,22,0" Background="#435D75" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" VerticalAlignment="Top">Request tour</Button>
+
+                <Border Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Margin="10,0,20,30" BorderBrush="Transparent" Background="#BECCDA" BorderThickness="2.5" CornerRadius="30,0,30,0"></Border>
+                <StackPanel Grid.Row="2" Grid.Column="1" Margin="10">
+                    <TextBlock Grid.Row="2" Margin="0,12,0,0" FontSize="20" FontWeight="DemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom">Track your tours!</TextBlock>
+                    <Button Height="42" Margin="0,0,7,0" Background="#435D75" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" Content="Track"/>
+                </StackPanel>
+                <TextBlock Grid.Row="3" Grid.Column="1"  Margin="0,-9,0,0" FontSize="20" FontWeight="DemiBold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Top">Rate your tours!</TextBlock>
+                <Button Grid.Row="3" Grid.Column="1" Height="42" Margin="0,0,7,40" Background="#435D75" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" Content="Rate" VerticalAlignment="Center"/>
+
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
