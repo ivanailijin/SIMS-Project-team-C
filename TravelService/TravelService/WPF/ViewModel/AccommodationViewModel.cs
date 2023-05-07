@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.Repository;
 using TravelService.WPF.View;
-using TravelService.Application.Utils;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -19,7 +17,6 @@ namespace TravelService.WPF.ViewModel
     {
         private AccommodationService _accommodationService;
         public Guest1 Guest1 { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
         public ObservableCollection<string> Types { get; set; }
         public Action CloseAction { get; set; }
@@ -38,6 +35,25 @@ namespace TravelService.WPF.ViewModel
                     accommodations = _accommodationService.GetTypeData(accommodations);
                     accommodations = _accommodationService.GetOwnerData(accommodations);
                     accommodations = _accommodationService.SortBySuperowner(accommodations);
+                }
+            }
+        }
+
+        private Accommodation _selectedAccommodation;
+        public Accommodation SelectedAccommodation
+        {
+            get => _selectedAccommodation;
+            set
+            {
+                if (value != _selectedAccommodation)
+                {
+                    _selectedAccommodation = value;
+                    OnPropertyChanged();
+                }
+                else
+                {
+                    _selectedAccommodation = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -98,6 +114,20 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private RelayCommand _accommodationSelectedCommand;
+        public RelayCommand AccommodationSelectedCommand
+        {
+            get => _accommodationSelectedCommand;
+            set
+            {
+                if (value != _accommodationSelectedCommand)
+                {
+                    _accommodationSelectedCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public AccommodationViewModel(Guest1 guest1)
         {
             this.Guest1 = guest1;
@@ -112,6 +142,7 @@ namespace TravelService.WPF.ViewModel
 
             SearchWindowCommand = new RelayCommand(Execute_SearchWindow, CanExecute_Command);
             ReserveCommand = new RelayCommand(Execute_ReserveWindow, CanExecute_Command);
+            AccommodationSelectedCommand = new RelayCommand(Execute_OnItemSelected, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -129,6 +160,12 @@ namespace TravelService.WPF.ViewModel
         {
             AccommodationAvailabilityView accommodationAvailabilityView = new AccommodationAvailabilityView(SelectedAccommodation, Guest1);
             accommodationAvailabilityView.Show();
+        }
+
+        private void Execute_OnItemSelected(object sender)
+        {
+            SelectedAccommodationView selectedAccommodationView = new SelectedAccommodationView(SelectedAccommodation, Guest1);
+            selectedAccommodationView.Show();
         }
     }
 }

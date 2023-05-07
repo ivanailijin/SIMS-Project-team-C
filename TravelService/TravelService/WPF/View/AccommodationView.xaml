@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         xmlns:modelData="clr-namespace:TravelService.Domain.Model"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Height="655" Width="420">
     <UserControl.Resources>
@@ -29,7 +30,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="0" Source="/TravelService;component/Resources/Images/search.png" Width="25" Height="25" Margin="10"/>
                                 <StackPanel Grid.Column="1">
-                                    <TextBlock Text="Pretrazi"  VerticalAlignment="Bottom" Margin="30,7,0,0"></TextBlock>
+                                    <TextBlock Text="Pretrazi" VerticalAlignment="Bottom" Margin="30,7,0,0"></TextBlock>
                                     <TextBlock Text="Dodaj filtere" Margin="23,3,0,0" FontSize="12"></TextBlock>
                                 </StackPanel>
                             </Grid>
@@ -61,7 +62,7 @@
             </Button>
         </Grid>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" Margin="5,5,5,5">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="5,5,5,5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -89,10 +90,13 @@
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <i:InvokeCommandAction Command="{Binding AccommodationSelectedCommand}" 
+                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </ListBox>
-
-
-
     </Grid>
     
 </UserControl>
