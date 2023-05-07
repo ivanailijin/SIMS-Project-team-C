@@ -194,9 +194,6 @@ namespace TravelService.Repository
             return ActiveTours;
         }
 
-<<<<<<< HEAD
-        public List<Tour> ShowFutureTourList( List<Tour> Tours,List <Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> FutureTours, int guideId,TourRepository _tourRepository)
-=======
         public void ShowTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints)
         {
             foreach (Tour tour in Tours)
@@ -210,7 +207,6 @@ namespace TravelService.Repository
 
 
         public List<Tour> ShowFutureTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> FutureTours, int guideId, TourRepository _tourRepository)
->>>>>>> 0550f23f73abcb07307fff6a548e84182923132b
 
         {
             foreach (Tour tour in Tours)
@@ -346,6 +342,57 @@ namespace TravelService.Repository
 
             }
             return ListCheckPoints;
+        }
+
+        private void ShowCheckPointList(Tour tour, List<CheckPoint> CheckPoints)
+        {
+            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            tour.CheckPoints.Clear();
+            ListCheckPoints.Clear();
+
+            foreach (CheckPoint c in CheckPoints)
+            {
+                if (TourIdMatched(c.TourId, tour.Id))
+                    ListCheckPoints.Add(c);
+            }
+            tour.CheckPoints.AddRange(ListCheckPoints);
+        }
+
+        public bool TourIdMatched(int checkPointTourId, int tourId)
+        {
+            if ((checkPointTourId == tourId))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool isTourSearchable(Tour tour, string inputLocation, string inputDuration, string inputLanguage, string inputGuestNumber)
+        {
+            if (((tour.Location.CityAndCountry.Replace(",", "").Replace(" ", "")).Contains(inputLocation) || string.IsNullOrEmpty(inputLocation)) &&
+                (tour.Language.Name.Contains(inputLanguage) || string.IsNullOrEmpty(inputLanguage)) &&
+                (isDurationCorrect(tour, inputDuration) || string.IsNullOrEmpty(inputDuration)) &&
+                (IsGuestNumberLessThanMax(tour, inputGuestNumber) || string.IsNullOrEmpty(inputGuestNumber))
+                )
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool isDurationCorrect(Tour tour, string inputDuration)
+        {
+            if (int.TryParse(inputDuration, out int duration) && duration == tour.Duration)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool IsGuestNumberLessThanMax(Tour tour, string inputGuestNumber)
+        {
+            if (int.TryParse(inputGuestNumber, out int GuestNumber) && GuestNumber <= tour.MaxGuestNumber)
+            {
+                return true;
+            }
+            return false;
         }
 
         public Tour GetTourByCheckPointId(int checkPointId)
