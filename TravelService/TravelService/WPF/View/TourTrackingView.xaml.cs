@@ -14,12 +14,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
     public partial class TourTrackingView : Window
     {
-        public readonly TourReservationRepository _tourReservationRepository;
+       /* public readonly TourReservationRepository _tourReservationRepository;
 
         public readonly TourRepository _tourRepository;
 
@@ -34,13 +35,13 @@ namespace TravelService.WPF.View
         public static List<Language> Languages { get; set; }
         public static List<CheckPoint> CheckPoints { get; set; }
         public List<Tour> ActiveTours { get; set; }
-        public Tour SelectedTour { get; set; }
-        public Guest2 Guest2 { get; set; }
-        public TourTrackingView(Tour selectedTour,Guest2 guest)
+        }*/
+        public TourTrackingView(Tour selectedTour,Guest2 guest2)
         {
             InitializeComponent();
+            TourTrackingViewModel tourTrackingViewModel = new TourTrackingViewModel(selectedTour,guest2);
             DataContext = this;
-            _tourReservationRepository = new TourReservationRepository();
+            /*_tourReservationRepository = new TourReservationRepository();
             _tourRepository = new TourRepository();
             _locationRepository = new LocationRepository();
             _languageRepository = new LanguageRepository();
@@ -57,7 +58,7 @@ namespace TravelService.WPF.View
             SelectedTour = selectedTour;            
 
             ActiveTours = _tourReservationRepository.showGuestsTours(convertTourList(Tours), Locations, Languages, CheckPoints, ActiveTours, convertTourReservationList(TourReservations),Guest2);
-        }
+        */}
         private List<Tour> convertTourList(ObservableCollection<Tour> observableCollection)
         {
             List<Tour> convertedList = observableCollection.ToList();
@@ -67,16 +68,6 @@ namespace TravelService.WPF.View
         {
             List<TourReservation> convertedList = observableCollection.ToList();
             return convertedList;
-        }
-        
-        private void trackTourButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedTour != null)
-            {
-                JoinTourView joinTourView = new JoinTourView(SelectedTour,Guest2);
-                joinTourView.Show();
-                Close();
-            }
         }
     }
 }
