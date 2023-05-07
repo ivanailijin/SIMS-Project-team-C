@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TravelService.Repository;
+using TravelService.Domain.Model;
 using TravelService.Validation;
 using System.Text.RegularExpressions;
 using System.Globalization;

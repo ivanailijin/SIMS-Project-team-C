@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:val="clr-namespace:TravelService.Validation"
-        xmlns:local="clr-namespace:TravelService.WPF.View"
+         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         Title="AddAccommodation" WindowStartupLocation="CenterScreen" Height="590" Width="600">
     <Window.Resources>

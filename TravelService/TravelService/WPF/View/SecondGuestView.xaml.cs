@@ -15,6 +15,7 @@ using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
 using System.ComponentModel;
 
+
 namespace TravelService.WPF.View
 {
     public partial class SecondGuestView : Window, INotifyPropertyChanged
@@ -29,7 +30,6 @@ namespace TravelService.WPF.View
                 secondGuestViewModel.CloseAction = new Action(this.Close);
             }
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

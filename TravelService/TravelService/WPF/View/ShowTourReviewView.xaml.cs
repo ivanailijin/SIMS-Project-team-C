@@ -13,26 +13,29 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelService.Application.Utils;
 using TravelService.Domain.Model;
-using TravelService.Repository;
+using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for OwnerReview.xaml
+    /// Interaction logic for ShowTourReviewView.xaml
     /// </summary>
-    public partial class OwnerReview : Window, INotifyPropertyChanged
+    public partial class ShowTourReviewView : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<Guest1> Guests { get; set; }
-        public Guest1Repository _guestRepository { get; set; }
-        public OwnerReview()
+        
+        public ShowTourReviewView(Guest selectGuest,TourReview selectedTourReview)
         {
-            
+            InitializeComponent();  
+            ShowTourReviewsViewModel showTourReviewsViewModel = new ShowTourReviewsViewModel(selectGuest, selectedTourReview); 
+            DataContext=showTourReviewsViewModel;
 
-            InitializeComponent();
-            DataContext = this;
+
+
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
+
     }
 }

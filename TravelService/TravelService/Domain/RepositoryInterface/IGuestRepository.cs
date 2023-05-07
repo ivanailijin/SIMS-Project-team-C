@@ -21,3 +21,4 @@ namespace TravelService.Domain.RepositoryInterface
         public Guest Update(Guest guest);
     }
 }
+

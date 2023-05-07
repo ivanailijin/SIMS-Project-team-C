@@ -6,6 +6,7 @@ using TravelService.Domain.Model;
 using System.Threading.Tasks;
 using TravelService.Repository;
 
+
 namespace TravelService.Domain.RepositoryInterface
 {
     public interface ITourRepository

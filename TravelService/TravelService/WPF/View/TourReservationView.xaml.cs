@@ -62,6 +62,7 @@ namespace TravelService.WPF.View
             ValidVouchers = new List<GuestVoucher>();
             GuestVouchers = new List<GuestVoucher>();
             this.Guest2 = guest2;
+            
 
             ActiveTours = new List<Tour>();
             OtherTours = new List<Tour>();

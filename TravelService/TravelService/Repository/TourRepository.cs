@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
-using TravelService.View;
 
 namespace TravelService.Repository
 {
@@ -53,7 +49,7 @@ namespace TravelService.Repository
             _tours = _serializer.FromCSV(FilePath);
             _guideRepository = new GuideRepository();
             _guestRepository = new GuestRepository();
-            _guestVoucherRepository = new GuestVoucherRepository(); 
+            _guestVoucherRepository = new GuestVoucherRepository();
             _repositoryCheckPoint = new CheckPointRepository();
         }
 
@@ -151,7 +147,7 @@ namespace TravelService.Repository
         public bool IsInFuture(Tour tour)
         {
             DateTime currentDate = DateTime.Now.Date;
-            if (tour.TourStart.Date > currentDate )
+            if (tour.TourStart.Date > currentDate)
             {
                 return true;
             }
@@ -193,12 +189,28 @@ namespace TravelService.Repository
 
                 ShowListCheckPointList(tour.Id, Tours, CheckPoints);
                 FindActiveTourList(tour, ActiveTours);
-                
+
             }
             return ActiveTours;
         }
 
+<<<<<<< HEAD
         public List<Tour> ShowFutureTourList( List<Tour> Tours,List <Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> FutureTours, int guideId,TourRepository _tourRepository)
+=======
+        public void ShowTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints)
+        {
+            foreach (Tour tour in Tours)
+            {
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+                ShowCheckPointList(tour, CheckPoints);
+            }
+        }
+
+
+        public List<Tour> ShowFutureTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> FutureTours, int guideId, TourRepository _tourRepository)
+>>>>>>> 0550f23f73abcb07307fff6a548e84182923132b
 
         {
             foreach (Tour tour in Tours)
@@ -214,24 +226,30 @@ namespace TravelService.Repository
             return FutureTours;
         }
 
-        public List<Tour> ShowPastTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> PastTours, int guideId, TourRepository _tourRepository)
-
+        public List<Tour> ShowPastTourList(List<Tour> tours, List<Location> locations, List<Language> languages, List<CheckPoint> checkPoints, List<Tour> pastTours, int guideId, TourRepository _tourRepository)
         {
-            foreach (Tour tour in Tours)
+            foreach (Tour tour in tours)
             {
-                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
-                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+                tour.Location = locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = languages.Find(lan => lan.Id == tour.LanguageId);
 
-                ShowListCheckPointList(tour.Id, _tours, CheckPoints);
+                ShowListCheckPointList(tour.Id, _tours, checkPoints);
 
                 if (tour.Done)
                 {
-                    PastTours.Add(tour);
+                    pastTours.Add(tour);
+                    ShowListCheckPointList(tour.Id, _tours, checkPoints);
+
+                    if (tour.Done)
+                    {
+                        pastTours.Add(tour);
+
+                    }
                 }
             }
-
-            return PastTours;
+            return pastTours;
         }
+
         public Tour FindById(int id)
         {
             _tours = _serializer.FromCSV(FilePath);
@@ -283,7 +301,7 @@ namespace TravelService.Repository
             foreach (Guest guest in guests)
             {
 
-                GuestVoucher newVoucher = new GuestVoucher("Vaucer", VOUCHERTYPE.QUIT, 200, "17f", false, guest.Id,tour.Id, DateTime.Now.AddYears(1));
+                GuestVoucher newVoucher = new GuestVoucher("Vaucer", VOUCHERTYPE.QUIT, 200, "17f", false, guest.Id, tour.Id, DateTime.Now.AddYears(1));
                 _guestVoucherRepository.Save(newVoucher);
                 if (guest.VoucherList == null)
                 {
@@ -298,7 +316,7 @@ namespace TravelService.Repository
                 _guestRepository.Update(guest);
 
             }
-           
+
         }
 
         public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours, List<CheckPoint> CheckPoints)
@@ -341,41 +359,43 @@ namespace TravelService.Repository
             return null;
         }
 
-        public Tour GetMostVisitedTour(List<Tour> tours, List<Guest> guests,List<Location> Locations, int year = 0)
+        public Tour GetMostVisitedTour(List<Tour> tours, List<Guest> guests, List<Location> locations, int year = 0)
         {
             int maxVisits = 0;
             Tour mostVisitedTour = null;
 
             foreach (Tour tour in tours)
             {
-
-                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
-                int visits = 0;
-                foreach (Guest guest in guests)
+                if (tour.Done) // Check if the tour is done
                 {
-                    if (guest.TourId == tour.Id && (year == 0 || tour.TourStart.Year == year))
+                    tour.Location = locations.Find(loc => loc.Id == tour.LocationId);
+                    int visits = 0;
+                    foreach (Guest guest in guests)
                     {
-                        visits++;
+                        if (guest.TourId == tour.Id && (year == 0 || tour.TourStart.Year == year))
+                        {
+                            visits++;
+                        }
                     }
-                }
 
-                if (visits >= maxVisits)
-                {
-                    if (visits > maxVisits)
+                    if (visits >= maxVisits)
                     {
-                        maxVisits = visits;
-                        mostVisitedTour = tour;
-                    }
-                   
-                    else if (mostVisitedTour == null)
-                    {
-                        mostVisitedTour = tour;
+                        if (visits > maxVisits)
+                        {
+                            maxVisits = visits;
+                            mostVisitedTour = tour;
+                        }
+                        else if (mostVisitedTour == null)
+                        {
+                            mostVisitedTour = tour;
+                        }
                     }
                 }
             }
 
             return mostVisitedTour;
         }
+
 
     }
 }

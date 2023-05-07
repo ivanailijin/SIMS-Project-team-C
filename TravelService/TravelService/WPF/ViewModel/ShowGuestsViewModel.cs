@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Data;
+using TravelService.Application.UseCases;
+using TravelService.Application.Utils;
+using TravelService.Commands;
+using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
+
+namespace TravelService.WPF.ViewModel
+{
+    public class ShowGuestsViewModel : ViewModelBase
+    {
+        private readonly GuestService _guestService;
+        private readonly CheckPointService _checkPointService;
+        public Tour SelectedTour { get; set; }
+        public Guest SelectedGuest { get; set; }
+        public List<CheckPoint> CheckPoints { get; set; }
+        public List<Guest> GuestList { get; set; }
+        public List<Guest> Guest { get; set; }
+        public List<string> checkPoint { get; set; }
+        public TourReview SelectedTourReview { get; set; }  
+        public Guide Guide { get; set; }
+
+        public ShowGuestsViewModel(Tour selectedTour,Guest selectedGuest)
+        {
+            SelectedGuest = selectedGuest;
+            SelectedTour = selectedTour;
+            _guestService = new GuestService(Injector.CreateInstance<IGuestRepository>());
+            _checkPointService = new CheckPointService(Injector.CreateInstance<ICheckPointRepository>());
+
+            CheckPoints = _checkPointService.GetAll();
+            Guest = _guestService.FindByTourId(selectedTour.Id);
+            
+            foreach (Guest guest in Guest)
+            {
+                GuestList = _guestService.GetGuestsOnTour(guest, selectedTour, CheckPoints);
+                checkPoint = _guestService.FindCheckPointName(GuestList, CheckPoints);
+            }
+            
+            showReviewsCommand = new RelayCommand(Execute_ShowReviews,CanExecute_Command);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private RelayCommand showReview;
+        public RelayCommand showReviewsCommand
+        {
+            get => showReview;
+            set
+            {
+                if (value != showReview)
+                {
+                    showReview = value;
+                    OnPropertyChanged();
+                }
+
+            }
+        }
+       
+        private bool CanExecute_Command(object parameter)
+        {
+            return true;
+        }
+        private void Execute_ShowReviews(object sender)
+        {
+
+            ShowTourReviewView showTourReviewsView = new ShowTourReviewView(SelectedGuest,SelectedTourReview);
+            showTourReviewsView.Show();
+        }
+        
+    }
+    }

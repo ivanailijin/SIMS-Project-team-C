@@ -16,9 +16,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Mark" Click ="Mark_Click" HorizontalAlignment="Left" Height="32" Margin="13,236,0,0" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.072,0.926"/>
-        <Button  x:Name="EndButton" Content="End Tour" Click ="End_Click"  HorizontalAlignment="Left" Height="32" Margin="118,238,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.455,1.039" IsEnabled="False"/>
-        <Button Content="Cancel" Click ="Cancel_Click" HorizontalAlignment="Left" Height="32" Margin="224,239,0,0" VerticalAlignment="Top" Width="87" />
+        <Button Content="Mark" Click ="Mark_Click" HorizontalAlignment="Left" Height="30" Margin="13,238,0,0" VerticalAlignment="Top" Width="81" RenderTransformOrigin="0.072,0.926"/>
+        <Button  x:Name="EndButton" Content="End Tour" Click ="End_Click"  HorizontalAlignment="Left" Height="32" Margin="107,236,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.455,1.039" IsEnabled="False"/>
+        <Button Content="Cancel" Click ="Cancel_Click" HorizontalAlignment="Left" Height="32" Margin="215,237,0,0" VerticalAlignment="Top" Width="87" />
     </Grid>
 
 </Window>

@@ -55,7 +55,7 @@ namespace TravelService.Repository
             int ratingCount = 0;
             foreach(OwnerRating rating in  _ownerRatings)
             {
-                if(rating.Id == ownerId)
+                if(rating.OwnerId == ownerId)
                 {
                     ratingCount++;
                 }

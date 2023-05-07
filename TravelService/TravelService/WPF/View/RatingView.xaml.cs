@@ -46,9 +46,9 @@ namespace TravelService.WPF.View
             List<Accommodation> Accommodations = new List<Accommodation>(_accommodationRepository.GetAll());
             List<Location> Locations = new List<Location>(_locationRepository.GetAll());
             List<Owner> Owners = new List<Owner>(_ownerRepository.GetAll());
-            _reservationRepository.SetAccommodationForUnratedOwners(Accommodations);
-            _reservationRepository.SetLocationForUnratedOwners(Locations);
-            _reservationRepository.SetNameForUnratedOwners(Owners);
+            _reservationRepository.SetAccommodation(Accommodations);
+            _reservationRepository.SetLocation(Locations);
+            _reservationRepository.SetName(Owners);
         }
 
         private void rateOwnerButton_Click(object sender, RoutedEventArgs e)

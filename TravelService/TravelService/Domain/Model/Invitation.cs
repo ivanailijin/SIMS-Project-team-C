@@ -14,6 +14,9 @@ namespace TravelService.Domain.Model
         public bool GuestAttendence { get; set; }
         public Invitation() { }
 
+
+
+
         public Invitation(int guestId, bool guestAttendence)
         {
             GuestId = guestId;

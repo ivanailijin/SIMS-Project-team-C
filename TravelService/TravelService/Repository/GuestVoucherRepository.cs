@@ -114,7 +114,7 @@ namespace TravelService.Repository
 
         private bool checkVoucherExpirationDate(GuestVoucher voucher, List<GuestVoucher> validVouchers)
         {
-            DateTime currentDate = DateTime.Now.Date;
+            DateTime currentDate = DateTime.Now.Date.AddYears(1) ;
             if (voucher.ExpirationDate.Date >= currentDate)
             {
                 validVouchers.Add(voucher);

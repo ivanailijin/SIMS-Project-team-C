@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Serializer;
+using TravelService.Domain.RepositoryInterface;
 
-namespace TravelService.Repository
+namespace TravelService.Repository 
 {
-    public class GuideRepository
+    public class GuideRepository : IGuideRepository
     {
         private const string FilePath = "../../../Resources/Data/guides.csv";
 
@@ -29,5 +30,21 @@ namespace TravelService.Repository
             return _guides.FirstOrDefault(u => u.Username == username);
         }
 
+        public Guide FindById(int id)
+        {
+            _guides = _serializer.FromCSV(FilePath);
+            foreach (Guide guide in _guides)
+            {
+                if (guide.Id == id)
+                {
+                    return guide;
+                }
+            }
+            return null;
+        }
+        public List<Guide> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
     }
 }

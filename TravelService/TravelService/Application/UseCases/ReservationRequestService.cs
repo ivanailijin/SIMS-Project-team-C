@@ -7,16 +7,17 @@ using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
+using TravelService.Serializer;
 
 namespace TravelService.Application.UseCases
 {
     public class ReservationRequestService
     {
         private readonly IReservationRequestRepository _reservationRequestRepository;
-        
-        public AccommodationReservationService _reservationService;
-        public AccommodationService _accommodationService;
-        public Guest1Service _guestService;
+        private readonly AccommodationReservationService _reservationService;
+        private readonly AccommodationService _accommodationService;
+        private readonly Guest1Service _guestService;
+        private readonly LocationService _locationService;
 
         public ReservationRequestService(IReservationRequestRepository reservationRequestRepository)
         {
@@ -24,6 +25,7 @@ namespace TravelService.Application.UseCases
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _guestService = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
+            _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
         }
         public void Delete(ReservationRequest reservationRequest)
         {
@@ -56,7 +58,6 @@ namespace TravelService.Application.UseCases
                     unsolvedRequests.Add(request);
                 }
             }
-
             return unsolvedRequests;
         }
 
@@ -67,7 +68,6 @@ namespace TravelService.Application.UseCases
                 AccommodationReservation reservation = _reservationService.FindById(reservationRequest.ReservationId);
                 reservationRequest.Reservation = reservation;
             }
-
             return reservationRequests;
         }
 
@@ -78,7 +78,6 @@ namespace TravelService.Application.UseCases
             {
                 reservationRequest.Reservation.Accommodation = accommodations.Find(a => a.Id == reservationRequest.Reservation.AccommodationId);
             }
-
             return reservationRequests;
         }
 
@@ -89,19 +88,69 @@ namespace TravelService.Application.UseCases
                 Guest1 guest = _guestService.FindById(reservationRequest.GuestId);
                 reservationRequest.Guest = guest;
             }
-
             return reservationRequests;
         }
 
         public List<ReservationRequest> GetAvailabilities(List<ReservationRequest> reservationRequests)
         {
-            foreach(ReservationRequest request in reservationRequests)
+            foreach (ReservationRequest request in reservationRequests)
             {
                 AVAILABILITY availability = _reservationService.CheckAvailability(request.ReservationId, request.NewStartDate, request.NewEndDate);
                 request.Availability = availability;
             }
-
             return reservationRequests;
         }
+        public List<ReservationRequest> FindRequestsByGuestId(int guestId)
+        {
+            return _reservationRequestRepository.FindRequestsByGuestId(guestId);
+        }
+
+        /*   public void GetReservationData(List<ReservationRequest> requests)
+           {
+               List<AccommodationReservation> reservations = _reservationService.GetAll();
+               foreach (ReservationRequest request in requests)
+               {
+                   request.Reservation = reservations.Find(r => r.Id == request.ReservationId);
+               }
+           }*/
+
+        public List<ReservationRequest> SetStatus(List<ReservationRequest> requests)
+        { 
+            foreach (ReservationRequest request in requests)
+            {
+                if (request.Status == STATUS.OnHold)
+                {
+                    request.StatusText = "On hold";
+                }
+                else if (request.Status == STATUS.Approved)
+                {
+                    request.StatusText = "Approved";
+                }
+                else
+                {
+                    request.StatusText = "Rejected";
+                }
+            }
+            return requests;
+        }
+
+        public List<ReservationRequest> GetLocationData(List<ReservationRequest> requests)
+        {
+            List<Location> locations = _locationService.GetAll();
+            foreach (ReservationRequest request in requests)
+            {
+                request.Reservation.Location = locations.Find(l => l.Id == request.Reservation.LocationId);
+            }
+            return requests;
+        }
+
+       /* public void GetAccommodationData(List<ReservationRequest> requests)
+        {
+            List<Accommodation> accommodations = _accommodationService.GetAll();
+            foreach (ReservationRequest request in requests)
+            {
+                request.Reservation.Accommodation = accommodations.Find(a => a.Id == request.Reservation.AccommodationId);
+            }
+        }*/
     }
 }
