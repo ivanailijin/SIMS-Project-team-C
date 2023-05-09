@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Controls;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -102,7 +99,76 @@ namespace TravelService.WPF.ViewModel
                     _searchAccommodation = value;
                     OnPropertyChanged();
                 }
+            }
+        }
 
+        private RelayCommand _decreaseGuestNumberCommand;
+        public RelayCommand DecreaseGuestNumberCommand
+        {
+            get => _decreaseGuestNumberCommand;
+            set
+            {
+                if (value != _decreaseGuestNumberCommand)
+                {
+                    _decreaseGuestNumberCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _increaseGuestNumberCommand;
+        public RelayCommand IncreaseGuestNumberCommand
+        {
+            get => _increaseGuestNumberCommand;
+            set
+            {
+                if (value != _increaseGuestNumberCommand)
+                {
+                    _increaseGuestNumberCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _decreaseLengthOfStayCommand;
+        public RelayCommand DecreaseLengthOfStayCommand
+        {
+            get => _decreaseLengthOfStayCommand;
+            set
+            {
+                if (value != _decreaseLengthOfStayCommand)
+                {
+                    _decreaseLengthOfStayCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _increaseLengthOfStayCommand;
+        public RelayCommand IncreaseLengthOfStayCommand
+        {
+            get => _increaseLengthOfStayCommand;
+            set
+            {
+                if (value != _increaseLengthOfStayCommand)
+                {
+                    _increaseLengthOfStayCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _previousPageCommand;
+        public RelayCommand PreviousPageCommand
+        {
+            get => _previousPageCommand;
+            set
+            {
+                if (value != _previousPageCommand)
+                {
+                    _previousPageCommand = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -122,6 +188,11 @@ namespace TravelService.WPF.ViewModel
             LocationsComboBox.Insert(0, "");
 
             SearchAccommodationCommand = new RelayCommand(Execute_Search, CanExecute_Command);
+            DecreaseGuestNumberCommand = new RelayCommand(Execute_DecreaseGuestNumber, CanExecute_Command);
+            IncreaseGuestNumberCommand = new RelayCommand(Execute_IncreaseGuestNumber, CanExecute_Command);
+            DecreaseLengthOfStayCommand = new RelayCommand(Execute_DecreaseLengthOfStay, CanExecute_Command);
+            IncreaseLengthOfStayCommand = new RelayCommand(Execute_IncreaseLengthOfStay, CanExecute_Command);
+            PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -145,12 +216,55 @@ namespace TravelService.WPF.ViewModel
 
             List<Accommodation> filteredAccommodations = _accommodationService.Search(name, nameWords, location, type, guestNumber, daysForReservation);
 
-            foreach(var accommodation in filteredAccommodations)
+            foreach (var accommodation in filteredAccommodations)
             {
                 FilteredAccommodations.Add(accommodation);
             }
 
             _accommodationViewModel.Accommodations = FilteredAccommodations;
+            CloseAction();
+        }
+
+        private void Execute_DecreaseGuestNumber(object sender)
+        {
+            if (int.TryParse(GuestNumber, out int guestNumber))
+            {
+                if (guestNumber > 0)
+                {
+                    guestNumber--;
+                    GuestNumber = guestNumber.ToString();
+                }
+            }
+        }
+
+        private void Execute_IncreaseGuestNumber(object sender)
+        {
+            int.TryParse(GuestNumber, out int guestNumber);
+            guestNumber++;
+            GuestNumber = guestNumber.ToString();
+        }
+
+        private void Execute_DecreaseLengthOfStay(object sender)
+        {
+            if (int.TryParse(LengthOfStay, out int lengthOfStay))
+            {
+                if (lengthOfStay > 0)
+                {
+                    lengthOfStay--;
+                    LengthOfStay = lengthOfStay.ToString();
+                }
+            }
+        }
+
+        private void Execute_IncreaseLengthOfStay(object sender)
+        {
+            int.TryParse(LengthOfStay, out int lengthOfStay);
+            lengthOfStay++;
+            LengthOfStay = lengthOfStay.ToString();
+        }
+
+        private void Execute_PreviousPage(object sender)
+        {
             CloseAction();
         }
     }

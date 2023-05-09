@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SelectedAccommodationViewModel}"
         mc:Ignorable="d"
         Title="SelectedAccommodationView" WindowStartupLocation="CenterScreen" Height="720" Width="420">
     <Window.Resources>
@@ -24,14 +25,14 @@
                 <RowDefinition Height="310"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="180"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="280"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <StackPanel>
-                    <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="35" Height="35" BorderBrush="White">
+                    <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderBrush="White">
                         <Button.Background>
-                            <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.jpg"></ImageBrush>
+                            <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.png"></ImageBrush>
                         </Button.Background>
                     </Button>
                     <Canvas>
@@ -96,7 +97,12 @@
                     <Image Width="17" Height="17" Margin="5,0,0,0" Source="/TravelService;component/Resources/Images/superowner.png" Visibility="{Binding SelectedAccommodation.Owner.SuperOwner, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </StackPanel>
-            
+            <Grid Grid.Row="3">
+
+            </Grid>
+            <Grid Grid.Row="4">
+                <Button Width="320" Height="65" Content="Search" FontSize="17" Command="{Binding AccommodationAvailabilityWindowCommand}"></Button>
+            </Grid>
         </Grid>
     </ScrollViewer>
 </Window>

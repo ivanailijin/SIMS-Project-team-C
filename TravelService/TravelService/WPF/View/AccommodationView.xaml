@@ -39,9 +39,33 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="reserveButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="CadetBlue"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ContentPresenter Content="Rezervisi" 
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
-    
-    <Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -54,15 +78,16 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <StackPanel>
-                    <TextBlock Text="Bilo gde, bilo kada" FontSize="15" Margin="18,10,0,2"></TextBlock>
-                    <Button Width="120" Height="30" Margin="20,0,0,0" Content="Rezervisi" FontSize="15"></Button>
+                    <TextBlock Text="Bilo gde, bilo kada" FontSize="15" Margin="18,7,0,4"></TextBlock>
+                        <Button Margin="20,0,0,0" FontSize="15" Style="{StaticResource reserveButtonStyle}">
+                        </Button>
                 </StackPanel>
             </Grid>
             <Button Grid.Column="1" Style="{StaticResource searchButtonStyle}" Command="{Binding SearchWindowCommand}" BorderBrush="Black">
             </Button>
         </Grid>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="5,5,5,5">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="5,5,22,10" Background="#cce6ff">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -98,5 +123,5 @@
             </i:Interaction.Triggers>
         </ListBox>
     </Grid>
-    
+    </ScrollViewer>
 </UserControl>

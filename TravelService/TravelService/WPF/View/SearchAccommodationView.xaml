@@ -3,20 +3,53 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:val="clr-namespace:TravelService.Validation"
+        xmlns:local="clr-namespace:TravelService.WPF.View" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SearchAccommodationViewModel}"
         mc:Ignorable="d"
-        Title="SearchAccommodationView" WindowStartupLocation="CenterScreen" Height="720" Width="420">
+        Title="SearchAccommodationView" WindowStartupLocation="CenterScreen" Height="720" Width="420" Background="#cce6ff">
     <Window.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
+        <Style TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="2,2,2,2"></Setter>
+            <Setter Property="BorderBrush" Value="black"></Setter>
+        </Style>
+        <Style x:Key="searchButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Content" Value="Pretrazi"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="570"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="500"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Width="280" Height="500">
+        <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderThickness="0">
+            <Button.Background>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.png"></ImageBrush>
+            </Button.Background>
+        </Button>
+        <Grid Grid.Row="1" Width="280" Height="450">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -29,26 +62,111 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Name:" VerticalAlignment="Bottom" FontSize="17"></Label>
+            <Label Grid.Row="0" Content="Naziv" VerticalAlignment="Bottom" FontSize="16"></Label>
             <TextBox x:Name="nameBox" Grid.Row="1" Text="{Binding AccommodationName, UpdateSourceTrigger=PropertyChanged}" Width="280" Height="40" VerticalAlignment="Top"></TextBox>
-            <Label Grid.Row="2" Content="Location:" VerticalAlignment="Bottom" FontSize="17"></Label>
-            <ComboBox x:Name="locationComboBox" Grid.Row="3" ItemsSource="{Binding LocationsComboBox}" Text="{Binding Path = Location, UpdateSourceTrigger=PropertyChanged}" Width="280" Height="40" VerticalAlignment="Top"></ComboBox>
-            <Label Grid.Row="4" Content="Type:" VerticalAlignment="Bottom" FontSize="17"></Label>
-            <GroupBox Grid.Row="5">
-                <StackPanel Orientation="Horizontal" Width="300" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="110" Content="Apartment" FontSize="17" GroupName="Type" IsChecked="{Binding Type, ConverterParameter=Apartment, Converter={StaticResource RadioButtonConverter}}"/>
-                    <RadioButton Width="80" Content="House" FontSize="17" GroupName="Type" IsChecked="{Binding Type, ConverterParameter=House, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="110" Content="Cottage" FontSize="17" GroupName="Type" IsChecked="{Binding Type, ConverterParameter=Cottage, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+            <Label Grid.Row="2" Content="Lokacija" VerticalAlignment="Bottom" FontSize="16"></Label>
+            <Border Grid.Row="3" BorderBrush="black" BorderThickness="2" Width="280" Height="40">
+                <ComboBox x:Name="locationComboBox" ItemsSource="{Binding LocationsComboBox}" Text="{Binding Path = Location, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0" Width="280" Height="40" VerticalAlignment="Top">
+            </ComboBox>
+            </Border>
+            <Label Grid.Row="4" Content="Tip smestaja" VerticalAlignment="Bottom" FontSize="16"></Label>
+            <Border Grid.Row="5" BorderBrush="Black" BorderThickness="2">
+                <GroupBox BorderThickness="0" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal" Width="300" Margin="0, 0, 0, 0" >
+                    <RadioButton Width="110" Content="Apartman" FontSize="16" GroupName="Type" IsChecked="{Binding Type, ConverterParameter=Apartment, Converter={StaticResource RadioButtonConverter}}" VerticalContentAlignment="Center"/>
+                    <RadioButton Width="80" Content="Kuca" FontSize="16" GroupName="Type" IsChecked="{Binding Type, ConverterParameter=House, Converter={StaticResource RadioButtonConverter}}" VerticalContentAlignment="Center"/>
+                    <RadioButton Width="110" Content="Koliba" FontSize="16" GroupName="Type" IsChecked="{Binding Type, ConverterParameter=Cottage, Converter={StaticResource RadioButtonConverter}}" VerticalContentAlignment="Center" />
                 </StackPanel>
             </GroupBox>
-            <Label Grid.Row="6" Content="Guest number:" VerticalAlignment="Bottom" FontSize="17"></Label>
-            <TextBox x:Name="guestNumberBox" Grid.Row="7" Text="{Binding GuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
-            <Label Grid.Row="8" Content="Days for reservation:" VerticalAlignment="Bottom" FontSize="17"></Label>
-            <TextBox x:Name="reservationDaysBox" Grid.Row="9" Text="{Binding LengthOfStay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
+            </Border>
+            <Label Grid.Row="6" Content="Broj gostiju" VerticalAlignment="Bottom" FontSize="16"></Label>
+            <StackPanel Grid.Row="7" Background="Transparent" Orientation="Horizontal">
+                <TextBox x:Name="guestNumberBox" Width="160" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <TextBox.Text>
+                        <Binding Path="GuestNumber" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:NumberValidation ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <Button Margin="20,0,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Transparent"  Command="{Binding DecreaseGuestNumberCommand}">
+                    <Border Background="Teal" CornerRadius="9">
+                        <Image Source="/TravelService;component/Resources/Images/square-minus.png"></Image>
+                    </Border>
+                </Button>
+                <Button Margin="10,0,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Transparent" Command="{Binding IncreaseGuestNumberCommand}">
+                    <Border Background="Teal" CornerRadius="9">
+                        <Image Source="/TravelService;component/Resources/Images/square-plus.png"></Image>
+                    </Border>
+                </Button>
+            </StackPanel>
+            <Label Grid.Row="8" Content="Broj dana" VerticalAlignment="Bottom" FontSize="16"></Label>
+            <StackPanel Grid.Row="9" Background="Transparent" Orientation="Horizontal">
+                <TextBox x:Name="reservationDaysBox" Width="160" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <TextBox.Text>
+                        <Binding Path="LengthOfStay" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:NumberValidation ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <Button Margin="20,0,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Transparent"  Command="{Binding DecreaseLengthOfStayCommand}">
+                    <Border Background="Teal" CornerRadius="9">
+                        <Image Source="/TravelService;component/Resources/Images/square-minus.png"></Image>
+                    </Border>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding GuestNumber}" Value="0">
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Margin="10,0,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Transparent" Command="{Binding IncreaseLengthOfStayCommand}">
+                    <Border Background="Teal" CornerRadius="9">
+                        <Image Source="/TravelService;component/Resources/Images/square-plus.png"></Image>
+                    </Border>
+                </Button>
+            </StackPanel>
         </Grid>
             
-        <Grid Grid.Row="1">
-            <Button Width="320" Height="65" Content="Search" FontSize="17" Command="{Binding SearchAccommodationCommand}"></Button>
+        <Grid Grid.Row="2">
+            <Button Style="{StaticResource searchButtonStyle}" Width="320" Height="65" Content="Pretrazi" FontSize="20" BorderBrush="black" Background="Teal" BorderThickness="2,2,2,2" Command="{Binding SearchAccommodationCommand}"></Button>
         </Grid>
 
     </Grid>

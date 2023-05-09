@@ -163,21 +163,21 @@ namespace TravelService.Application.UseCases
             return false;
         }
 
-            List<AccommodationReservation> FindReservationsByAccommodation(int accommodationId)
-            {
-                List<AccommodationReservation> filteredReservations = new List<AccommodationReservation>();
-                List<AccommodationReservation> allReservations = GetAll();
+        public List<AccommodationReservation> FindReservationsByAccommodation(int accommodationId)
+        {
+            List<AccommodationReservation> filteredReservations = new List<AccommodationReservation>();
+            List<AccommodationReservation> allReservations = GetAll();
 
-                foreach (AccommodationReservation reservation in allReservations)
+            foreach (AccommodationReservation reservation in allReservations)
+            {
+                if (reservation.AccommodationId == accommodationId)
                 {
-                    if (reservation.AccommodationId == accommodationId)
-                    {
-                        filteredReservations.Add(reservation);
-                    }
+                    filteredReservations.Add(reservation);
                 }
-                return filteredReservations;
             }
-        
+            return filteredReservations;
+        }
+
 
         public bool CheckMatchingDates(AccommodationReservation checkReservation, DateTime newStartDate, DateTime newEndDate)
         {
@@ -264,6 +264,21 @@ namespace TravelService.Application.UseCases
             }
             return reservations;
         }
-    }
 
+        public Dictionary<string, int> CalculateReservationsByMonth(List<AccommodationReservation> reservations)
+        {
+            var reservationsByMonth = new Dictionary<string, int>();
+
+            foreach (var reservation in reservations)
+            {
+                string month = reservation.CheckInDate.ToString("MMM-yy");
+                if (!reservationsByMonth.ContainsKey(month))
+                {
+                    reservationsByMonth[month] = 0;
+                }
+                reservationsByMonth[month]++;
+            }
+            return reservationsByMonth;
+        }
+    }
 }

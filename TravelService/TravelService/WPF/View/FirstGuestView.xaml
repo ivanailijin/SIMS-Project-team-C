@@ -13,10 +13,10 @@
             <RowDefinition Height="65" />
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="1">
+        <Menu Grid.Row="1" Background="Teal">
             <MenuItem Command="{Binding NavigateToAccommodationViewCommand}">
                 <MenuItem.Header>
-                    <StackPanel Orientation="Vertical" Margin="12,2,5,7">
+                    <StackPanel Orientation="Vertical" Margin="12,8,5,7">
                         <Image Source="/TravelService;component/Resources/Images/search.png" Width="33" Height="33"/>
                         <TextBlock Text="Istrazite" HorizontalAlignment="Center" />
                     </StackPanel>
@@ -24,7 +24,7 @@
             </MenuItem>
             <MenuItem Command="{Binding NavigateToRatingViewCommand}">
                 <MenuItem.Header>
-                    <StackPanel Orientation="Vertical" Margin="12,2,5,7">
+                    <StackPanel Orientation="Vertical" Margin="12,8,5,7">
                         <Image Source="/TravelService;component/Resources/Images/ratings.png" Width="33" Height="33"/>
                         <TextBlock Text="Ocene" HorizontalAlignment="Center" />
                     </StackPanel>
@@ -32,7 +32,7 @@
             </MenuItem>
             <MenuItem Command="{Binding NavigateToReservationsViewCommand}">
                 <MenuItem.Header>
-                    <StackPanel Orientation="Vertical" Margin="12,0,5,10">
+                    <StackPanel Orientation="Vertical" Margin="12,2,5,3.5">
                         <Image Source="/TravelService;component/Resources/Images/reservations.png" Width="37" Height="37"/>
                         <TextBlock Text="Rezevacije" HorizontalAlignment="Center" />
                     </StackPanel>

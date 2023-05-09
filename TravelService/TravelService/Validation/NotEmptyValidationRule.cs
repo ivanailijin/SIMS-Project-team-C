@@ -36,7 +36,7 @@ namespace TravelService.Validation
                 {
                     return new ValidationResult(true, null);
                 }
-                return new ValidationResult(false, "Only numbers are allowed.");
+                return new ValidationResult(false, "Dozvoljeni su samo brojevi.");
             }
             catch
             {
@@ -110,6 +110,4 @@ namespace TravelService.Validation
             }
         }
     }
-
-
 }
