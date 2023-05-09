@@ -111,15 +111,15 @@ namespace TravelService.Application.UseCases
             {
                 if (request.Status == STATUS.OnHold)
                 {
-                    request.StatusText = "On hold";
+                    request.StatusText = "Na cekanju";
                 }
                 else if (request.Status == STATUS.Approved)
                 {
-                    request.StatusText = "Approved";
+                    request.StatusText = "Odobren";
                 }
                 else
                 {
-                    request.StatusText = "Rejected";
+                    request.StatusText = "Odbijen";
                 }
             }
             return requests;

@@ -115,6 +115,20 @@
             </Setter>
         </Style>
 
+        <Style x:Key="commentTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Comment}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Comment}" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Comment}" Value="Some Value">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     
     <Grid>
@@ -149,40 +163,42 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="Req" Header="Requests for delaying">
-                <DataGrid x:Name="dataGridReservationRequests"
-                  ItemsSource="{Binding Path=RequestsForDelaying, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True"
-                  Width="700" Height="480">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Reservation.Accommodation.Name}" Width="90"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Reservation.Location.CityAndCountry}" Width="100"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Old Dates" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                <Run Text="{Binding Reservation.CheckInDate, StringFormat='{}{0:d}'}"/>
-                                <Run Text=" - "/>
-                                <Run Text="{Binding Reservation.CheckOutDate, StringFormat='{}{0:d}'}"/>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="New Dates" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                <Run Text="{Binding NewStartDate, StringFormat='{}{0:d}'}"/>
-                                <Run Text=" - "/>
-                                <Run Text="{Binding NewEndDate, StringFormat='{}{0:d}'}"/>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Status" Binding="{Binding StatusText}" Width="90"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="120"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <TabItem x:Name="Req" Header="Zahtevi za pomeranje" >
+                <ListBox Margin="5,5,22,10" ItemsSource="{Binding RequestsForDelaying, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Reservation.Accommodation.Name}" FontWeight="Bold" FontSize="20" Margin="5,5,0,0"></TextBlock>
+                                    <StackPanel Orientation="Horizontal" Margin="5,5,10,0">
+                                        <TextBlock Text="Lokacija: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding Reservation.Location.CityAndCountry}" FontSize="14"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                        <TextBlock Text="Stari datumi: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding Reservation.CheckInDate, StringFormat='{}{0:d}'}" FontSize="14"></TextBlock>
+                                        <TextBlock Text=" - " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding Reservation.CheckOutDate, StringFormat='{}{0:d}'}" FontSize="14"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                        <TextBlock Text="Novi datumi: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding NewStartDate, StringFormat='{}{0:d}'}" FontSize="14"></TextBlock>
+                                        <TextBlock Text=" - " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding NewEndDate, StringFormat='{}{0:d}'}" FontSize="14"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                        <TextBlock Text="Status: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding StatusText}" FontSize="14"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                        <TextBlock Text="Komentar: " FontSize="14" Style="{StaticResource commentTextBlockStyle}"></TextBlock>
+                                        <TextBlock Text="{Binding Comment}" FontSize="14"></TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
         </TabControl>
     </Grid>
