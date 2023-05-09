@@ -27,7 +27,11 @@ namespace TravelService.WPF.View
             InitializeComponent();
             ShowGuestsViewModel showGuestsViewModel = new ShowGuestsViewModel(selectedTour,selectedGuest);
             DataContext = showGuestsViewModel;
-            
+            if (showGuestsViewModel.CloseAction == null)
+            {
+                showGuestsViewModel.CloseAction = new Action(this.Close);
+            }
+
         }
     }
 

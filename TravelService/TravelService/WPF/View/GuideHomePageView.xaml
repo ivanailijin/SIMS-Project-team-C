@@ -1,0 +1,271 @@
+<Window x:Class="TravelService.WPF.View.GuideHomePageView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Guide HomePage" Height="450" Width="900"
+         ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="MyStyle" TargetType="TextBlock">
+            <Setter Property="Background" Value="{Binding Background}" />
+            <Setter Property="Foreground" Value="{Binding Foreground}" />
+        </Style>
+    </Window.Resources>
+    <Canvas >
+        <Canvas.Background>
+            <ImageBrush ImageSource="/Resources/Icons/daniela-cuevas-t7YycgAoVSw-unsplash.jpg"/>
+        </Canvas.Background>
+
+
+
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Right="550" Canvas.Top="99">
+            <Button Command="{Binding AddTourCommand}" Content="Create Tour" Height="40" Width="120" Background="#FF184C75" Foreground="#FFFFFF" Margin="0 0 0 10">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Command="{Binding CancelTourCommand}" Content="Cancel Tour" Height="40" Width="120" Background="#FFB0DAEB" Foreground="#FF132D57">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
+        <Grid>
+            <Line X1="0" Y1="0" X2="1" Y2="0" Stretch="Fill"  Stroke="#FF132D57"  StrokeThickness="3" Margin="360,224,-535,-262"/>
+        </Grid>
+        <Grid>
+            <Line X1="0" Y1="1" X2="0" Y2="0" Stretch="Fill"  Stroke="#FF132D57"  StrokeThickness="3" Margin="340,89,-383,-329"/>
+        </Grid>
+        <Grid>
+            <Line X1="0" Y1="1" X2="0" Y2="0" Stretch="Fill" Stroke="#FF132D57"  StrokeThickness="3" Margin="512,89,-555,-329"/>
+        </Grid>
+
+
+
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Right="550" Canvas.Top="209">
+            <Button Command="{Binding ActiveToursCommand}" Content="Today Tours" Height="40" Width="120"  Background="#FF184C75" Foreground="#FFFFFF" Margin="0 0 0 10">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Command="{Binding PastToursCommand}" Content="Past Tour" Height="40" Width="120" Background="#FFB0DAEB" Foreground="#FF132D57">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="550" Canvas.Top="209">
+            <Button Command="{Binding BestTourCommand}" Content="Best Tours" Height="40" Width="120" Background="#FF184C75" Foreground="#FFB0DAEB" Margin="0 0 0 10" >
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0"  />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Stats for complex" Height="40" Width="120" Background="#FFB0DAEB" Foreground="#FF132D57">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="550" Canvas.Top="99">
+            <Button Content="Requests" Height="40" Width="120"  Background="#FF184C75" Foreground="#FFFFFF" Margin="0 0 0 10">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Complex Tours" Height="40" Width="120" Background="#FFB0DAEB" Foreground="#FF132D57">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
+
+        <Border BorderBrush="#FFB0DAEB" BorderThickness="3" Height="130" Canvas.Left="375" Canvas.Top="99" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" >
+
+
+            <StackPanel Margin="10,0,4,0" Height="119" VerticalAlignment="Center">
+                <StackPanel Height="117" Width="138">
+                    <Image Source="Icons/woman (2).png" Width="33" Height="30"/>
+                    <TextBox  Text="{Binding Username}" Height="20" Width="80" Foreground="#FF184C75" Background="Transparent" FontWeight="Bold" />
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Icons/star.png" Width="27" Height="20"/>
+                        <TextBlock Height="18" Width="70" Foreground="#FF184C75" FontWeight="Bold"><Run Text="Super Guide"/></TextBlock>
+                    </StackPanel>
+                    <StackPanel Height="30" Orientation="Horizontal" Width="122" RenderTransformOrigin="0.66,0.651" Margin="0 15 0 0" >
+                        <Button Content="Log Out" Height="30" Width="60" Command="{Binding LogOutCommand}" Background="#FF184C75" Foreground="#FFFFFF" Margin="-10 0 5 0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Grid>
+                                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button Content="About Me" Height="30" Width="60"  Background="#FFB0DAEB" Foreground="#FF132D57">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Grid>
+                                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                    </StackPanel>
+
+
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Border>
+        <Border BorderBrush="#FFB0DAEB" BorderThickness="3" Height="55" Canvas.Left="375" Canvas.Top="259" Width="140">
+            <StackPanel Orientation="Horizontal" Margin="-1,4,0,0">
+                <StackPanel Orientation="Vertical" Width="70" Height="53">
+                    <Button Command="{Binding ThemeCommand}" BorderBrush="#FFEAEBB0" Background="#FF184C75" Height="30" Width="50" Margin="5,0,10,0">
+                        <Image Source="Icons/sun.png" Width="40" Height="15"/>
+                    </Button>
+                    <TextBlock Text="Theme" Height="17" Width="45" Foreground="#FFB0DAEB"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Width="60" Height="70"  Margin="0,0,10,0" >
+                    <Button BorderBrush="#FFEAEBB0"  Background="#FFB0DAEB" Height="30" Width="50"  Margin="0,0,10,0">
+                        <Image Source="Icons/language.png" Width="40" Height="15"/>
+                    </Button>
+                    <TextBlock Text="Language" Height="17" Width="55" HorizontalAlignment="Center" Foreground="#FFB0DAEB"/>
+                </StackPanel>
+
+
+            </StackPanel>
+
+        </Border>
+      
+
+    </Canvas>
+</Window>

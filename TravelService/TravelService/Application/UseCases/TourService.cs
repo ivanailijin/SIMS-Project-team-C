@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.WPF.View;
-
+using System.IO;
+using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
     public class TourService
     {
+        private readonly ICheckPointRepository _checkPointRepsitory;
         private readonly ITourRepository _tourRepository;
+        private readonly IGuestRepository _guestRepository;
+        private readonly IGuestVoucherRepository _guestVoucherRepository;
 
         public TourService(ITourRepository tourRepository)
         {
@@ -118,6 +122,261 @@ namespace TravelService.Application.UseCases
             return guestList;
         }
 
+
+
+        public void Check(List<CheckPoint> checkPoints, Tour tour, int TourId)
+        {
+            int count = 0;
+            foreach (var checkpoint in checkPoints)
+            {
+                if (checkpoint.TourId == TourId)
+                {
+                    count++;
+                }
+            }
+            if (count >= 2)
+            {
+                Save(tour);
+            }
+        }
+
+        public void FindActiveTourList(Tour tour, List<Tour> ActiveTours)
+        {
+            if (IsInPorgress(tour))
+            {
+                AddActiveTours(tour, ActiveTours);
+            }
+        }
+        public void AddActiveTours(Tour tour, List<Tour> ActiveTours)
+        {
+            ActiveTours.Add(tour);
+        }
+        public bool IsInPorgress(Tour tour)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            if (tour.TourStart.Date == currentDate)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void FindFutureActive(Tour tour, List<Tour> FutureTours)
+        {
+            if (IsInFuture(tour))
+            {
+                AddFutureTours(tour, FutureTours);
+            }
+        }
+        public void AddFutureTours(Tour tour, List<Tour> FutureTours)
+        {
+            FutureTours.Add(tour);
+        }
+
+        public bool IsInFuture(Tour tour)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            if (tour.TourStart.Date > currentDate)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void FindPastTurs(Tour tour, List<Tour> PastTours)
+        {
+            if (IsInPast(tour))
+            {
+                AddPastTours(tour, PastTours);
+            }
+        }
+        public void AddPastTours(Tour tour, List<Tour> PastTours)
+        {
+            PastTours.Add(tour);
+        }
+
+        public bool IsInPast(Tour tour)
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            if (tour.TourStart.Date < currentDate)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
+        public List<Tour> showAllActiveTours(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> ActiveTours)
+        {
+
+            foreach (Tour tour in Tours)
+            {
+
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+                ShowListCheckPointList(tour.Id, Tours, CheckPoints);
+                FindActiveTourList(tour, ActiveTours);
+
+            }
+            return ActiveTours;
+        }
+
+        public void ShowTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints)
+        {
+            foreach (Tour tour in Tours)
+            {
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+                ShowCheckPointList(tour, CheckPoints);
+            }
+        }
+
+
+        public List<Tour> ShowFutureTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Tour> FutureTours, int guideId, TourRepository _tourRepository)
+
+        {
+            foreach (Tour tour in Tours)
+            {
+                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
+
+
+                ShowListCheckPointList(tour.Id, Tours, CheckPoints);
+                FindFutureActive(tour, FutureTours);
+            }
+
+            return FutureTours;
+        }
+
+        public List<Tour> ShowPastTour(List<Tour> tours, List<Location> locations, List<Language> languages, List<CheckPoint> checkPoints, List<Tour> pastTours, int guideId)
+        {
+            foreach (Tour tour in tours)
+            {
+                tour.Location = locations.Find(loc => loc.Id == tour.LocationId);
+                tour.Language = languages.Find(lan => lan.Id == tour.LanguageId);
+
+                ShowListCheckPointList(tour.Id, tours, checkPoints);
+
+                FindGuidesTours(guideId);
+
+                FindPastTurs(tour, pastTours);
+                
+            }
+            return pastTours;
+        }
+
+      
+
+        public List<Tour> FindGuidesTours(int guideId)
+        {
+            List<Tour> tours = new List<Tour>();
+            foreach (Tour tour in tours)
+            {
+                if (tour.GuideId == guideId)
+                {
+                    tours.Add(tour);
+                }
+            }
+            return tours;
+        }
+
+
+        public bool CancelTour(int tourId)
+        {
+            Tour tour = _tourRepository.FindById(tourId);
+            if (tour == null) return false;
+            TimeSpan timeDifference = tour.TourStart - DateTime.Now;
+            if (timeDifference.TotalHours >= 48)
+            {
+                Delete(tour);
+
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public void SendVouchers(Tour tour)
+        {
+
+            List<Guest> guests = _guestRepository.FindByTourId(tour.Id);
+
+            foreach (Guest guest in guests)
+            {
+
+                GuestVoucher newVoucher = new GuestVoucher("Vaucer", VOUCHERTYPE.QUIT, 200, "17f", false, guest.Id, tour.Id, DateTime.Now.AddYears(1));
+                _guestVoucherRepository.Save(newVoucher);
+                if (guest.VoucherList == null)
+                {
+                    guest.VoucherList = new List<GuestVoucher> { newVoucher };
+                }
+                else
+                {
+                    guest.VoucherList.Add(newVoucher);
+                }
+
+                _guestRepository.Save(guest);
+                _guestRepository.Update(guest);
+
+            }
+
+        }
+
+        public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours, List<CheckPoint> CheckPoints)
+        {
+            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            foreach (Tour tour in Tours)
+            {
+                if (tour.Id == TourId)
+                {
+
+                    tour.CheckPoints.Clear();
+                    ListCheckPoints.Clear();
+
+                    int currentId = tour.Id;
+                    foreach (CheckPoint c in CheckPoints)
+                    {
+                        int currentCheckPointTourId = c.TourId;
+                        if ((currentCheckPointTourId == currentId))
+                        {
+                            ListCheckPoints.Add(c);
+
+                        }
+                    }
+                }
+
+                tour.CheckPoints.AddRange(ListCheckPoints);
+
+            }
+            return ListCheckPoints;
+        }
+
+        private void ShowCheckPointList(Tour tour, List<CheckPoint> CheckPoints)
+        {
+            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
+            tour.CheckPoints.Clear();
+            ListCheckPoints.Clear();
+
+            foreach (CheckPoint c in CheckPoints)
+            {
+                if (TourIdMatched(c.TourId, tour.Id))
+                    ListCheckPoints.Add(c);
+            }
+            tour.CheckPoints.AddRange(ListCheckPoints);
+        }
+
+        public bool TourIdMatched(int checkPointTourId, int tourId)
+        {
+            if ((checkPointTourId == tourId))
+            {
+                return true;
+            }
+            return false;
+        }
         public bool isTourSearchable(Tour tour, string inputLocation, string inputDuration, string inputLanguage, string inputGuestNumber)
         {
             if (((tour.Location.CityAndCountry.Replace(",", "").Replace(" ", "")).Contains(inputLocation) || string.IsNullOrEmpty(inputLocation)) &&
@@ -146,38 +405,58 @@ namespace TravelService.Application.UseCases
             }
             return false;
         }
-        public void ShowTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints)
-        {
-            foreach (Tour tour in Tours)
-            {
-                tour.Location = Locations.Find(loc => loc.Id == tour.LocationId);
-                tour.Language = Languages.Find(lan => lan.Id == tour.LanguageId);
 
-                ShowCheckPointList(tour, CheckPoints);
-            }
-        }
-        private void ShowCheckPointList(Tour tour, List<CheckPoint> CheckPoints)
+        public Tour GetTourByCheckPointId(int checkPointId)
         {
-            List<CheckPoint> ListCheckPoints = new List<CheckPoint>();
-            tour.CheckPoints.Clear();
-            ListCheckPoints.Clear();
-
-            foreach (CheckPoint c in CheckPoints)
+            var checkPoint = _checkPointRepsitory.GetById(checkPointId);
+            if (checkPoint != null)
             {
-                if (TourIdMatched(c.TourId, tour.Id))
-                    ListCheckPoints.Add(c);
+                var tour = GetAll().FirstOrDefault(t => t.CheckPoints.Contains(checkPoint));
+                return tour;
             }
-            tour.CheckPoints.AddRange(ListCheckPoints);
+            return null;
         }
 
-        public bool TourIdMatched(int checkPointTourId, int tourId)
+        public Tour GetMostVisitedTour(List<Tour> tours, List<Guest> guests, List<Location> locations, int year = 0)
         {
-            if ((checkPointTourId == tourId))
+            int maxVisits = 0;
+            Tour mostVisitedTour = null;
+
+            foreach (Tour tour in tours)
             {
-                return true;
+                if (tour.Done) // Check if the tour is done
+                {
+                    tour.Location = locations.Find(loc => loc.Id == tour.LocationId);
+                    int visits = 0;
+                    foreach (Guest guest in guests)
+                    {
+                        if (guest.TourId == tour.Id && (year == 0 || tour.TourStart.Year == year))
+                        {
+                            visits++;
+                        }
+                    }
+
+                    if (visits >= maxVisits)
+                    {
+                        if (visits > maxVisits)
+                        {
+                            maxVisits = visits;
+                            mostVisitedTour = tour;
+                        }
+                        else if (mostVisitedTour == null)
+                        {
+                            mostVisitedTour = tour;
+                        }
+                    }
+                }
             }
-            return false;
+
+            return mostVisitedTour;
         }
+
+      
+
+      
     }
 }
 

@@ -26,7 +26,11 @@ namespace TravelService.WPF.View
         {
             InitializeComponent();
             ReportViewModel reportViewModel = new ReportViewModel(selectedTourReview, selectedguest);
-            DataContext = reportViewModel;  
+            DataContext = reportViewModel;
+            if (reportViewModel.CloseAction == null)
+            {
+                reportViewModel.CloseAction = new Action(this.Close);
+            }
 
         }
     }

@@ -5,11 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="ReportView" Height="450" Width="800">
-    <Grid>
-        <Button Content="Confirm" Command="{Binding confirmCommand}" HorizontalAlignment="Left" Margin="221,276,0,0" VerticalAlignment="Top" Width="140"/>
-        <Button Content="Cancel" Command="{Binding cancelCommand}" HorizontalAlignment="Left" Margin="412,276,0,0" VerticalAlignment="Top" Width="140"/>
-        <TextBlock HorizontalAlignment="Left" Height="109" Margin="170,138,0,0" TextWrapping="Wrap" FontSize="24" Text="If this review is not valid confirm report. Thank you!" VerticalAlignment="Top" Width="421"/>
+        Title="ReportView" Height="190" Width="385" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,0"  Background="#FFF0E8B2">
+
+
+        <TextBlock HorizontalAlignment="Left" Height="50" Margin="50,29,0,0" TextWrapping="Wrap" FontSize="24" Text="Was the guest present?" VerticalAlignment="Top" Width="290" Foreground="#FF184C75"  FontWeight="Bold"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="60,84,0,15" Width="240">
+
+            <Button Command="{Binding confirmCommand}" Content="Not Present" Height="40" Width="100"  Background="#FF184C75" Foreground="#FFFFFF" Margin="5 0 0 0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Present" Command="{Binding cancelCommand}" Height="40" Width="100" Background="#FFB0DAEB" Foreground="#FF132D57 " Margin="30 0 0 0">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+        <Image Margin="326,100,-5,10" Source="/WPF/View/Icons/icons8-exclamation-mark-64.png" Stretch="Fill"/>
+        <Image Margin="-15,4,336,106" Source="/WPF/View/Icons/icons8-exclamation-mark-64.png" Stretch="Fill"/>
 
     </Grid>
 </Window>

@@ -41,6 +41,13 @@ namespace TravelService.Application.UseCases
             CheckPoint checkpoint = _checkPointRepository.GetById(id);
             return checkpoint;
         }
+        public void FirstCheckPointActive(List<CheckPoint> FilteredCheckPoint)
+        {
+            if (FilteredCheckPoint.Count > 0)
+            {
+                FilteredCheckPoint[0].Active = true;
+            }
+        }
 
     }
 }

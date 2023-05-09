@@ -15,6 +15,7 @@ namespace TravelService.Domain.Model
         public string Country { get; set; }
         public string City { get; set; }
 
+
         public string CityAndCountry
         {
             get { return City + ", " + Country; }
@@ -30,7 +31,7 @@ namespace TravelService.Domain.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), City, Country };
+            string[] csvValues = { Id.ToString(), City, Country};
             return csvValues;
         }
 

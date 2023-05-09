@@ -96,6 +96,18 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\ActiveToursView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AddLanguageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AddLocationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AddTourView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\DeclineReservationRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -108,10 +120,13 @@
     <Page Update="WPF\View\CheckPointView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\View\EnterCheckPoint.xaml">
+    <Page Update="WPF\View\EnterCheckPointView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsToursView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\GuideHomePageView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\MostVisited.xaml">
@@ -145,9 +160,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\CheckPointView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\View\EnterCheckPoint.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\MostVisited.xaml">
@@ -192,22 +204,13 @@
     <Page Update="WPF\View\GuestPresence.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\View\TourOverview.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\View\TourTrackingView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\TourStats.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\View\AddTour.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\View\VoucherView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\View\Window1.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SendReservationRequestView.xaml">

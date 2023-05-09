@@ -1,0 +1,69 @@
+﻿<Window x:Class="TravelService.WPF.View.EnterCheckPointView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
+        mc:Ignorable="d"
+        Title="EnterCheckPoint" Height="190" Width="385" ResizeMode="NoResize">
+
+    <Grid Margin="0,0,0,-1" Background="#FFF0E8B2">
+
+
+
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="208*"/>
+
+        </Grid.ColumnDefinitions>
+
+
+        <TextBox HorizontalAlignment="Left"  Text="{Binding Path=CheckPoint}" Height="25" Margin="74,59,0,0" TextWrapping="Wrap" Background="Transparent" VerticalAlignment="Top" Width="201"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="90,84,0,15" Width="210">
+
+            <Button Command="{Binding CreateCommand}" Content="Create" Height="40" Width="100"  Background="#FF184C75" Foreground="#FFFFFF" Margin="0 0 0 1">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Go back" Height="40" Width="100" Background="#FFB0DAEB" Foreground="#FF132D57" Command="{Binding CancelCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+        <Image Margin="280,84,-10,-14" Source="/WPF/View/Icons/icons8-map-marker-100.png" Stretch="Fill"/>
+        <Image Margin="-15,-11,285,91" Source="/WPF/View/Icons/icons8-map-marker-100.png" Stretch="Fill"/>
+
+
+    </Grid>
+
+</Window>
