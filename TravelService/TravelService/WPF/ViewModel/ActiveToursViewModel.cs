@@ -33,6 +33,7 @@ namespace TravelService.WPF.ViewModel
         public CheckPoint SelectedCheckPoint { get; set; }
         public RelayCommand StartCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
+        public Guide Guide;
 
         public ActiveToursViewModel(Tour selectedTour)
         {
@@ -78,6 +79,8 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
+            GuideHomePageView guideHomePageView = new GuideHomePageView(Guide);
+            guideHomePageView.Show();
             CloseAction();
         }
 

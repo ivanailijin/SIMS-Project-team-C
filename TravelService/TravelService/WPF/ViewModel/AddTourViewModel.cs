@@ -247,8 +247,8 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_AddTourCommand(object obj)
         {
-         
 
+            Location location = SelectedLocation;
             Language language = SelectedLanguge;
 
 
@@ -291,12 +291,13 @@ namespace TravelService.WPF.ViewModel
                 {
                     Pictures += file;
                     Pictures += "|";
-                    string destinationFilePath = Path.Combine(destinationFolder, Path.GetFileName(file));
+                    string destinationFilePath = System.IO.Path.Combine(destinationFolder, Path.GetFileName(file));
                     File.Copy(file, destinationFilePath);
-                    ListBoxPictures.Add(file);
+
                 }
 
                 Pictures = Pictures.Substring(0, Pictures.Length - 1);
+
             }
         }
 

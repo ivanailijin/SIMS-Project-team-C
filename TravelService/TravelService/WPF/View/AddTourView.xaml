@@ -141,9 +141,9 @@
             </TextBox>
             <DatePicker Grid.Row="3" Width="120" HorizontalAlignment="Center" Margin="22,6,8,5"   Background="#FFB0DAEB"  Grid.Column="1">
                 <DatePicker.SelectedDate>
-                    <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="TourStart" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <val:DateTimeValidation ValidationStep="RawProposedValue"/>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </DatePicker.SelectedDate>

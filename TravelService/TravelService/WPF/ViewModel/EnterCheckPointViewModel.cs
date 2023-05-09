@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -19,6 +20,7 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand CreateCommand { get; set; }
         public Action CloseAction { get; set; }
+        
 
 
         private string _checkPoint;
@@ -49,9 +51,16 @@ namespace TravelService.WPF.ViewModel
         
         private void Execute_CreateCommand(object obj)
         {
+            
+            if (CheckPoint == null )
+            {
+                MessageBox.Show("Please enter checkpoints first.");
+                return;
+            }
             CheckPoint checkPoint = new CheckPoint();
             checkPoint.Name = CheckPoint;
             checkPoint.TourId = TourId;
+
             CheckPoint savedCheckPoint = _checkPointService.Save(checkPoint);
         }
         private void Execute_CancelCommand(object obj)

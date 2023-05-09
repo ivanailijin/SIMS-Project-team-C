@@ -1,4 +1,4 @@
-﻿<Window x:Class="TravelService.WPF.View.AddLanguageView"
+﻿    <Window x:Class="TravelService.WPF.View.AddLanguageView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <ComboBox x:Name="languageComboBox" ItemsSource="{Binding Languages}" DisplayMemberPath="CityAndCountry"  SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" Margin="130,39,125,96" RenderTransformOrigin="0.5,0.5" Background="Transparent" >
+        <ComboBox x:Name="languageComboBox" ItemsSource="{Binding Languages}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" Margin="130,39,125,96" RenderTransformOrigin="0.5,0.5" Background="Transparent" >
             <ComboBox.RenderTransform >
                 <TransformGroup>
                     <ScaleTransform ScaleX="1"/>

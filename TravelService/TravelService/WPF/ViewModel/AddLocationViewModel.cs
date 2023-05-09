@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -49,6 +50,12 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_CreateCommand(object obj)
         {
+
+            if (SelectedLocation == null)
+            {
+                MessageBox.Show("Please select language first.");
+                return;
+            }
             Location selectedLocation = SelectedLocation;
             selectedLocation.Id = LocationId;
             Location savedLocation = _locationService.Save(selectedLocation);
