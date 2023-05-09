@@ -135,7 +135,6 @@
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Comment}" Value="{x:Null}" />
                         <Condition Binding="{Binding Comment}" Value="" />
                     </MultiDataTrigger.Conditions>
                     <Setter Property="Visibility" Value="Hidden" />
