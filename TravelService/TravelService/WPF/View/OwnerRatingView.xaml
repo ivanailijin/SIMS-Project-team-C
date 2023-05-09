@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="OwnerRatingView" WindowStartupLocation="CenterScreen" Height="720" Width="420" Background="#c6ffb3">
+        Title="Ocenjivanje smestaja i vlasnika" WindowStartupLocation="CenterScreen" Height="720" Width="420" Background="#c6ffb3">
     <Window.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
         <Style TargetType="Label">
@@ -187,7 +187,7 @@
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>
-                <Hyperlink Command="{Binding MyCommand}" CommandParameter="parameter" />
+                <Hyperlink NavigateUri="http://www.example.com" Command="{Binding RenovationRecommendationCommand}"/>
             </TextBlock>
         </StackPanel>
         <Button Grid.Row="3" x:Name="AddOwnerRating" Style="{StaticResource rateButtonStyle}"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 42, 0"

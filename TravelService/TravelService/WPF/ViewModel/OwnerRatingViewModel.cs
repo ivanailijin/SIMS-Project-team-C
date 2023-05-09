@@ -8,6 +8,7 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -204,6 +205,20 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private RelayCommand _renovationRecommendationCommand;
+        public RelayCommand RenovationRecommendationCommand
+        {
+            get => _renovationRecommendationCommand;
+            set
+            {
+                if (value != _renovationRecommendationCommand)
+                {
+                    _renovationRecommendationCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public OwnerRatingViewModel(RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
         {
             _ratingViewModel = ratingViewModel;
@@ -220,6 +235,7 @@ namespace TravelService.WPF.ViewModel
             AddOwnerRatingCommand = new RelayCommand(Execute_AddOwnerRating, CanExecute_Command);
             AddPicturesCommand = new RelayCommand(Execute_AddPictures, CanExecute_Command);
             PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
+            RenovationRecommendationCommand = new RelayCommand(Execute_RenovationRecommendation, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -298,7 +314,13 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private void Execute_PreviousPage(object sender)
+        private void Execute_RenovationRecommendation(object sender)
+        {
+            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView();
+            renovationRecommendationView.Show();
+        }
+
+            private void Execute_PreviousPage(object sender)
         {
             CloseAction();
         }
