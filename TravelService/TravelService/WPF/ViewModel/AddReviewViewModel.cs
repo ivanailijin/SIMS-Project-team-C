@@ -33,6 +33,19 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _voucherViewCommand;
+        public RelayCommand VoucherViewCommand
+        {
+            get => _voucherViewCommand;
+            set
+            {
+                if (value != _voucherViewCommand)
+                {
+                    _voucherViewCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private RelayCommand _addPictureCommand;
         public RelayCommand AddPictureCommand
@@ -57,6 +70,19 @@ namespace TravelService.WPF.ViewModel
                 if (value != _cancelCommand)
                 {
                     _cancelCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _homePageCommand;
+        public RelayCommand HomePageCommand
+        {
+            get => _homePageCommand;
+            set
+            {
+                if (value != _homePageCommand)
+                {
+                    _homePageCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -145,15 +171,30 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public AddReviewViewModel(Tour selectedTour, Guest2 guest2) 
         {
             _tourReviewService = new TourReviewService(Injector.CreateInstance<ITourReviewRepository>());
             SelectedTour = selectedTour;
             Guest2 = guest2;
-
+            Username = guest2.Username;
             RateCommand = new RelayCommand(Execute_Rate, CanExecute_Command);
+            HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
             AddPictureCommand = new RelayCommand(Execute_AddPicture, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_Cancel, CanExecute_Command);
+            VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
         }
         private bool CanExecute_Command(object parameter)
         {
@@ -163,6 +204,17 @@ namespace TravelService.WPF.ViewModel
         {
             _tourReviewService.addReview(GuideKnowledge,GuideLanguage,TourEntertainment,Comment,Pictures,SelectedTour, Guest2);
             CloseAction();
+        }
+        private void Execute_HomePageCommand(object sender)
+        {
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
+            secondGuestView.Show();
+            CloseAction();
+        }
+        private void Execute_VoucherViewCommand(object sender)
+        {
+            GuestsVouchersView guestsVouchersView = new GuestsVouchersView(Guest2);
+            guestsVouchersView.Show();
         }
         private void Execute_AddPicture(object sender)
         {

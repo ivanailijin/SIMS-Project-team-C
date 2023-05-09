@@ -68,6 +68,19 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _homePageCommand;
+        public RelayCommand HomePageCommand
+        {
+            get => _homePageCommand;
+            set
+            {
+                if (value != _homePageCommand)
+                {
+                    _homePageCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private RelayCommand _rateTourCommand;
         public RelayCommand RateTourCommand
         {
@@ -81,6 +94,19 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public SecondGuestViewModel(Guest2 guest2) 
         {
@@ -90,6 +116,8 @@ namespace TravelService.WPF.ViewModel
             ReservationCommand = new RelayCommand(Execute_ReservationCommand, CanExecute_Command);
             VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
             RateTourCommand = new RelayCommand(Execute_RateTourCommand, CanExecute_Command);
+            HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
+            Username = guest2.Username;
         }
         private bool CanExecute_Command(object parameter)
         {
@@ -106,6 +134,12 @@ namespace TravelService.WPF.ViewModel
             TourView tourView = new TourView(Guest2);
             tourView.Show();
         }
+        private void Execute_HomePageCommand(object sender)
+        {
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
+            secondGuestView.Show();
+            CloseAction();
+        }
         private void Execute_ReservationCommand(object sender)
         {
             TourReservationView tourReservationView = new TourReservationView(SelectedTour, SelectedVoucher, Guest2);
@@ -113,10 +147,8 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_VoucherViewCommand(object sender)
         {
-            TourReservationView tourReservationView = new TourReservationView(SelectedTour, SelectedVoucher, Guest2);
-            VoucherView voucherView = new VoucherView(tourReservationView, SelectedVoucher, SelectedTour, Guest2);
-            voucherView.ResetItemSource(voucherView.GuestVouchers);
-            voucherView.Show();
+            GuestsVouchersView guestsVouchersView = new GuestsVouchersView(Guest2);
+            guestsVouchersView.Show();
         }
         private void Execute_RateTourCommand(object sender)
         {

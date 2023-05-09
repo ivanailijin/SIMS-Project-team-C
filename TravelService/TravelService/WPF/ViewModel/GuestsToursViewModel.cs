@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -45,6 +46,32 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _voucherViewCommand;
+        public RelayCommand VoucherViewCommand
+        {
+            get => _voucherViewCommand;
+            set
+            {
+                if (value != _voucherViewCommand)
+                {
+                    _voucherViewCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _homePageCommand;
+        public RelayCommand HomePageCommand
+        {
+            get => _homePageCommand;
+            set
+            {
+                if (value != _homePageCommand)
+                {
+                    _homePageCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand
         {
@@ -54,6 +81,19 @@ namespace TravelService.WPF.ViewModel
                 if (value != _cancelCommand)
                 {
                     _cancelCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
                     OnPropertyChanged();
                 }
             }
@@ -74,19 +114,37 @@ namespace TravelService.WPF.ViewModel
             List<TourReview> TourReviews = _tourReviewService.GetAll();
             SelectedTour = selectedTour;
             Guest2 = guest2;
-
+            Username = guest2.Username;
             GuestsTours = _tourService.ShowGuestTourList(Tours, Locations, Languages, CheckPoints, Guests, Guest2);
+            HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
             RateTourCommand = new RelayCommand(Execute_RateTour, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_Cancel, CanExecute_Command);
+            VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
         }
         private bool CanExecute_Command(object parameter)
         {
             return true;
         }
         private void Execute_RateTour(object sender)
-        { 
-            AddReviewView addReviewView = new AddReviewView(SelectedTour,Guest2);
-            addReviewView.Show();
+        {
+            if (SelectedTour != null)
+            {
+                AddReviewView addReviewView = new AddReviewView(SelectedTour, Guest2);
+                addReviewView.Show();
+            }
+            else MessageBox.Show("Choose the tour you want to rate!");
+            
+        }
+        private void Execute_HomePageCommand(object sender)
+        {
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
+            secondGuestView.Show();
+            CloseAction();
+        }
+        private void Execute_VoucherViewCommand(object sender)
+        {
+            GuestsVouchersView guestsVouchersView = new GuestsVouchersView(Guest2);
+            guestsVouchersView.Show();
         }
         private void Execute_Cancel(object sender)
         {
