@@ -8,13 +8,16 @@
         Height="655" Width="420">
     <UserControl.Resources>
         <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="#ccffe6" />
-            <Setter Property="BorderBrush" Value="#ccffe6" />
+            <Setter Property="Background" Value="#d9ffcc" />
+            <Setter Property="BorderBrush" Value="Gray" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="RowBackground" Value="#ccffe6" />
+            <Setter Property="RowBackground" Value="#c6ffb3" />
+            <Setter Property="HorizontalGridLinesBrush" Value="Gray"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Gray"/>
             <Setter Property="GridLinesVisibility" Value="All" />
             <Setter Property="CanUserResizeColumns" Value="False" />
             <Setter Property="CanUserResizeRows" Value="False" />
+            <Setter Property="CanUserReorderColumns" Value="False"/>
             <Setter Property="SelectionMode" Value="Single" />
             <Setter Property="AutoGenerateColumns" Value="False" />
             <Setter Property="HeadersVisibility" Value="Column" />
@@ -23,15 +26,21 @@
             <Setter Property="Margin" Value="5" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="FontFamily" Value="Segoe UI" />
-            <Setter Property="Foreground" Value="Black" />
         </Style>
 
         <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#adebad"/>
-            <Setter Property="Background" Value="#adebad"/>
+            <Setter Property="Background" Value="#d9ffcc"/>
             <Setter Property="FontSize" Value="14"></Setter>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#80bfff"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="gray"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
 
@@ -42,7 +51,7 @@
                         <Border Name="border"
                         BorderThickness="1"
                         BorderBrush="Gray"
-                        CornerRadius="5,30,0,0"
+                        CornerRadius="5,17,0,0"
                         Margin="-1,0,0,0"
                         Padding="8,2,8,2"
                         Width="180"
@@ -54,7 +63,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#ccffe6" />
+                                <Setter TargetName="border" Property="Background" Value="#c6ffb3" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
                                 <Setter TargetName="border" Property="Background" Value="White" />
@@ -66,9 +75,10 @@
         </Style>
 
         <Style x:Key="rateButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#1f7a1f"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="Width" Value="300"/>
@@ -94,40 +104,48 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"></RowDefinition>
-                    <RowDefinition Height="400"></RowDefinition>
+                    <RowDefinition Height="380"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Label Content="Protekle rezervacije smestaja" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="DemiBold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dataGridUnratedOwners" Margin="10"
+                    <DataGrid x:Name="dataGridUnratedOwners"
                   ItemsSource="{Binding Path=UnratedOwners, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path = SelectedUnratedOwner, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  Width="390" Height="420">
+                  Width="390" Height="380" Margin="0,0,16,0">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="90">
+                            <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="80">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="2"/>
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                                 <DataGridTextColumn.EditingElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="2"/>
                                     </Style>
                                 </DataGridTextColumn.EditingElementStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="90">
+                            <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="80">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="2"/>
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                                 <DataGridTextColumn.EditingElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="2"/>
                                     </Style>
                                 </DataGridTextColumn.EditingElementStyle>
                             </DataGridTextColumn>
@@ -135,18 +153,22 @@
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="2"/>
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                                 <DataGridTextColumn.EditingElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Padding" Value="2"/>
                                     </Style>
                                 </DataGridTextColumn.EditingElementStyle>
                             </DataGridTextColumn>
                             <DataGridTemplateColumn Header="Dates" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock>
+                                        <TextBlock Padding="2" VerticalAlignment="Center">
                                 <Run Text="{Binding CheckInDate, StringFormat='{}{0:d}'}"/>
                                 <Run Text=" - "/>
                                 <Run Text="{Binding CheckOutDate, StringFormat='{}{0:d}'}"/>
@@ -159,7 +181,7 @@
                 </Grid>
                 
                 <Grid Grid.Row="2">
-                    <Button x:Name="rateOwnerButton" Content="Oceni" Style="{StaticResource rateButtonStyle}" Command="{Binding OwnerRatingWindowCommand}" Margin="0,0,0,60"></Button>
+                    <Button x:Name="rateOwnerButton" Content="Oceni" Style="{StaticResource rateButtonStyle}" Command="{Binding OwnerRatingWindowCommand}" Margin="0,0,10,60"></Button>
                 </Grid>
                 
             </Grid>

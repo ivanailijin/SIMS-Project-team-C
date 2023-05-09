@@ -13,28 +13,45 @@
             <RowDefinition Height="65" />
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="1" Background="Teal">
+        <Menu Grid.Row="1" Background="#025f5f">
             <MenuItem Command="{Binding NavigateToAccommodationViewCommand}">
                 <MenuItem.Header>
-                    <StackPanel Orientation="Vertical" Margin="12,8,5,7">
-                        <Image Source="/TravelService;component/Resources/Images/search.png" Width="33" Height="33"/>
-                        <TextBlock Text="Istrazite" HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Vertical" Margin="18,10,5,7">
+                        <Image Source="/TravelService;component/Resources/Images/search.ico" Width="35" Height="33" >
+                        </Image>
+                        <TextBlock Text="Istrazite" HorizontalAlignment="Center" Foreground="White"/>
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
             <MenuItem Command="{Binding NavigateToRatingViewCommand}">
                 <MenuItem.Header>
-                    <StackPanel Orientation="Vertical" Margin="12,8,5,7">
-                        <Image Source="/TravelService;component/Resources/Images/ratings.png" Width="33" Height="33"/>
-                        <TextBlock Text="Ocene" HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Vertical" Margin="20,8,5,7">
+                        <Image Source="/TravelService;component/Resources/Images/ratings.png" Width="35" Height="35"/>
+                        <TextBlock Text="Ocene" HorizontalAlignment="Center" Foreground="White"/>
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
             <MenuItem Command="{Binding NavigateToReservationsViewCommand}">
                 <MenuItem.Header>
-                    <StackPanel Orientation="Vertical" Margin="12,2,5,3.5">
-                        <Image Source="/TravelService;component/Resources/Images/reservations.png" Width="37" Height="37"/>
-                        <TextBlock Text="Rezevacije" HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Vertical" Margin="20,8,5,3.5">
+                        <Image Source="/TravelService;component/Resources/Images/reservations.ico" Width="35" Height="35"/>
+                        <TextBlock Text="Rezervacije" HorizontalAlignment="Center" Foreground="White"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Command="{Binding }">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Vertical" Margin="20,10,5,3.5">
+                        <Image Source="/TravelService;component/Resources/Images/forum.ico" Width="35" Height="33"/>
+                        <TextBlock Text="Forumi" HorizontalAlignment="Center" Foreground="White"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Command="{Binding }">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Vertical" Margin="20,10,5,3.5">
+                        <Image Source="/TravelService;component/Resources/Images/user.ico" Width="33" Height="33"/>
+                        <TextBlock Text="Profil" HorizontalAlignment="Center" Foreground="White"/>
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>

@@ -12,17 +12,19 @@
     <None Remove="Resources\Images\angle-right.png" />
     <None Remove="Resources\Images\basicstar.png" />
     <None Remove="Resources\Images\check.png" />
+    <None Remove="Resources\Images\forum.ico" />
     <None Remove="Resources\Images\forums.png" />
     <None Remove="Resources\Images\leftarrow.png" />
+    <None Remove="Resources\Images\minus.ico" />
     <None Remove="Resources\Images\onhold.png" />
+    <None Remove="Resources\Images\plus.ico" />
     <None Remove="Resources\Images\ratings.png" />
     <None Remove="Resources\Images\reject.jpg" />
+    <None Remove="Resources\Images\reservations.ico" />
     <None Remove="Resources\Images\reservations.png" />
-    <None Remove="Resources\Images\search.png" />
-    <None Remove="Resources\Images\square-minus.png" />
-    <None Remove="Resources\Images\square-plus.png" />
-    <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\search.ico" />
     <None Remove="Resources\Images\superowner.png" />
+    <None Remove="Resources\Images\user.ico" />
     <None Remove="Resources\Images\user.png" />
   </ItemGroup>
 
@@ -38,17 +40,19 @@
     <Resource Include="Resources\Images\angle-right.png" />
     <Resource Include="Resources\Images\basicstar.png" />
     <Resource Include="Resources\Images\check.png" />
+    <Resource Include="Resources\Images\forum.ico" />
     <Resource Include="Resources\Images\forums.png" />
     <Resource Include="Resources\Images\leftarrow.png" />
+    <Resource Include="Resources\Images\minus.ico" />
     <Resource Include="Resources\Images\onhold.png" />
+    <Resource Include="Resources\Images\plus.ico" />
     <Resource Include="Resources\Images\ratings.png" />
     <Resource Include="Resources\Images\reject.jpg" />
+    <Resource Include="Resources\Images\reservations.ico" />
     <Resource Include="Resources\Images\reservations.png" />
-    <Resource Include="Resources\Images\search.png" />
-    <Resource Include="Resources\Images\square-minus.png" />
-    <Resource Include="Resources\Images\square-plus.png" />
-    <Resource Include="Resources\Images\star.png" />
+    <Resource Include="Resources\Images\search.ico" />
     <Resource Include="Resources\Images\superowner.png" />
+    <Resource Include="Resources\Images\user.ico" />
     <Resource Include="Resources\Images\user.png" />
   </ItemGroup>
 

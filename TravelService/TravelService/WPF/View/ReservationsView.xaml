@@ -8,30 +8,41 @@
         Height="655" Width="420">
     <UserControl.Resources>
         <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="#ccffe6" />
-            <Setter Property="BorderBrush" Value="#ccffe6" />
+            <Setter Property="Background" Value="#d9ffcc" />
+            <Setter Property="BorderBrush" Value="Gray" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="RowBackground" Value="#ccffe6" />
+            <Setter Property="RowBackground" Value="#b3ccff"/>
             <Setter Property="GridLinesVisibility" Value="All" />
+            <Setter Property="HorizontalGridLinesBrush" Value="Gray"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Gray"/>
             <Setter Property="CanUserResizeColumns" Value="False" />
             <Setter Property="CanUserResizeRows" Value="False" />
+            <Setter Property="CanUserReorderColumns" Value="False"/>
             <Setter Property="SelectionMode" Value="Single" />
             <Setter Property="AutoGenerateColumns" Value="False" />
             <Setter Property="HeadersVisibility" Value="Column" />
             <Setter Property="ColumnHeaderHeight" Value="30" />
             <Setter Property="RowHeight" Value="30" />
             <Setter Property="RowBackground" Value="#ccffcc"/>
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,0,15,0" />
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="Foreground" Value="Black" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
         </Style>
-        
+
         <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#b3d9ff"/>
+            <Setter Property="Background" Value="#d9ffcc"/>
             <Setter Property="FontSize" Value="14"></Setter>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#80bfff"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="gray"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
 
@@ -42,7 +53,7 @@
                         <Border Name="border"
                         BorderThickness="1"
                         BorderBrush="Gray"
-                        CornerRadius="5,30,0,0"
+                        CornerRadius="5,17,0,0"
                         Margin="-1,0,0,0"
                         Padding="8,2,8,2"
                         Width="180"
@@ -54,7 +65,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="LightBlue" />
+                                <Setter TargetName="border" Property="Background" Value="#ccffe6" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
                                 <Setter TargetName="border" Property="Background" Value="White" />
@@ -66,8 +77,10 @@
         </Style>
 
         <Style x:Key="sendRequestButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="CadetBlue"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="white"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="Width" Value="165"/>
@@ -93,8 +106,10 @@
         </Style>
 
         <Style x:Key="cancelReservationButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="cadetblue"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="white"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="Width" Value="165"/>
@@ -116,42 +131,48 @@
         </Style>
 
         <Style x:Key="commentTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="Visibility" Value="Collapsed" />
+            <Setter Property="Visibility" Value="Visible" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Comment}" Value="{x:Null}">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Comment}" Value="">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Comment}" Value="Some Value">
-                    <Setter Property="Visibility" Value="Visible" />
-                </DataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Comment}" Value="{x:Null}" />
+                        <Condition Binding="{Binding Comment}" Value="" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Hidden" />
+                </MultiDataTrigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SeparatorStyle" TargetType="{x:Type Separator}">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0,1,0,1"/>
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="400"/>
         </Style>
     </UserControl.Resources>
     
     <Grid>
-        <TabControl Grid.Row="0" Height="560" VerticalAlignment="Top" Margin="0,20,0,0">
+        <TabControl Grid.Row="0" VerticalAlignment="Top" Margin="0,5,0,0" >
             <TabItem x:Name="ActiveReservations" Header="Aktivne rezervacije" FontSize="14">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="400"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="430"></RowDefinition>
+                        <RowDefinition Height="150"></RowDefinition>
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="dataGridActiveReservations" Grid.Row="0"
                   ItemsSource="{Binding Path=ActiveReservations, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path = SelectedActiveReservation, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"
-                  Width="410" Height="400">
+                  Width="390" Height="410">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="115"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="110"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Check-in" Binding="{Binding CheckInDate, StringFormat='{}{0:d}'}" Width="80"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="120"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Check-in" Binding="{Binding CheckInDate, StringFormat='{}{0:d}'}" Width="75"></DataGridTextColumn>
                             <DataGridTextColumn Header="Checkout" Binding="{Binding CheckOutDate, StringFormat='{}{0:d}'}" Width="*"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
                         <Separator Width="25" Background="Transparent"></Separator>
                         <Button Style="{StaticResource sendRequestButtonStyle}" Command="{Binding SendRequestCommand}">
                             <TextBlock Text="Send request for delaying" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
@@ -164,12 +185,12 @@
                 </Grid>
             </TabItem>
             <TabItem x:Name="Req" Header="Zahtevi za pomeranje" FontSize="14">
-                <ListBox Margin="5,5,22,10" ItemsSource="{Binding RequestsForDelaying, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListBox Margin="5,5,22,10" Height="590" Background="#ccffe6" ItemsSource="{Binding RequestsForDelaying, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Reservation.Accommodation.Name}" FontWeight="Bold" FontSize="20" Margin="5,5,0,0"></TextBlock>
+                                <StackPanel Margin="0,10,0,0">
+                                    <TextBlock Text="{Binding Reservation.Accommodation.Name}" FontSize="18" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
                                     <StackPanel Orientation="Horizontal" Margin="5,5,10,0">
                                         <TextBlock Text="Lokacija: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding Reservation.Location.CityAndCountry}" FontSize="14"></TextBlock>
@@ -190,10 +211,11 @@
                                         <TextBlock Text="Status: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding StatusText}" FontSize="14"></TextBlock>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                    <StackPanel Orientation="Horizontal" Margin="5,2,0,10">
                                         <TextBlock Text="Komentar: " FontSize="14" Style="{StaticResource commentTextBlockStyle}"></TextBlock>
                                         <TextBlock Text="{Binding Comment}" FontSize="14"></TextBlock>
                                     </StackPanel>
+                                    <Separator Style="{StaticResource SeparatorStyle}"></Separator>
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>

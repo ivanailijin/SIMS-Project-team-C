@@ -11,12 +11,12 @@
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
         <Style TargetType="TextBox">
             <Setter Property="BorderThickness" Value="2,2,2,2"></Setter>
-            <Setter Property="BorderBrush" Value="black"></Setter>
+            <Setter Property="BorderBrush" Value="DimGray"></Setter>
         </Style>
         <Style x:Key="searchButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Teal"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="Foreground" Value="white"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Height" Value="55"/>
             <Setter Property="Width" Value="220"/>
@@ -49,7 +49,7 @@
                 <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.png"></ImageBrush>
             </Button.Background>
         </Button>
-        <Grid Grid.Row="1" Width="280" Height="450">
+        <Grid Grid.Row="1" Width="280" Height="460">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -65,12 +65,12 @@
             <Label Grid.Row="0" Content="Naziv" VerticalAlignment="Bottom" FontSize="16"></Label>
             <TextBox x:Name="nameBox" Grid.Row="1" Text="{Binding AccommodationName, UpdateSourceTrigger=PropertyChanged}" Width="280" Height="40" VerticalAlignment="Top"></TextBox>
             <Label Grid.Row="2" Content="Lokacija" VerticalAlignment="Bottom" FontSize="16"></Label>
-            <Border Grid.Row="3" BorderBrush="black" BorderThickness="2" Width="280" Height="40">
+            <Border Grid.Row="3" BorderBrush="DimGray" BorderThickness="2" Width="280" Height="40">
                 <ComboBox x:Name="locationComboBox" ItemsSource="{Binding LocationsComboBox}" Text="{Binding Path = Location, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0" Width="280" Height="40" VerticalAlignment="Top">
             </ComboBox>
             </Border>
             <Label Grid.Row="4" Content="Tip smestaja" VerticalAlignment="Bottom" FontSize="16"></Label>
-            <Border Grid.Row="5" BorderBrush="Black" BorderThickness="2">
+            <Border Grid.Row="5" BorderBrush="DimGray" BorderThickness="2">
                 <GroupBox BorderThickness="0" BorderBrush="Transparent">
                 <StackPanel Orientation="Horizontal" Width="300" Margin="0, 0, 0, 0" >
                     <RadioButton Width="110" Content="Apartman" FontSize="16" GroupName="Type" IsChecked="{Binding Type, ConverterParameter=Apartment, Converter={StaticResource RadioButtonConverter}}" VerticalContentAlignment="Center"/>
@@ -106,16 +106,17 @@
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
                 </TextBox>
-                <Button Margin="20,0,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Transparent"  Command="{Binding DecreaseGuestNumberCommand}">
-                    <Border Background="Teal" CornerRadius="9">
-                        <Image Source="/TravelService;component/Resources/Images/square-minus.png"></Image>
-                    </Border>
-                </Button>
-                <Button Margin="10,0,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Transparent" Command="{Binding IncreaseGuestNumberCommand}">
-                    <Border Background="Teal" CornerRadius="9">
-                        <Image Source="/TravelService;component/Resources/Images/square-plus.png"></Image>
-                    </Border>
-                </Button>
+                <Border Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="20,0,0,0" VerticalAlignment="Top">
+                    <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding DecreaseGuestNumberCommand}">
+                        <Image Source="/TravelService;component/Resources/Images/minus.ico" Height="20" Width="20"></Image>
+                    </Button>
+                </Border>
+
+                <Border Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="10,0,0,0" VerticalAlignment="Top">
+                    <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding IncreaseGuestNumberCommand}">
+                        <Image Source="/TravelService;component/Resources/Images/plus.ico" Height="20" Width="20"></Image>
+                    </Button>
+                </Border>
             </StackPanel>
             <Label Grid.Row="8" Content="Broj dana" VerticalAlignment="Bottom" FontSize="16"></Label>
             <StackPanel Grid.Row="9" Background="Transparent" Orientation="Horizontal">
@@ -144,11 +145,10 @@
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
                 </TextBox>
-                <Button Margin="20,0,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Transparent"  Command="{Binding DecreaseLengthOfStayCommand}">
-                    <Border Background="Teal" CornerRadius="9">
-                        <Image Source="/TravelService;component/Resources/Images/square-minus.png"></Image>
-                    </Border>
-                    <Button.Style>
+                <Border Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="20,0,0,0" VerticalAlignment="Top">
+                    <Button BorderBrush="Transparent" Background="Transparent" VerticalAlignment="Top" Width="40" Height="40" Command="{Binding DecreaseLengthOfStayCommand}">
+                        <Image Source="/TravelService;component/Resources/Images/minus.ico" Height="20" Width="20" Margin="0,0,4,4"></Image>
+                        <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding GuestNumber}" Value="0">
@@ -157,16 +157,18 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Margin="10,0,0,0" VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Transparent" Command="{Binding IncreaseLengthOfStayCommand}">
-                    <Border Background="Teal" CornerRadius="9">
-                        <Image Source="/TravelService;component/Resources/Images/square-plus.png"></Image>
-                    </Border>
-                </Button>
+                </Border>
+                <Border Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="10,0,0,0" VerticalAlignment="Top">
+                    <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding IncreaseLengthOfStayCommand}">
+                        <Image Source="/TravelService;component/Resources/Images/plus.ico" Height="20" Width="20"></Image>
+                    </Button>
+                </Border>
+                
             </StackPanel>
         </Grid>
             
         <Grid Grid.Row="2">
-            <Button Style="{StaticResource searchButtonStyle}" Width="320" Height="65" Content="Pretrazi" FontSize="20" BorderBrush="black" Background="Teal" BorderThickness="2,2,2,2" Command="{Binding SearchAccommodationCommand}"></Button>
+            <Button Style="{StaticResource searchButtonStyle}" Width="320" Height="65" Content="Pretrazi" FontSize="20" BorderThickness="2,2,2,2" Command="{Binding SearchAccommodationCommand}"></Button>
         </Grid>
 
     </Grid>

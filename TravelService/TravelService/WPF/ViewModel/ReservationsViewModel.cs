@@ -114,7 +114,7 @@ namespace TravelService.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Please select reservation for sending moving request.");
+                MessageBox.Show("Odaberite smestaj za slanje zahteva za pomeranje rezervacije", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -126,12 +126,12 @@ namespace TravelService.WPF.ViewModel
 
             if (!IsMinimumCancellingDaysFulfilled)
             {
-                MessageBox.Show($"Cancellation for {accommodation.Name} is possible {accommodation.DaysBeforeCancellingReservation} days before check-in date!");
+                MessageBox.Show($"Otkazivanje {accommodation.Name} je moguce {accommodation.DaysBeforeCancellingReservation} dana pre check-in datuma!");
                 return;
             }
             else if (!IsCancellingRequestFulfilled)
             {
-                MessageBox.Show("Cancellation is possible 24 hours before check-in date!");
+                MessageBox.Show("Otkazivanje je moguce 24h pre check-in datuma!");
                 return;
             }
             if (SelectedActiveReservation != null)
@@ -141,7 +141,7 @@ namespace TravelService.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Please select reservation for cancelling.");
+                MessageBox.Show("Odaberite smestaj za otkazivanje rezervacije.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

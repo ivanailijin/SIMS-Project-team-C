@@ -11,11 +11,14 @@
     <UserControl.Resources>
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="searchButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="CadetBlue"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Height" Value="55"/>
+            <Setter Property="Height" Value="57"/>
             <Setter Property="Width" Value="220"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -28,9 +31,9 @@
                                     <ColumnDefinition Width="70"></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="/TravelService;component/Resources/Images/search.png" Width="25" Height="25" Margin="10"/>
+                                <Image Grid.Column="0" Source="/TravelService;component/Resources/Images/search.ico" Width="25" Height="25" Margin="10"/>
                                 <StackPanel Grid.Column="1">
-                                    <TextBlock Text="Pretrazi" VerticalAlignment="Bottom" Margin="30,7,0,0"></TextBlock>
+                                    <TextBlock Text="Pretrazi" VerticalAlignment="Bottom" Margin="30,6,0,0"></TextBlock>
                                     <TextBlock Text="Dodaj filtere" Margin="23,3,0,0" FontSize="12"></TextBlock>
                                 </StackPanel>
                             </Grid>
@@ -41,8 +44,9 @@
         </Style>
 
         <Style x:Key="reserveButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="CadetBlue"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="Width" Value="120"/>
@@ -87,7 +91,7 @@
             </Button>
         </Grid>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="5,5,22,10" Background="#cce6ff">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="5,5,22,10" VerticalAlignment="Top" Height="530" Background="#cce6ff">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -97,19 +101,19 @@
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0" Source="{Binding Pictures[0]}" Width="170" Height="120" Margin="10,5,10,5"></Image>
                         <StackPanel Grid.Column="1">
-                            <TextBlock Text="{Binding Name}" FontSize="18" Margin="5,5,0,0"></TextBlock>
+                            <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
                             <StackPanel Orientation="Horizontal" Margin="5,5,0,0">
-                                <TextBlock Text="• "></TextBlock>
-                                <TextBlock Text="{Binding Location.CityAndCountry}"></TextBlock>
+                                <TextBlock Text="• " FontSize="14"></TextBlock>
+                                    <TextBlock Text="{Binding Location.CityAndCountry}" FontSize="13"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
-                                <TextBlock Text="• "></TextBlock>
-                                <TextBlock Text="{Binding TypeText}"></TextBlock>
+                                    <TextBlock Text="• " FontSize="13"></TextBlock>
+                                    <TextBlock Text="{Binding TypeText}" FontSize="13"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
-                                <TextBlock Text="• "></TextBlock>
-                                <TextBlock Text=" Ugostice vas "></TextBlock>
-                                <TextBlock Text="{Binding Owner.Username}"></TextBlock>
+                                    <TextBlock Text="• " FontSize="13"></TextBlock>
+                                    <TextBlock Text=" Ugostice vas " FontSize="13"></TextBlock>
+                                    <TextBlock Text="{Binding Owner.Username}" FontSize="13"></TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
