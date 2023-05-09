@@ -45,7 +45,7 @@
                         CornerRadius="5,30,0,0"
                         Margin="-1,0,0,0"
                         Padding="8,2,8,2"
-                        Width="160"
+                        Width="180"
                                 Height="30">
                             <ContentPresenter x:Name="contentPresenter"
                              ContentSource="Header"
@@ -133,7 +133,7 @@
     
     <Grid>
         <TabControl Grid.Row="0" Height="560" VerticalAlignment="Top" Margin="0,20,0,0">
-            <TabItem x:Name="ActiveReservations" Header="Aktivne rezervacije">
+            <TabItem x:Name="ActiveReservations" Header="Aktivne rezervacije" FontSize="14">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="400"></RowDefinition>
@@ -163,7 +163,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="Req" Header="Zahtevi za pomeranje" >
+            <TabItem x:Name="Req" Header="Zahtevi za pomeranje" FontSize="14">
                 <ListBox Margin="5,5,22,10" ItemsSource="{Binding RequestsForDelaying, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
