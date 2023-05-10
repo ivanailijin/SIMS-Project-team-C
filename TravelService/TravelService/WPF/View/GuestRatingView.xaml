@@ -5,32 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="GuestRatingView" WindowStartupLocation="CenterScreen" Background="AliceBlue" Height="520" Width="610">
+        Title="Ocenjivanje gostiju" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" BorderBrush="White" BorderThickness="3.5" Background="#e6ebeb" Height="568" Width="615">
     <Window.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
         <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="LightSteelBlue" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+                        <Border BorderBrush="#294f5e" Background="#1f9ea3" BorderThickness="1" CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="FontFamily" Value="Candara"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="13.6"></Setter>
+        </Style>
+        <Style x:Key="LabelDataStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        <Style x:Key="ColorLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#519699"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="TextDataStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
     </Window.Resources>
     <Grid>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="43"></RowDefinition>
-            <RowDefinition Height="67"></RowDefinition>
-            <RowDefinition Height="320"></RowDefinition>
+            <RowDefinition Height="58"></RowDefinition>
+            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition Height="350"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Height="23" Grid.ColumnSpan="5" Text="Podaci o rezervaciji gosta:" Foreground="Black" FontWeight="Normal"  TextAlignment="Center" Margin="0,9"  FontSize="18" ></TextBlock>
-        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" Margin="10, 0, 10, 0" BorderBrush="LightGray">
+        <TextBlock Grid.Row="0" Height="23" Grid.ColumnSpan="5" Text="Ocenite gosta:" Foreground="Black" FontWeight="Normal" TextAlignment="Center" Margin="0,9" FontFamily="Candara" FontSize="19" ></TextBlock>
+        <Border Grid.Row="1" Grid.Column="0" Background="#f7feff" BorderThickness="1.5" CornerRadius="1.5" Margin="10, 0, 10, 0" BorderBrush="#718082">
             <Grid Margin="-13, 0, 0, 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"></RowDefinition>
@@ -42,14 +62,14 @@
                     <ColumnDefinition Width="150"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0"  Foreground="CornflowerBlue" FontWeight="Bold" Content="Ime gosta:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-                <Label Grid.Row="0" Grid.Column="1"  Foreground="CornflowerBlue" FontWeight="Bold" Content="Naziv smestaja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-                <Label Grid.Row="0" Grid.Column="2"  Foreground="CornflowerBlue" FontWeight="Bold" Content="Datum prijavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
-                <Label Grid.Row="0" Grid.Column="3"  Foreground="CornflowerBlue" FontWeight="Bold" Content="Datum odjavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Style="{StaticResource ResourceKey=ColorLabelStyle}" Grid.Row="0" Grid.Column="0" Content="Ime gosta:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Style="{StaticResource ResourceKey=ColorLabelStyle}" Grid.Row="0" Grid.Column="1" Content="Naziv smestaja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Style="{StaticResource ResourceKey=ColorLabelStyle}" Grid.Row="0" Grid.Column="2" Content="Datum prijavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                <Label Style="{StaticResource ResourceKey=ColorLabelStyle}" Grid.Row="0" Grid.Column="3" Content="Datum odjavljivanja:" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
                 <TextBlock Text="{Binding GuestName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"></TextBlock>
                 <TextBlock Text="{Binding AccommodationName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
-                <TextBlock Text="{Binding CheckInDate, StringFormat='{}{0:d}'}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"></TextBlock>
-                <TextBlock Text="{Binding CheckOutDate, StringFormat='{}{0:d}'}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"></TextBlock>
+                <TextBlock Text="{Binding CheckInDate, StringFormat='{}{0:dd-MMM-yyyy}'}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"></TextBlock>
+                <TextBlock Text="{Binding CheckOutDate, StringFormat='{}{0:dd-MMM-yyyy}'}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"></TextBlock>
             </Grid>
         </Border>
         
@@ -66,15 +86,15 @@
                 <ColumnDefinition Width="250"></ColumnDefinition>
                 <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label HorizontalAlignment="Center" Content="Cistoca" Grid.Row="0" Grid.Column="0" Height="25" >
+            <Label Style="{StaticResource ResourceKey=LabelDataStyle}" HorizontalAlignment="Center" Content="Cistoca" Grid.Row="0" Grid.Column="0" Height="25" >
             </Label>
-            <Label HorizontalAlignment="Center" Content="Postovanje pravila" Grid.Row="1" Grid.Column="0" Height="25"></Label>
-            <Label HorizontalAlignment="Center" Content="Komunikacija" Grid.Row="2" Grid.Column="0" Height="25"></Label>
-            <Label HorizontalAlignment="Center" Content="Nivo bucnosti" Grid.Row="3" Grid.Column="0" Height="25"></Label>
-            <Label HorizontalAlignment="Center" Content="Postovanje imovine" Grid.Row="4" Grid.Column="0" Height="25"></Label>
-            <Label HorizontalAlignment="Center" Content="Dodatni komentar" Grid.Row="5" Grid.Column="0" Height="25"></Label>
-            <GroupBox Grid.Row="0" Grid.Column="1" Height="30">
-                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+            <Label Style="{StaticResource ResourceKey=LabelDataStyle}" HorizontalAlignment="Center" Content="Postovanje pravila" Grid.Row="1" Grid.Column="0" Height="25"></Label>
+            <Label Style="{StaticResource ResourceKey=LabelDataStyle}" HorizontalAlignment="Center" Content="Komunikacija" Grid.Row="2" Grid.Column="0" Height="25"></Label>
+            <Label Style="{StaticResource ResourceKey=LabelDataStyle}" HorizontalAlignment="Center" Content="Nivo bucnosti" Grid.Row="3" Grid.Column="0" Height="25"></Label>
+            <Label Style="{StaticResource ResourceKey=LabelDataStyle}" HorizontalAlignment="Center" Content="Postovanje imovine" Grid.Row="4" Grid.Column="0" Height="25"></Label>
+            <Label Style="{StaticResource ResourceKey=LabelDataStyle}" HorizontalAlignment="Center" Content="Dodatni komentar" Grid.Row="5" Grid.Column="0" Height="25"></Label>
+            <GroupBox Grid.Row="0" Grid.Column="1" Height="30" FontFamily="Candara" FontSize="14" BorderThickness="0" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0">
                         <RadioButton Width="37" Content="1" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                         <RadioButton Width="37" Content="2" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                         <RadioButton Width="37" Content="3" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
@@ -82,7 +102,7 @@
                         <RadioButton Width="37" Content="5" GroupName="CleannessCriteria" IsChecked="{Binding Cleanness, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                     </StackPanel>
             </GroupBox>
-            <GroupBox Grid.Row="1" Grid.Column="1" Height="30">
+            <GroupBox Grid.Row="1" Grid.Column="1" Height="30" FontFamily="Candara" FontSize="14" BorderThickness="0" BorderBrush="Transparent">
                 <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
                     <RadioButton Width="37" Content="1" GroupName="RulesCriteria" IsChecked="{Binding RulesFollowing, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                     <RadioButton Width="37" Content="2" GroupName="RulesCriteria" IsChecked="{Binding RulesFollowing, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
@@ -91,8 +111,8 @@
                     <RadioButton Width="37" Content="5" GroupName="RulesCriteria" IsChecked="{Binding RulesFollowing, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Grid.Row="2" Grid.Column="1" Height="30">
-                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+            <GroupBox Grid.Row="2" Grid.Column="1" Height="30" FontFamily="Candara" FontSize="14" BorderThickness="0" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0">
                     <RadioButton Width="37" Content="1" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                     <RadioButton Width="37" Content="2" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                     <RadioButton Width="37" Content="3" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
@@ -100,8 +120,8 @@
                     <RadioButton Width="37" Content="5" GroupName="CommunicationCriteria" IsChecked="{Binding Communication, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Grid.Row="3" Grid.Column="1" Height="30">
-                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
+            <GroupBox Grid.Row="3" Grid.Column="1" Height="30" FontFamily="Candara" FontSize="14" BorderThickness="0" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0">
                     <RadioButton Width="37" Content="1" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                     <RadioButton Width="37" Content="2" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                     <RadioButton Width="37" Content="3" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
@@ -109,7 +129,7 @@
                     <RadioButton Width="37" Content="5" GroupName="NoiseCriteria" IsChecked="{Binding NoiseLevel, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Grid.Row="4" Grid.Column="1" Height="30">
+            <GroupBox Grid.Row="4" Grid.Column="1" Height="30" FontFamily="Candara" FontSize="14" BorderThickness="0" BorderBrush="Transparent">
                 <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
                     <RadioButton Width="37" Content="1" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                     <RadioButton Width="37" Content="2" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
@@ -118,7 +138,7 @@
                     <RadioButton Width="37" Content="5" GroupName="PropertyCriteria" IsChecked="{Binding PropertyRespect, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
                 </StackPanel>
             </GroupBox>
-            <TextBox Grid.Row="5" BorderThickness="1.5" BorderBrush="Black" Grid.Column="1" Grid.ColumnSpan="2"
+            <TextBox Grid.Row="5" BorderThickness="1.5" BorderBrush="#718082" Grid.Column="1" Grid.ColumnSpan="2"
                      Height="60">
                 <TextBox.Text >
                     <Binding Path="Comment" UpdateSourceTrigger="PropertyChanged" >
@@ -145,13 +165,13 @@
             </TextBox>
         </Grid>
         <WrapPanel Grid.Row="3" FlowDirection="LeftToRight" Margin="0,-5,0,0">
-            <Separator Background="White" Width="147"></Separator>
-            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content="Sacuvaj" Width="70" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5"
-                    Command="{Binding AddGuestRatingCommand}"/>
-            <Separator Background="White" Width="100"></Separator>
-            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content="Zatvori" Width="70" Height="26" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
-                     Command="{Binding CancelCommand}"/>
-            <Separator Background="White" Width="180"></Separator>
+            <Separator Background="#e6ebeb" Width="140"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content="Zatvori" Width="83" Height="29" HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Top" Margin="20, 5, 20, 5"
+                    Command="{Binding CancelCommand}"/>
+            <Separator Background="#e6ebeb" Width="102"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content="Sacuvaj" Width="83" Height="29" IsDefault="True" HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
+                     Command="{Binding AddGuestRatingCommand}"/>
+            <Separator Background="#e6ebeb" Width="180"></Separator>
         </WrapPanel>
     </Grid>
 </Window>

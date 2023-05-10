@@ -64,7 +64,6 @@ namespace TravelService.Application.UseCases
 
             return ownersAccommodations;
         }
-
         public List<Accommodation> GetOwnerData(List<Accommodation> accommodations)
         {
             List<Owner> owners = _ownerService.GetAll();
@@ -188,6 +187,20 @@ namespace TravelService.Application.UseCases
                 isGreater = true;
             }
             return isGreater;
+        }
+
+        public int GetNumberOfAccommodations(int ownerId)
+        {
+            List<Accommodation> accommodations = GetAll();
+            int numberOfAccommodations = 0;
+
+            foreach(Accommodation a in accommodations)
+            {
+                if(a.OwnerId == ownerId)
+                    numberOfAccommodations++;
+            }
+
+            return numberOfAccommodations;
         }
     }
 }

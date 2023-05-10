@@ -5,25 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="ApproveReservationRequestView" WindowStartupLocation="CenterScreen" Background="AliceBlue" Height="370" Width="500">
+        Title="Odobravanje zahteva" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Background="#c6cccc" BorderBrush="White" BorderThickness="3.2" Height="440" Width="500">
     <Window.Resources>
         <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="LightSteelBlue" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+                        <Border BorderBrush="#476a6b" Background="#15858a" BorderThickness="1.5" CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+        <Style x:Key="LabelDataStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="TextDataStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"></RowDefinition>
-            <RowDefinition Height="110"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="125"></RowDefinition>
+            <RowDefinition Height="95"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -31,44 +44,44 @@
             <ColumnDefinition Width="280"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.ColumnSpan="2" Grid.Row="0" TextAlignment="Center" Height="50" Margin="0, 13, 0, 0" FontSize="16" Foreground="Black" FontWeight="SemiBold">
+        <TextBlock Grid.ColumnSpan="2" Grid.Row="0" TextAlignment="Center" Height="50" Margin="0, 13, 0, 0" FontSize="18" Foreground="Black" FontFamily="Candara" FontWeight="SemiBold">
             Da li ste sigurni da zelite da odobrite
             <LineBreak/>
             promenu datuma rezervacije:
         </TextBlock>
-        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" Background="Beige" Margin="40, 10, 40, 0">
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" CornerRadius="1.5" Background="#e6f0f2" Margin="40, 10, 40, 0">
             <StackPanel Grid.ColumnSpan="2" Height="100" Orientation="Vertical" Grid.Row="1">
                 <StackPanel Orientation="Horizontal" Height="25" Margin="20,5,10,3">
-                    <Label FontWeight="SemiBold">Smestaj:</Label>
-                    <TextBlock Text="{Binding AccommodationName}" Margin="0, 5, 0, 0" Width="200"></TextBlock>
+                    <Label Style="{StaticResource ResourceKey=LabelDataStyle}">Smestaj:</Label>
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Text="{Binding AccommodationName}" Margin="0, 5, 0, 0" Width="200"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="25" Margin="20,5,10,3">
-                    <Label FontWeight="SemiBold">Gost:</Label>
-                    <TextBlock Text="{Binding GuestName}" Margin="0, 5, 0, 0" Width="200"></TextBlock>
+                    <Label Style="{StaticResource ResourceKey=LabelDataStyle}">Gost:</Label>
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Text="{Binding GuestName}" Margin="0, 5, 0, 0" Width="200"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="26" Margin="20,5,10,3">
-                    <Label FontWeight="SemiBold">Termin stare rezervacije:</Label>
-                    <TextBlock  Text="{Binding PreviousCheckIn, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="90" TextAlignment="Right"></TextBlock>
-                    <TextBlock Margin="5, 5, 5, 0"> -</TextBlock>
-                    <TextBlock Text="{Binding PreviousCheckOut, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="90" TextAlignment="Left"></TextBlock>
+                    <Label Style="{StaticResource ResourceKey=LabelDataStyle}">Termin stare rezervacije:</Label>
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}"  Text="{Binding PreviousCheckIn, StringFormat='{}{0:d-MMM-yyyy}'}" Margin="0, 5, 0, 0" Width="90" TextAlignment="Right"></TextBlock>
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Margin="5, 5, 5, 0"> -</TextBlock>
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Text="{Binding PreviousCheckOut, StringFormat='{}{0:d-MMM-yyyy}'}" Margin="0, 5, 0, 0" Width="90" TextAlignment="Left"></TextBlock>
                 </StackPanel>
             </StackPanel>
         </Border>
 
-        <Label Grid.Row="2" Grid.Column="0" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center" Margin="35, 0, 0, 0">Za novi termin:</Label>
-        <Border BorderThickness="1" Background="Beige" Grid.Row="2" Grid.Column="1" Height="32" Margin="5, 22, 40, 19" BorderBrush="Black">
+        <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ResourceKey=LabelDataStyle}" VerticalAlignment="Center" Margin="35, 0, 0, 0">Za novi termin:</Label>
+        <Border BorderThickness="1" CornerRadius="1.5" Background="#e6f0f2" Grid.Row="2" Grid.Column="1" Height="32" Margin="5, 22, 40, 19" BorderBrush="Black">
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Height="23" Margin="10,0,10,3">
-                <TextBlock Text="{Binding NewCheckIn, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="80" VerticalAlignment="Top" TextAlignment="Right"></TextBlock>
-                <TextBlock Margin="5, 5, 5, 0"> -</TextBlock>
-                <TextBlock Text="{Binding NewCheckOut, StringFormat='{}{0:d}'}" Margin="0, 5, 0, 0" Width="80" VerticalAlignment="Top" TextAlignment="Left"></TextBlock>
+                <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Text="{Binding NewCheckIn, StringFormat='{}{0:d-MMM-yyyy}'}" Margin="0, 5, 0, 0" Width="80" VerticalAlignment="Top" TextAlignment="Right"></TextBlock>
+                <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Margin="5, 5, 5, 0"> -</TextBlock>
+                <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Text="{Binding NewCheckOut, StringFormat='{}{0:d-MMM-yyyy}'}" Margin="0, 5, 0, 0" Width="80" VerticalAlignment="Top" TextAlignment="Left"></TextBlock>
             </StackPanel>
         </Border>
 
-        <Button Style="{StaticResource ResourceKey=RoundedButton}" Grid.Row="3" Grid.Column="0" Width="80" Height="28" FontSize="15" Content="Potvrdi" Margin="70,0,0,0"
-                Command="{Binding ConfirmCommand}">
-        </Button>
-        <Button Style="{StaticResource ResourceKey=RoundedButton}" Grid.Row="3" Grid.Column="1" Width="80" Height="28" FontSize="15" Content="Odustani" Margin="0,0,0,0"
+        <Button Style="{StaticResource ResourceKey=RoundedButton}" Grid.Row="3" Grid.Column="0" Foreground="White" Width="90" Height="32" FontSize="16" Content="Odustani" Margin="76,-10,0,0" 
                 Command="{Binding CancelCommand}">
+        </Button>
+        <Button Style="{StaticResource ResourceKey=RoundedButton}" Grid.Row="3" Grid.Column="1" Foreground="White" Width="90" Height="32" FontSize="16" Content="Potvrdi" Margin="-8,-10,0,0"
+                Command="{Binding ConfirmCommand}">
         </Button>
     </Grid>
 </Window>

@@ -6,7 +6,7 @@
         xmlns:val="clr-namespace:TravelService.Validation"
          xmlns:local="clr-namespace:TravelService.WPF.View" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddAccommodationViewModel}"
         mc:Ignorable="d"
-        Title="AddAccommodation" WindowStartupLocation="CenterScreen" Height="630" Width="550" BorderBrush="Black" BorderThickness="0.5" Background="#dff2f2">
+        Title="Dodavanje smestaja" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="630" Width="550" BorderBrush="Black" BorderThickness="0.5" Background="#dff2f2">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -21,12 +21,28 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="#088599"  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="#088599" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style x:Key="RoundedLightButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#166470" Background="#d9d9d9" BorderThickness="2" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LabelText" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontFamily" Value="Candara"></Setter>
+            <Setter Property="FontWeight" Value="Normal"></Setter>
         </Style>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
     </Window.Resources>
@@ -49,21 +65,21 @@
                 <RowDefinition Height="105"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240"></ColumnDefinition>
+                <ColumnDefinition Width="250"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="Naziv" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="0" Grid.Column="0" Height="28" FontSize="15" HorizontalContentAlignment="Center"></Label>
-            <Label Content="Lokacija" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="1" Grid.Column="0" Height="28" FontSize="15" HorizontalContentAlignment="Center"></Label>
-            <Label Content="Tip" Grid.Row="2" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Column="0" Height="28" FontSize="15" HorizontalContentAlignment="Center"></Label>
-            <Label Content="Maksimalan broj gostiju" Grid.Row="4" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Column="0" Height="28" FontSize="15" HorizontalContentAlignment="Center"></Label>
-            <Label FontFamily="Times New Roman" Height="50" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="5" Grid.Column="0"  FontSize="15" HorizontalContentAlignment="Center">
+            <Label Style="{StaticResource ResourceKey=LabelText}" Content="Naziv" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="0" Grid.Column="0" Height="28" HorizontalContentAlignment="Center"></Label>
+            <Label Style="{StaticResource ResourceKey=LabelText}" Content="Lokacija" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="1" Grid.Column="0" Height="28"  HorizontalContentAlignment="Center"></Label>
+            <Label Style="{StaticResource ResourceKey=LabelText}" Content="Tip" Grid.Row="2" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Column="0" Height="28" HorizontalContentAlignment="Center"></Label>
+            <Label Style="{StaticResource ResourceKey=LabelText}" Content="Maksimalan broj gostiju" Grid.Row="4" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Column="0" Height="28" HorizontalContentAlignment="Center"></Label>
+            <Label Style="{StaticResource ResourceKey=LabelText}" Height="50" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center">
                 <TextBlock>
                     Minimalan broj dana
                     <LineBreak/>
                     za rezervaciju
                 </TextBlock>
             </Label>
-            <Label Grid.Row="6" Grid.Column="0" Height="50" FontFamily="Times New Roman" HorizontalAlignment="Left" Margin="25 5 0 0" FontSize="15" HorizontalContentAlignment="Center">
+            <Label Style="{StaticResource ResourceKey=LabelText}" Grid.Row="6" Grid.Column="0" Height="50" HorizontalAlignment="Left" Margin="25 5 0 0" HorizontalContentAlignment="Center">
                 <TextBlock>
                     Broj dana pred rezervaciju do kog
                     <LineBreak/>
@@ -171,7 +187,7 @@
                     </RadioButton>
                 </StackPanel>
             </GroupBox>
-            <TextBlock FontFamily="Times New Roman" Text="        Apartman        Kuca         Koliba"  Grid.Row="3" Grid.Column="1"></TextBlock>
+            <TextBlock FontFamily="Candara" Text="        Apartman          Kuca          Koliba"  Grid.Row="3" Grid.Column="1"></TextBlock>
             <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="4" Grid.Column="1" Width="150"
                      Height="25">
                 <TextBox.Text>
@@ -251,17 +267,17 @@
                 </Validation.ErrorTemplate>
             </TextBox>
             <ListBox BorderThickness="1.5" BorderBrush="Black" x:Name="MyListBox"  ItemsSource="{Binding ListBoxPictures}" Grid.Column="1" Grid.Row="7" Width="150" Height="78"/>
-            <Button Background="LightGray" Foreground="#1e2d30" BorderThickness="1" FontFamily="Times New Roman" Grid.Column="0" Grid.Row="7" Margin="0 5 0 0" Width="80" Height="47" x:Name="findPictures" Content="Dodaj slike" HorizontalAlignment="Center" FontSize="14" BorderBrush="#104d4f" 
+            <Button Style ="{StaticResource ResourceKey=RoundedLightButton}" Foreground="#1e2d30" FontFamily="Candara" Grid.Column="0" Grid.Row="7" Margin="-16 6 0 0" Width="80" Height="47" x:Name="findPictures" Content="Dodaj slike" HorizontalAlignment="Center" FontSize="14" BorderBrush="#104d4f" 
                     Command="{Binding FindPicturesCommand}">
             </Button>
 
         </Grid>
         <WrapPanel Grid.Row="1" FlowDirection="LeftToRight">
             <Separator Background="#dff2f2" Width="90"></Separator>
-            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Times New Roman" FontSize="14" Content="Odustani" IsDefault="True" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5" 
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="14" Content="Odustani" IsDefault="True" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5" 
                     Command="{Binding CancelCommand}"></Button>
             <Separator Background="#dff2f2" Width="80"></Separator>
-            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Times New Roman" FontSize="14" Content="Potvrdi"  HorizontalAlignment="Left" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5"
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="14" Content="Potvrdi"  HorizontalAlignment="Left" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5"
                     Command="{Binding AddAccommodationCommand}"/>
             <Separator Background="#dff2f2" Width="180"></Separator>
         </WrapPanel>

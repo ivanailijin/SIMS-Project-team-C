@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TravelService.Serializer;
 
+public enum GENDER { Muski, Zenski };
+
 namespace TravelService.Domain.Model
 {
     public class Owner : User, ISerializable
@@ -13,7 +15,7 @@ namespace TravelService.Domain.Model
         public List<Accommodation> Accommodations { get; set; }
         public DateOnly DateOfBirth { get; set; }
         public string JMBG { get; set; }
-        public string Gender { get; set; }
+        public GENDER Gender { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
@@ -34,6 +36,22 @@ namespace TravelService.Domain.Model
             Accommodations = new List<Accommodation>();
         }
 
+        public string GenderToCSV()
+        {
+            if (Gender == GENDER.Muski)
+                return "Muski";
+            else
+                return "Zenski";
+        }
+
+        public GENDER GenderFromCSV(string gender)
+        {
+            if (string.Equals(gender, "Muski"))
+                return GENDER.Muski;
+            else
+                return GENDER.Zenski;
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues = 
@@ -44,7 +62,7 @@ namespace TravelService.Domain.Model
                 SuperOwner.ToString(),
                 DateOfBirth.ToString(),
                 JMBG,
-                Gender,
+                GenderToCSV(),
                 Address,
                 PhoneNumber,
                 Email,
@@ -62,7 +80,7 @@ namespace TravelService.Domain.Model
             SuperOwner = bool.Parse(values[4]);
             DateOfBirth = DateOnly.Parse(values[5]);
             JMBG = values[6];
-            Gender = values[7];
+            Gender = GenderFromCSV(values[7]);
             Address = values[8];
             PhoneNumber = values[9];
             Email = values[10];
