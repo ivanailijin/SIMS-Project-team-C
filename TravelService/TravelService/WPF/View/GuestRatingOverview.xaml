@@ -5,52 +5,133 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="GuestRatingOverview" Height="600" Width="900"
-             WindowStartupLocation="CenterScreen" Background="AliceBlue">
+        Title="Ocenjivanje gostiju" Height="768" Width="1024" 
+        WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Background="#dff2f2">
     <Window.Resources>
         <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="LightSteelBlue" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+                        <Border BorderBrush="#476a6b" Background="#1f9ea3" BorderThickness="1.5" CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+        <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#b0c2c2"/>
+            <Setter Property="FontSize" Value="15.5"/>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0.5"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Padding" Value="10"></Setter>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="43"></RowDefinition>
-            <RowDefinition Height="395"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="73"></RowDefinition>
+            <RowDefinition Height="475"></RowDefinition>
+            <RowDefinition Height="110"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="1" Height="40"  Text="Neocenjeni gosti" Foreground="Black" FontWeight="DemiBold"  TextAlignment="Center" Margin="0,10, 0, 0"  FontSize="25" ></TextBlock>
-        <DataGrid Background="LightGray" VerticalAlignment="Center" ItemsSource="{Binding Path=UnratedReservations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
-                   AutoGenerateColumns="False" IsReadOnly="True"
-                   Width="660" Height="330" Grid.Row="2" Margin="0,20,0,0">
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <TextBlock Height="40"  Text="Neocenjeni gosti" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" FontFamily="Candara" TextAlignment="Center" Margin="0,10, 0, 0"  FontSize="30" ></TextBlock>
+            <Image  Width="120" Height="65" Margin="0 -20 0 0" Source="/TravelService;component/Resources/Images/rating.png"></Image>
+        </StackPanel>
+        <Border Grid.Row="2" BorderThickness="1.5" BorderBrush="Black" CornerRadius="3" Width="780" Height="450" >
+            <DataGrid Background="#e8ebea" BorderThickness="1.5" BorderBrush="Black" VerticalAlignment="Center" ItemsSource="{Binding Path=UnratedReservations, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedReservation, UpdateSourceTrigger=PropertyChanged}" HeadersVisibility="Column"
+                  AutoGenerateColumns="False" IsReadOnly="True" FontSize="14" FontFamily="Calibri"
+                  RowBackground="#fcfced" AlternatingRowBackground="#f7f6da" Foreground="Black"
+                  Width="780" Height="450"  Margin="0"
+                  ColumnHeaderStyle= "{StaticResource ResourceKey=ColumnHeaderStyle}"
+                  RowHeight="30" VerticalContentAlignment="Center">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ime i prezime" Width="170" Binding="{Binding Guest1.Username}">
+                <DataGridTextColumn Header="Ime i prezime" Width="200" Binding="{Binding Guest1.Username}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="2"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="2"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Smestaj"  Width="150" Binding="{Binding Accommodation.Name}">
+                <DataGridTextColumn Header="Smestaj"  Width="201" Binding="{Binding Accommodation.Name}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="2"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="2"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Datum prijavljivanja"  Width="166"  Binding="{Binding CheckInDate, StringFormat='{}{0:dd-MMM-yyyy}'}">
+                <DataGridTextColumn Header="Datum prijavljivanja"  Width="185"  Binding="{Binding CheckInDate, StringFormat='{}{0:dd-MMM-yyyy}'}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="2"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="2"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Datum odjavljivanja"  Width="166"  Binding="{Binding CheckOutDate, StringFormat='{}{0:dd-MMM-yyyy}'}">
+                <DataGridTextColumn Header="Datum odjavljivanja"  Width="*"  Binding="{Binding CheckOutDate, StringFormat='{}{0:dd-MMM-yyyy}'}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="2"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="2"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <WrapPanel Grid.Row="3" FlowDirection="LeftToRight" Margin="10,10,5,5">
-            <Separator Width="370" Background="White"></Separator>
-            <Button Style="{StaticResource ResourceKey=RoundedButton}" Content ="Oceni gosta" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Height="38" Margin="20, 0, 20, 5"
+        </Border>
+        <WrapPanel Grid.Row="3" FlowDirection="LeftToRight" Margin="10,23,5,5">
+            <Separator Width="428" Background="#dff2f2"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" BorderThickness="1"  Foreground="White" FontWeight="SemiBold" FontSize="16" Content ="Oceni gosta" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="115" Height="46" Margin="20, 7, 20, 5"
                     Command="{Binding RatingCommand}"/>
-            <Separator Width="20" Background="White"></Separator>
-            <Separator Width="80" Background="White"></Separator>
+            <Separator Width="100" Background="#dff2f2"></Separator>
         </WrapPanel>
-        <Button Grid.Row="0" IsDefault="True"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="23, 11, 20, 5" 
+        <Button Grid.Row="0" IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="23, 5, 20, 5" 
                     Command="{Binding CancelCommand}">
             <Button.Background>
                 <ImageBrush ImageSource="/TravelService;component/Resources/Images/home-icon.png" />

@@ -17,7 +17,7 @@ namespace TravelService.Validation
         {
             if (string.IsNullOrEmpty(value?.ToString()))
             {
-                return new ValidationResult(false, "Field cannot be empty");
+                return new ValidationResult(false, "Polje je obavezno!!");
             }
 
             return ValidationResult.ValidResult;
@@ -32,11 +32,39 @@ namespace TravelService.Validation
             {
                 var s = value as string;
                 double r;
+                if (string.IsNullOrEmpty(s))
+                {
+                    return new ValidationResult(false, "Polje je obavezno!");
+                }
                 if (double.TryParse(s, out r))
                 {
                     return new ValidationResult(true, null);
                 }
-                return new ValidationResult(false, "Only numbers are allowed.");
+                return new ValidationResult(false, "Dozvoljen unos samo brojeva!");
+            }
+            catch
+            {
+                return new ValidationResult(false, "Unknown error occured.");
+            }
+        }
+    }
+
+    public class LetterValidation : ValidationRule
+    {
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            try
+            {
+                var s = value as string;
+                if (string.IsNullOrEmpty(s))
+                {
+                    return new ValidationResult(false, "Polje je obavezno!");
+                }
+                if (Regex.IsMatch(s, "^[a-zA-Z ]*$"))
+                {
+                    return new ValidationResult(true, null);
+                }
+                return new ValidationResult(false, "Dozvoljen unos samo slova!");
             }
             catch
             {
@@ -57,7 +85,7 @@ namespace TravelService.Validation
                 {
                     return new ValidationResult(true, null);
                 }
-                return new ValidationResult(false, " wrong input format !!!");
+                return new ValidationResult(false, "Pogresan format unosa!");
             }
             catch
             {
@@ -77,7 +105,7 @@ namespace TravelService.Validation
                 {
                     return new ValidationResult(true, null);
                 }
-                return new ValidationResult(false, "Field is required by: 'city, country' ");
+                return new ValidationResult(false, "Zahtevana forma: 'grad, drzava' ");
             }
             catch
             {
@@ -111,5 +139,40 @@ namespace TravelService.Validation
         }
     }
 
+    public class DateValidation : ValidationRule
+    {
+        private const string DateFormat = "dd.MM.yyyy.";
 
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            var dateString = value as string;
+
+            if (string.IsNullOrEmpty(dateString))
+            {
+                return new ValidationResult(false, "Polje ne sme biti prazno!");
+            }
+
+            DateOnly parsedDate;
+            if (DateOnly.TryParseExact(dateString, DateFormat, cultureInfo, DateTimeStyles.None, out parsedDate))
+            {
+                return new ValidationResult(true, null);
+            }
+            return new ValidationResult(false, $"Datum mora biti u formatu {DateFormat}");
+        }
+    }
+
+    public class EmailValidation : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value == null || !(value is string text) || string.IsNullOrEmpty(text.Trim()))
+                return new ValidationResult(false, "Polje je obavezno");
+
+            Regex regex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+            if (!regex.IsMatch(text))
+                return new ValidationResult(false, "Neispravan format email-a");
+
+            return ValidationResult.ValidResult;
+        }
+    }
 }

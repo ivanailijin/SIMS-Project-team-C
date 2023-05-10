@@ -109,7 +109,7 @@ namespace TravelService.WPF.View
                                 TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
                                 if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservedAccommodation.OwnerId == owner.Id)
                                 {
-                                    MessageBoxResult result = MessageBox.Show("You have an unrated guest?\nDo you want to rate it now?", "Notification", MessageBoxButton.YesNo);
+                                    MessageBoxResult result = MessageBox.Show("Imate neocenjene goste.\nZelite li da ih ocenite odmah?", "Obavestenje", MessageBoxButton.YesNo, MessageBoxImage.Information);
                                     if (result == MessageBoxResult.Yes)
                                     {
                                         GuestRatingOverview guestRatingOverview = new GuestRatingOverview(owner);

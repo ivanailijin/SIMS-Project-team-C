@@ -4,12 +4,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -195,7 +198,6 @@ namespace TravelService.WPF.ViewModel
                 return string.Empty;
             }
         }
-
         public string this[string columnName] => throw new NotImplementedException();
 
         private void InitializeCommands()
@@ -240,39 +242,51 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_AddAccommodationCommand(object obj)
         {
-            string[] words = _location.Split(',');
-
-            string country = words[1];
-            string city = words[0];
-
-            if (Type.Equals("Apartment"))
+            if (string.IsNullOrWhiteSpace(AccommodationName) ||
+                string.IsNullOrWhiteSpace(Location) ||
+                string.IsNullOrWhiteSpace(Type) ||
+                string.IsNullOrWhiteSpace(MaxGuestNumber.ToString()) ||
+                string.IsNullOrWhiteSpace(MinReservationDays.ToString()) ||
+                string.IsNullOrWhiteSpace(DaysBeforeCancellingReservation.ToString()))
             {
-                AccommodationType = TYPE.APARTMENT;
+                MessageBox.Show("Niste popunili sva polja!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (Type.Equals("House"))
+            else
             {
-                AccommodationType = TYPE.HOUSE;
+                string[] words = _location.Split(',');
+
+                string country = words[1];
+                string city = words[0];
+
+                if (Type.Equals("Apartment"))
+                {
+                    AccommodationType = TYPE.APARTMENT;
+                }
+                else if (Type.Equals("House"))
+                {
+                    AccommodationType = TYPE.HOUSE;
+                }
+                else if (Type.Equals("Cottage"))
+                {
+                    AccommodationType = TYPE.COTTAGE;
+                }
+
+                Location location = new Location(country, city);
+
+                Location savedLocation = _locationService.Save(location);
+                List<string> formattedPictures = new List<string>();
+
+                string[] delimitedPictures = Pictures.Split(new char[] { '|' });
+
+                foreach (string picture in delimitedPictures)
+                {
+                    formattedPictures.Add(picture);
+                }
+
+                Accommodation accommodation = new Accommodation(Owner.Id, AccommodationName, savedLocation, savedLocation.Id, AccommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, formattedPictures);
+                _accommodationService.Save(accommodation);
+                CloseAction();
             }
-            else if (Type.Equals("Cottage"))
-            {
-                AccommodationType = TYPE.COTTAGE;
-            }
-
-            Location location = new Location(country, city);
-
-            Location savedLocation = _locationService.Save(location);
-            List<string> formattedPictures = new List<string>();
-
-            string[] delimitedPictures = Pictures.Split(new char[] { '|' });
-
-            foreach (string picture in delimitedPictures)
-            {
-                formattedPictures.Add(picture);
-            }
-
-            Accommodation accommodation = new Accommodation(Owner.Id, AccommodationName, savedLocation, savedLocation.Id, AccommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, formattedPictures);
-            _accommodationService.Save(accommodation);
-            CloseAction();
         }
         private void Execute_CancelCommand(object obj)
         {

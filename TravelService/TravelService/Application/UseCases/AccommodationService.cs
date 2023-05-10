@@ -59,5 +59,18 @@ namespace TravelService.Application.UseCases
 
             return ownersAccommodations;
         }
+        public int GetNumberOfAccommodations(int ownerId)
+        {
+            List<Accommodation> accommodations = GetAll();
+            int numberOfAccommodations = 0;
+
+            foreach(Accommodation a in accommodations)
+            {
+                if(a.OwnerId == ownerId)
+                    numberOfAccommodations++;
+            }
+
+            return numberOfAccommodations;
+        }
     }
 }

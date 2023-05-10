@@ -61,7 +61,7 @@ namespace TravelService.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("You have not selected a guest!");
+                MessageBox.Show("Niste izabrali gosta!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private void Execute_CancelCommand(object obj)

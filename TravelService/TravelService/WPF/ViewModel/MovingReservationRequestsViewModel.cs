@@ -62,7 +62,7 @@ namespace TravelService.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Choose reservation request!");
+                MessageBox.Show("Niste izabrali zahtev!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private void Execute_ApproveRequestCommand(object obj)
@@ -74,7 +74,7 @@ namespace TravelService.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Choose reservation request!");
+                MessageBox.Show("Niste izabrali zahtev!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private bool CanExecute_Command(object arg)

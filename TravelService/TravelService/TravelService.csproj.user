@@ -22,6 +22,9 @@
     <Compile Update="WPF\View\MyTours.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\OwnerProfileView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\OwnerRatingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -82,6 +85,9 @@
     <Compile Update="WPF\View\TourTrackingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\UpdateOwnerProfileView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\VoucherView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -118,6 +124,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\MyTours.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\OwnerProfileView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\OwnerRatingView.xaml">
@@ -202,6 +211,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\AddTour.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\UpdateOwnerProfileView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\VoucherView.xaml">

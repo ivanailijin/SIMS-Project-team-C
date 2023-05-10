@@ -9,23 +9,29 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add-accommodation-icon.png" />
+    <None Remove="Resources\Images\airplane.png" />
     <None Remove="Resources\Images\cancellation-icon.png" />
     <None Remove="Resources\Images\forum-icon.png" />
     <None Remove="Resources\Images\home-icon.png" />
     <None Remove="Resources\Images\moving-requests-icon.png" />
     <None Remove="Resources\Images\notification-icon.png" />
+    <None Remove="Resources\Images\plane.png" />
     <None Remove="Resources\Images\profile-icon.png" />
     <None Remove="Resources\Images\rating-icon.png" />
+    <None Remove="Resources\Images\rating.png" />
     <None Remove="Resources\Images\renovation-icon.png" />
     <None Remove="Resources\Images\reservations-icon.png" />
     <None Remove="Resources\Images\reservations-request-icon.png" />
     <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\statistics.png" />
+    <None Remove="Resources\Images\tail.png" />
+    <None Remove="Resources\Images\travel.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\Images\add-accommodation-icon.png" />
+    <Resource Include="Resources\Images\airplane.png" />
     <Resource Include="Resources\Images\cancellation-icon.png" />
   </ItemGroup>
 
@@ -34,14 +40,18 @@
     <Resource Include="Resources\Images\home-icon.png" />
     <Resource Include="Resources\Images\moving-requests-icon.png" />
     <Resource Include="Resources\Images\notification-icon.png" />
+    <Resource Include="Resources\Images\plane.png" />
     <Resource Include="Resources\Images\profile-icon.png" />
     <Resource Include="Resources\Images\rating-icon.png" />
+    <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\renovation-icon.png" />
     <Resource Include="Resources\Images\reservations-icon.png" />
     <Resource Include="Resources\Images\reservations-request-icon.png" />
     <Resource Include="Resources\Images\star.png" />
     <Resource Include="Resources\Images\statistics-icon.png" />
     <Resource Include="Resources\Images\statistics.png" />
+    <Resource Include="Resources\Images\tail.png" />
+    <Resource Include="Resources\Images\travel.png" />
   </ItemGroup>
 
 </Project>
