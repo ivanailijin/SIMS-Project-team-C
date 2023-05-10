@@ -11,7 +11,6 @@ namespace TravelService.Domain.RepositoryInterface
     public interface IOwnerRatingRepository
     {
         public List<OwnerRating> GetAll();
-
         public OwnerRating Save(OwnerRating ownerRating);
 
         public int NextId();

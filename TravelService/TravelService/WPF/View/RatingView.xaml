@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="665"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="rateOwnerButton" Width="90" Height="30" Click="rateOwnerButton_Click" HorizontalAlignment="Right" Margin="20">Oceni</Button>
+            <Button x:Name="rateOwnerButton" Width="90" Height="30" Command="{Binding OwnerRatingWindowCommand}" HorizontalAlignment="Right" Margin="20">Oceni</Button>
         </Grid>
 
         <Grid Grid.Row="1">

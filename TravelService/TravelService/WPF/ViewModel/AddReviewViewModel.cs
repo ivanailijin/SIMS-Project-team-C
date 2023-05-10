@@ -20,113 +20,113 @@ namespace TravelService.WPF.ViewModel
         public Action CloseAction { get; set; }
         public IEnumerable<int> Grades => Enumerable.Range(1, 5);
 
-        private RelayCommand rateCommand;
+        private RelayCommand _rateCommand;
         public RelayCommand RateCommand
         {
-            get => rateCommand;
+            get => _rateCommand;
             set
             {
-                if (value != rateCommand)
+                if (value != _rateCommand)
                 {
-                    rateCommand = value;
+                    _rateCommand = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private RelayCommand addPictureCommand;
+        private RelayCommand _addPictureCommand;
         public RelayCommand AddPictureCommand
         {
-            get => addPictureCommand;
+            get => _addPictureCommand;
             set
             {
-                if (value != addPictureCommand)
+                if (value != _addPictureCommand)
                 {
-                    addPictureCommand = value;
+                    _addPictureCommand = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private RelayCommand cancelCommand;
+        private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand
         {
-            get => cancelCommand;
+            get => _cancelCommand;
             set
             {
-                if (value != cancelCommand)
+                if (value != _cancelCommand)
                 {
-                    cancelCommand = value;
+                    _cancelCommand = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private int tourEntertainment;
+        private int _tourEntertainment;
         public int TourEntertainment
         {
-            get => tourEntertainment;
+            get => _tourEntertainment;
             set
             {
-                if (value != tourEntertainment)
+                if (value != _tourEntertainment)
                 {
-                    tourEntertainment = value;
+                    _tourEntertainment = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private int guideLanguage;
+        private int _guideLanguage;
         public int GuideLanguage
         {
-            get => guideLanguage;
+            get => _guideLanguage;
             set
             {
-                if (value != guideLanguage)
+                if (value != _guideLanguage)
                 {
-                    guideLanguage = value;
+                    _guideLanguage = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private int guideKonwledge;
+        private int _guideKonwledge;
         public int GuideKnowledge
         {
-            get => guideKonwledge;
+            get => _guideKonwledge;
             set
             {
-                if (value != guideKonwledge)
+                if (value != _guideKonwledge)
                 {
-                    guideKonwledge = value;
+                    _guideKonwledge = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private string comment;
+        private string _comment;
         public string Comment
         {
-            get => comment;
+            get => _comment;
             set
             {
-                if (value != comment)
+                if (value != _comment)
                 {
-                    comment = value;
+                    _comment = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool valid;
+        private bool _valid;
         public bool Valid
         {
-            get => valid;
+            get => _valid;
             set
             {
-                if (value != valid)
+                if (value != _valid)
                 {
-                    valid = value;
+                    _valid = value;
                     OnPropertyChanged();
                 }
             }

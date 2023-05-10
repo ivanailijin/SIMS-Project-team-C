@@ -28,7 +28,7 @@ namespace TravelService.Domain.Model
         public bool IsCancelled { get; set; }
         public AccommodationReservation() { }
 
-        public AccommodationReservation(int accommodationId, int guestId, int ownerId, int locationId, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber, bool isRated, bool isOwnerRated, bool isCancelled)
+        public AccommodationReservation(int accommodationId, int guestId, int ownerId, int locationId, DateTime checkInDate, DateTime checkOutDate, int lengthOfStay, int guestNumber)
         {
             AccommodationId = accommodationId;
             GuestId = guestId;
@@ -38,8 +38,8 @@ namespace TravelService.Domain.Model
             CheckOutDate = checkOutDate;
             LengthOfStay = lengthOfStay;
             GuestNumber = guestNumber;
-            IsRated = isRated;
-            IsOwnerRated = isOwnerRated;
+            IsRated = false;
+            IsOwnerRated = false;
             IsCancelled = false;
         }
 

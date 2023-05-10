@@ -7,6 +7,11 @@ using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
+using System.Security.RightsManagement;
+using System.Text;
+using System.Threading.Tasks;
+using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.Application.UseCases
 {
@@ -69,11 +74,6 @@ namespace TravelService.Application.UseCases
             }
             return (double)sumRatings / ratingCount;
         }
-        public void Delete(OwnerRating ownerRating)
-        {
-            _ownerRatingRepository.Delete(ownerRating);
-        }
-
         public List<Guest1> FindGuestsByAccommodation(Accommodation selectedAccommodation)
         {
             List<Guest1> guests = new List<Guest1>();
@@ -113,6 +113,11 @@ namespace TravelService.Application.UseCases
         public OwnerRating Update(OwnerRating ownerRating)
         {
             return _ownerRatingRepository.Update(ownerRating);
+        }
+
+        public void Delete(OwnerRating ownerRating)
+        {
+            _ownerRatingRepository.Delete(ownerRating);
         }
     }
 }

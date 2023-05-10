@@ -28,8 +28,8 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="Accommodation name:" VerticalAlignment="Center" HorizontalAlignment="Right" ></Label>
             <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold" Content="Owner:" VerticalAlignment="Center" HorizontalAlignment="Right" ></Label>
-            <TextBlock x:Name="AccommodationName" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
-            <TextBlock x:Name="OwnerName" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+            <TextBlock x:Name="AccommodationName" Text="{Binding AccommodationName}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
+            <TextBlock x:Name="OwnerName" Text="{Binding OwnerName}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0" Width="350" Height="350">
@@ -125,17 +125,17 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <ListBox x:Name="MyListBox" Grid.Column="1" Grid.Row="6" />
-            <Button Grid.Column="2" Grid.Row="6" Margin="5 20" Width="70" x:Name="addPictures" Content="Dodaj slike" HorizontalAlignment="Center"  BorderBrush="White" Click="addPictures_Click">
+            <ListBox x:Name="MyListBox" ItemsSource="{Binding PicturesList}" Grid.Column="1" Grid.Row="6" />
+            <Button Grid.Column="2" Grid.Row="6" Margin="5 20" Width="70" x:Name="addPictures" Content="Dodaj slike" HorizontalAlignment="Center"  BorderBrush="White" Command="{Binding AddPicturesCommand}">
             </Button>
         </Grid>
         <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
             <Separator Background="White" Width="65"></Separator>
             <Button x:Name="AddOwnerRating" Content="Rate"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Height="25" Margin="20, 5, 20, 5"
-                    Click="AddOwnerRating_Click"/>
+                    Command="{Binding AddOwnerRatingCommand}"/>
             <Separator Background="White" Width="50"></Separator>
             <Button x:Name="CancelOwnerRating" Content="Cancel" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Height="25" Margin="20, 5, 20, 5" 
-                    Click="CancelOwnerRating_Click"/>
+                    Command="{Binding CancelOwnerRatingCommand}"/>
         </WrapPanel>
     </Grid>
 </Window>

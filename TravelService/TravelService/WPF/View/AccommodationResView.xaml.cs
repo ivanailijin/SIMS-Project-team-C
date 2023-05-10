@@ -21,9 +21,9 @@ using TravelService.Repository;
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for AccommodationReservationView.xaml
+    /// Interaction logic for ReserveAccommodationView.xaml
     /// </summary>
-    public partial class AccommodationReservationView : Window, INotifyPropertyChanged
+    public partial class AccommodationResView : Window, INotifyPropertyChanged
     {
         public AccommodationReservationRepository _reservationRepository;
         public Accommodation SelectedAccommodation { get; set; }
@@ -32,9 +32,9 @@ namespace TravelService.WPF.View
         public ObservableCollection<Tuple<DateTime, DateTime>> AvailableDatesPair { get; set; }
         public Tuple<DateTime, DateTime> SelectedAvailableDatePair { get; set; }
 
-        public AccommodationReservationView(Accommodation selectedAccommodation, Guest1 guest1)
+        public AccommodationResView(Accommodation selectedAccommodation, Guest1 guest1)
         {
-            InitializeComponent();
+           // InitializeComponent();
             DataContext = this;
 
             _reservationRepository = new AccommodationReservationRepository();
@@ -42,8 +42,8 @@ namespace TravelService.WPF.View
             SelectedAccommodation = selectedAccommodation;
             this.LoggedInGuest1 = guest1;
 
-            startDatePicker.DisplayDateStart = DateTime.Today;
-            endDatePicker.DisplayDateStart = DateTime.Today;
+           // startDatePicker.DisplayDateStart = DateTime.Today;
+           // endDatePicker.DisplayDateStart = DateTime.Today;
             AvailableDatesPair = new ObservableCollection<Tuple<DateTime, DateTime>>();
         }
 
@@ -192,7 +192,7 @@ namespace TravelService.WPF.View
             }
 
             AvailableDatesPair.Clear();
-            AvailableDateRange = _reservationRepository.FindAvailableDates(SelectedAccommodation, startDate, endDate, daysOfStaying);
+          //  AvailableDateRange = _reservationRepository.FindAvailableDates(SelectedAccommodation, startDate, endDate, daysOfStaying);
             
             foreach(var dateRange in AvailableDateRange)
             {
@@ -203,7 +203,7 @@ namespace TravelService.WPF.View
             {
                 NotificationBlock.Text = "All dates in the given range are taken. We recommend the following dates: ";
                 AvailableDatesPair.Clear();
-                AvailableDatesOutsideRange = _reservationRepository.FindAvailableDatesOutsideRange(SelectedAccommodation, startDate, endDate, daysOfStaying);
+           //     AvailableDatesOutsideRange = _reservationRepository.FindAvailableDatesOutsideRange(SelectedAccommodation, startDate, endDate, daysOfStaying);
                 
                 foreach (var dateRange in AvailableDatesOutsideRange)
                 {
@@ -227,8 +227,8 @@ namespace TravelService.WPF.View
                 IsRated = false;
                 IsOwnerRated = false;
                 IsCancelled = false;
-                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, LoggedInGuest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated, IsOwnerRated, IsCancelled);
-                _reservationRepository.Save(reservation);
+              //  AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, LoggedInGuest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, CheckInDate, CheckOutDate, LengthOfStay, GuestNumber, IsRated, IsOwnerRated, IsCancelled);
+               // _reservationRepository.Save(reservation);
                 Close();
             }
             else

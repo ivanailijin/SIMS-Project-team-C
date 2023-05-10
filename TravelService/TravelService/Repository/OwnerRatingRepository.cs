@@ -72,7 +72,6 @@ namespace TravelService.Repository
             return null;
         }
 
-
         public OwnerRating Update(OwnerRating ownerRating)
         {
             _ownerRatings = _serializer.FromCSV(FilePath);

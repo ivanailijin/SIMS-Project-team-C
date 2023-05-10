@@ -79,107 +79,6 @@ namespace TravelService.Repository
             return accommodationReservation;
         }
 
-
-        public List<Tuple<DateTime, DateTime>> FindAvailableDates(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying)
-        {
-            List<DateTime> reservedDates = FindReservedDates(selectedAccommodation);
-            List<DateTime> availableDates = new List<DateTime>();
-            List<Tuple<DateTime, DateTime>> availableDatesPair = new List<Tuple<DateTime, DateTime>>();
-
-            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
-            {
-                if (!reservedDates.Contains(date))
-                {
-                    availableDates.Add(date);
-                }
-                else
-                {
-                    availableDates.Clear();
-                }
-
-                if (availableDates.Count == daysOfStaying)
-                {
-                    availableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
-                    availableDates.RemoveAt(0);
-                }
-            }
-            return availableDatesPair;
-        }
-
-        public List<Tuple<DateTime, DateTime>> FindAvailableDatesOutsideRange(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying)
-        {
-            DateTime recommendedStartDate = startDate;
-            DateTime recommendedEndDate = endDate;
-            List<DateTime> reservedDates = FindReservedDates(selectedAccommodation);
-            List<DateTime> availableDates = new List<DateTime>();
-            List<Tuple<DateTime, DateTime>> availableDatesPair = new List<Tuple<DateTime, DateTime>>();
-
-            while (!(availableDatesPair.Count >= 5))
-                 {
-                     recommendedStartDate = recommendedStartDate.Equals(DateTime.Today) ? recommendedStartDate : recommendedStartDate.AddDays(-1);
-                     recommendedEndDate = recommendedEndDate.AddDays(1);
-
-                     availableDates.Clear();
-                     for (DateTime date = recommendedStartDate; date <= recommendedEndDate; date = date.AddDays(1))
-                     {
-                         if (!reservedDates.Contains(date))
-                         {
-                             availableDates.Add(date);
-                         }
-                         else
-                         {
-                             availableDates.Clear();
-                         }
-
-                         if (availableDates.Count == daysOfStaying)
-                         {
-                             if (!availableDatesPair.Contains(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date)))
-                                 availableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
-                             availableDates.RemoveAt(0);
-                         }
-                     }
-                 }
-            return availableDatesPair;
-        }
-
-
-        public List<DateTime> FindReservedDates(Accommodation selectedAccommodation)
-        {
-            List<DateTime> reservedDates = new List<DateTime>();
-
-            foreach (AccommodationReservation reservation in _accommodationReservations)
-            {
-                if (selectedAccommodation.Id == reservation.AccommodationId && reservation.IsCancelled == false)
-                {
-                    DateTime checkIn = reservation.CheckInDate;
-                    DateTime checkOut = reservation.CheckOutDate;
-
-                    for (DateTime currentDate = checkIn; currentDate <= checkOut; currentDate = currentDate.AddDays(1))
-                    {
-                        reservedDates.Add(currentDate);
-                    }
-                }
-            }
-            return reservedDates;
-        }
-
-
-        public List<AccommodationReservation> FindUnratedOwners(int guestId)
-        {
-            List<AccommodationReservation> UnratedOwners = new List<AccommodationReservation>();
-
-            foreach (AccommodationReservation reservation in _accommodationReservations)
-            {
-                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
-                if (!reservation.IsOwnerRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservation.GuestId == guestId)
-                {
-                    UnratedOwners.Add(reservation);
-                }
-            }
-
-            return UnratedOwners;
-        }
-
         public List<AccommodationReservation> FindReservationsByGuestId(int guestId)
         {
             List<AccommodationReservation> Reservations = new List<AccommodationReservation>();
@@ -192,30 +91,6 @@ namespace TravelService.Repository
                 }
             }
             return Reservations;
-        }
-
-        public void SetAccommodation(List<Accommodation> accomodations)
-        {
-            foreach (AccommodationReservation reservation in _accommodationReservations)
-            {
-                reservation.Accommodation = accomodations.Find(a => a.Id == reservation.AccommodationId);
-            }
-        }
-
-        public void SetLocation(List<Location> locations)
-        {
-            foreach (AccommodationReservation reservation in _accommodationReservations)
-            {
-                reservation.Location = locations.Find(l => l.Id == reservation.LocationId);
-            }
-        }
-
-        public void SetName(List<Owner> owners)
-        {
-            foreach (AccommodationReservation reservation in _accommodationReservations)
-            {
-                reservation.Owner = owners.Find(o => o.Id == reservation.OwnerId);
-            }
         }
     }
 }

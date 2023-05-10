@@ -12,57 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
-using TravelService.WPF.View;
+using TravelService.WPF.ViewModel;
+using System.ComponentModel;
 
 
 namespace TravelService.WPF.View
 {
-    public partial class SecondGuestView : Window
+    public partial class SecondGuestView : Window, INotifyPropertyChanged
     {
-        public Tour SelectedTour { get; set; }
-        public GuestVoucher SelectedVoucher { get; set; }
-        public Guest2 Guest2 { get; set; }
         public SecondGuestView(Guest2 guest2)
         {
             InitializeComponent();
-            this.Guest2 = guest2;
+            SecondGuestViewModel secondGuestViewModel = new SecondGuestViewModel(guest2);
+            DataContext = secondGuestViewModel;
+            if (secondGuestViewModel.CloseAction == null)
+            {
+                secondGuestViewModel.CloseAction = new Action(this.Close);
+            }
         }
-        private void TourTrackingViewButton_CLick(object sender, RoutedEventArgs e)
-        {
-            TourTrackingView tourTrackingView = new TourTrackingView(SelectedTour, Guest2);
-            tourTrackingView.Show();
-        }
-        private void TourViewButton_CLick(object sender, RoutedEventArgs e)
-        {
-            TourView tourView = new TourView(Guest2);
-
-            tourView.Show();
-        }
-        private void TourReservationButton_Click(object sender, RoutedEventArgs e)
-        {
-            TourReservationView tourReservationView = new TourReservationView(SelectedTour,SelectedVoucher, Guest2);
-            tourReservationView.Show();
-        }
-
-        private void VoucherViewButton_CLick(object sender, RoutedEventArgs e)
-        {
-            TourReservationView tourReservationView = new TourReservationView(SelectedTour, SelectedVoucher, Guest2);
-            VoucherView voucherView = new VoucherView(tourReservationView,SelectedVoucher,SelectedTour,Guest2);
-            voucherView.ResetItemSource(voucherView.GuestVouchers);
-            voucherView.Show();
-        }
-        
-        private void RateToursViewButton_CLick(object sender, RoutedEventArgs e)
-        {
-            GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
-            guestsToursView.Show();
-        }
-
-        private void LogOutClick_Click(object sender, RoutedEventArgs e)
-        {
-            SignInForm signInForm = new SignInForm();
-            signInForm.Show();
-            Close();
-        }
+        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
