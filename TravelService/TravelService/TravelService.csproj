@@ -9,11 +9,42 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\leftarrow.jpg" />
+    <None Remove="Resources\Icons\bell.png" />
+    <None Remove="Resources\Icons\calendar.png" />
+    <None Remove="Resources\Icons\document.png" />
+    <None Remove="Resources\Icons\file.png" />
+    <None Remove="Resources\Icons\help.png" />
+    <None Remove="Resources\Icons\help2.png" />
+    <None Remove="Resources\Icons\home.png" />
+    <None Remove="Resources\Icons\keyboard.png" />
+    <None Remove="Resources\Icons\play.png" />
+    <None Remove="Resources\Icons\stats.png" />
+    <None Remove="Resources\Icons\ticket.png" />
+    <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Images\star.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\Images\leftarrow.jpg" />
+    <Resource Include="Resources\Icons\bell.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\calendar.png" />
+    <Resource Include="Resources\Icons\document.png" />
+    <Resource Include="Resources\Icons\file.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\help.png" />
+    <Resource Include="Resources\Icons\help2.png" />
+    <Resource Include="Resources\Icons\home.png" />
+    <Resource Include="Resources\Icons\keyboard.png" />
+    <Resource Include="Resources\Icons\play.png" />
+    <Resource Include="Resources\Icons\stats.png" />
+    <Resource Include="Resources\Icons\ticket.png" />
+    <Resource Include="Resources\Icons\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\star.png" />
   </ItemGroup>
 

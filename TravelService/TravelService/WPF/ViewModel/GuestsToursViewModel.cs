@@ -32,28 +32,28 @@ namespace TravelService.WPF.ViewModel
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
 
-        private RelayCommand rateTour;
+        private RelayCommand _rateTour;
         public RelayCommand RateTourCommand
         {
-            get => rateTour;
+            get => _rateTour;
             set
             {
-                if (value != rateTour)
+                if (value != _rateTour)
                 {
-                    rateTour = value;
+                    _rateTour = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private RelayCommand cancelCommand;
+        private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand
         {
-            get => cancelCommand;
+            get => _cancelCommand;
             set
             {
-                if (value != cancelCommand)
+                if (value != _cancelCommand)
                 {
-                    cancelCommand = value;
+                    _cancelCommand = value;
                     OnPropertyChanged();
                 }
             }
