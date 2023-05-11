@@ -8,6 +8,7 @@ using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
 using TravelService.Serializer;
 using TravelService.Application.Utils;
+using System.Security.AccessControl;
 
 namespace TravelService.Application.UseCases
 {
@@ -16,16 +17,34 @@ namespace TravelService.Application.UseCases
         private readonly IAccommodationRepository _accommodationRepository;
         private readonly LocationService _locationService;
         private readonly OwnerService _ownerService;
+        private readonly AccommodationRenovationService _renovationService;
 
         public AccommodationService(IAccommodationRepository accommodationRepository)
         {
             _accommodationRepository = accommodationRepository;
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
+            _renovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>());
         }
         public List<Accommodation> GetAll()
         {
-            return _accommodationRepository.GetAll();
+            List<Accommodation> accommodations = _accommodationRepository.GetAll();
+
+            foreach(Accommodation accommodation in accommodations)
+            {
+                Tuple<DateTime, DateTime> lastRenovation = _renovationService.FindLastRenovation(accommodation);
+                TimeSpan dayDifference = DateTime.Today - lastRenovation.Item2;
+                if(dayDifference.Days <= 365)
+                {
+                    accommodation.RecentlyRenovated = true;
+                }
+                else
+                {
+                    accommodation.RecentlyRenovated = false;
+                }
+            }
+
+            return accommodations;
         }
         public Accommodation Save(Accommodation accommodation)
         {

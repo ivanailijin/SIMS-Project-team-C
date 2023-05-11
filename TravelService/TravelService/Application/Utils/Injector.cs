@@ -32,6 +32,7 @@ namespace TravelService.Application.Utils
         { typeof(ILanguageRepository), new LanguageRepository() },
         { typeof(IInvitationRepository), new InvitationRepository() },
         { typeof(IGuestRatingRepository), new GuestRatingRepository() },
+        { typeof(IAccommodationRenovationRepository), new AccommodationRenovationRepository() },
 
         // Add more implementations here
     };
