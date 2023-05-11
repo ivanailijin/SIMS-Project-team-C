@@ -138,9 +138,6 @@
     <Page Update="WPF\View\CheckPointView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\View\EnterCheckPoint.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\View\FirstGuestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -195,9 +192,6 @@
     <Page Update="WPF\View\CheckPointView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\View\EnterCheckPoint.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\View\MostVisited.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -243,25 +237,16 @@
     <Page Update="WPF\View\GuestPresence.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\View\TourOverview.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\View\TourTrackingView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\TourStats.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="WPF\View\AddTour.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="WPF\View\UpdateOwnerProfileView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\VoucherView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="WPF\View\Window1.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SendReservationRequestView.xaml">

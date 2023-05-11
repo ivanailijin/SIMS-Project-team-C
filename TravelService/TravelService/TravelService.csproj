@@ -31,6 +31,7 @@
     <None Remove="Resources\Images\reservations-request-icon.png" />
     <None Remove="Resources\Icons\bell.png" />
     <None Remove="Resources\Icons\calendar.png" />
+    <None Remove="Resources\Icons\daniela-cuevas-t7YycgAoVSw-unsplash.jpg" />
     <None Remove="Resources\Icons\document.png" />
     <None Remove="Resources\Icons\file.png" />
     <None Remove="Resources\Icons\help.png" />
@@ -38,6 +39,9 @@
     <None Remove="Resources\Icons\home.png" />
     <None Remove="Resources\Icons\keyboard.png" />
     <None Remove="Resources\Icons\play-circle.png" />
+
+    <None Remove="Resources\Icons\mark-harpur-K2s_YE031CA-unsplash.jpg" />
+
     <None Remove="Resources\Icons\play.png" />
     <None Remove="Resources\Icons\stats.png" />
     <None Remove="Resources\Icons\ticket.png" />
@@ -45,11 +49,33 @@
     <None Remove="Resources\Images\reservations.ico" />
     <None Remove="Resources\Images\search.ico" />
     <None Remove="Resources\Images\star.png" />
+
     <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\statistics.png" />
     <None Remove="Resources\Images\tail.png" />
     <None Remove="Resources\Images\travel.png" />
     <None Remove="Resources\Images\user.ico" />
+
+    <None Remove="WPF\View\Icons\beautiful-shot-mountains-cloudy-sky-from-inside-plane-windows.jpg" />
+    <None Remove="WPF\View\Icons\element5-digital-h9eOO7W5m2s-unsplash.jpg" />
+    <None Remove="WPF\View\Icons\five-golden-stars-inside-white-message-box-client-excellent-evaluation-by-3d-render.jpg" />
+    <None Remove="WPF\View\Icons\icons8-checkpoint-goal-flag-for-progress-and-opportunity-24.png" />
+    <None Remove="WPF\View\Icons\icons8-couple-like-50 %281%29.png" />
+    <None Remove="WPF\View\Icons\icons8-exclamation-mark-64.png" />
+    <None Remove="WPF\View\Icons\icons8-language-64.png" />
+    <None Remove="WPF\View\Icons\icons8-location-100.png" />
+    <None Remove="WPF\View\Icons\icons8-location-48.png" />
+    <None Remove="WPF\View\Icons\icons8-map-marker-100.png" />
+    <None Remove="WPF\View\Icons\icons8-multiple-stars-48.png" />
+    <None Remove="WPF\View\Icons\icons8-report-58.png" />
+    <None Remove="WPF\View\Icons\icons8-visit-48.png" />
+    <None Remove="WPF\View\Icons\language.png" />
+    <None Remove="WPF\View\Icons\star.png" />
+    <None Remove="WPF\View\Icons\sun.png" />
+    <None Remove="WPF\View\Icons\top-view-tourist-items-arrangement.jpg" />
+    <None Remove="WPF\View\Icons\woman %282%29.png" />
+    <None Remove="WPF\View\Icons\—Slidesdocs—design illustration of shanghai tourism_50ce7aaf10.jpg" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +113,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\calendar.png" />
+    <Resource Include="Resources\Icons\daniela-cuevas-t7YycgAoVSw-unsplash.jpg" />
     <Resource Include="Resources\Icons\document.png" />
     <Resource Include="Resources\Icons\file.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -95,9 +122,13 @@
     <Resource Include="Resources\Icons\help2.png" />
     <Resource Include="Resources\Icons\home.png" />
     <Resource Include="Resources\Icons\keyboard.png" />
+
     <Resource Include="Resources\Icons\play-circle.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+
+    <Resource Include="Resources\Icons\mark-harpur-K2s_YE031CA-unsplash.jpg" />
+
     <Resource Include="Resources\Icons\play.png" />
     <Resource Include="Resources\Icons\stats.png" />
     <Resource Include="Resources\Icons\ticket.png" />
@@ -113,6 +144,25 @@
     <Resource Include="Resources\Images\tail.png" />
     <Resource Include="Resources\Images\travel.png" />
     <Resource Include="Resources\Images\user.ico" />
+    <Resource Include="WPF\View\Icons\beautiful-shot-mountains-cloudy-sky-from-inside-plane-windows.jpg" />
+    <Resource Include="WPF\View\Icons\element5-digital-h9eOO7W5m2s-unsplash.jpg" />
+    <Resource Include="WPF\View\Icons\five-golden-stars-inside-white-message-box-client-excellent-evaluation-by-3d-render.jpg" />
+    <Resource Include="WPF\View\Icons\icons8-checkpoint-goal-flag-for-progress-and-opportunity-24.png" />
+    <Resource Include="WPF\View\Icons\icons8-couple-like-50 (1).png" />
+    <Resource Include="WPF\View\Icons\icons8-exclamation-mark-64.png" />
+    <Resource Include="WPF\View\Icons\icons8-language-64.png" />
+    <Resource Include="WPF\View\Icons\icons8-location-100.png" />
+    <Resource Include="WPF\View\Icons\icons8-location-48.png" />
+    <Resource Include="WPF\View\Icons\icons8-map-marker-100.png" />
+    <Resource Include="WPF\View\Icons\icons8-multiple-stars-48.png" />
+    <Resource Include="WPF\View\Icons\icons8-report-58.png" />
+    <Resource Include="WPF\View\Icons\icons8-visit-48.png" />
+    <Resource Include="WPF\View\Icons\language.png" />
+    <Resource Include="WPF\View\Icons\star.png" />
+    <Resource Include="WPF\View\Icons\sun.png" />
+    <Resource Include="WPF\View\Icons\top-view-tourist-items-arrangement.jpg" />
+    <Resource Include="WPF\View\Icons\woman (2).png" />
+    <Resource Include="WPF\View\Icons\—Slidesdocs—design illustration of shanghai tourism_50ce7aaf10.jpg" />
   </ItemGroup>
 
 </Project>

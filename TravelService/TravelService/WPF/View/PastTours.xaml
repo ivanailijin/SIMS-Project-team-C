@@ -4,36 +4,103 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="PastTours" Height="450" Width="800">
-    <Grid Height="413" VerticalAlignment="Top">
-
+        Title="TourOverview" Height="450" Width="900">
+    <Grid Height="445" VerticalAlignment="Center" Margin="0,0,-10,0">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Icons/daniela-cuevas-t7YycgAoVSw-unsplash.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="173*"/>
+        </Grid.ColumnDefinitions>
 
         <DataGrid Grid.Row="0" x:Name="allTours"
                   ItemsSource="{Binding Path=PastTour, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedTour}" Margin="0,54,0,109">
+                  AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedTour}"  Margin="20,50,20,105"
+        MaxColumnWidth=" 76"
+                  MaxWidth="900"
+    RowBackground="LightBlue"
+    AlternatingRowBackground="LightYellow"
+    HorizontalGridLinesBrush="#E0E0E0"
+    VerticalGridLinesBrush="#E0E0E0"
+    HeadersVisibility="Column"
+    Background="LightYellow"
+    BorderBrush="{x:Null}" Grid.ColumnSpan="3" >
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Padding" Value="5"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Maximum number of guests" Binding="{Binding MaxGuestNumber}" Width="auto"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Checkpoints" Width="auto">
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"  MaxWidth="100"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"  MaxWidth="200"   ></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Description" Width="auto" MaxWidth="80">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ListBox  x:Name="listBoxCheckPoint" Height="100" ItemsSource="{Binding Path=CheckPoints}">
+                            <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="auto"  MaxWidth="100"  ></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Max number of guests" Width="70">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding MaxGuestNumber}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Checkpoints" Width="auto"  MaxWidth="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox  x:Name="listBoxCheckPoint"  ItemsSource="{Binding Path=CheckPoints}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Date and time" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Duration in hours" Binding="{Binding Duration}" Width="auto"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Images">
+
+                <DataGridTextColumn Header="Date" Binding="{Binding TourStart}" Width="200"  MaxWidth="100"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Duration in hours" Width="100">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Duration}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Images" Width="*" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ItemsControl ItemsSource="{Binding Pictures}">
@@ -44,7 +111,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding}" Width="120" Height="100" Margin="5" />
+                                        <Image Source="{Binding}" Margin="5" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -53,7 +120,9 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Margin="-13,377,13,-377" RenderTransformOrigin="0.5,0.5" Width="100" Height="20">
+
+
+        <StackPanel Margin="428,570,332,-230" RenderTransformOrigin="0.5,0.5">
             <StackPanel.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -62,8 +131,66 @@
                     <TranslateTransform X="-0.657"/>
                 </TransformGroup>
             </StackPanel.RenderTransform>
+
         </StackPanel>
-        <Button Content="Statistics" Click ="Statistics_Click" HorizontalAlignment="Left" Margin="236,348,0,0" VerticalAlignment="Top" Height="34" Width="94" RenderTransformOrigin="-0.732,0.3"/>
-        <Button Content="Reviews" Click ="Reviews_Click" HorizontalAlignment="Left" Margin="357,351,0,0" VerticalAlignment="Top" Height="34" Width="94" RenderTransformOrigin="-0.732,0.3"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,345,0,5" Width="500">
+            <Button Command="{Binding StatsCommand}" Content="Statistics" Background="#FF184C75" Foreground="#FFFFFF" Height="50" Width="140" Margin="0 0 20 0 ">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button Command="{Binding ReviewsCommand}" Content="Reviews" Background="#FF67AEE6" Foreground="#FFFFFF" Height="50" Width="140" Margin="0 0 20 0 ">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Command="{Binding CancelCommand}" Content="Go back" Foreground="#FF184C75" Background="#FFFFFF"  Height="50" Width="140">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </Window>

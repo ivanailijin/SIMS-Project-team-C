@@ -5,15 +5,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:TravelService.WPF.View"
     mc:Ignorable="d"
-    Title="ShowTourReviewView" Height="450" Width="800">
-    <Grid Margin="5,0,0,-15">
-        <DataGrid ItemsSource="{Binding Reviews,  UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTourReview}" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,0,140" >
+    Title="ShowTourReviewView" Height="450" Width="900" ResizeMode="NoResize">
+    <Grid Margin="-5,0,0,-15" RenderTransformOrigin="0.5,0.5">
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Icons/daniela-cuevas-t7YycgAoVSw-unsplash.jpg"/>
+        </Grid.Background>
+        <DataGrid  MaxColumnWidth=" 100"
+                  MaxWidth="500"     AlternatingRowBackground="LightYellow"
+    HorizontalGridLinesBrush="#E0E0E0"  RowBackground="LightBlue" Background="LightYellow"
+    VerticalGridLinesBrush="#E0E0E0" ItemsSource="{Binding Reviews,  UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTourReview}" AutoGenerateColumns="False" IsReadOnly="True" Margin="170,80,200,170"  >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Guide Knowledge" Binding="{Binding GuideKnowledge, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Guide Language" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Tour Entertainment" Binding="{Binding TourEntertainment, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Valid" Binding="{Binding Valid, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn  Header=" Knowledge" Binding="{Binding GuideKnowledge, UpdateSourceTrigger=PropertyChanged}" Width="*"  />
+                <DataGridTextColumn Header="Language" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Entertainment" Binding="{Binding TourEntertainment, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Valid" Binding="{Binding Valid, UpdateSourceTrigger=PropertyChanged}" Width="*" />
 
 
             </DataGrid.Columns>
@@ -21,8 +28,44 @@
 
 
         </DataGrid>
-        <Button Content="REport" Command="{Binding showReportCommand}" HorizontalAlignment="Left" Margin="331,318,0,0" VerticalAlignment="Top" Width="140"/>
 
-
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="280,319,0,45" Width="305">
+            <Button Content="Report" Background="#FFB0DAEB" Foreground="#FF132D57" Command="{Binding showReportCommand}" Width=" 140" Height="50" Margin=" 0 0 10 0">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Command="{Binding CancelCommand}" Content="Go back" Foreground="#FFB0DAEB" Background="#FF132D57" Height="50" Width="140">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

@@ -146,8 +146,8 @@ namespace TravelService.WPF.View
                         else if (txtPassword.Password.Equals("guide123"))
                         {
                             Guide guide = _guideRepository.GetByUsername(Username);
-                            Window1 window1 = new Window1(guide);
-                            window1.Show();
+                            GuideHomePageView guideHomePage = new GuideHomePageView(guide);
+                            guideHomePage.Show();
 
                             List<Tour> TourList = _tourRepository.GetAll();
 

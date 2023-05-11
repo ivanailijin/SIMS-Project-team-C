@@ -18,6 +18,7 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(Guest guest);
 
         public Guest Update(Guest guest);
+        public List<Guest> FindByTourId(int tourId);
     }
 }
 

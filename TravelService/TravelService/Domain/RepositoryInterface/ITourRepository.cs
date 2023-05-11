@@ -20,5 +20,6 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(Tour tour);
 
         public Tour Update(Tour tour);
+        public Tour FindById(int id);
     }
 }

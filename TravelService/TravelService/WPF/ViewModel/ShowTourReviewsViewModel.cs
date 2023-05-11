@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using TravelService.Application.UseCases;
@@ -12,11 +13,13 @@ namespace TravelService.WPF.ViewModel
 {
     public class ShowTourReviewsViewModel : ViewModelBase
     {
+        public Action CloseAction { get; set; }
         public Guest SelectedGuest { get; set; }
         public List<TourReview> TourReviews { get; set; }
         public List<TourReview> Reviews { get; set;}
         public TourReview SelectedTourReview { get; set; }
         private readonly TourReviewService _tourReviewService;
+        public RelayCommand CancelCommand { get; set; }
 
         public ShowTourReviewsViewModel(Guest selectedGuest, TourReview selectedTourReview)
         {
@@ -28,6 +31,7 @@ namespace TravelService.WPF.ViewModel
                 Reviews = _tourReviewService.FindGuestsTourReviews(TourReviews, SelectedGuest);
 
             showReportCommand = new RelayCommand(Execute_Report, CanExecute_Command);
+            CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
         }
 
         private RelayCommand showReport;
@@ -43,6 +47,11 @@ namespace TravelService.WPF.ViewModel
                 }
 
             }
+        }
+        private void Execute_CancelCommand(object obj)
+        {
+
+            CloseAction();
         }
 
         private bool CanExecute_Command(object parameter)

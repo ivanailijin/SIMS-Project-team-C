@@ -98,16 +98,16 @@ namespace TravelService.WPF.View
             SelectedTour.Done = true;
             _tourRepository.Update(SelectedTour);
             MessageBox.Show("The tour was successfully completed");
-            TourOverview tourOverview = new TourOverview(SelectedTour);
-            tourOverview.Show();
+            ActiveToursView activeToursView = new ActiveToursView(SelectedTour);
+            activeToursView.Show();
             Close();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("The tour is cancelled");
-            TourOverview tourOverview = new TourOverview(SelectedTour);
-            tourOverview.Show();
+            ActiveToursView activeToursView = new ActiveToursView(SelectedTour);
+            activeToursView.Show();
             Close();
         }
     }

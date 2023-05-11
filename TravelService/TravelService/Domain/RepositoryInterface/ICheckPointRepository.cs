@@ -19,6 +19,7 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(CheckPoint checkPoint);
 
         public CheckPoint Update(CheckPoint checkPoint);
+        public CheckPoint GetById(int id);
     }
 
 }

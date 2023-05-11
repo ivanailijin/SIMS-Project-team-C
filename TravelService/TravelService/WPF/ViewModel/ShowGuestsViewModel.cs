@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
@@ -15,6 +16,7 @@ namespace TravelService.WPF.ViewModel
 {
     public class ShowGuestsViewModel : ViewModelBase
     {
+        public Action CloseAction { get; set; }
         private readonly GuestService _guestService;
         private readonly CheckPointService _checkPointService;
         public Tour SelectedTour { get; set; }
@@ -25,6 +27,7 @@ namespace TravelService.WPF.ViewModel
         public List<string> checkPoint { get; set; }
         public TourReview SelectedTourReview { get; set; }  
         public Guide Guide { get; set; }
+        public RelayCommand CancelCommand { get; set; }
 
         public ShowGuestsViewModel(Tour selectedTour,Guest selectedGuest)
         {
@@ -43,6 +46,7 @@ namespace TravelService.WPF.ViewModel
             }
             
             showReviewsCommand = new RelayCommand(Execute_ShowReviews,CanExecute_Command);
+              CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -68,10 +72,19 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_ShowReviews(object sender)
         {
+            if (SelectedGuest == null)
+            {
+                MessageBox.Show("Please select guest first.");
+                return;
+            }
 
             ShowTourReviewView showTourReviewsView = new ShowTourReviewView(SelectedGuest,SelectedTourReview);
             showTourReviewsView.Show();
         }
-        
+        private void Execute_CancelCommand(object obj)
+        {
+
+            CloseAction();
+        }
     }
     }

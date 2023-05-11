@@ -15,6 +15,7 @@ namespace TravelService.WPF.ViewModel
 {
     public class ReportViewModel : ViewModelBase
     {
+        public Action CloseAction { get; set; }
         private readonly TourReviewService _tourReviewService;
         public TourReview SelectedTourReview { get; set; }  
         public Guest SelectedGuest { get; set; } 
