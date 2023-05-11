@@ -21,7 +21,7 @@
         <DataGrid Grid.Row="0" x:Name="allActiveTours"
     ItemsSource="{Binding Path=ActiveTours, UpdateSourceTrigger=PropertyChanged}"
     AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedTour}" 
-    Margin="46,100,24,105"
+    Margin="20,50,20,105"
         MaxColumnWidth=" 76"
                   MaxWidth="900"
     RowBackground="LightBlue"
@@ -30,7 +30,7 @@
     VerticalGridLinesBrush="#E0E0E0"
     HeadersVisibility="Column"
     Background="LightYellow"
-    BorderBrush="{x:Null}" >
+    BorderBrush="{x:Null}" Grid.ColumnSpan="3" >
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="Opacity" Value="0"/>
