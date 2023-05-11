@@ -27,6 +27,24 @@ namespace TravelService.Application.UseCases
             return _accommodationRenovationRepository.GetAll();
         }
 
+        public List<Accommodation> FillRenovationData(List<Accommodation> accommodations)
+        {
+            foreach (Accommodation accommodation in accommodations)
+            {
+                Tuple<DateTime, DateTime> lastRenovation = FindLastRenovation(accommodation);
+                TimeSpan dayDifference = DateTime.Today - lastRenovation.Item2;
+                if (dayDifference.Days <= 365)
+                {
+                    accommodation.RecentlyRenovated = true;
+                }
+                else
+                {
+                    accommodation.RecentlyRenovated = false;
+                }
+            }
+
+            return accommodations;
+        }
         public AccommodationRenovation Save(AccommodationRenovation accommodationRenovation)
         {
             return _accommodationRenovationRepository.Save(accommodationRenovation);
