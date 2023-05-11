@@ -65,7 +65,7 @@
                         <TextBlock Text="Vouchers" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding GuestsRequestsCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/document.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Requests" FontSize="17" VerticalAlignment="Center"/>
@@ -181,7 +181,7 @@
                 <Border Grid.Row="3" Grid.RowSpan="1" Margin="20,0,10,30" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="25,0,25,0"></Border>
                 <TextBlock Grid.Row="2" Margin="0,12,0,0" FontSize="20" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" VerticalAlignment="Bottom">Didn't find a tour you like?</TextBlock>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Margin="0,-30,0,0">
-                    <Button  Grid.Row="3" Height="42" Margin="22,2,-10,0" Background="#435D75" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" VerticalAlignment="Top">Request tour</Button>
+                    <Button  Grid.Row="3" Height="42" Margin="22,2,-10,0" Command="{Binding RequestCommand}" Background="#435D75" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" VerticalAlignment="Top">Request tour</Button>
                     <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="White" VerticalAlignment="Bottom"  Margin="0,17,22,10"  ToolTip="Allows you to fill in a request for a new tour.">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">

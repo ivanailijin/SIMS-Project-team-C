@@ -13,26 +13,31 @@ namespace TravelService.Domain.Model
     public class TourRequest : ISerializable
     {
         public int Id { get; set; }
+        public Location Location { get; set; }
         public int LocationId { get; set; }
         public string Description { get; set; }
+        public Language Language { get; set; }
         public int LanguageId { get; set; }
         public int GuestNumber { get; set; }
         public DateTime TourStart { get; set; }
         public DateTime TourEnd { get; set; }
         public APPROVAL RequestApproved { get; set; }
+        public int GuestId { get; set; }
 
         public TourRequest() { }
 
-        public TourRequest(int id, int locationId, string description, int languageId, int guestNumber, DateTime tourStart, DateTime tourEnd, APPROVAL requestApproved)
+        public TourRequest(Location location, int locationId, string description, Language language, int languageId, int guestNumber, DateTime tourStart, DateTime tourEnd, APPROVAL requestApproved, int guestId)
         {
-            Id = id;
+            Location = location;
             LocationId = locationId;
             Description = description;
+            Language = language;
             LanguageId = languageId;
             GuestNumber = guestNumber;
             TourStart = tourStart;
             TourEnd = tourEnd;
             RequestApproved = requestApproved;
+            GuestId = guestId;
         }
         public string[] ToCSV()
         {
@@ -46,6 +51,7 @@ namespace TravelService.Domain.Model
                 TourStart.ToString(),
                 TourEnd.ToString(),
                 RequestApprovedToCSV(),
+                GuestId.ToString(),
             };
             return csvValues;
         }
@@ -68,6 +74,7 @@ namespace TravelService.Domain.Model
             TourStart = DateTime.Parse(values[5]);
             TourEnd = DateTime.Parse(values[6]);
             RequestApproved = RequestApprovedFromCSV(values[7]);
+            GuestId = int.Parse(values[8]);
         }
         public APPROVAL RequestApprovedFromCSV(string requestApproved)
         {

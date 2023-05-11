@@ -55,6 +55,32 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _requestCommand;
+        public RelayCommand RequestCommand
+        {
+            get => _requestCommand;
+            set
+            {
+                if (value != _requestCommand)
+                {
+                    _requestCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _guestsRequestsCommand;
+        public RelayCommand GuestsRequestsCommand
+        {
+            get => _guestsRequestsCommand;
+            set
+            {
+                if (value != _guestsRequestsCommand)
+                {
+                    _guestsRequestsCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private RelayCommand _voucherViewCommand;
         public RelayCommand VoucherViewCommand
         {
@@ -114,6 +140,8 @@ namespace TravelService.WPF.ViewModel
             TrackCommand = new RelayCommand(Execute_TrackCommand, CanExecute_Command);
             TourViewCommand = new RelayCommand(Execute_TourViewCommand, CanExecute_Command);
             ReservationCommand = new RelayCommand(Execute_ReservationCommand, CanExecute_Command);
+            RequestCommand = new RelayCommand(Execute_RequestCommand, CanExecute_Command);
+            GuestsRequestsCommand = new RelayCommand(Execute_GuestsRequestsCommand, CanExecute_Command);
             VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
             RateTourCommand = new RelayCommand(Execute_RateTourCommand, CanExecute_Command);
             HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
@@ -144,6 +172,16 @@ namespace TravelService.WPF.ViewModel
         {
             TourReservationView tourReservationView = new TourReservationView(SelectedTour, SelectedVoucher, Guest2);
             tourReservationView.Show();
+        }
+        private void Execute_RequestCommand(object sender)
+        {
+            AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2);
+            addTourRequestView.Show();
+        }
+        private void Execute_GuestsRequestsCommand(object sender)
+        {
+            GuestsRequestsView guestsRequestsView = new GuestsRequestsView(Guest2);
+            guestsRequestsView.Show();
         }
         private void Execute_VoucherViewCommand(object sender)
         {
