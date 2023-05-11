@@ -24,27 +24,10 @@ namespace TravelService.Application.UseCases
             _accommodationRepository = accommodationRepository;
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
-            _renovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>());
         }
         public List<Accommodation> GetAll()
         {
-            List<Accommodation> accommodations = _accommodationRepository.GetAll();
-
-            foreach(Accommodation accommodation in accommodations)
-            {
-                Tuple<DateTime, DateTime> lastRenovation = _renovationService.FindLastRenovation(accommodation);
-                TimeSpan dayDifference = DateTime.Today - lastRenovation.Item2;
-                if(dayDifference.Days <= 365)
-                {
-                    accommodation.RecentlyRenovated = true;
-                }
-                else
-                {
-                    accommodation.RecentlyRenovated = false;
-                }
-            }
-
-            return accommodations;
+            return _accommodationRepository.GetAll();
         }
         public Accommodation Save(Accommodation accommodation)
         {
