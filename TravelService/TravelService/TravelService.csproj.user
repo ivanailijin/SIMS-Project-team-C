@@ -50,6 +50,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\RenovationRecommendationView.xaml.cs">
+        <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\RenovationSchedulingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\RenovationSelectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ReserveAccommodationView.xaml.cs">
@@ -169,6 +175,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\RenovationRecommendationView.xaml">
+        <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\RenovationSchedulingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\RenovationSelectionView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ReserveAccommodationView.xaml">

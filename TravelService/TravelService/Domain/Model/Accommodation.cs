@@ -14,24 +14,17 @@ namespace TravelService.Domain.Model
     public class Accommodation : ISerializable
     {
         public int Id { get; set; }
-
         public int OwnerId { get; set; }
         public Owner Owner { get; set; }
         public string Name { get; set; }
-
         public Location Location { get; set; }
-
         public int LocationId { get; set; }
-
         public TYPE Type { get; set; }
         public string TypeText { get; set; }
-
         public int MaxGuestNumber { get; set; }
-
         public int MinReservationDays { get; set; }
-
         public int DaysBeforeCancellingReservation { get; set; }
-
+        public bool RecentlyRenovated { get; set; }
         public List<Uri> Pictures { get; set; }
 
 
@@ -102,6 +95,7 @@ namespace TravelService.Domain.Model
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
                 DaysBeforeCancellingReservation.ToString(),
+                RecentlyRenovated.ToString(),
                 pictureList.ToString(),
             };
             return csvValues;
@@ -117,8 +111,9 @@ namespace TravelService.Domain.Model
             MaxGuestNumber = Convert.ToInt32(values[5]);
             MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancellingReservation = Convert.ToInt32(values[7]);
+            RecentlyRenovated = bool.Parse(values[8]);
 
-            string pictures = values[8];
+            string pictures = values[9];
 
             string[] delimitedPictures = pictures.Split(" ,");
 

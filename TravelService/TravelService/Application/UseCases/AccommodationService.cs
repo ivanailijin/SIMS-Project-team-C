@@ -8,6 +8,7 @@ using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
 using TravelService.Serializer;
 using TravelService.Application.Utils;
+using System.Security.AccessControl;
 
 namespace TravelService.Application.UseCases
 {
@@ -16,6 +17,7 @@ namespace TravelService.Application.UseCases
         private readonly IAccommodationRepository _accommodationRepository;
         private readonly LocationService _locationService;
         private readonly OwnerService _ownerService;
+        private readonly AccommodationRenovationService _renovationService;
 
         public AccommodationService(IAccommodationRepository accommodationRepository)
         {

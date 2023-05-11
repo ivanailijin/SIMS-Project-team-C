@@ -136,7 +136,7 @@
                             <TextBlock Style="{StaticResource ResourceKey=TextStyle}" HorizontalAlignment="Center" Margin="75 10 0 0" FontSize="14">Prikaz i otkazivanje renoviranja</TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <Button Style="{StaticResource ResourceKey=RoundedButton}" Margin="120 25 0 0" Width="200" Height="97">
+                            <Button Style="{StaticResource ResourceKey=RoundedButton}" Margin="120 25 0 0" Width="200" Height="97" Command="{Binding ScheduleRenovationCommand}">
                                 <Button.Content>
                                     <Viewbox Width="90" Height="85">
                                         <Image Source="/TravelService;component/Resources/Images/renovation-icon.png"/>
