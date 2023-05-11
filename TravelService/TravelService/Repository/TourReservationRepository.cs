@@ -4,12 +4,13 @@ using System.Linq;
 
 using System.Windows;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 using TravelService.WPF.View;
 
 namespace TravelService.Repository
 {
-    public class TourReservationRepository
+    public class TourReservationRepository : ITourReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/tourReservation.csv";
 

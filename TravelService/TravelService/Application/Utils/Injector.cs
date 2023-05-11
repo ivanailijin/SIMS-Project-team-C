@@ -32,8 +32,8 @@ namespace TravelService.Application.Utils
         { typeof(ILanguageRepository), new LanguageRepository() },
         { typeof(IInvitationRepository), new InvitationRepository() },
         { typeof(IGuestRatingRepository), new GuestRatingRepository() },
-
-        // Add more implementations here
+        { typeof(IVoucherRepository), new GuestVoucherRepository() },
+        { typeof(ITourReservationRepository), new TourReservationRepository() },
     };
 
         public static T CreateInstance<T>()

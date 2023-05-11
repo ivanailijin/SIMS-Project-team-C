@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
 
 namespace TravelService.Repository
 {
-    public class GuestVoucherRepository
+    public class GuestVoucherRepository : IVoucherRepository
     {
         private const string FilePath = "../../../Resources/Data/vouchers.csv";
 
@@ -101,7 +102,7 @@ namespace TravelService.Repository
             foreach (GuestVoucher voucher in guestsVouchers)
             {
                 isVoucherValid = checkVoucherExpirationDate(voucher,validVouchers);
-                deleteIfNotValid(isVoucherValid, voucher);
+                //deleteIfNotValid(isVoucherValid, voucher);
             }
             return validVouchers;
         }
