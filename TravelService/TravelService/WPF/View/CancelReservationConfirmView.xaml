@@ -5,26 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="Cancelling Reservation" 
-        Height="180" Width="300"
-        WindowStartupLocation="CenterScreen">
+        Title="Otkazivanje rezervacije" 
+        Height="240" Width="300"
+        WindowStartupLocation="CenterScreen" Background="#ffccff">
+    <Window.Resources>
+        <Style x:Key="confirmButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="cancelButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
-            <TextBlock Text="Are you sure you want to cancel reservation?" TextAlignment="Center" Width="250" Height="40" FontSize="14" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Text="Da li ste sigurni da zelite da otkazete rezervaciju?" FontSize="15" Margin="0,20,0,0" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
         </Grid>
-        <WrapPanel Grid.Row="1" FlowDirection="LeftToRight" Margin="10,5,10,5">
-            <Separator Width="40" Background="White"></Separator>
-            <Button Content="Yes"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="23" Margin="20, 5, 20, 5"
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,10,0,0">
+            <Separator Background="Transparent"></Separator>
+            <Button Content="Da"  Style="{StaticResource confirmButtonStyle}" VerticalAlignment="Top"  Margin="20, 5, 20, 5"
                     Command="{Binding ConfirmCommand}"/>
-            <Separator Width="15" Background="White"></Separator>
-            <Button Content="No" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="23" Margin="20, 5, 20, 5" 
+            <Separator Width="5" Background="Transparent"></Separator>
+            <Button Content="Ne" IsDefault="True" Style="{StaticResource cancelButtonStyle}" VerticalAlignment="Top" Margin="20, 5, 20, 5" 
                     Command="{Binding CancelCommand}"/>
-            <Separator Width="50" Background="White"></Separator>
-        </WrapPanel>
+        </StackPanel>
     </Grid>
 </Window>

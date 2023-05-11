@@ -13,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
@@ -34,6 +35,11 @@ namespace TravelService.WPF.View
             {
                 ownerRatingViewModel.CloseAction = new Action(this.Close);
             }
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

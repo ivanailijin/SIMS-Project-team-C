@@ -75,7 +75,7 @@ namespace TravelService.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Select accommodation and owner that you want to rate.");
+                MessageBox.Show("Odaberite smestaj za ocenjivanje!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

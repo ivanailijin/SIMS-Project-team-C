@@ -164,7 +164,7 @@ namespace TravelService.Application.UseCases
             return false;
         }
 
-        List<AccommodationReservation> FindReservationsByAccommodation(int accommodationId)
+        public List<AccommodationReservation> FindReservationsByAccommodation(int accommodationId)
         {
             List<AccommodationReservation> filteredReservations = new List<AccommodationReservation>();
             List<AccommodationReservation> allReservations = GetAll();
@@ -219,7 +219,6 @@ namespace TravelService.Application.UseCases
             }
         }
 
-        //public void GetAccommodationData(List<AccommodationReservation> reservations)
         public List<AccommodationReservation> FindUnratedOwners(int guestId)
         {
             List<AccommodationReservation> reservations = GetAll();
@@ -267,6 +266,7 @@ namespace TravelService.Application.UseCases
             return reservations;
         }
 
+
         public List<AccommodationReservation> FindUnratedReservations(int OwnerId)
         {
             List<AccommodationReservation> UnratedReservations = new List<AccommodationReservation>();
@@ -283,6 +283,22 @@ namespace TravelService.Application.UseCases
             }
 
             return UnratedReservations;
+        }
+
+        public Dictionary<string, int> CalculateReservationsByMonth(List<AccommodationReservation> reservations)
+        {
+            var reservationsByMonth = new Dictionary<string, int>();
+
+            foreach (var reservation in reservations)
+            {
+                string month = reservation.CheckInDate.ToString("MMM-yy");
+                if (!reservationsByMonth.ContainsKey(month))
+                {
+                    reservationsByMonth[month] = 0;
+                }
+                reservationsByMonth[month]++;
+            }
+            return reservationsByMonth;
         }
     }
 }

@@ -5,137 +5,192 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="OwnerRatingView" WindowStartupLocation="CenterScreen" Height="550" Width="400">
+        Title="Ocenjivanje smestaja i vlasnika" WindowStartupLocation="CenterScreen" Height="720" Width="420" Background="#c6ffb3">
     <Window.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+
+        <Style x:Key="rateButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#196619"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Content" Value="Oceni"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="addPicturesButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#196619"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Content" Value="Dodaj slike"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="420"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="490"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row ="0" Grid.Column="0" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="Accommodation name:" VerticalAlignment="Center" HorizontalAlignment="Right" ></Label>
-            <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold" Content="Owner:" VerticalAlignment="Center" HorizontalAlignment="Right" ></Label>
-            <TextBlock x:Name="AccommodationName" Text="{Binding AccommodationName}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
-            <TextBlock x:Name="OwnerName" Text="{Binding OwnerName}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
-        </Grid>
+        <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="25" Height="25" Margin="5,0,0,0" BorderThickness="0">
+            <Button.Background>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.png"></ImageBrush>
+            </Button.Background>
+        </Button>
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,15,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontWeight="SemiBold" Content="Naziv smestaja: " Margin="0,0,0,-5" ></Label>
+                <TextBlock x:Name="AccommodationName" Text="{Binding AccommodationName}" VerticalAlignment="Bottom"></TextBlock>
+                </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontWeight="SemiBold" Content="Vlasnik: " Margin="0,0,0,-5" ></Label>
+                <TextBlock x:Name="OwnerName" Text="{Binding OwnerName}" VerticalAlignment="Bottom"></TextBlock>
+            </StackPanel>
 
-        <Grid Grid.Row="1" Grid.Column="0" Width="350" Height="350">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="75"></RowDefinition>
-                <RowDefinition Height="75"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Content="Correctness" Grid.Row="0" Grid.Column="0" Height="25" HorizontalAlignment="Center" ></Label>
-            <Label Content="Cleanliness" Grid.Row="1" Grid.Column="0" Height="25" HorizontalAlignment="Center"></Label>
-            <Label Content="Location" Grid.Row="2" Grid.Column="0" Height="25" HorizontalAlignment="Center"></Label>
-            <Label Content="Comfort" Grid.Row="3" Grid.Column="0" Height="25" HorizontalAlignment="Center"></Label>
-            <Label Content="Content" Grid.Row="4" Grid.Column="0" Height="25" HorizontalAlignment="Center"></Label>
-            <Label Content="Comment" Grid.Row="5" Grid.Column="0" Height="25" HorizontalAlignment="Center"></Label>
-            <Label Content="Pictures" Grid.Row="6" Grid.Column="0" Height="25" HorizontalAlignment="Center"></Label>
-            <GroupBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="30">
-                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="30">
-                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="30">
-                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="30">
-                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="30">
-                <StackPanel Orientation="Horizontal" Width="200" Margin="0, 7, 0, 0" >
-                    <RadioButton Width="37" Content="1" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="2" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="3" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="4" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                    <RadioButton Width="37" Content="5" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
-                </StackPanel>
-            </GroupBox>
-            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
-                     Height="50">
-                <TextBox.Text >
-                    <Binding Path="Comment" UpdateSourceTrigger="PropertyChanged" >
-                        <Binding.ValidationRules>
+        </StackPanel>
 
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-                <Validation.ErrorTemplate>
-                    <ControlTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Validation.ErrorTemplate>
-            </TextBox>
-            <ListBox x:Name="MyListBox" ItemsSource="{Binding PicturesList}" Grid.Column="1" Grid.Row="6" />
-            <Button Grid.Column="2" Grid.Row="6" Margin="5 20" Width="70" x:Name="addPictures" Content="Dodaj slike" HorizontalAlignment="Center"  BorderBrush="White" Command="{Binding AddPicturesCommand}">
-            </Button>
-        </Grid>
-        <WrapPanel Grid.Row="2" FlowDirection="LeftToRight">
-            <Separator Background="White" Width="65"></Separator>
-            <Button x:Name="AddOwnerRating" Content="Rate"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Height="25" Margin="20, 5, 20, 5"
+        <StackPanel Grid.Row="2">
+            <Grid Grid.Column="0" Width="350" Height="445">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="90"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="Korektnost" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"></Label>
+                <Label Content="Cistoca" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center"></Label>
+                <Label Content="Lokacija" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center"></Label>
+                <Label Content="Udobnost" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center"></Label>
+                <Label Content="Sadrzaji" Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center"></Label>
+        
+                <GroupBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="40">
+                    <StackPanel Orientation="Horizontal" Width="200" Margin="0, 0, 0, 0" >
+                        <RadioButton Content="1" FontSize="14" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="2" FontSize="14" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <RadioButton Content="3" FontSize="14" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <RadioButton Content="4" FontSize="14" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <RadioButton Content="5" FontSize="14" GroupName="CorrectnessCriteria" IsChecked="{Binding Correctness, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="40">
+                    <StackPanel Orientation="Horizontal" Width="200" Margin="0, 0, 0, 0" >
+                        <RadioButton Content="1" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <RadioButton Content="2" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <RadioButton Content="3" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <RadioButton Content="4" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <RadioButton Content="5" GroupName="CleanlinessCriteria" IsChecked="{Binding Cleanliness, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40">
+                    <StackPanel Orientation="Horizontal" Width="200" Margin="0, 0, 0, 0" >
+                        <RadioButton Content="1" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="2" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="3" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="4" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="5" GroupName="LocationCriteria" IsChecked="{Binding Location, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="40">
+                    <StackPanel Orientation="Horizontal" Width="200" Margin="0, 0, 0, 0" >
+                        <RadioButton Content="1" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="2" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="3" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="4" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="5" GroupName="ComfortCriteria" IsChecked="{Binding Comfort, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="40">
+                    <StackPanel Orientation="Horizontal" Width="200" Margin="0, 0, 0, 0" >
+                        <RadioButton Content="1" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="2" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=2, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="3" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=3, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="4" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=4, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                        <RadioButton Content="5" GroupName="ContentCriteria" IsChecked="{Binding Contents, ConverterParameter=5, Converter={StaticResource RadioButtonConverter}}" HorizontalContentAlignment="Stretch" />
+                    </StackPanel>
+                </GroupBox>
+                <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Label Content="Komentar" Margin="0"></Label>
+                    <TextBox Height="60" Text="{Binding Comment}">
+                </TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Label Content="Slike" Margin="0"></Label>
+                    <ListBox x:Name="MyListBox" ItemsSource="{Binding PicturesList}" Width="220" Height="55" HorizontalAlignment="Left"/>
+                </StackPanel>
+              
+                <Button Grid.Column="2" Grid.Row="6" Style="{StaticResource addPicturesButtonStyle}" Margin="0,19,0,0" HorizontalAlignment="Center" Command="{Binding AddPicturesCommand}">
+                </Button>
+            </Grid>
+            <TextBlock Text="Preporuka za renoviranje" FontSize="14" TextDecorations="Underline" Cursor="Hand" Margin="37,10,0,10">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Pink" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                <Hyperlink NavigateUri="http://www.example.com" Command="{Binding RenovationRecommendationCommand}"/>
+            </TextBlock>
+        </StackPanel>
+        <Button Grid.Row="3" x:Name="AddOwnerRating" Style="{StaticResource rateButtonStyle}"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 5, 42, 0"
                     Command="{Binding AddOwnerRatingCommand}"/>
-            <Separator Background="White" Width="50"></Separator>
-            <Button x:Name="CancelOwnerRating" Content="Cancel" IsDefault="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Height="25" Margin="20, 5, 20, 5" 
-                    Command="{Binding CancelOwnerRatingCommand}"/>
-        </WrapPanel>
     </Grid>
 </Window>

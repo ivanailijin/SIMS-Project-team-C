@@ -16,6 +16,9 @@
     <Compile Update="WPF\View\AddReviewView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\FirstGuestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\GuestsToursView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -41,6 +44,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\OwnerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\RenovationRecommendationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ReserveAccommodationView.xaml.cs">
@@ -83,6 +89,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\SearchAccommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\SelectedAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ShowGuestsView.xaml.cs">
@@ -129,6 +138,9 @@
     <Page Update="WPF\View\EnterCheckPoint.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\FirstGuestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\GuestsToursView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -151,6 +163,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\OwnerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\RenovationRecommendationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ReserveAccommodationView.xaml">
@@ -205,6 +220,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SecondGuestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\SelectedAccommodationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowGuestsView.xaml">

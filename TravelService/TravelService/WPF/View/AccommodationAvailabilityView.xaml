@@ -20,9 +20,9 @@
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" HorizontalAlignment="Left" Width="40" Height="40" BorderBrush="White">
+            <Button Grid.Row="0" HorizontalAlignment="Left" Width="30" Height="30" BorderBrush="Transparent">
                 <Button.Background>
-                    <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.jpg"></ImageBrush>
+                    <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.png"></ImageBrush>
                 </Button.Background>
             </Button>
             <Label Grid.Row="1" Content="Raspolozivost" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></Label>

@@ -40,6 +40,7 @@ namespace TravelService.Validation
                 {
                     return new ValidationResult(true, null);
                 }
+
                 return new ValidationResult(false, "Dozvoljen unos samo brojeva!");
             }
             catch
@@ -125,7 +126,6 @@ namespace TravelService.Validation
                 {
                     return new ValidationResult(false, "Invalid date format. The expected format is 'M/d/yyyy h:mm:ss tt'.");
                 }
-                // Add your validation logic here, for example:
                 if (dt < DateTime.Now)
                 {
                     return new ValidationResult(false, "Date must be in the future.");

@@ -22,17 +22,13 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for RatingView.xaml
     /// </summary>
-    public partial class RatingView : Window
+    public partial class RatingView : UserControl
     {
         public RatingView(Guest1 guest1)
         {
             InitializeComponent();
             RatingViewModel ratingViewModel = new RatingViewModel(guest1);
             DataContext = ratingViewModel;
-            if (ratingViewModel.CloseAction == null)
-            {
-                ratingViewModel.CloseAction = new Action(this.Close);
-            }
         }
     }
 }

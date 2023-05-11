@@ -10,19 +10,25 @@
   <ItemGroup>
     <None Remove="Resources\Images\add-accommodation-icon.png" />
     <None Remove="Resources\Images\airplane.png" />
+    <None Remove="Resources\Images\angle-left.png" />
+    <None Remove="Resources\Images\angle-right.png" />
     <None Remove="Resources\Images\cancellation-icon.png" />
     <None Remove="Resources\Images\forum-icon.png" />
+    <None Remove="Resources\Images\forum.ico" />
     <None Remove="Resources\Images\home-icon.png" />
+    <None Remove="Resources\Images\leftarrow.png" />
+    <None Remove="Resources\Images\minus.ico" />
     <None Remove="Resources\Images\moving-requests-icon.png" />
     <None Remove="Resources\Images\notification-icon.png" />
     <None Remove="Resources\Images\plane.png" />
+    <None Remove="Resources\Images\plus.ico" />
     <None Remove="Resources\Images\profile-icon.png" />
     <None Remove="Resources\Images\rating-icon.png" />
     <None Remove="Resources\Images\rating.png" />
+    <None Remove="Resources\Images\ratings.png" />
     <None Remove="Resources\Images\renovation-icon.png" />
     <None Remove="Resources\Images\reservations-icon.png" />
     <None Remove="Resources\Images\reservations-request-icon.png" />
-    <None Remove="Resources\Images\leftarrow.jpg" />
     <None Remove="Resources\Icons\bell.png" />
     <None Remove="Resources\Icons\calendar.png" />
     <None Remove="Resources\Icons\document.png" />
@@ -35,32 +41,47 @@
     <None Remove="Resources\Icons\stats.png" />
     <None Remove="Resources\Icons\ticket.png" />
     <None Remove="Resources\Icons\user.png" />
+    <None Remove="Resources\Images\reservations.ico" />
+    <None Remove="Resources\Images\search.ico" />
     <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\statistics.png" />
     <None Remove="Resources\Images\tail.png" />
     <None Remove="Resources\Images\travel.png" />
+    <None Remove="Resources\Images\user.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\Images\add-accommodation-icon.png" />
     <Resource Include="Resources\Images\airplane.png" />
+    <Resource Include="Resources\Images\angle-left.png" />
+    <Resource Include="Resources\Images\angle-right.png" />
     <Resource Include="Resources\Images\cancellation-icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\forum-icon.png" />
+    <Resource Include="Resources\Images\forum-icon.png"/>
+    <Resource Include="Resources\Images\forum.ico"/>
     <Resource Include="Resources\Images\home-icon.png" />
+    <Resource Include="Resources\Images\leftarrow.png" />
+    <Resource Include="Resources\Images\minus.ico" />
     <Resource Include="Resources\Images\moving-requests-icon.png" />
     <Resource Include="Resources\Images\notification-icon.png" />
     <Resource Include="Resources\Images\plane.png" />
+    <Resource Include="Resources\Images\plus.ico" />
     <Resource Include="Resources\Images\profile-icon.png" />
     <Resource Include="Resources\Images\rating-icon.png" />
     <Resource Include="Resources\Images\rating.png" />
+    <Resource Include="Resources\Images\ratings.png" />
     <Resource Include="Resources\Images\renovation-icon.png" />
     <Resource Include="Resources\Images\reservations-icon.png" />
     <Resource Include="Resources\Images\reservations-request-icon.png" />
-    <Resource Include="Resources\Images\leftarrow.jpg" />
     <Resource Include="Resources\Icons\bell.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -77,6 +98,8 @@
     <Resource Include="Resources\Icons\stats.png" />
     <Resource Include="Resources\Icons\ticket.png" />
     <Resource Include="Resources\Icons\user.png" />
+    <Resource Include="Resources\Images\reservations.ico" />
+    <Resource Include="Resources\Images\search.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,6 +108,7 @@
     <Resource Include="Resources\Images\statistics.png" />
     <Resource Include="Resources\Images\tail.png" />
     <Resource Include="Resources\Images\travel.png" />
+    <Resource Include="Resources\Images\user.ico" />
   </ItemGroup>
 
 </Project>

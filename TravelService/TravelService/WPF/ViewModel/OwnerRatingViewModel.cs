@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows;
-using TravelService.Domain.Model;
-using TravelService.Repository;
-using TravelService.WPF.View;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
+using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using System.Collections.ObjectModel;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -184,21 +177,6 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private RelayCommand _cancelOwnerRatingCommand;
-        public RelayCommand CancelOwnerRatingCommand
-        {
-            get => _cancelOwnerRatingCommand;
-            set
-            {
-                if (value != _cancelOwnerRatingCommand)
-                {
-                    _cancelOwnerRatingCommand = value;
-                    OnPropertyChanged();
-                }
-
-            }
-        }
-
         private ObservableCollection<string> _picturesList;
         public ObservableCollection<string> PicturesList
         {
@@ -208,6 +186,34 @@ namespace TravelService.WPF.ViewModel
                 if (value != _picturesList)
                 {
                     _picturesList = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _previousPageCommand;
+        public RelayCommand PreviousPageCommand
+        {
+            get => _previousPageCommand;
+            set
+            {
+                if (value != _previousPageCommand)
+                {
+                    _previousPageCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _renovationRecommendationCommand;
+        public RelayCommand RenovationRecommendationCommand
+        {
+            get => _renovationRecommendationCommand;
+            set
+            {
+                if (value != _renovationRecommendationCommand)
+                {
+                    _renovationRecommendationCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -228,7 +234,8 @@ namespace TravelService.WPF.ViewModel
 
             AddOwnerRatingCommand = new RelayCommand(Execute_AddOwnerRating, CanExecute_Command);
             AddPicturesCommand = new RelayCommand(Execute_AddPictures, CanExecute_Command);
-            CancelOwnerRatingCommand = new RelayCommand(Execute_CancelOwnerRating, CanExecute_Command);
+            PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
+            RenovationRecommendationCommand = new RelayCommand(Execute_RenovationRecommendation, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -238,24 +245,40 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_AddOwnerRating(object sender)
         {
-            List<string> formattedPictures = new List<string>();
-            string[] delimitedPictures = Pictures.Split(new char[] { '|' });
-
-            foreach (string picture in delimitedPictures)
+            if (string.IsNullOrWhiteSpace(Correctness.ToString()) ||
+                string.IsNullOrWhiteSpace(Cleanliness.ToString()) ||
+                string.IsNullOrWhiteSpace(Location.ToString()) ||
+                string.IsNullOrWhiteSpace(Comfort.ToString()) ||
+                string.IsNullOrWhiteSpace(Contents.ToString()) ||
+                string.IsNullOrWhiteSpace(Comment) ||
+                string.IsNullOrWhiteSpace(Pictures))
             {
-                formattedPictures.Add(picture);
+
+                MessageBox.Show("Niste popunili sve parametre za ocenjivanje", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            else
+            {
+                List<string> formattedPictures = new List<string>();
 
-            OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.AccommodationId, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
-            _ownerRatingService.Save(ownerRating);
+                string[] delimitedPictures = Pictures.Split(new char[] { '|' });
 
-            AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
-            ratedOwner.IsOwnerRated = true;
-            _reservationService.Update(ratedOwner);
+                foreach (string picture in delimitedPictures)
+                {
+                    formattedPictures.Add(picture);
+                }
 
-            _ratingViewModel.UnratedOwners.Remove(ratedOwner);
 
-            CloseAction();
+                OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.AccommodationId, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
+                _ownerRatingService.Save(ownerRating);
+
+                AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
+                ratedOwner.IsOwnerRated = true;
+                _reservationService.Update(ratedOwner);
+
+                _ratingViewModel.UnratedOwners.Remove(ratedOwner);
+
+                CloseAction();
+            }
         }
 
         private void Execute_AddPictures(object sender)
@@ -291,7 +314,13 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private void Execute_CancelOwnerRating(object sender)
+        private void Execute_RenovationRecommendation(object sender)
+        {
+            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView();
+            renovationRecommendationView.Show();
+        }
+
+            private void Execute_PreviousPage(object sender)
         {
             CloseAction();
         }

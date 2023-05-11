@@ -9,6 +9,7 @@ using TravelService.Application.Utils;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Commands;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -86,8 +87,8 @@ namespace TravelService.WPF.ViewModel
             RequestsForDelaying = requestsForDelaying;
 
             _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
-            _newCheckInDate = DateTime.Today;
-            _newCheckoOutDate = DateTime.Today;
+          //  _newCheckInDate = DateTime.Today;
+          //  _newCheckoOutDate = DateTime.Today;
 
             SendCommand = new RelayCommand(Execute_SendCommand, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
@@ -100,10 +101,17 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_SendCommand(object sender)
         {
-            ReservationRequest reservationRequest = new ReservationRequest(Guest1.Id, SelectedReservation.Id, NewCheckInDate, NewCheckOutDate);
-            _reservationRequestService.Save(reservationRequest);
-            RequestsForDelaying.Add(reservationRequest);
-            CloseAction();
+            if (string.IsNullOrWhiteSpace(NewCheckInDate.ToString()) ||
+                string.IsNullOrWhiteSpace(NewCheckOutDate.ToString()))
+            {
+                MessageBox.Show("Niste popunili sva polja za pomeranje rezervacije", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else {
+                ReservationRequest reservationRequest = new ReservationRequest(Guest1.Id, SelectedReservation.Id, NewCheckInDate, NewCheckOutDate);
+                _reservationRequestService.Save(reservationRequest);
+                RequestsForDelaying.Add(reservationRequest);
+                CloseAction();
+            }
         }
 
         private void Execute_CancelCommand(object sender)
