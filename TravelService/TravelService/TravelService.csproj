@@ -25,6 +25,7 @@
     <None Remove="Resources\Images\profile-icon.png" />
     <None Remove="Resources\Images\rating-icon.png" />
     <None Remove="Resources\Images\rating.png" />
+    <None Remove="Resources\Images\ratingreport.ico" />
     <None Remove="Resources\Images\ratings.png" />
     <None Remove="Resources\Images\renovation-icon.png" />
     <None Remove="Resources\Images\reservations-icon.png" />
@@ -93,8 +94,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\forum-icon.png"/>
-    <Resource Include="Resources\Images\forum.ico"/>
+    <Resource Include="Resources\Images\forum-icon.png" />
+    <Resource Include="Resources\Images\forum.ico" />
     <Resource Include="Resources\Images\home-icon.png" />
     <Resource Include="Resources\Images\leftarrow.png" />
     <Resource Include="Resources\Images\minus.ico" />
@@ -105,6 +106,7 @@
     <Resource Include="Resources\Images\profile-icon.png" />
     <Resource Include="Resources\Images\rating-icon.png" />
     <Resource Include="Resources\Images\rating.png" />
+    <Resource Include="Resources\Images\ratingreport.ico" />
     <Resource Include="Resources\Images\ratings.png" />
     <Resource Include="Resources\Images\renovation-icon.png" />
     <Resource Include="Resources\Images\reservations-icon.png" />

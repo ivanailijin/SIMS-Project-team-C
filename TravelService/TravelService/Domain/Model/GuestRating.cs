@@ -12,6 +12,7 @@ namespace TravelService.Domain.Model
     {
         public int Id { get; set; }
         public int OwnerId { get; set; }
+        public Owner Owner { get; set; }
         public int GuestId { get; set; }
         public int Cleanness { get; set; }
         public int RulesFollowing { get; set; }
@@ -20,6 +21,7 @@ namespace TravelService.Domain.Model
         public int PropertyRespect { get; set; }
         public string Comment { get; set; }
         public int ReservationId { get; set; }
+        public AccommodationReservation Reservation { get; set; }
 
         public GuestRating() { }
         public GuestRating(int ownerId, int guestId, int cleanness, int rulesFollowing, int communication, int noiseLevel, int propertyRespect, string comment, int reservationId)

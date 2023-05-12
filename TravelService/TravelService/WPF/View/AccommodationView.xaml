@@ -68,8 +68,7 @@
         </Style>
 
     </UserControl.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -83,15 +82,15 @@
             <Grid Grid.Column="0">
                 <StackPanel>
                     <TextBlock Text="Bilo gde, bilo kada" FontSize="15" Margin="18,7,0,4"></TextBlock>
-                        <Button Margin="20,0,0,0" FontSize="15" Style="{StaticResource reserveButtonStyle}">
-                        </Button>
+                    <Button Margin="20,0,0,0" FontSize="15" Style="{StaticResource reserveButtonStyle}">
+                    </Button>
                 </StackPanel>
             </Grid>
             <Button Grid.Column="1" Style="{StaticResource searchButtonStyle}" Command="{Binding SearchWindowCommand}" BorderBrush="Black">
             </Button>
         </Grid>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="5,5,22,10" VerticalAlignment="Top" Height="530" Background="#cce6ff">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="530" Background="#cce6ff">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -104,16 +103,16 @@
                             <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
                             <StackPanel Orientation="Horizontal" Margin="5,5,0,0">
                                 <TextBlock Text="• " FontSize="14"></TextBlock>
-                                    <TextBlock Text="{Binding Location.CityAndCountry}" FontSize="13"></TextBlock>
+                                <TextBlock Text="{Binding Location.CityAndCountry}" FontSize="13"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
-                                    <TextBlock Text="• " FontSize="13"></TextBlock>
-                                    <TextBlock Text="{Binding TypeText}" FontSize="13"></TextBlock>
+                                <TextBlock Text="• " FontSize="13"></TextBlock>
+                                <TextBlock Text="{Binding TypeText}" FontSize="13"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
-                                    <TextBlock Text="• " FontSize="13"></TextBlock>
-                                    <TextBlock Text=" Ugostice vas " FontSize="13"></TextBlock>
-                                    <TextBlock Text="{Binding Owner.Username}" FontSize="13"></TextBlock>
+                                <TextBlock Text="• " FontSize="13"></TextBlock>
+                                <TextBlock Text=" Ugostice vas " FontSize="13"></TextBlock>
+                                <TextBlock Text="{Binding Owner.Username}" FontSize="13"></TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -121,11 +120,10 @@
             </ListBox.ItemTemplate>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding AccommodationSelectedCommand}"
+                    <i:InvokeCommandAction Command="{Binding AccommodationSelectedCommand}"
                                    CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
     </Grid>
-    </ScrollViewer>
 </UserControl>
