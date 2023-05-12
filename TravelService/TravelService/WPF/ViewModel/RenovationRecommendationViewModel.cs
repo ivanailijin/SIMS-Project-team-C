@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using TravelService.Application.UseCases;
+using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
-using TravelService.Application.Utils;
 using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.WPF.ViewModel
@@ -88,6 +85,20 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private RelayCommand _sendRecommendationCommand;
+        public RelayCommand SendRecommendationCommand
+        {
+            get => _sendRecommendationCommand;
+            set
+            {
+                if (value != _sendRecommendationCommand)
+                {
+                    _sendRecommendationCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public RenovationRecommendationViewModel(AccommodationReservation selectedUnratedOwner)
         {
             SelectedUnratedOwner = selectedUnratedOwner;
@@ -99,6 +110,7 @@ namespace TravelService.WPF.ViewModel
             OwnerName = owner.Username;
 
             PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
+            SendRecommendationCommand = new RelayCommand(Execute_SendRecommendation, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -110,5 +122,21 @@ namespace TravelService.WPF.ViewModel
         {
             CloseAction();
         }
+
+        private void Execute_SendRecommendation(object sender)
+        {
+            if (string.IsNullOrWhiteSpace(Comment) ||
+                string.IsNullOrWhiteSpace(UrgencyLevel.ToString()))
+            {
+                MessageBox.Show("Niste popunili sve parametre za preporuku", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                RenovationRecommendation renovationRecommendation = new RenovationRecommendation(SelectedUnratedOwner.AccommodationId, Comment, UrgencyLevel);
+                _renovationRecommendationService.Save(renovationRecommendation);
+                CloseAction();
+            }
+        }
+
     }
 }

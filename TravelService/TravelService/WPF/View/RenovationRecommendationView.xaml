@@ -57,10 +57,10 @@
             <Label FontWeight="SemiBold" Content="Vlasnik: " Margin="0,0,0,-5" ></Label>
             <TextBlock x:Name="OwnerName" Text="{Binding OwnerName}" VerticalAlignment="Bottom"></TextBlock>
         </StackPanel>
-        <Label FontWeight="Bold" Content="Preporuka za renoviranje" FontSize="18" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
+        <Label FontWeight="Bold" Content="Preporuka za renoviranje" FontSize="18" HorizontalAlignment="Center" Margin="0,10,0,0"></Label>
         <Label Content="(obrazlozenje zasto je renoviranje potrebno, predlozi)" FontSize="15" HorizontalAlignment="Center"></Label>
         <TextBox Height="120" Width="360" Margin="0,0,0,0" Text="{Binding Comment}"></TextBox>
-        <Label Content="Nivo hitnosti renoviranja" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
+        <Label Content="Nivo hitnosti renoviranja" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,10,0,0"></Label>
         <GroupBox Height="50" Width="260">
             <StackPanel Orientation="Horizontal" Width="270">
                 <RadioButton Content="1" Width="50" FontSize="16" GroupName="CorrectnessCriteria" IsChecked="{Binding UrgencyLevel, ConverterParameter=1, Converter={StaticResource RadioButtonConverter}}" VerticalContentAlignment="Center" />
@@ -83,6 +83,6 @@
                 Nivo 5 - Smestaj je u jako losem stanju i ne vredi ga uopste iznajmljivati ukoliko se ne renovira
             </TextBlock>
         </Border>
-        <Button Width="170" Height="60" HorizontalAlignment="Right" Margin="0,10,30,0" Style="{StaticResource sendRecommendationButtonStyle}"></Button>
+        <Button Width="170" Height="60" HorizontalAlignment="Right" Margin="0,10,30,0" Style="{StaticResource sendRecommendationButtonStyle}" Command="{Binding SendRecommendationCommand}"></Button>
     </StackPanel>
 </Window>
