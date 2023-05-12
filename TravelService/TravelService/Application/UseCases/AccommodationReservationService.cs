@@ -50,7 +50,36 @@ namespace TravelService.Application.UseCases
         {
             return _accommodationReservationRepository.FindReservationsByGuestId(guestId);
         }
+        public int GetReservationYearNumber(int year, int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int reservationsNumber = 0;
 
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if(reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year))
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
+        public int GetCancelledReservationYearNumber(int year, int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int reservationsNumber = 0;
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                if (reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year) && reservation.IsCancelled==true)
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
         public List<Tuple<DateTime, DateTime>> FindAvailableDates(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying)
         {
             List<DateTime> reservedDates = FindReservedDates(selectedAccommodation);
