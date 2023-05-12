@@ -11,6 +11,7 @@ namespace TravelService.Domain.Model
     {
         public int Id { get; set; }
         public int AccommodationId { get; set; }
+        public Accommodation Accommodation { get; set; }
         public int OwnerId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

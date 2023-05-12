@@ -25,6 +25,7 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand LogOutCommand { get; set; }
         public RelayCommand ShowProfileCommand { get; set; }    
         public RelayCommand ScheduleRenovationCommand { get; set; }    
+        public RelayCommand ShowRenovationsCommand { get; set; }    
 
 
         private bool _isSuperOwner;
@@ -63,6 +64,12 @@ namespace TravelService.WPF.ViewModel
             ShowProfileCommand = new RelayCommand(Execute_ShowProfileCommand, CanExecute_Command);
             ScheduleRenovationCommand = new RelayCommand(Execute_ScheduleRenovationCommand, CanExecute_Command);
             LogOutCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
+            ShowRenovationsCommand = new RelayCommand(Execute_ShowRenovationsCommand, CanExecute_Command);
+        }
+        private void Execute_ShowRenovationsCommand(object obj)
+        {
+            ScheduledRenovationsCancellationView scheduledRenovationsCancellationView = new ScheduledRenovationsCancellationView(Owner);
+            scheduledRenovationsCancellationView.Show();
         }
         private void Execute_ScheduleRenovationCommand(object obj)
         {

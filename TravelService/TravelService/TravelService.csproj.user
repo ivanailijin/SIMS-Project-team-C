@@ -50,7 +50,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\RenovationRecommendationView.xaml.cs">
-        <SubType>Code</SubType>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\RenovationSchedulingView.xaml.cs">
       <SubType>Code</SubType>
@@ -95,6 +95,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\JoinTourView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ScheduledRenovationsCancellationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\SearchAccommodationView.xaml.cs">
@@ -175,7 +178,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\RenovationRecommendationView.xaml">
-        <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\RenovationSchedulingView.xaml">
       <SubType>Designer</SubType>
@@ -190,6 +193,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\JoinTourView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ScheduledRenovationsCancellationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SearchAccommodationView.xaml">

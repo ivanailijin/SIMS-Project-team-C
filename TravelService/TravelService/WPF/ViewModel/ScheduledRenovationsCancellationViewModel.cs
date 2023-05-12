@@ -14,11 +14,11 @@ using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
-    public class RenovationSelectionViewModel : ViewModelBase
+    public class ScheduledRenovationsCancellationViewModel : ViewModelBase
     {
         public AccommodationService _accommodationService;
 
-        public LocationService _locationService;
+        public AccommodationRenovationService _renovationService;
 
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
@@ -29,36 +29,45 @@ namespace TravelService.WPF.ViewModel
         public static List<Location> Locations { get; set; }
         public Owner Owner { get; set; }
 
+        private ObservableCollection<AccommodationRenovation> _lastRenovations;
+        public ObservableCollection<AccommodationRenovation> LastRenovations
+        {
+            get => _lastRenovations;
+            set
+            {
+                if (value != _lastRenovations)
+                {
+                    _lastRenovations = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
-        public RenovationSelectionViewModel(Owner owner)
+        private ObservableCollection<AccommodationRenovation> _futureRenovations;
+        public ObservableCollection<AccommodationRenovation> FutureRenovations
+        {
+            get => _futureRenovations;
+            set
+            {
+                if (value != _futureRenovations)
+                {
+                    _futureRenovations = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ScheduledRenovationsCancellationViewModel(Owner owner)
         {
             InitializeCommands();
             this.Owner = owner;
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
-            _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetOwnersAccommodations(Owner.Id));
-            Locations = new List<Location>(_locationService.GetAll());
+            _renovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>());
 
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
-            }
-
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                if (accommodation.Type == TYPE.HOUSE)
-                {
-                    accommodation.TypeText = "House";
-                }
-                else if (accommodation.Type == TYPE.APARTMENT)
-                {
-                    accommodation.TypeText = "Apartment";
-                }
-                else
-                {
-                    accommodation.TypeText = "Cottage";
-                }
-            }
+            List<AccommodationRenovation> lastRenovations = _renovationService.GetLastRenovations();
+            LastRenovations = new ObservableCollection<AccommodationRenovation>(_accommodationService.GetAccommodationData(lastRenovations));
+            List<AccommodationRenovation> futureRenovations = _renovationService.GetFutureRenovations();
+            FutureRenovations = new ObservableCollection<AccommodationRenovation>(_accommodationService.GetAccommodationData(futureRenovations));
         }
         private void InitializeCommands()
         {

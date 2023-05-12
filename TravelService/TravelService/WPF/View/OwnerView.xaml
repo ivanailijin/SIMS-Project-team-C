@@ -126,7 +126,7 @@
                 <Border BorderBrush="#696747" Background="#fcfbe3" BorderThickness="3" Margin="5 5 35 5">
                     <StackPanel Orientation="Horizontal" Height="166">
                         <StackPanel Orientation="Vertical">
-                            <Button Style="{StaticResource ResourceKey=RoundedButton}"  Margin="70 25 0 0" Width="200" Height="97">
+                            <Button Style="{StaticResource ResourceKey=RoundedButton}" Command="{Binding ShowRenovationsCommand}" Margin="70 25 0 0" Width="200" Height="97">
                                 <Button.Content>
                                     <Viewbox Width="85" Height="75">
                                         <Image Source="/TravelService;component/Resources/Images/cancellation-icon.png"/>

@@ -204,5 +204,17 @@ namespace TravelService.Application.UseCases
 
             return numberOfAccommodations;
         }
+
+        public List<AccommodationRenovation> GetAccommodationData(List <AccommodationRenovation> renovations)
+        {
+            List<Accommodation> accommodations = GetAll();
+
+            foreach(AccommodationRenovation renovation in renovations)
+            {
+                renovation.Accommodation = accommodations.Find(a => a.Id == renovation.AccommodationId);
+            }
+
+            return renovations;
+        }
     }
 }
