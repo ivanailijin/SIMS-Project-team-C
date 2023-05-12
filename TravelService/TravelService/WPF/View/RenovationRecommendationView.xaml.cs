@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelService.Application.UseCases;
+using TravelService.Commands;
+using TravelService.Domain.Model;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
@@ -19,9 +23,15 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class RenovationRecommendationView : Window
     {
-        public RenovationRecommendationView()
+        public RenovationRecommendationView(AccommodationReservation selectedAccommodationReservation)
         {
             InitializeComponent();
+            RenovationRecommendationViewModel renovationRecommendationViewModel = new RenovationRecommendationViewModel(selectedAccommodationReservation);
+            DataContext = renovationRecommendationViewModel;
+            if (renovationRecommendationViewModel.CloseAction == null)
+            {
+                renovationRecommendationViewModel.CloseAction = new Action(this.Close);
+            }
         }
     }
 }

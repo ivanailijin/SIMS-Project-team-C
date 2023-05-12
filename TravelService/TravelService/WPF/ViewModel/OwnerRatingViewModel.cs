@@ -316,11 +316,11 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_RenovationRecommendation(object sender)
         {
-            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView();
+            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView(SelectedUnratedOwner);
             renovationRecommendationView.Show();
         }
 
-            private void Execute_PreviousPage(object sender)
+        private void Execute_PreviousPage(object sender)
         {
             CloseAction();
         }
