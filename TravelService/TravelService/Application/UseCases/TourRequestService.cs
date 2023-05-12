@@ -50,14 +50,25 @@ namespace TravelService.Application.UseCases
             List<TourRequest> guestsRequests = new List<TourRequest>();
             List<Location> Locations = new List<Location>(_locationService.GetAll());
             List<Language> Languages = new List<Language>(_languageService.GetAll());
+
             foreach(TourRequest tourRequest in tourRequests) 
             {
+                isRequestValid(tourRequest);
                 tourRequest.Location = Locations.Find(loc => loc.Id == tourRequest.LocationId);
                 tourRequest.Language = Languages.Find(lan => lan.Id == tourRequest.LanguageId);
                 if (guestId == tourRequest.GuestId)
                     guestsRequests.Add(tourRequest);
             }
             return guestsRequests;
+        }
+        public void isRequestValid(TourRequest tourRequest) 
+        {
+            TimeSpan timeSpan = tourRequest.TourStart - DateTime.Now;
+            if (timeSpan.TotalHours < 48)
+            {
+                tourRequest.RequestApproved = APPROVAL.INVALID;
+                Update(tourRequest);
+            }
         }
     }
 }

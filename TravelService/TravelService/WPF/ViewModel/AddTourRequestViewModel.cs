@@ -9,6 +9,7 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -98,6 +99,32 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _homePageCommand;
+        public RelayCommand HomePageCommand
+        {
+            get => _homePageCommand;
+            set
+            {
+                if (value != _homePageCommand)
+                {
+                    _homePageCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _voucherViewCommand;
+        public RelayCommand VoucherViewCommand
+        {
+            get => _voucherViewCommand;
+            set
+            {
+                if (value != _voucherViewCommand)
+                {
+                    _voucherViewCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private RelayCommand _addRequestCommand;
         public RelayCommand AddRequestCommand
         {
@@ -111,6 +138,32 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _requestCommand;
+        public RelayCommand RequestCommand
+        {
+            get => _requestCommand;
+            set
+            {
+                if (value != _requestCommand)
+                {
+                    _requestCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _cancelCommand;
+        public RelayCommand CancelCommand
+        {
+            get => _cancelCommand;
+            set
+            {
+                if (value != _cancelCommand)
+                {
+                    _cancelCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public AddTourRequestViewModel(Guest2 guest2)
         {
@@ -120,6 +173,10 @@ namespace TravelService.WPF.ViewModel
 
             Guest2 = guest2;
             AddRequestCommand = new RelayCommand(Execute_AddRequestCommand, CanExecute_Command);
+            CancelCommand = new RelayCommand(Execute_Cancel, CanExecute_Command);
+            HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
+            VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
+            RequestCommand = new RelayCommand(Execute_RequestCommand, CanExecute_Command);
 
         }
         private bool CanExecute_Command(object parameter)
@@ -139,6 +196,26 @@ namespace TravelService.WPF.ViewModel
 
             _tourRequestService.addRequest(savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, GuestNumber, TourStart, TourEnd, Guest2.Id);
             CloseAction();
+        }
+        private void Execute_Cancel(object sender)
+        {
+            CloseAction();
+        }
+        private void Execute_HomePageCommand(object sender)
+        {
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
+            secondGuestView.Show();
+            CloseAction();
+        }
+        private void Execute_VoucherViewCommand(object sender)
+        {
+            GuestsVouchersView guestsVouchersView = new GuestsVouchersView(Guest2);
+            guestsVouchersView.Show();
+        }
+        private void Execute_RequestCommand(object sender)
+        {
+            AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2);
+            addTourRequestView.Show();
         }
     }
 }
