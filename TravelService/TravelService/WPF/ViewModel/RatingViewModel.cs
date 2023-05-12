@@ -15,6 +15,7 @@ namespace TravelService.WPF.ViewModel
     public class RatingViewModel : ViewModelBase
     {
         private AccommodationReservationService _reservationService;
+        private GuestRatingService _guestRatingService;
         public AccommodationReservation SelectedUnratedOwner { get; set; }
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
@@ -28,6 +29,20 @@ namespace TravelService.WPF.ViewModel
                 if (value != _unratedOwners)
                 {
                     _unratedOwners = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private ObservableCollection<GuestRating> _guestRatings;
+        public ObservableCollection<GuestRating> GuestRatings
+        {
+            get => _guestRatings;
+            set
+            {
+                if (value != _guestRatings)
+                {
+                    _guestRatings = value;
                     OnPropertyChanged();
                 }
             }
@@ -51,12 +66,21 @@ namespace TravelService.WPF.ViewModel
         {
             this.Guest1 = guest1;
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            _guestRatingService = new GuestRatingService(Injector.CreateInstance<IGuestRatingRepository>());
 
             List<AccommodationReservation> reservations = new List<AccommodationReservation>(_reservationService.FindUnratedOwners(Guest1.Id));
             reservations = _reservationService.GetLocationData(reservations);
             reservations = _reservationService.GetAccommodationData(reservations);
             reservations = _reservationService.GetOwnerData(reservations);
             UnratedOwners = new ObservableCollection<AccommodationReservation>(reservations);
+
+            List<GuestRating> guestRatings = new List<GuestRating>(_guestRatingService.FindCommonGuestRatings(Guest1.Id));
+            guestRatings = _guestRatingService.GetOwnerData(guestRatings);
+            guestRatings = _guestRatingService.GetReservationData(guestRatings);
+            guestRatings = _guestRatingService.GetAccommodationData(guestRatings);
+            guestRatings = _guestRatingService.GetLocationData(guestRatings);
+
+            GuestRatings = new ObservableCollection<GuestRating>(guestRatings);
 
             OwnerRatingWindowCommand = new RelayCommand(Execute_OwnerRatingWindow, CanExecute_Command);
         }

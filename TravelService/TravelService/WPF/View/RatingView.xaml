@@ -98,6 +98,32 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="reportButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Height" Value="43"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="15">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Grid.Column="0" Source="/TravelService;component/Resources/Images/ratingreport.ico" Width="20" Height="20" Margin="17,10,10,10"/>
+                                <TextBlock Text="Izvestaj" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <TabControl>
         <TabItem Header="Ocenjivanje smestaja" FontSize="14">
@@ -187,6 +213,62 @@
             </Grid>
         </TabItem>
         <TabItem  Header="Moje ocene" FontSize="14">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Style="{StaticResource reportButtonStyle}" Grid.Row="0" HorizontalAlignment="Right" Margin="0,5,10,0">
+
+                </Button>
+                <ListView Grid.Row="1" ItemsSource="{Binding GuestRatings}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding Owner.Username}" FontSize="20" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
+                                    <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
+                                        <TextBlock Text="• " FontSize="15"></TextBlock>
+                                        <TextBlock Text="{Binding Reservation.Accommodation.Name}" FontSize="15"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <TextBlock Text="• " FontSize="15"></TextBlock>
+                                        <TextBlock Text="{Binding Reservation.Location.CityAndCountry}" FontSize="15"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <TextBlock Text="Cistoca: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding Cleanness}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <TextBlock Text="Postovanje pravila: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding RulesFollowing}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <TextBlock Text="Komunikacija: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding Communication}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <TextBlock Text="Nivo bucnosti: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding NoiseLevel}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <TextBlock Text="Postovanje imovine: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding PropertyRespect}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <TextBlock Text="Komentar: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding Comment}"></TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+            </Grid>
         </TabItem>
     </TabControl>
 </UserControl>
