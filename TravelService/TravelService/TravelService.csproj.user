@@ -10,6 +10,9 @@
     <Compile Update="WPF\View\AccommodationAvailabilityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\AddTourRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ApproveReservationRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -20,6 +23,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\FirstGuestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\GuestsRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\GuestsToursView.xaml.cs">
@@ -141,6 +147,9 @@
     <Page Update="WPF\View\CancelRenovationView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\AddTourRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\DeclineReservationRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -154,6 +163,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\FirstGuestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\GuestsRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsToursView.xaml">
