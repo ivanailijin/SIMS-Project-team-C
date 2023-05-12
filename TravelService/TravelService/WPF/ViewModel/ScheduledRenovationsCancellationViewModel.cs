@@ -22,9 +22,9 @@ namespace TravelService.WPF.ViewModel
 
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
-        public RelayCommand ScheduleRenovationCommand { get; set; }
+        public RelayCommand CancelRenovationCommand { get; set; }
 
-        public Accommodation SelectedAccommodation { get; set; }
+        public AccommodationRenovation SelectedFutureRenovation { get; set; }
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
         public static List<Location> Locations { get; set; }
         public Owner Owner { get; set; }
@@ -72,18 +72,26 @@ namespace TravelService.WPF.ViewModel
         private void InitializeCommands()
         {
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
-            ScheduleRenovationCommand = new RelayCommand(Execute_ScheduleRenovationCommand, CanExecute_Command);
+            CancelRenovationCommand = new RelayCommand(Execute_CancelRenovationCommand, CanExecute_Command);
         }
-        private void Execute_ScheduleRenovationCommand(object obj)
+        private void Execute_CancelRenovationCommand(object obj)
         {
-            if (SelectedAccommodation != null && Owner != null)
+            if (SelectedFutureRenovation != null)
             {
-                RenovationSchedulingView renovationSchedulingView = new RenovationSchedulingView(Owner, SelectedAccommodation);
-                renovationSchedulingView.Show();
+                TimeSpan dayDifference = SelectedFutureRenovation.StartDate - DateTime.Today;
+                if (dayDifference.Days > 5)
+                {
+                    CancelRenovationView cancelRenovationView = new CancelRenovationView(SelectedFutureRenovation, this);
+                    cancelRenovationView.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Otkazivanje nije moguce!\n Do pocetka renoviranja ima manje od 5 dana.");
+                }
             }
             else
             {
-                MessageBox.Show("Morate izabrati smestaj za koji zelite da zakazete renoviranje!");
+                MessageBox.Show("Morate izabrati renoviranje koje zelite da otkazete!");
             }
         }
         private void Execute_CancelCommand(object obj)
