@@ -72,7 +72,38 @@ namespace TravelService.Application.UseCases
 
             foreach (AccommodationReservation reservation in reservations)
             {
-                if (reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year) && reservation.IsCancelled==true)
+                if (reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year) && reservation.IsCancelled == true)
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
+
+        public int GetReservationMonthNumber(int month, int year, int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int reservationsNumber = 0;
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                if (reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year) && (reservation.CheckInDate.Month == month))
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
+        public int GetCancelledReservationMonthNumber(int month, int year, int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int reservationsNumber = 0;
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                if (reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year) && (reservation.CheckInDate.Month == month) && reservation.IsCancelled == true)
                 {
                     reservationsNumber++;
                 }

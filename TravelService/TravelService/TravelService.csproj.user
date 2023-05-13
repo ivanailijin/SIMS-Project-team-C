@@ -10,6 +10,9 @@
     <Compile Update="WPF\View\AccommodationAvailabilityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\AccommodationMonthStatisticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\AccommodationStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -142,6 +145,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\AccommodationAvailabilityView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AccommodationMonthStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\AccommodationStatisticsView.xaml">

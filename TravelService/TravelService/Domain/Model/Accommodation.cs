@@ -25,6 +25,7 @@ namespace TravelService.Domain.Model
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancellingReservation { get; set; }
         public bool RecentlyRenovated { get; set; }
+        public DateTime DateCreated { get; set; }
         public List<Uri> Pictures { get; set; }
 
 
@@ -96,6 +97,7 @@ namespace TravelService.Domain.Model
                 MinReservationDays.ToString(),
                 DaysBeforeCancellingReservation.ToString(),
                 RecentlyRenovated.ToString(),
+                DateCreated.ToString(),
                 pictureList.ToString(),
             };
             return csvValues;
@@ -112,8 +114,9 @@ namespace TravelService.Domain.Model
             MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancellingReservation = Convert.ToInt32(values[7]);
             RecentlyRenovated = bool.Parse(values[8]);
+            DateCreated = DateTime.Parse(values[9]);
 
-            string pictures = values[9];
+            string pictures = values[10];
 
             string[] delimitedPictures = pictures.Split(" ,");
 

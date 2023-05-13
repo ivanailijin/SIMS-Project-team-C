@@ -55,7 +55,25 @@ namespace TravelService.Application.UseCases
 
             foreach (ReservationRequest request in requests)
             {
-                if (request.Reservation.AccommodationId == accommodationId && (request.NewStartDate.Year == year || request.NewEndDate.Year == year))
+                if (request.Reservation.AccommodationId == accommodationId && request.Status == STATUS.Approved && (request.NewStartDate.Year == year || request.NewEndDate.Year == year))
+                {
+                    requestsNumber++;
+                }
+            }
+
+            return requestsNumber;
+        }
+
+        public int GetRequestsMonthNumber(int month, int year, int accommodationId)
+        {
+            List<ReservationRequest> requests = GetAll();
+            requests = GetReservationData(requests);
+            requests = GetAccommodationData(requests);
+            int requestsNumber = 0;
+
+            foreach (ReservationRequest request in requests)
+            {
+                if (request.Reservation.AccommodationId == accommodationId && request.Status == STATUS.Approved && (request.NewStartDate.Year == year || request.NewEndDate.Year == year) && (request.NewStartDate.Month == month || request.NewEndDate.Month == month))
                 {
                     requestsNumber++;
                 }

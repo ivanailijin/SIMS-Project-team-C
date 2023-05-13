@@ -14,6 +14,7 @@ namespace TravelService.Domain.Model
         public int CancellationNumber { get; set; }
         public int MovingReservationsNumber { get; set; }
         public int RecommendationsNumber { get; set; }
+        public string MonthText { get; set; }
 
         public AccommodationMonthStatistics() { }
 
@@ -36,6 +37,7 @@ namespace TravelService.Domain.Model
                 CancellationNumber.ToString(),
                 MovingReservationsNumber.ToString(),
                 RecommendationsNumber.ToString(),
+                MonthText,
             };
             return csvValues;
         }
@@ -49,6 +51,7 @@ namespace TravelService.Domain.Model
             CancellationNumber = Convert.ToInt32(values[3]);
             MovingReservationsNumber = Convert.ToInt32(values[4]);
             RecommendationsNumber = Convert.ToInt32(values[5]);
+            MonthText = values[6];
         }
     }
 }
