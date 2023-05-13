@@ -53,6 +53,7 @@
 
     <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\statistics.png" />
+    <None Remove="Resources\Images\superguest.ico" />
     <None Remove="Resources\Images\tail.png" />
     <None Remove="Resources\Images\travel.png" />
     <None Remove="Resources\Images\user.ico" />
@@ -143,6 +144,7 @@
     <Resource Include="Resources\Images\star.png" />
     <Resource Include="Resources\Images\statistics-icon.png" />
     <Resource Include="Resources\Images\statistics.png" />
+    <Resource Include="Resources\Images\superguest.ico" />
     <Resource Include="Resources\Images\tail.png" />
     <Resource Include="Resources\Images\travel.png" />
     <Resource Include="Resources\Images\user.ico" />

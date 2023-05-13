@@ -22,6 +22,9 @@
     <Compile Update="WPF\View\CancelRenovationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\FirstGuestProfileView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\FirstGuestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -160,6 +163,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\CheckPointView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\FirstGuestProfileView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\FirstGuestView.xaml">

@@ -18,7 +18,6 @@ namespace TravelService.WPF.ViewModel
         private GuestRatingService _guestRatingService;
         public AccommodationReservation SelectedUnratedOwner { get; set; }
         public Guest1 Guest1 { get; set; }
-        public Action CloseAction { get; set; }
 
         private ObservableCollection<AccommodationReservation> _unratedOwners;
         public ObservableCollection<AccommodationReservation> UnratedOwners

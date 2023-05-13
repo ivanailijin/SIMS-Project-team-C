@@ -10,6 +10,9 @@ namespace TravelService.Domain.Model
     public class Guest1 : User, ISerializable
     {
         public List<AccommodationReservation> AccommodationReservations { get; set; }
+        public bool SuperGuest { get; set; }
+        public DateTime SuperGuestExpirationDate { get; set; }
+        public int BonusPoints { get; set; }
 
         public Guest1(string username, string password, string userType)
         {
@@ -25,7 +28,7 @@ namespace TravelService.Domain.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, UserType };
+            string[] csvValues = { Id.ToString(), Username, Password, UserType, SuperGuest.ToString(), SuperGuestExpirationDate.ToString(), BonusPoints.ToString(), };
             return csvValues;
         }
 
@@ -35,6 +38,9 @@ namespace TravelService.Domain.Model
             Username = values[1];
             Password = values[2];
             UserType = values[3];
+            SuperGuest = Convert.ToBoolean(values[4]);
+            SuperGuestExpirationDate = Convert.ToDateTime(values[5]);
+            BonusPoints = Convert.ToInt32(values[6]);
         }
     }
 }

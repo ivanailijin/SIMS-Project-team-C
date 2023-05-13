@@ -55,5 +55,16 @@ namespace TravelService.Repository
             return _serializer.FromCSV(FilePath);
         }
 
+        public Guest1 Update(Guest1 guest1)
+        {
+            _guests = _serializer.FromCSV(FilePath);
+            Guest1 current = _guests.Find(c => c.Id == guest1.Id);
+            int index = _guests.IndexOf(current);
+            _guests.Remove(current);
+            _guests.Insert(index, guest1);
+            _serializer.ToCSV(FilePath, _guests);
+            return guest1;
+        }
+
     }
 }

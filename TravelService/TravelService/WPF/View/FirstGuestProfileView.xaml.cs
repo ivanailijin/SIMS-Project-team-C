@@ -17,18 +17,15 @@ using TravelService.WPF.ViewModel;
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for FirstGuestView.xaml
+    /// Interaction logic for FirstGuestProfileView.xaml
     /// </summary>
-    public partial class FirstGuestView : Window
+    public partial class FirstGuestProfileView : UserControl
     {
-        public FirstGuestViewModel firstGuestViewModel { get; set; }
-        public FirstGuestView(Guest1 guest1)
+        public FirstGuestProfileView(Window firstView, Guest1 guest1)
         {
             InitializeComponent();
-            var accommodationView = new AccommodationView(guest1);
-            frame.Content = accommodationView;
-            this.firstGuestViewModel = new FirstGuestViewModel(this,frame,guest1);
-            this.DataContext = this.firstGuestViewModel;
+            FirstGuestProfileViewModel firstGuestProfileViewModel = new FirstGuestProfileViewModel(firstView, guest1);
+            DataContext = firstGuestProfileViewModel;
         }
     }
 }

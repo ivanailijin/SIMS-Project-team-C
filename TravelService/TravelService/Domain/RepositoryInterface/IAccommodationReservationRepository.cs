@@ -18,6 +18,5 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(AccommodationReservation accommodationReservation);
         public AccommodationReservation FindById(int id);
         public AccommodationReservation Update(AccommodationReservation accommodationReservation);
-        public List<AccommodationReservation> FindReservationsByGuestId(int guestId);
     }
 }

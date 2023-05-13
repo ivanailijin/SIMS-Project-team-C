@@ -47,7 +47,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Command="{Binding }">
+            <MenuItem Command="{Binding NavigateToProfileViewCommand}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Vertical" Margin="20,10,5,3.5">
                         <Image Source="/TravelService;component/Resources/Images/user.ico" Width="33" Height="33"/>

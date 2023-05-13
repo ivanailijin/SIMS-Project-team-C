@@ -79,18 +79,5 @@ namespace TravelService.Repository
             return accommodationReservation;
         }
 
-        public List<AccommodationReservation> FindReservationsByGuestId(int guestId)
-        {
-            List<AccommodationReservation> Reservations = new List<AccommodationReservation>();
-
-            foreach (AccommodationReservation reservation in _accommodationReservations)
-            {
-                if (reservation.GuestId == guestId && reservation.IsCancelled == false)
-                {
-                    Reservations.Add(reservation);
-                }
-            }
-            return Reservations;
-        }
     }
 }

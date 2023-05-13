@@ -48,7 +48,33 @@ namespace TravelService.Application.UseCases
 
         public List<AccommodationReservation> FindByGuestId(int guestId)
         {
-            return _accommodationReservationRepository.FindReservationsByGuestId(guestId);
+            List<AccommodationReservation> foundReservations = new List<AccommodationReservation>();
+            List<AccommodationReservation> reservations = GetAll();
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                if (reservation.GuestId == guestId && reservation.IsCancelled == false)
+                {
+                    foundReservations.Add(reservation);
+                }
+            }
+            return foundReservations;
+        }
+
+        public List<AccommodationReservation> GetReservationsInLastYear(Guest1 guest)
+        {
+            DateTime oneYearAgo = DateTime.Today.AddYears(-1);
+
+            List<AccommodationReservation> guestReservations = FindByGuestId(guest.Id);
+            List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in guestReservations)
+            {
+                if (reservation.CheckInDate >= oneYearAgo)
+                {
+                    reservationsInLastYear.Add(reservation);
+                }
+            }
+            return reservationsInLastYear;
         }
 
         public List<Tuple<DateTime, DateTime>> FindAvailableDates(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying)
