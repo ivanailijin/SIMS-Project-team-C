@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
+using TravelService.WPF.ViewModel;
+using static TravelService.WPF.ViewModel.GuestsRequestsStatisticsViewModel;
 
 namespace TravelService.Application.UseCases
 {
@@ -69,6 +72,103 @@ namespace TravelService.Application.UseCases
                 tourRequest.RequestApproved = APPROVAL.INVALID;
                 Update(tourRequest);
             }
+        }
+
+        public List<TourRequest> GetApprovedRequests(ObservableCollection<TourRequest> guestsRequests)
+        {
+            List<TourRequest> approvedRequests = new List<TourRequest>();
+            foreach (TourRequest tourRequest in guestsRequests)
+            { 
+                if(tourRequest.RequestApproved == APPROVAL.ACCEPTED) 
+                {
+                    approvedRequests.Add(tourRequest);
+                }
+            }
+            return approvedRequests;
+        }
+        public double GetApprovedRequestsPercentage(ObservableCollection<TourRequest> guestsRequests)
+        {
+            List<TourRequest> approvedRequests = GetApprovedRequests(guestsRequests);
+            double approvedRequestNumber = approvedRequests.Count();
+            double totalRequestNumber = guestsRequests.Count();
+            double approvedRequestsPercentage = (double)approvedRequestNumber / (double)totalRequestNumber * 100;
+            return Math.Round(approvedRequestsPercentage, 2);
+        }
+        public List<TourRequest> GetInvalidRequests(ObservableCollection<TourRequest> guestsRequests)
+        {
+            List<TourRequest>  invalidRequests = new List<TourRequest>();
+            foreach (TourRequest tourRequest in guestsRequests)
+            {
+                if (tourRequest.RequestApproved == APPROVAL.INVALID)
+                {
+                    invalidRequests.Add(tourRequest);
+                }
+            }
+            return invalidRequests;
+        }
+        public double GetInvalidRequestsPercentage(ObservableCollection<TourRequest> guestsRequests)
+        {
+            List<TourRequest> invalidRequests = GetInvalidRequests(guestsRequests);
+            double invalidRequestsNumber = invalidRequests.Count();
+            double totalRequestNumber = guestsRequests.Count();
+            double invalidRequestsPercentage = (double)invalidRequestsNumber / (double)totalRequestNumber * 100;
+            return Math.Round(invalidRequestsPercentage, 2);
+        }
+        public double GetApprovedRequestsPercentageByYear(ObservableCollection<TourRequest> guestsRequests, int selectedYear)
+        {
+            List<TourRequest> approvedRequests = GetApprovedRequests(guestsRequests);
+            double tourRequestYear = 0;
+            double tourRequestCount = 0;
+            double percentageByYear = 0;
+            double totalRequestCount = guestsRequests.Count();
+            foreach (TourRequest tourRequest in approvedRequests)
+            {
+                tourRequestYear = tourRequest.TourStart.Year;
+                if (selectedYear == tourRequestYear)
+                    tourRequestCount++;
+            }
+            percentageByYear = (double)tourRequestCount / (double)totalRequestCount * 100;
+            return Math.Round(percentageByYear, 2);
+        }
+        public double GetInvalidRequestsPercentageByYear(ObservableCollection<TourRequest> guestsRequests, int selectedYear)
+        {
+            List<TourRequest> invalidRequests = GetInvalidRequests(guestsRequests);
+            double tourRequestYear = 0;
+            double tourRequestCount = 0;
+            double percentageByYear = 0;
+            double totalRequestCount = guestsRequests.Count();
+            foreach (TourRequest tourRequest in invalidRequests)
+            {
+                tourRequestYear = tourRequest.TourStart.Year;
+                if (selectedYear == tourRequestYear)
+                    tourRequestCount++;
+            }
+            percentageByYear = (double)tourRequestCount / (double)totalRequestCount * 100;
+            return Math.Round(percentageByYear,2);
+        }
+
+        public List<DataPoint> GetDataPoints(List<Language> languages, double requestNumber, ObservableCollection<TourRequest> GuestsRequests)
+        {
+            List<DataPoint> DataPoints = new List<DataPoint>();
+            
+            foreach (Language language in languages)
+            {
+                DataPoint dataPoint = new DataPoint{ Language = language.Name, LanguageName = language.Name,LanguageRequestNumber = FindGuestsRequestsPerLanguage(language, languages, GuestsRequests), RequestNumber = FindGuestsRequestsPerLanguage(language,languages,GuestsRequests)};
+                DataPoints.Add(dataPoint);
+            }
+
+            return DataPoints;
+        }
+        public double FindGuestsRequestsPerLanguage(Language Language, List<Language> languages, ObservableCollection<TourRequest> GuestsRequests) 
+        {
+            double requestNumber = 0;
+            Language currentLanguage = languages.Find(lan => lan.Id == Language.Id);
+            foreach (TourRequest tourRequest in GuestsRequests)
+            {
+                if (currentLanguage.Id == tourRequest.LanguageId)
+                    requestNumber++;
+            }
+            return requestNumber;
         }
     }
 }

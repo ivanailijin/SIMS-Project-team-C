@@ -71,7 +71,7 @@
                         <TextBlock Text="Requests" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding StatisticsCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/stats.png" Height="22" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Statistics" FontSize="17" VerticalAlignment="Center"/>
