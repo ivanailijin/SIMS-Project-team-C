@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.WPF.View;
+
 namespace TravelService.WPF.ViewModel
 {
     public class GuideHomePageViewModel : ViewModelBase
     {
+        public TourRequest SelectedTourRequest { get; set; }
         private readonly GuideService _guideService;
         public Tour SelectedTour { get; set; }
         public Guide Guide { get; set; }
@@ -55,7 +58,7 @@ namespace TravelService.WPF.ViewModel
             AddTourCommand = new RelayCommand(Execute_AddTourCommand, CanExecute_Command);
             CancelTourCommand = new RelayCommand(Execute_CAncelTourCommand, CanExecute_Command);
             PastToursCommand = new RelayCommand(Execute_PastToursCommand, CanExecute_Command);
-            // RequestsCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
+             RequestsCommand = new RelayCommand(Execute_RequestsCommand, CanExecute_Command);
             // RequestsComplexCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
             BestTourCommand = new RelayCommand(Execute_BestTourCommand, CanExecute_Command);
             // AboutMeCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
@@ -77,7 +80,13 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-       
+
+        private void Execute_RequestsCommand(object obj)
+        {
+            AcceptingTourRequestView accepting = new AcceptingTourRequestView(Guide, SelectedTourRequest);
+            accepting.Show();
+
+        }
 
         private void Execute_AddTourCommand(object obj)
         {

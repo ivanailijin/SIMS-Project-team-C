@@ -93,8 +93,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\forum-icon.png"/>
-    <Resource Include="Resources\Images\forum.ico"/>
+    <Resource Include="Resources\Images\forum-icon.png" />
+    <Resource Include="Resources\Images\forum.ico" />
     <Resource Include="Resources\Images\home-icon.png" />
     <Resource Include="Resources\Images\leftarrow.png" />
     <Resource Include="Resources\Images\minus.ico" />

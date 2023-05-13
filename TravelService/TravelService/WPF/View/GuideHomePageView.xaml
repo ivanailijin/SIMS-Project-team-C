@@ -148,7 +148,7 @@
 
 
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="550" Canvas.Top="99">
-            <Button Content="Requests" Height="40" Width="120"  Background="#FF184C75" Foreground="#FFFFFF" Margin="0 0 0 10">
+            <Button Content="Requests" Command ="{Binding RequestsCommand}" Height="40" Width="120"  Background="#FF184C75" Foreground="#FFFFFF" Margin="0 0 0 10">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid>
