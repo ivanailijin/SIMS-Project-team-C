@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -18,6 +19,7 @@ namespace TravelService.WPF.ViewModel
         private GuestRatingService _guestRatingService;
         public AccommodationReservation SelectedUnratedOwner { get; set; }
         public Guest1 Guest1 { get; set; }
+        public Frame Frame { get; set; }
 
         private ObservableCollection<AccommodationReservation> _unratedOwners;
         public ObservableCollection<AccommodationReservation> UnratedOwners
@@ -61,9 +63,10 @@ namespace TravelService.WPF.ViewModel
 
             }
         }
-        public RatingViewModel(Guest1 guest1)
+        public RatingViewModel(Guest1 guest1, Frame frame)
         {
             this.Guest1 = guest1;
+            Frame = frame;
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _guestRatingService = new GuestRatingService(Injector.CreateInstance<IGuestRatingRepository>());
 
@@ -93,13 +96,25 @@ namespace TravelService.WPF.ViewModel
         {
             if (SelectedUnratedOwner != null)
             {
-                OwnerRatingView ownerRatingView = new OwnerRatingView(this, SelectedUnratedOwner);
+                OwnerRatingView ownerRatingView = new OwnerRatingView(Frame, this, SelectedUnratedOwner);
+                ownerRatingView.Closed += OwnerRatingView_Closed; 
                 ownerRatingView.ShowDialog();
             }
             else
             {
                 MessageBox.Show("Odaberite smestaj za ocenjivanje!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private void OwnerRatingView_Closed(object sender, EventArgs e)
+        {
+            List<GuestRating> guestRatings = new List<GuestRating>(_guestRatingService.FindCommonGuestRatings(Guest1.Id));
+            guestRatings = _guestRatingService.GetOwnerData(guestRatings);
+            guestRatings = _guestRatingService.GetReservationData(guestRatings);
+            guestRatings = _guestRatingService.GetAccommodationData(guestRatings);
+            guestRatings = _guestRatingService.GetLocationData(guestRatings);
+
+            GuestRatings = new ObservableCollection<GuestRating>(guestRatings);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -18,6 +19,7 @@ namespace TravelService.WPF.ViewModel
         private AccommodationReservationService _reservationService;
         private OwnerService _ownerService;
         private OwnerRatingService _ownerRatingService;
+        public Frame Frame { get; set; }
         public AccommodationReservation SelectedUnratedOwner { get; set; }
         public Action CloseAction { get; set; }
 
@@ -219,10 +221,11 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public OwnerRatingViewModel(RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
+        public OwnerRatingViewModel(Frame frame, RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
         {
             _ratingViewModel = ratingViewModel;
             SelectedUnratedOwner = selectedUnratedOwner;
+            Frame = frame;
             PicturesList = new ObservableCollection<string>();
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
@@ -332,6 +335,7 @@ namespace TravelService.WPF.ViewModel
             AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
             ratedOwner.IsOwnerRated = true;
             _reservationService.Update(ratedOwner);
+            _ratingViewModel.UnratedOwners.Remove(ratedOwner);
 
             CloseAction();
         }
