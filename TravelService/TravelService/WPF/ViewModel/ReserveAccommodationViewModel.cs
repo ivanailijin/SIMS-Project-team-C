@@ -17,7 +17,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class ReserveAccommodationViewModel : ViewModelBase
     {
-        public AccommodationReservationService accommodationReservationService;
+        private AccommodationReservationService _accommodationReservationService;
+        private Guest1Service _guest1Service;
         public Accommodation SelectedAccommodation { get; set; }
         public Guest1 Guest1 { get; set; }
         public ObservableCollection<AccommodationReservation> Reservations { get; set; }
@@ -97,7 +98,8 @@ namespace TravelService.WPF.ViewModel
 
         public ReserveAccommodationViewModel(Accommodation selectedAccommodation, Guest1 guest1, List<Tuple<DateTime, DateTime>> availableDateRange, List<Tuple<DateTime, DateTime>> availableDateOutsideRange, int lengthOfStay)
         {
-            accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            _accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
             AvailableDatesPair = new ObservableCollection<Tuple<DateTime, DateTime>>(availableDateRange);
             if (availableDateRange.Count == 0)
             {
@@ -132,7 +134,12 @@ namespace TravelService.WPF.ViewModel
                 DateTime checkInDate = SelectedAvailableDatePair.Item1;
                 DateTime checkOutDate = SelectedAvailableDatePair.Item2;
                 AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, Guest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, checkInDate, checkOutDate, LengthOfStay, GuestNumber);
-                accommodationReservationService.Save(reservation);
+                _accommodationReservationService.Save(reservation);
+                if(Guest1.BonusPoints > 0)
+                {
+                    Guest1.BonusPoints--;
+                }
+                _guest1Service.Update(Guest1);
                 CloseAction();
             }
             else
