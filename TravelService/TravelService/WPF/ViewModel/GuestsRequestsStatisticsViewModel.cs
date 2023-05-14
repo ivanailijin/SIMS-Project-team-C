@@ -85,6 +85,45 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private int _selectedYearGuest;
+        public int SelectedYearGuest
+        {
+            get => _selectedYearGuest;
+            set
+            {
+                if (value != _selectedYearGuest)
+                {
+                    _selectedYearGuest = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _averageGuestNumber;
+        public string AverageGuestNumber
+        {
+            get => _averageGuestNumber;
+            set
+            {
+                if (value != _averageGuestNumber)
+                {
+                    _averageGuestNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _averageGuestNumberByYear;
+        public string AverageGuestNumberByYear
+        {
+            get => _averageGuestNumberByYear;
+            set
+            {
+                if (value != _averageGuestNumberByYear)
+                {
+                    _averageGuestNumberByYear = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private ObservableCollection<LanguageDataPoint> _languageDataPoints;
         public ObservableCollection<LanguageDataPoint> LanguageDataPoints
         {
@@ -124,19 +163,32 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _guestNumberByYearCommand;
+        public RelayCommand GuestNumberByYearCommand
+        {
+            get => _guestNumberByYearCommand;
+            set
+            {
+                if (value != _guestNumberByYearCommand)
+                {
+                    _guestNumberByYearCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
         public GuestsRequestsStatisticsViewModel(Guest2 guest2)
         {
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Guest2 = guest2;
+            double RequestNumber = 0;
             List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestService.GetAll());
             List<Language> languages = new List<Language>(_languageService.GetAll());
             List<Location> locations = new List<Location>(_locationService.GetAll());
             List<TourRequest> guestsRequests = new List<TourRequest>(_tourRequestService.FindGuestsRequests(tourRequests, guest2.Id));
-
-            double RequestNumber = 0;
-
+            
             Languages = new ObservableCollection<Language>(languages);
             Locations = new ObservableCollection<Location>(locations);
             GuestsRequests = new ObservableCollection<TourRequest>(guestsRequests);
@@ -144,6 +196,7 @@ namespace TravelService.WPF.ViewModel
             List<LocationDataPoint> locationDataPoints = new List<LocationDataPoint>(_tourRequestService.GetLocationDataPoints(locations, RequestNumber, GuestsRequests));
             LanguageDataPoints = new ObservableCollection<LanguageDataPoint>(_tourRequestService.CalculateLanguageDataPointPositions(langaugeDataPoints, Languages, GuestsRequests));
             LocationDataPoints = new ObservableCollection<LocationDataPoint>(_tourRequestService.CalculateLocationDataPointPositions(locationDataPoints, Locations, GuestsRequests));
+            AverageGuestNumber = _tourRequestService.FindAverageGuestNumber(GuestsRequests).ToString();
 
             string approvedRequestsPercentage = _tourRequestService.GetApprovedRequestsPercentage(GuestsRequests).ToString();
             ApprovedRequests = approvedRequestsPercentage + '%';
@@ -151,6 +204,7 @@ namespace TravelService.WPF.ViewModel
             InvalidRequests = invalidRequests + '%';
 
             PercentageByYearCommand = new RelayCommand(Execute_PercentageByYearCommand, CanExecute_Command);
+            GuestNumberByYearCommand = new RelayCommand(Execute_GuestNumberByYearCommand, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -164,6 +218,10 @@ namespace TravelService.WPF.ViewModel
             ApprovedRequestsByYear = approvedRequestsByYear + '%';
             string invalidRequestsByYear = _tourRequestService.GetInvalidRequestsPercentageByYear(GuestsRequests, SelectedYear).ToString();
             InvalidRequestsByYear = invalidRequestsByYear + '%';
+        }
+        private void Execute_GuestNumberByYearCommand(object sender)
+        {
+            AverageGuestNumberByYear = _tourRequestService.GetGuestNumberByYear(GuestsRequests, SelectedYearGuest).ToString();
         }
     }
 }

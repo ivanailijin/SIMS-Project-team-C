@@ -67,7 +67,7 @@ namespace TravelService.Application.UseCases
         public void isRequestValid(TourRequest tourRequest) 
         {
             TimeSpan timeSpan = tourRequest.TourStart - DateTime.Now;
-            if (timeSpan.TotalHours < 48)
+            if (timeSpan.TotalHours < 48 && tourRequest.RequestApproved!=APPROVAL.ACCEPTED)
             {
                 tourRequest.RequestApproved = APPROVAL.INVALID;
                 Update(tourRequest);
@@ -254,6 +254,43 @@ namespace TravelService.Application.UseCases
         {
             double y = (double)requests / GuestsRequests.Count * maxY;
             return Math.Round(y, 2);
+        }
+
+        public double FindAverageGuestNumber(ObservableCollection<TourRequest> guestsRequests)
+        {
+            List<TourRequest> approvedRequests = GetApprovedRequests(guestsRequests);
+            double guestNumberSum = 0;
+            double totalRequestNumber = approvedRequests.Count();
+            double averageGuestNumber = 0;
+            foreach (TourRequest tourRequest in approvedRequests)
+            {
+                guestNumberSum += tourRequest.GuestNumber;
+            }
+            averageGuestNumber = (double)guestNumberSum/(double)totalRequestNumber;
+            return Math.Round(averageGuestNumber, 2);
+        }
+
+        public double GetGuestNumberByYear(ObservableCollection<TourRequest> guestsRequests, int selectedYearGuest)
+        {
+            List<TourRequest> approvedRequests = GetApprovedRequests(guestsRequests);
+            double tourRequestYear = 0;
+            double tourRequestCount = 0;
+            double guestNumberSum = 0;
+            double guestNumberByYear = 0;
+            foreach (TourRequest tourRequest in approvedRequests)
+            {
+                tourRequestYear = tourRequest.TourStart.Year;
+                if (selectedYearGuest == tourRequestYear)
+                {
+                    tourRequestCount++;
+                    guestNumberSum += tourRequest.GuestNumber;
+                }
+            }
+            guestNumberByYear = (double)guestNumberSum / (double)tourRequestCount;
+            double roundedGuestNumber =Math.Round(guestNumberByYear, 2);
+            if(double.IsNaN(roundedGuestNumber))
+                roundedGuestNumber = 0;
+            return roundedGuestNumber;
         }
     }
 }

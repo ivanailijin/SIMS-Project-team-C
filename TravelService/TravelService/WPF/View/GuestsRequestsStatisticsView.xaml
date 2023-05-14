@@ -9,8 +9,9 @@
         Title="GuestsRequestsStatisticsView" Height="460" Width="960">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1.5*" />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="7" Grid.Row="0">
@@ -18,6 +19,26 @@
             <TextBlock Text="{Binding ApprovedRequests}" FontSize="20" Foreground="Black" Width="200"/>
             <Label>Invalid:</Label>
             <TextBlock Text="{Binding InvalidRequests}" FontSize="20" Foreground="Black" Width="200"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="7" Grid.Row="0">
+            <Label>Average guest number:</Label>
+            <TextBlock Text="{Binding AverageGuestNumber}" FontSize="20" Foreground="Black" Width="200"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="7">
+            <ComboBox Width="150" SelectedItem="{Binding SelectedYearGuest}">
+                <ComboBox.ItemsSource>
+                    <x:Array Type="{x:Type sys:Int32}">
+                        <sys:Int32>2021</sys:Int32>
+                        <sys:Int32>2022</sys:Int32>
+                        <sys:Int32>2023</sys:Int32>
+                        <sys:Int32>2024</sys:Int32>
+                        <sys:Int32>2025</sys:Int32>
+                    </x:Array>
+                </ComboBox.ItemsSource>
+            </ComboBox>
+            <Label>Average guest number:</Label>
+            <TextBlock Text="{Binding AverageGuestNumberByYear}" FontSize="20" Foreground="Black" Width="200"/>
+            <Button Command="{Binding GuestNumberByYearCommand}" Width="150">Show guest number</Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="7">
             <ComboBox Width="150" SelectedItem="{Binding SelectedYear}">
