@@ -12,6 +12,8 @@ namespace TravelService.WPF.ViewModel
     {
         private RenovationRecommendationService _renovationRecommendationService;
         private OwnerService _ownerService;
+        private OwnerRatingService _ownerRatingService;
+        public OwnerRating Rating { get; set; }
         public AccommodationReservation SelectedUnratedOwner { get; set; }
         public Action CloseAction { get; set; }
 
@@ -99,11 +101,13 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public RenovationRecommendationViewModel(AccommodationReservation selectedUnratedOwner)
+        public RenovationRecommendationViewModel(AccommodationReservation selectedUnratedOwner, OwnerRating rating)
         {
             SelectedUnratedOwner = selectedUnratedOwner;
             _renovationRecommendationService = new RenovationRecommendationService(Injector.CreateInstance<IRenovationRecommendationRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
+            _ownerRatingService = new OwnerRatingService(Injector.CreateInstance<IOwnerRatingRepository>());
+            Rating = rating;
 
             AccommodationName = selectedUnratedOwner.Accommodation.Name;
             Owner owner = _ownerService.FindById(selectedUnratedOwner.OwnerId);
@@ -134,6 +138,8 @@ namespace TravelService.WPF.ViewModel
             {
                 RenovationRecommendation renovationRecommendation = new RenovationRecommendation(SelectedUnratedOwner.AccommodationId, Comment, UrgencyLevel);
                 _renovationRecommendationService.Save(renovationRecommendation);
+                Rating.RenovationRecommendationId = renovationRecommendation.Id;
+                _ownerRatingService.Save(Rating);
                 CloseAction();
             }
         }

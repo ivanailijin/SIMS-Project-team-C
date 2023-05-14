@@ -268,7 +268,7 @@ namespace TravelService.WPF.ViewModel
                 }
 
 
-                OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.AccommodationId, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
+                 OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.AccommodationId, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
                 _ownerRatingService.Save(ownerRating);
 
                 AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
@@ -316,8 +316,24 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_RenovationRecommendation(object sender)
         {
-            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView(SelectedUnratedOwner);
+            List<string> formattedPictures = new List<string>();
+
+            string[] delimitedPictures = Pictures.Split(new char[] { '|' });
+
+            foreach (string picture in delimitedPictures)
+            {
+                formattedPictures.Add(picture);
+            }
+
+            OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.AccommodationId, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
+            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView(SelectedUnratedOwner, ownerRating);
             renovationRecommendationView.Show();
+
+            AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
+            ratedOwner.IsOwnerRated = true;
+            _reservationService.Update(ratedOwner);
+
+            CloseAction();
         }
 
         private void Execute_PreviousPage(object sender)

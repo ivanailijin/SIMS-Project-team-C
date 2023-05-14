@@ -25,6 +25,8 @@ namespace TravelService.Domain.Model
         public int Content { get; set; }
         public string Comment { get; set; }
         public List<Uri> Pictures { get; set; }
+        public int RenovationRecommendationId { get; set; }
+        public RenovationRecommendation Recommendation { get; set; }
 
         public OwnerRating()
         {
@@ -53,6 +55,10 @@ namespace TravelService.Domain.Model
                 Pictures.Add(file);
             }
         }
+        public void AddRenovationRecommendationId(int recommendationId)
+        {
+            RenovationRecommendationId = recommendationId;
+        }
 
         public string[] ToCSV()
         {
@@ -66,6 +72,8 @@ namespace TravelService.Domain.Model
             }
 
             pictureList.Remove(pictureList.Length - 1, 1);
+
+            string RenovationRecommendation = RenovationRecommendationId == 0 ? "Nema preporuke za renoviranje" : RenovationRecommendationId.ToString();
 
             string[] csvValues =
             {
@@ -81,6 +89,7 @@ namespace TravelService.Domain.Model
                 Content.ToString(),
                 Comment,
                 pictureList.ToString(),
+                RenovationRecommendation,
             };
             return csvValues;
         }
@@ -111,6 +120,15 @@ namespace TravelService.Domain.Model
             {
                 Uri file = new Uri(picture);
                 Pictures.Add(file);
+            }
+
+            if (values[12] == "Nema preporuke za renoviranje")
+            {
+                Recommendation = null;
+            }
+            else
+            {
+                RenovationRecommendationId = Convert.ToInt32(values[12]);
             }
         }
 
