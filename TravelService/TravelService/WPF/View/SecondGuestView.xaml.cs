@@ -31,5 +31,14 @@ namespace TravelService.WPF.View
             }
         }
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public event EventHandler<string> NotificationReceived;
+
+        public void Notify(string message)
+        {
+            NotificationReceived?.Invoke(this, message);
+        }
+
     }
+
 }

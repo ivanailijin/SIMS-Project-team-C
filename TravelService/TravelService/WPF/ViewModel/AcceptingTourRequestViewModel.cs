@@ -12,6 +12,7 @@ using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -177,6 +178,8 @@ namespace TravelService.WPF.ViewModel
             Locations = new List<Location>(_locationService.GetAll());
             Languages = new List<Language>(_languageService.GetAll());
             Guide = guide;
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now.AddDays(1);
 
             _tourRequestService.ShowTourRequests(TourRequests.ToList(), Locations, Languages);
             foreach (TourRequest tourRequest in TourRequests)
@@ -239,15 +242,9 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_Accept(object sender)
         {
-            if (SelectedTourRequest != null)
-            {
-                SelectedTourRequest.RequestApproved = APPROVAL.ACCEPTED;
-                _tourRequestService.Update(SelectedTourRequest);
-            }
-            else
-            {
-                MessageBox.Show("Choose request ");
-            }
+            ScheduleDateView schedule = new ScheduleDateView(SelectedTourRequest);
+            schedule.Show();
+            CloseAction();
         }
      
     }

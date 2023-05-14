@@ -89,6 +89,18 @@ namespace TravelService.Application.UseCases
             return filteredTourRequests;
         }
 
+        public bool AvailabilityDate(List<Tour> existingTours, DateTime selectedDate)
+        {
+            foreach (var tour in existingTours)
+            {
+                if (tour.TourStart.Date == selectedDate.Date)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
 
         /*  public List<Tuple<DateTime, DateTime>> FindAvailableDates(TourRequest selectedTourRequest, DateTime startDate, DateTime endDate,  int guideId)

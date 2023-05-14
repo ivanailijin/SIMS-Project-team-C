@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="ScheduleDate" Height="450" Width="800">
     <Grid>
-        
+        <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+        HorizontalAlignment="Left" Margin="380,64,0,0" VerticalAlignment="Top"/>
+        <Button Content="Button" Margin="-10,169,10,221" Command="{Binding ScheduleCommand}"/>
+
     </Grid>
 </Window>

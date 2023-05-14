@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,17 +12,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelService.Domain.Model;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
     /// <summary>
     /// Interaction logic for ScheduleDate.xaml
     /// </summary>
-    public partial class ScheduleDateView : Window
+    public partial class ScheduleDateView : Window, INotifyPropertyChanged
     {
-        public ScheduleDateView()
+        public ScheduleDateView(TourRequest selectedTourRequest )
         {
             InitializeComponent();
+            ScheduleDateViewModel scheduteDate = new ScheduleDateViewModel(selectedTourRequest);
+            DataContext = scheduteDate;
+            if (scheduteDate.CloseAction == null)
+                scheduteDate.CloseAction = new Action(this.Close);
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
