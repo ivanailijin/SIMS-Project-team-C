@@ -54,6 +54,7 @@
     <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\statistics.png" />
     <None Remove="Resources\Images\superguest.ico" />
+    <None Remove="Resources\Images\superowner.png" />
     <None Remove="Resources\Images\tail.png" />
     <None Remove="Resources\Images\travel.png" />
     <None Remove="Resources\Images\user.ico" />
@@ -78,6 +79,10 @@
     <None Remove="WPF\View\Icons\woman %282%29.png" />
     <None Remove="WPF\View\Icons\—Slidesdocs—design illustration of shanghai tourism_50ce7aaf10.jpg" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\superowner.png" />
   </ItemGroup>
 
   <ItemGroup>

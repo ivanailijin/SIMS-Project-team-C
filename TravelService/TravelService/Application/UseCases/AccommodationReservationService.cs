@@ -69,7 +69,7 @@ namespace TravelService.Application.UseCases
             List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
             foreach (AccommodationReservation reservation in guestReservations)
             {
-                if (reservation.CheckInDate >= oneYearAgo && reservation.CheckInDate < DateTime.Today)
+                if (reservation.CheckInDate >= oneYearAgo && reservation.CheckOutDate <= DateTime.Today)
                 {
                     reservationsInLastYear.Add(reservation);
                 }
