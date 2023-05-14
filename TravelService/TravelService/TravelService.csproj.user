@@ -37,6 +37,9 @@
     <Compile Update="WPF\View\GuestsVouchersView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\LanguageStatisticsGraph.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\MostVisited.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -178,6 +181,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsVouchersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\LanguageStatisticsGraph.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\MostVisited.xaml">

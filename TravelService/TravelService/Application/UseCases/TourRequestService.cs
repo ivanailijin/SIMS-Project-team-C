@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.Repository;
-using TravelService.WPF.ViewModel;
-using static TravelService.WPF.ViewModel.GuestsRequestsStatisticsViewModel;
 
 namespace TravelService.Application.UseCases
 {
@@ -42,19 +37,28 @@ namespace TravelService.Application.UseCases
         {
             _tourRequestRepository.Update(tourRequest);
         }
-        public void addRequest(Location location,int locationId, string description, Language language, int languageId, int guestNumber, DateTime tourStart, DateTime tourEnd, int guestId)
-        { 
+        public void addRequest(Location location, int locationId, string description, Language language, int languageId, int guestNumber, DateTime tourStart, DateTime tourEnd, int guestId)
+        {
             TourRequest tourRequest = new TourRequest(location, locationId, description, language, languageId, guestNumber, tourStart, tourEnd, APPROVAL.WAITING, guestId);
             _tourRequestRepository.Save(tourRequest);
         }
-
+        public List<int> FindYears(ObservableCollection<TourRequest> guestsRequests)
+        {
+            List<int> years = new List<int>();
+            foreach (TourRequest tourRequest in guestsRequests)
+            {
+                if(!years.Contains(tourRequest.TourStart.Year))
+                    years.Add(tourRequest.TourStart.Year);
+            }
+            return years;
+        }
         public List<TourRequest> FindGuestsRequests(List<TourRequest> tourRequests, int guestId)
         {
             List<TourRequest> guestsRequests = new List<TourRequest>();
             List<Location> Locations = new List<Location>(_locationService.GetAll());
             List<Language> Languages = new List<Language>(_languageService.GetAll());
 
-            foreach(TourRequest tourRequest in tourRequests) 
+            foreach (TourRequest tourRequest in tourRequests)
             {
                 isRequestValid(tourRequest);
                 tourRequest.Location = Locations.Find(loc => loc.Id == tourRequest.LocationId);
@@ -64,10 +68,10 @@ namespace TravelService.Application.UseCases
             }
             return guestsRequests;
         }
-        public void isRequestValid(TourRequest tourRequest) 
+        public void isRequestValid(TourRequest tourRequest)
         {
             TimeSpan timeSpan = tourRequest.TourStart - DateTime.Now;
-            if (timeSpan.TotalHours < 48 && tourRequest.RequestApproved!=APPROVAL.ACCEPTED)
+            if (timeSpan.TotalHours < 48 && tourRequest.RequestApproved != APPROVAL.ACCEPTED)
             {
                 tourRequest.RequestApproved = APPROVAL.INVALID;
                 Update(tourRequest);
@@ -78,8 +82,8 @@ namespace TravelService.Application.UseCases
         {
             List<TourRequest> approvedRequests = new List<TourRequest>();
             foreach (TourRequest tourRequest in guestsRequests)
-            { 
-                if(tourRequest.RequestApproved == APPROVAL.ACCEPTED) 
+            {
+                if (tourRequest.RequestApproved == APPROVAL.ACCEPTED)
                 {
                     approvedRequests.Add(tourRequest);
                 }
@@ -96,7 +100,7 @@ namespace TravelService.Application.UseCases
         }
         public List<TourRequest> GetInvalidRequests(ObservableCollection<TourRequest> guestsRequests)
         {
-            List<TourRequest>  invalidRequests = new List<TourRequest>();
+            List<TourRequest> invalidRequests = new List<TourRequest>();
             foreach (TourRequest tourRequest in guestsRequests)
             {
                 if (tourRequest.RequestApproved == APPROVAL.INVALID)
@@ -144,7 +148,7 @@ namespace TravelService.Application.UseCases
                     tourRequestCount++;
             }
             percentageByYear = (double)tourRequestCount / (double)totalRequestCount * 100;
-            return Math.Round(percentageByYear,2);
+            return Math.Round(percentageByYear, 2);
         }
 
         public List<LanguageDataPoint> GetLanguageDataPoints(List<Language> languages, double requestNumber, ObservableCollection<TourRequest> GuestsRequests)
@@ -152,12 +156,12 @@ namespace TravelService.Application.UseCases
             List<LanguageDataPoint> DataPoints = new List<LanguageDataPoint>();
             foreach (Language language in languages)
             {
-                LanguageDataPoint dataPoint = new LanguageDataPoint(language.Name, FindGuestsRequestsPerLanguage(language,languages,GuestsRequests));
+                LanguageDataPoint dataPoint = new LanguageDataPoint(language.Name, FindGuestsRequestsPerLanguage(language, languages, GuestsRequests));
                 DataPoints.Add(dataPoint);
             }
             return DataPoints;
         }
-        public double FindGuestsRequestsPerLanguage(Language Language, List<Language> languages, ObservableCollection<TourRequest> GuestsRequests) 
+        public double FindGuestsRequestsPerLanguage(Language Language, List<Language> languages, ObservableCollection<TourRequest> GuestsRequests)
         {
             double requestNumber = 0;
             Language currentLanguage = languages.Find(lan => lan.Id == Language.Id);
@@ -172,7 +176,7 @@ namespace TravelService.Application.UseCases
         {
             List<LanguageDataPoint> DataPoints = new List<LanguageDataPoint>();
             double maxX = 300;
-            double maxY = 50;
+            double maxY = 30;
 
             for (int i = 0; i < languageDataPoints.Count; i++)
             {
@@ -194,19 +198,17 @@ namespace TravelService.Application.UseCases
             double x = (languageIndex) * interval;
             return Math.Round(x, 2);
         }
-
         public double CalculateYPosition(double requests, double maxY, ObservableCollection<TourRequest> GuestsRequests)
         {
             double y = (double)requests / GuestsRequests.Count * maxY;
             return Math.Round(y, 2);
         }
-
         public List<LocationDataPoint> GetLocationDataPoints(List<Location> locations, double requestNumber, ObservableCollection<TourRequest> guestsRequests)
         {
             List<LocationDataPoint> DataPoints = new List<LocationDataPoint>();
             foreach (Location location in locations)
             {
-                LocationDataPoint dataPoint = new LocationDataPoint(location.CityAndCountry, FindGuestsRequestsPerLocation(location, locations, guestsRequests));
+                LocationDataPoint dataPoint = new LocationDataPoint(location.CityAndCountry, location.City, location.Country, FindGuestsRequestsPerLocation(location, locations, guestsRequests));
                 DataPoints.Add(dataPoint);
             }
             return DataPoints;
@@ -222,12 +224,11 @@ namespace TravelService.Application.UseCases
             }
             return requestNumber;
         }
-
         public List<LocationDataPoint> CalculateLocationDataPointPositions(List<LocationDataPoint> locationDataPoints, ObservableCollection<Location> Locations, ObservableCollection<TourRequest> GuestsRequests)
         {
             List<LocationDataPoint> DataPoints = new List<LocationDataPoint>();
-            double maxX = 300;
-            double maxY = 50;
+            double maxX = 200;
+            double maxY = 30;
 
             for (int i = 0; i < locationDataPoints.Count; i++)
             {
@@ -266,7 +267,7 @@ namespace TravelService.Application.UseCases
             {
                 guestNumberSum += tourRequest.GuestNumber;
             }
-            averageGuestNumber = (double)guestNumberSum/(double)totalRequestNumber;
+            averageGuestNumber = (double)guestNumberSum / (double)totalRequestNumber;
             return Math.Round(averageGuestNumber, 2);
         }
 
@@ -287,8 +288,8 @@ namespace TravelService.Application.UseCases
                 }
             }
             guestNumberByYear = (double)guestNumberSum / (double)tourRequestCount;
-            double roundedGuestNumber =Math.Round(guestNumberByYear, 2);
-            if(double.IsNaN(roundedGuestNumber))
+            double roundedGuestNumber = Math.Round(guestNumberByYear, 2);
+            if (double.IsNaN(roundedGuestNumber))
                 roundedGuestNumber = 0;
             return roundedGuestNumber;
         }

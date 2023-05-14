@@ -6,6 +6,7 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -15,8 +16,8 @@ namespace TravelService.WPF.ViewModel
         private readonly LanguageService _languageService;
         private readonly LocationService _locationService;
         public ObservableCollection<TourRequest> GuestsRequests { get; set; }
-        public ObservableCollection<Language> Languages { get; set; }
         public ObservableCollection<Location> Locations { get; set; }
+        public List<int> Years { get; set; }
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
 
@@ -85,19 +86,6 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        private int _selectedYearGuest;
-        public int SelectedYearGuest
-        {
-            get => _selectedYearGuest;
-            set
-            {
-                if (value != _selectedYearGuest)
-                {
-                    _selectedYearGuest = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         private string _averageGuestNumber;
         public string AverageGuestNumber
         {
@@ -120,19 +108,6 @@ namespace TravelService.WPF.ViewModel
                 if (value != _averageGuestNumberByYear)
                 {
                     _averageGuestNumberByYear = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private ObservableCollection<LanguageDataPoint> _languageDataPoints;
-        public ObservableCollection<LanguageDataPoint> LanguageDataPoints
-        {
-            get => _languageDataPoints;
-            set
-            {
-                if (value != _languageDataPoints)
-                {
-                    _languageDataPoints = value;
                     OnPropertyChanged();
                 }
             }
@@ -176,25 +151,35 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _languageGraphCommand;
+        public RelayCommand LanguageGraphCommand
+        {
+            get => _languageGraphCommand;
+            set
+            {
+                if (value != _languageGraphCommand)
+                {
+                    _languageGraphCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         
+
         public GuestsRequestsStatisticsViewModel(Guest2 guest2)
         {
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
-            _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Guest2 = guest2;
             double RequestNumber = 0;
             List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestService.GetAll());
-            List<Language> languages = new List<Language>(_languageService.GetAll());
             List<Location> locations = new List<Location>(_locationService.GetAll());
             List<TourRequest> guestsRequests = new List<TourRequest>(_tourRequestService.FindGuestsRequests(tourRequests, guest2.Id));
             
-            Languages = new ObservableCollection<Language>(languages);
             Locations = new ObservableCollection<Location>(locations);
             GuestsRequests = new ObservableCollection<TourRequest>(guestsRequests);
-            List<LanguageDataPoint> langaugeDataPoints = new List<LanguageDataPoint>(_tourRequestService.GetLanguageDataPoints(languages, RequestNumber, GuestsRequests));
+            Years = _tourRequestService.FindYears(GuestsRequests);
             List<LocationDataPoint> locationDataPoints = new List<LocationDataPoint>(_tourRequestService.GetLocationDataPoints(locations, RequestNumber, GuestsRequests));
-            LanguageDataPoints = new ObservableCollection<LanguageDataPoint>(_tourRequestService.CalculateLanguageDataPointPositions(langaugeDataPoints, Languages, GuestsRequests));
             LocationDataPoints = new ObservableCollection<LocationDataPoint>(_tourRequestService.CalculateLocationDataPointPositions(locationDataPoints, Locations, GuestsRequests));
             AverageGuestNumber = _tourRequestService.FindAverageGuestNumber(GuestsRequests).ToString();
 
@@ -204,7 +189,7 @@ namespace TravelService.WPF.ViewModel
             InvalidRequests = invalidRequests + '%';
 
             PercentageByYearCommand = new RelayCommand(Execute_PercentageByYearCommand, CanExecute_Command);
-            GuestNumberByYearCommand = new RelayCommand(Execute_GuestNumberByYearCommand, CanExecute_Command);
+            LanguageGraphCommand = new RelayCommand(Execute_LanguageGraphCommand, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -218,10 +203,12 @@ namespace TravelService.WPF.ViewModel
             ApprovedRequestsByYear = approvedRequestsByYear + '%';
             string invalidRequestsByYear = _tourRequestService.GetInvalidRequestsPercentageByYear(GuestsRequests, SelectedYear).ToString();
             InvalidRequestsByYear = invalidRequestsByYear + '%';
+            AverageGuestNumberByYear = _tourRequestService.GetGuestNumberByYear(GuestsRequests, SelectedYear).ToString();
         }
-        private void Execute_GuestNumberByYearCommand(object sender)
+        private void Execute_LanguageGraphCommand(object sender)
         {
-            AverageGuestNumberByYear = _tourRequestService.GetGuestNumberByYear(GuestsRequests, SelectedYearGuest).ToString();
+            LanguageStatisticsGraph languageStatisticsGraph = new LanguageStatisticsGraph(Guest2);
+            languageStatisticsGraph.Show();
         }
     }
 }

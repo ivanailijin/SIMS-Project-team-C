@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelService.Application.UseCases
+namespace TravelService.Domain.Model
 {
     public class LanguageDataPoint
     {
@@ -13,12 +13,12 @@ namespace TravelService.Application.UseCases
         public string LanguageName { get; set; }
         public double RequestNumber { get; set; }
         public double LanguageRequestNumber { get; set; }
-        public LanguageDataPoint(string language,double requestNumber) 
+        public LanguageDataPoint(string language, double requestNumber)
         {
             Language = language;
             LanguageName = language;
             RequestNumber = requestNumber;
             LanguageRequestNumber = requestNumber;
-        }  
+        }
     }
 }
