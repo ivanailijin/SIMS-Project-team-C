@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -19,8 +13,10 @@ namespace TravelService.WPF.ViewModel
     {
         private readonly TourRequestService _tourRequestService;
         private readonly LanguageService _languageService;
+        private readonly LocationService _locationService;
         public ObservableCollection<TourRequest> GuestsRequests { get; set; }
         public ObservableCollection<Language> Languages { get; set; }
+        public ObservableCollection<Location> Locations { get; set; }
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
 
@@ -89,15 +85,28 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        private ObservableCollection<DataPoint> _dataPoints;
-        public ObservableCollection<DataPoint> DataPoints
+        private ObservableCollection<LanguageDataPoint> _languageDataPoints;
+        public ObservableCollection<LanguageDataPoint> LanguageDataPoints
         {
-            get => _dataPoints;
+            get => _languageDataPoints;
             set
             {
-                if (value != _dataPoints)
+                if (value != _languageDataPoints)
                 {
-                    _dataPoints = value;
+                    _languageDataPoints = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private ObservableCollection<LocationDataPoint> _locationDataPoints;
+        public ObservableCollection<LocationDataPoint> LocationDataPoints
+        {
+            get => _locationDataPoints;
+            set
+            {
+                if (value != _locationDataPoints)
+                {
+                    _locationDataPoints = value;
                     OnPropertyChanged();
                 }
             }
@@ -119,26 +128,31 @@ namespace TravelService.WPF.ViewModel
         {
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());
-
+            _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
+            Guest2 = guest2;
             List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestService.GetAll());
             List<Language> languages = new List<Language>(_languageService.GetAll());
+            List<Location> locations = new List<Location>(_locationService.GetAll());
             List<TourRequest> guestsRequests = new List<TourRequest>(_tourRequestService.FindGuestsRequests(tourRequests, guest2.Id));
+
             double RequestNumber = 0;
 
             Languages = new ObservableCollection<Language>(languages);
+            Locations = new ObservableCollection<Location>(locations);
             GuestsRequests = new ObservableCollection<TourRequest>(guestsRequests);
-            DataPoints = new ObservableCollection<DataPoint>(_tourRequestService.GetDataPoints(languages, RequestNumber,GuestsRequests));
-            CalculateDataPointPositions();
-            Guest2 = guest2;
+            List<LanguageDataPoint> langaugeDataPoints = new List<LanguageDataPoint>(_tourRequestService.GetLanguageDataPoints(languages, RequestNumber, GuestsRequests));
+            List<LocationDataPoint> locationDataPoints = new List<LocationDataPoint>(_tourRequestService.GetLocationDataPoints(locations, RequestNumber, GuestsRequests));
+            LanguageDataPoints = new ObservableCollection<LanguageDataPoint>(_tourRequestService.CalculateLanguageDataPointPositions(langaugeDataPoints, Languages, GuestsRequests));
+            LocationDataPoints = new ObservableCollection<LocationDataPoint>(_tourRequestService.CalculateLocationDataPointPositions(locationDataPoints, Locations, GuestsRequests));
 
             string approvedRequestsPercentage = _tourRequestService.GetApprovedRequestsPercentage(GuestsRequests).ToString();
             ApprovedRequests = approvedRequestsPercentage + '%';
             string invalidRequests = _tourRequestService.GetInvalidRequestsPercentage(GuestsRequests).ToString();
             InvalidRequests = invalidRequests + '%';
-            
+
             PercentageByYearCommand = new RelayCommand(Execute_PercentageByYearCommand, CanExecute_Command);
         }
-        
+
         private bool CanExecute_Command(object parameter)
         {
             return true;
@@ -151,49 +165,5 @@ namespace TravelService.WPF.ViewModel
             string invalidRequestsByYear = _tourRequestService.GetInvalidRequestsPercentageByYear(GuestsRequests, SelectedYear).ToString();
             InvalidRequestsByYear = invalidRequestsByYear + '%';
         }
-        private void CalculateDataPointPositions()
-        {
-            // Get the maximum values for X and Y axes
-            double maxX = 300; // Maximum value on X-axis (adjust as needed)
-            double maxY = 50; // Maximum value on Y-axis (adjust as needed)
-
-            for (int i = 0; i < DataPoints.Count; i++)
-            {
-                var dataPoint = DataPoints[i];
-
-                // Calculate the X and Y positions based on the language and number of requests
-                double x = CalculateXPosition(dataPoint.Language, maxX);
-                double y = CalculateYPosition(dataPoint.RequestNumber, maxY);
-
-                // Set the X and Y values of the data point
-                dataPoint.Language = x.ToString();
-                dataPoint.RequestNumber = y;
-                
-                dataPoint.Id = i;
-            }
-        }
-        private double CalculateXPosition(string language, double maxX)
-        {
-            int languageIndex = Array.IndexOf(Languages.Select(l => l.Name).ToArray(), language);
-            double interval = maxX / (Languages.Count - 1);
-            double x = (languageIndex) * interval;
-            
-            return Math.Round(x, 2);
-        }
-
-        private double CalculateYPosition(double requests, double maxY)
-        {
-            double y = (double)requests / GuestsRequests.Count * maxY;
-            return Math.Round(y, 2);
-        }
-
     }
-    public class DataPoint
-        {
-            public int Id { get; set; }
-            public string Language { get; set; }
-            public string LanguageName { get; set; }
-            public double RequestNumber { get; set; }
-            public double LanguageRequestNumber { get; set; }
-        }
 }
