@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="WPF\View\AcceptingTourRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\AccommodationAvailabilityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,7 +109,12 @@
     <Compile Update="WPF\View\JoinTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+
     <Compile Update="WPF\View\ScheduledRenovationsCancellationView.xaml.cs">
+		<SubType>Code</SubType>
+	</Compile>
+    <Compile Update="WPF\View\ScheduleDateView.xaml.cs">
+
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\SearchAccommodationView.xaml.cs">
@@ -139,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AcceptingTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\AccommodationAvailabilityView.xaml">
@@ -214,6 +225,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ScheduledRenovationsCancellationView.xaml">
+	</Page>
+    <Page Update="WPF\View\ScheduleDateView.xaml">
+
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SearchAccommodationView.xaml">

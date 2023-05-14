@@ -193,5 +193,11 @@ namespace TravelService.WPF.ViewModel
             GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
             guestsToursView.Show();
         }
+        public event EventHandler<string> NotificationReceived;
+
+        private void Notify(string message)
+        {
+            NotificationReceived?.Invoke(this, message);
+        }
     }
 }
