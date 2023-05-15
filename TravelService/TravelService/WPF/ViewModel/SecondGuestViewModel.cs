@@ -29,6 +29,19 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _statisticsCommand;
+        public RelayCommand StatisticsCommand
+        {
+            get => _statisticsCommand;
+            set
+            {
+                if (value != _statisticsCommand)
+                {
+                    _statisticsCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private RelayCommand _tourViewCommand;
         public RelayCommand TourViewCommand
         {
@@ -138,6 +151,7 @@ namespace TravelService.WPF.ViewModel
         {
             this.Guest2 = guest2;
             TrackCommand = new RelayCommand(Execute_TrackCommand, CanExecute_Command);
+            StatisticsCommand = new RelayCommand(Execute_StatisticsCommand, CanExecute_Command);
             TourViewCommand = new RelayCommand(Execute_TourViewCommand, CanExecute_Command);
             ReservationCommand = new RelayCommand(Execute_ReservationCommand, CanExecute_Command);
             RequestCommand = new RelayCommand(Execute_RequestCommand, CanExecute_Command);
@@ -152,7 +166,12 @@ namespace TravelService.WPF.ViewModel
             return true;
         }
 
-        private void Execute_TrackCommand(object sender) 
+        private void Execute_StatisticsCommand(object sender) 
+        {
+            GuestsRequestsStatisticsView guestsRequestsStatisticsView = new GuestsRequestsStatisticsView(Guest2);
+            guestsRequestsStatisticsView.Show();
+        }
+        private void Execute_TrackCommand(object sender)
         {
             TourTrackingView tourTrackingView = new TourTrackingView(SelectedTour, Guest2);
             tourTrackingView.Show();

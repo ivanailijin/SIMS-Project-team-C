@@ -28,6 +28,9 @@
     <Compile Update="WPF\View\FirstGuestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\GuestsRequestsStatisticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\GuestsRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +38,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\GuestsVouchersView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\LanguageStatisticsGraph.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\LocationStatisticsGraph.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\MostVisited.xaml.cs">
@@ -176,6 +185,9 @@
     <Page Update="WPF\View\FirstGuestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\GuestsRequestsStatisticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\GuestsRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -183,6 +195,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsVouchersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\LanguageStatisticsGraph.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\LocationStatisticsGraph.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\MostVisited.xaml">

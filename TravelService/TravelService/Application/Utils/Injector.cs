@@ -36,8 +36,6 @@ namespace TravelService.Application.Utils
         { typeof(ITourReservationRepository), new TourReservationRepository() },
         { typeof(IAccommodationRenovationRepository), new AccommodationRenovationRepository() },
         { typeof(ITourRequestRepository), new TourRequestRepository() },
-
-
     };
 
         public static T CreateInstance<T>()
