@@ -12,12 +12,14 @@ namespace TravelService.Domain.Model
     {
         public int Id { get; set; }
         public int TourId { get; set; }
+        public string Description { get; set; }
         public int GuestId { get; set; }
         public NewTourNotification() { }
 
-        public NewTourNotification(int tourId, int guestId) 
+        public NewTourNotification(int tourId, int guestId, string description) 
         { 
             TourId = tourId;
+            Description = description;
             GuestId= guestId;
         }
         public string[] ToCSV()
@@ -26,6 +28,7 @@ namespace TravelService.Domain.Model
             {
                 Id.ToString(),
                 TourId.ToString(),
+                Description,
                 GuestId.ToString(),
             };
             return csvValues;
@@ -34,7 +37,8 @@ namespace TravelService.Domain.Model
         {
             Id = int.Parse(values[0]);
             TourId = int.Parse(values[1]);
-            GuestId = int.Parse(values[2]);
+            Description = values[2];
+            GuestId = int.Parse(values[3]);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace TravelService.WPF.ViewModel
     {
         public Tour SelectedTour { get; set; }
         public GuestVoucher SelectedVoucher { get; set; }
+        public NewTourNotification SelectedNotification { get; set; }
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
 
@@ -77,6 +78,19 @@ namespace TravelService.WPF.ViewModel
                 if (value != _requestCommand)
                 {
                     _requestCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _notificationCommand;
+        public RelayCommand NotificationCommand
+        {
+            get => _notificationCommand;
+            set
+            {
+                if (value != _notificationCommand)
+                {
+                    _notificationCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -155,6 +169,7 @@ namespace TravelService.WPF.ViewModel
             TourViewCommand = new RelayCommand(Execute_TourViewCommand, CanExecute_Command);
             ReservationCommand = new RelayCommand(Execute_ReservationCommand, CanExecute_Command);
             RequestCommand = new RelayCommand(Execute_RequestCommand, CanExecute_Command);
+            NotificationCommand = new RelayCommand(Execute_NotificationCommand, CanExecute_Command);
             GuestsRequestsCommand = new RelayCommand(Execute_GuestsRequestsCommand, CanExecute_Command);
             VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
             RateTourCommand = new RelayCommand(Execute_RateTourCommand, CanExecute_Command);
@@ -196,6 +211,11 @@ namespace TravelService.WPF.ViewModel
         {
             AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2);
             addTourRequestView.Show();
+        }
+        private void Execute_NotificationCommand(object sender)
+        {
+            SecondGuestNotificationsView secondGuestNotificationsView = new SecondGuestNotificationsView(SelectedNotification, Guest2);
+            secondGuestNotificationsView.Show();
         }
         private void Execute_GuestsRequestsCommand(object sender)
         {

@@ -55,11 +55,22 @@ namespace TravelService.Application.UseCases
                 {
                     if (currentTour.LanguageId == tourRequest.LanguageId || currentTour.LocationId == tourRequest.LocationId)
                     {
-                        NewTourNotification newTourNotification = new NewTourNotification(tourId, guest2.Id);
+                        string description = "Nova tura je kreirana";
+                        NewTourNotification newTourNotification = new NewTourNotification(tourId, guest2.Id, description);
                         Save(newTourNotification);
                     }
                 }
             }
+        }
+        public List<NewTourNotification> GetGuestsNotifications(List<NewTourNotification> notifications, Guest2 guest2)
+        {
+            List<NewTourNotification> guestsNotifications = new List<NewTourNotification>();
+            foreach (NewTourNotification notification in notifications)
+            {
+                if (guest2.Id == notification.GuestId)
+                    guestsNotifications.Add(notification);
+            }
+            return guestsNotifications;
         }
     }
 }

@@ -118,15 +118,16 @@
     <Compile Update="WPF\View\JoinTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-
     <Compile Update="WPF\View\ScheduledRenovationsCancellationView.xaml.cs">
-		<SubType>Code</SubType>
-	</Compile>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ScheduleDateView.xaml.cs">
-
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\SearchAccommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\SecondGuestNotificationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\SelectedAccommodationView.xaml.cs">
@@ -243,12 +244,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ScheduledRenovationsCancellationView.xaml">
-	</Page>
+    </Page>
     <Page Update="WPF\View\ScheduleDateView.xaml">
-
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SearchAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\SecondGuestNotificationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SecondGuestView.xaml">
