@@ -34,7 +34,7 @@ namespace TravelService.Domain.Model
             Pictures = new List<Uri>();
         }
 
-        public Accommodation(int userId, string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation, List<string> pictures)
+        public Accommodation(int userId, string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation,DateTime dateCreated, List<string> pictures)
         {
             OwnerId = userId;
             Name = name;
@@ -44,6 +44,7 @@ namespace TravelService.Domain.Model
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
             DaysBeforeCancellingReservation = daysBeforeCancellingReservation;
+            DateCreated = dateCreated;
             Pictures = new List<Uri>();
 
             foreach (string picture in pictures)

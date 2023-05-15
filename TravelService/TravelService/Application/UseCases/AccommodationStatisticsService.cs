@@ -41,6 +41,39 @@ namespace TravelService.Application.UseCases
 
             return statistics;
         }
+        public int GetBusiestYear(Accommodation accommodation)
+        {
+            int busiestYear = accommodation.DateCreated.Year;
+            double highestBusyness = _reservationService.GetBusynessPerYear(accommodation, accommodation.DateCreated.Year);
+
+            for (int year = accommodation.DateCreated.Year; year <= DateTime.Today.Year; year++)
+            {
+                if(_reservationService.GetBusynessPerYear(accommodation, year) > highestBusyness)
+                {
+                    highestBusyness = _reservationService.GetBusynessPerYear(accommodation, year);
+                    busiestYear = year;
+                }
+            }
+
+            return busiestYear;
+        }
+        public int GetBusiestMonth(Accommodation accommodation, int year)
+        {
+            int busiestMonth = 1;
+            double highestBusyness = _reservationService.GetBusynessPerMonth(accommodation, year, 1);
+
+            for (int month = 1; month <= 12; month++)
+            {
+                double tempBusyness = _reservationService.GetBusynessPerMonth(accommodation, year, month);
+                if (_reservationService.GetBusynessPerMonth(accommodation, year, month) > highestBusyness)
+                {
+                    highestBusyness = _reservationService.GetBusynessPerMonth(accommodation, year, month);
+                    busiestMonth = month;
+                }
+            }
+
+            return busiestMonth;
+        }
 
         public List<AccommodationMonthStatistics> GetAccommodationMonthStatistics(Accommodation accommodation, int year)
         {

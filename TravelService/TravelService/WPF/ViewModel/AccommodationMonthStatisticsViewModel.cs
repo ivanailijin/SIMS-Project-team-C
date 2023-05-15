@@ -16,6 +16,7 @@ namespace TravelService.WPF.ViewModel
         public AccommodationStatisticsService _statisticsService { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public AccommodationYearStatistics SelectedYear { get; set; }
+        public int BusiestMonth { get; set; }
         public ObservableCollection<AccommodationMonthStatistics> MonthStatistics { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand ShowMonthStatistics { get; set; }
@@ -28,6 +29,7 @@ namespace TravelService.WPF.ViewModel
             SelectedYear = selectedYear;
             _statisticsService = new AccommodationStatisticsService();
             MonthStatistics = new ObservableCollection<AccommodationMonthStatistics>(_statisticsService.GetAccommodationMonthStatistics(selectedAccommodation, selectedYear.Year));
+            BusiestMonth = _statisticsService.GetBusiestMonth(SelectedAccommodation, SelectedYear.Year);
         }
 
         private void InitializeCommands()
