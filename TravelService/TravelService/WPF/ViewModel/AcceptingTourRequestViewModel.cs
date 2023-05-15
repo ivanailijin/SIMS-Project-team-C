@@ -35,6 +35,7 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand SearchDates { get; set; }
         public RelayCommand Search { get; set; }
         public RelayCommand Accept { get; set; }
+        public RelayCommand Stats { get; set; }
 
 
 
@@ -191,7 +192,7 @@ namespace TravelService.WPF.ViewModel
             SearchDates = new RelayCommand(Execute_SearchAvailableDates, CanExecute_Command);
             Search = new RelayCommand(Execute_SearchCommand, CanExecute_Command);
             Accept = new RelayCommand(Execute_Accept,CanExecute_Command);   
-
+            Stats = new RelayCommand(Execute_StatsCommand,CanExecute_Command);  
 
         }
 
@@ -227,7 +228,11 @@ namespace TravelService.WPF.ViewModel
             TourRequests = new ObservableCollection<TravelService.Domain.Model.TourRequest>(FilteredRequests);
            
         }
-
+        private void Execute_StatsCommand(object obj)
+        {
+            RequestsStatsView req = new RequestsStatsView();
+            req.Show();
+        }
 
 
         private void Execute_CancelCommand(object obj)

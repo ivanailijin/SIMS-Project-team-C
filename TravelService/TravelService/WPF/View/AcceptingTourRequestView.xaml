@@ -24,16 +24,16 @@
             <Label Width="140">Number of guests:</Label>
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="0,0,38,0" Orientation="Horizontal">
-             <Border Grid.Row="3" BorderBrush="DimGray" BorderThickness="2" Width="280" Height="40">
+            <Border Grid.Row="3" BorderBrush="DimGray" BorderThickness="2" Width="280" Height="40">
                 <ComboBox x:Name="locationComboBox" ItemsSource="{Binding LocationsComboBox}" Text="{Binding Path = Location, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0" Width="280" Height="40" VerticalAlignment="Top">
-            </ComboBox>
+                </ComboBox>
             </Border>
             <Border Grid.Row="3" BorderBrush="DimGray" BorderThickness="2" Width="280" Height="40">
                 <ComboBox x:Name="languageComboBox" Width="100" Height="20" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" DisplayMemberPath="Name" Margin="5" Visibility="Visible" BorderBrush="Black"></ComboBox>
 
             </Border>
-          
-<TextBox x:Name="guestsTextBox" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="20" Margin="5" Visibility="Visible" BorderBrush="Black"></TextBox>
+
+            <TextBox x:Name="guestsTextBox" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="20" Margin="5" Visibility="Visible" BorderBrush="Black"></TextBox>
 
             <TextBlock Text="Tour Start Date:" />
             <DatePicker x:Name="TourStartDatePicker" SelectedDate="{Binding StartDate}" />
@@ -43,7 +43,7 @@
 
             <Button Command="{Binding Search}" Height="20" Margin="30,0,0,0">Search</Button>
             <Button Command="{Binding }" Height="20" Margin="20,0,0,0">Cancel</Button>
-        
+
 
 
         </StackPanel>
@@ -64,5 +64,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Button" Command="{Binding Accept}" HorizontalAlignment="Left" Height="85" Margin="455,259,0,0" Grid.Row="2" VerticalAlignment="Top" Width="260"/>
+        <Button Command="{Binding Stats}" Content="Button" HorizontalAlignment="Left" Margin="815,259,0,0" Grid.Row="2" VerticalAlignment="Top" Height="65" Width="160"/>
     </Grid>
 </Window>
