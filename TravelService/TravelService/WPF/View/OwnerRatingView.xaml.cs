@@ -26,20 +26,15 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class OwnerRatingView : Window
     {
-        public OwnerRatingView(Frame frame, RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
+        public OwnerRatingView(RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
         {
             InitializeComponent();
-            OwnerRatingViewModel ownerRatingViewModel = new OwnerRatingViewModel(frame, ratingViewModel, selectedUnratedOwner);
+            OwnerRatingViewModel ownerRatingViewModel = new OwnerRatingViewModel(ratingViewModel, selectedUnratedOwner);
             DataContext = ownerRatingViewModel;
             if (ownerRatingViewModel.CloseAction == null)
             {
                 ownerRatingViewModel.CloseAction = new Action(this.Close);
             }
-        }
-
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            e.Handled = true;
         }
     }
 }

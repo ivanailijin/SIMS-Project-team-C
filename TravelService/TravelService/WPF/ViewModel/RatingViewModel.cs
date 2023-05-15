@@ -96,7 +96,7 @@ namespace TravelService.WPF.ViewModel
         {
             if (SelectedUnratedOwner != null)
             {
-                OwnerRatingView ownerRatingView = new OwnerRatingView(Frame, this, SelectedUnratedOwner);
+                OwnerRatingView ownerRatingView = new OwnerRatingView(this, SelectedUnratedOwner);
                 ownerRatingView.Closed += OwnerRatingView_Closed; 
                 ownerRatingView.ShowDialog();
             }

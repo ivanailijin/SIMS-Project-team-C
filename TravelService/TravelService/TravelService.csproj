@@ -27,6 +27,7 @@
     <None Remove="Resources\Images\rating.png" />
     <None Remove="Resources\Images\ratingreport.ico" />
     <None Remove="Resources\Images\ratings.png" />
+    <None Remove="Resources\Images\recentRenovation.png" />
     <None Remove="Resources\Images\renovation-icon.png" />
     <None Remove="Resources\Images\reservations-icon.png" />
     <None Remove="Resources\Images\reservations-request-icon.png" />
@@ -82,6 +83,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\recentRenovation.png" />
     <Resource Include="Resources\Images\superowner.png" />
   </ItemGroup>
 

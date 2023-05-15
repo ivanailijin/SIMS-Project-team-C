@@ -19,7 +19,6 @@ namespace TravelService.WPF.ViewModel
         private AccommodationReservationService _reservationService;
         private OwnerService _ownerService;
         private OwnerRatingService _ownerRatingService;
-        public Frame Frame { get; set; }
         public AccommodationReservation SelectedUnratedOwner { get; set; }
         public Action CloseAction { get; set; }
 
@@ -221,11 +220,10 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public OwnerRatingViewModel(Frame frame, RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
+        public OwnerRatingViewModel(RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
         {
             _ratingViewModel = ratingViewModel;
             SelectedUnratedOwner = selectedUnratedOwner;
-            Frame = frame;
             PicturesList = new ObservableCollection<string>();
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
@@ -329,15 +327,13 @@ namespace TravelService.WPF.ViewModel
             }
 
             OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.AccommodationId, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
-            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView(SelectedUnratedOwner, ownerRating);
+            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView(CloseAction, SelectedUnratedOwner, ownerRating);
             renovationRecommendationView.Show();
 
             AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
             ratedOwner.IsOwnerRated = true;
             _reservationService.Update(ratedOwner);
             _ratingViewModel.UnratedOwners.Remove(ratedOwner);
-
-            CloseAction();
         }
 
         private void Execute_PreviousPage(object sender)

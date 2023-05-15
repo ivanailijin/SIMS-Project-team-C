@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         Height="655" Width="420">
     <UserControl.Resources>
+        <local:BooleanToTextConverter x:Key="BooleanToTextConverter" />
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="searchButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
@@ -111,8 +112,24 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
                                 <TextBlock Text="• " FontSize="13"></TextBlock>
-                                <TextBlock Text=" Ugostice vas " FontSize="13"></TextBlock>
+                                <TextBlock Text="Ugostice vas " FontSize="13"></TextBlock>
                                 <TextBlock Text="{Binding Owner.Username}" FontSize="13"></TextBlock>
+                                <Image Width="14" Height="14" Margin="5,0,0,0" Source="/TravelService;component/Resources/Images/superowner.png" Visibility="{Binding Owner.SuperOwner, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                <TextBlock FontSize="13">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RecentlyRenovated}" Value="True">
+                                                    <Setter Property="Text" Value="• Nedavno renoviran" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Image Width="17" Height="17" Margin="5,0,0,0" Source="/TravelService;component/Resources/Images/recentRenovation.png" Visibility="{Binding RecentlyRenovated, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
