@@ -165,9 +165,9 @@
                 <Label Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" FontSize="20" FontWeight="DemiBold" Margin="0,0,0,40" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#BECCDA"> By selected Year</Label>
                 <StackPanel Grid.RowSpan="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Margin="20,200,0,0">
                     <Label FontSize="15" Foreground="White" FontWeight="DemiBold">Approved:</Label>
-                    <TextBlock Text="{Binding ApprovedRequestsByYear}" FontSize="15" Foreground="#BECCDA" Width="70"/>
+                    <TextBlock Text="{Binding ApprovedRequestsByYear}" FontSize="15" Foreground="#BECCDA" Width="70" VerticalAlignment="Center"/>
                     <Label FontSize="15" Foreground="White" FontWeight="DemiBold">Invalid:</Label>
-                    <TextBlock Text="{Binding InvalidRequestsByYear}" FontSize="15" Foreground="#BECCDA" Width="70"/>
+                    <TextBlock Text="{Binding InvalidRequestsByYear}" FontSize="15" Foreground="#BECCDA" Width="70" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="20,100,0,0">
                     <Label FontSize="15" Foreground="White" FontWeight="DemiBold">Guest number:</Label>

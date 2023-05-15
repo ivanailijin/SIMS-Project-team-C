@@ -1,4 +1,4 @@
-﻿<Window x:Class="TravelService.WPF.View.LanguageStatisticsGraph"
+﻿<Window x:Class="TravelService.WPF.View.LocationStatisticsGraph"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="LanguageStatisticsGraph" Height="460" Width="960">
+        Title="LocationStatisticsGraph" Height="460" Width="960">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -130,17 +130,7 @@
                 </StackPanel>
             </Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
-                <TextBlock FontSize="30" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" Margin="0,-10,0,0">Languauge graph!</TextBlock>
-                <Button  Width="18" Height="18" Content="?" Margin="5,5,0,0" FontSize="12" Foreground="#D36582" VerticalAlignment="Top" ToolTip="These are all of your requests.">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Grid>
-                                <Ellipse Stroke="#D36582" StrokeThickness="2"/>
-                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0"/>
-                            </Grid>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                <TextBlock FontSize="30" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" Margin="0,-10,0,0">Location graph!</TextBlock>
             </StackPanel>
             <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="80,70,80,40" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="15,15,15,15"></Border>
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="0" Margin="5,-13,0,0">
@@ -154,7 +144,7 @@
                         <Canvas Grid.Row="0" Width="320" Height="200" >
                             <!-- X-Axis -->
                             <Line X1="0" X2="350" Y1="180" Y2="180" Stroke="White" StrokeThickness="2" />
-                            <TextBlock Text="Language" Foreground="White" Canvas.Left="140" Canvas.Top="180" HorizontalAlignment="Center" />
+                            <TextBlock Text="Location"  Foreground="White" Canvas.Left="140" Canvas.Top="180" HorizontalAlignment="Center" />
 
                             <!-- Y-Axis -->
                             <Line X1="0" X2="0" Y1="20" Y2="180" Stroke="White" StrokeThickness="2" />
@@ -165,14 +155,15 @@
                             </TextBlock>
 
                             <!-- Data Points -->
-                            <ItemsControl ItemsSource="{Binding LanguageDataPoints}" Canvas.Top="130" Canvas.Left="8">
+                            <ItemsControl ItemsSource="{Binding LocationDataPoints}" Canvas.Top="130" Canvas.Left="8">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
                                             <Ellipse Width="10" Height="10" Fill="#D36582"/>
-                                            <StackPanel Margin="2,0,0,0">
-                                                <TextBlock Text="{Binding LanguageRequestNumber}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,35,0,0" />
-                                                <TextBlock Text="{Binding LanguageName}" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Bottom" Margin="0,0,0,0" />
+                                            <StackPanel Margin="0,35,0,0">
+                                                <TextBlock Text="{Binding LocationRequestNumber}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,35,0,0" />
+                                                <TextBlock Text="{Binding LocationCity}" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Bottom" Margin="0,0,0,0" />
+                                                <TextBlock Text="{Binding LocationCountry}" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Bottom" Margin="0,0,0,0" />
                                             </StackPanel>
                                         </Grid>
                                     </DataTemplate>
@@ -186,7 +177,7 @@
 
                                 <ItemsControl.ItemContainerStyle>
                                     <Style>
-                                        <Setter Property="Canvas.Left" Value="{Binding Language}" />
+                                        <Setter Property="Canvas.Left" Value="{Binding Location}" />
                                         <Setter Property="Canvas.Bottom" Value="{Binding RequestNumber}" />
                                     </Style>
                                 </ItemsControl.ItemContainerStyle>

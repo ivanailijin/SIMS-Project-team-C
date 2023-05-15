@@ -13,10 +13,7 @@ namespace TravelService.WPF.ViewModel
     public class GuestsRequestsStatisticsViewModel : ViewModelBase
     {
         private readonly TourRequestService _tourRequestService;
-        private readonly LanguageService _languageService;
-        private readonly LocationService _locationService;
         public ObservableCollection<TourRequest> GuestsRequests { get; set; }
-        public ObservableCollection<Location> Locations { get; set; }
         public List<int> Years { get; set; }
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
@@ -112,19 +109,6 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        private ObservableCollection<LocationDataPoint> _locationDataPoints;
-        public ObservableCollection<LocationDataPoint> LocationDataPoints
-        {
-            get => _locationDataPoints;
-            set
-            {
-                if (value != _locationDataPoints)
-                {
-                    _locationDataPoints = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         private RelayCommand _percentageByYearCommand;
         public RelayCommand PercentageByYearCommand
         {
@@ -151,6 +135,19 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _locationGraphCommand;
+        public RelayCommand LocationGraphCommand
+        {
+            get => _locationGraphCommand;
+            set
+            {
+                if (value != _locationGraphCommand)
+                {
+                    _locationGraphCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private RelayCommand _languageGraphCommand;
         public RelayCommand LanguageGraphCommand
         {
@@ -164,23 +161,16 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        
-
         public GuestsRequestsStatisticsViewModel(Guest2 guest2)
         {
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
-            _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             Guest2 = guest2;
             double RequestNumber = 0;
             List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestService.GetAll());
-            List<Location> locations = new List<Location>(_locationService.GetAll());
             List<TourRequest> guestsRequests = new List<TourRequest>(_tourRequestService.FindGuestsRequests(tourRequests, guest2.Id));
             
-            Locations = new ObservableCollection<Location>(locations);
             GuestsRequests = new ObservableCollection<TourRequest>(guestsRequests);
             Years = _tourRequestService.FindYears(GuestsRequests);
-            List<LocationDataPoint> locationDataPoints = new List<LocationDataPoint>(_tourRequestService.GetLocationDataPoints(locations, RequestNumber, GuestsRequests));
-            LocationDataPoints = new ObservableCollection<LocationDataPoint>(_tourRequestService.CalculateLocationDataPointPositions(locationDataPoints, Locations, GuestsRequests));
             AverageGuestNumber = _tourRequestService.FindAverageGuestNumber(GuestsRequests).ToString();
 
             string approvedRequestsPercentage = _tourRequestService.GetApprovedRequestsPercentage(GuestsRequests).ToString();
@@ -190,6 +180,7 @@ namespace TravelService.WPF.ViewModel
 
             PercentageByYearCommand = new RelayCommand(Execute_PercentageByYearCommand, CanExecute_Command);
             LanguageGraphCommand = new RelayCommand(Execute_LanguageGraphCommand, CanExecute_Command);
+            LocationGraphCommand = new RelayCommand(Execute_LocationGraphCommand, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -209,6 +200,11 @@ namespace TravelService.WPF.ViewModel
         {
             LanguageStatisticsGraph languageStatisticsGraph = new LanguageStatisticsGraph(Guest2);
             languageStatisticsGraph.Show();
+        }
+        private void Execute_LocationGraphCommand(object sender)
+        {
+            LocationStatisticsGraph locationStatisticsGraph = new LocationStatisticsGraph(Guest2);
+            locationStatisticsGraph.Show();
         }
     }
 }

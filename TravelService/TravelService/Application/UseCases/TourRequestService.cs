@@ -176,7 +176,7 @@ namespace TravelService.Application.UseCases
         {
             List<LanguageDataPoint> DataPoints = new List<LanguageDataPoint>();
             double maxX = 300;
-            double maxY = 30;
+            double maxY = 60;
 
             for (int i = 0; i < languageDataPoints.Count; i++)
             {
@@ -227,8 +227,8 @@ namespace TravelService.Application.UseCases
         public List<LocationDataPoint> CalculateLocationDataPointPositions(List<LocationDataPoint> locationDataPoints, ObservableCollection<Location> Locations, ObservableCollection<TourRequest> GuestsRequests)
         {
             List<LocationDataPoint> DataPoints = new List<LocationDataPoint>();
-            double maxX = 200;
-            double maxY = 30;
+            double maxX = 300;
+            double maxY = 60;
 
             for (int i = 0; i < locationDataPoints.Count; i++)
             {
