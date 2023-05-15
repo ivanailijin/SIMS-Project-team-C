@@ -133,6 +133,9 @@
     <Compile Update="WPF\View\SelectedAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ShowGuestsNotificationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ShowGuestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -294,6 +297,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SelectedAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ShowGuestsNotificationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowGuestsView.xaml">

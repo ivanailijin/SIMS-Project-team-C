@@ -17,16 +17,16 @@ using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
-    public partial class SecondGuestNotificationsView : Window, INotifyPropertyChanged
+    public partial class ShowGuestsNotificationView : Window, INotifyPropertyChanged
     {
-        public SecondGuestNotificationsView(NewTourNotification selectedNotification, Guest2 guest2)
+        public ShowGuestsNotificationView(NewTourNotification selectedNotification, Guest2 guest2)
         {
             InitializeComponent();
-            SecondGuestNotificationsViewModel secondGuestNotificationsViewModel = new SecondGuestNotificationsViewModel(selectedNotification, guest2);
-            DataContext = secondGuestNotificationsViewModel;
-            if (secondGuestNotificationsViewModel.CloseAction == null)
+            ShowGuestsNotificationViewModel showGuestsNotificationViewModel = new ShowGuestsNotificationViewModel(selectedNotification, guest2);
+            DataContext = showGuestsNotificationViewModel;
+            if (showGuestsNotificationViewModel.CloseAction == null)
             {
-                secondGuestNotificationsViewModel.CloseAction = new Action(this.Close);
+                showGuestsNotificationViewModel.CloseAction = new Action(this.Close);
             }
         }
         public event PropertyChangedEventHandler? PropertyChanged;

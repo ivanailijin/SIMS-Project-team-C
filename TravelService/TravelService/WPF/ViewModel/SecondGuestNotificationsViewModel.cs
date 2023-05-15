@@ -9,6 +9,7 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -20,15 +21,15 @@ namespace TravelService.WPF.ViewModel
         public Action CloseAction { get; set; }
         public ObservableCollection<NewTourNotification> Notifications { get; set; }
 
-        private RelayCommand _trackCommand;
-        public RelayCommand TrackCommand
+        private RelayCommand _checkNotificationsCommand;
+        public RelayCommand CheckNotificationsCommand
         {
-            get => _trackCommand;
+            get => _checkNotificationsCommand;
             set
             {
-                if (value != _trackCommand)
+                if (value != _checkNotificationsCommand)
                 {
-                    _trackCommand = value;
+                    _checkNotificationsCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -40,6 +41,17 @@ namespace TravelService.WPF.ViewModel
             Notifications = new ObservableCollection<NewTourNotification>(_notificationService.GetGuestsNotifications(notifications, guest2));
             Guest2 = guest2;
             SelectedNotification = selectedNotification;
+            CheckNotificationsCommand = new RelayCommand(Execute_CheckNotificationsCommand, CanExecute_Command);
+        }
+        private bool CanExecute_Command(object parameter)
+        {
+            return true;
+        }
+        private void Execute_CheckNotificationsCommand(object sender)
+        {
+            ShowGuestsNotificationView showGuestsNotificationView = new ShowGuestsNotificationView(SelectedNotification, Guest2);
+            showGuestsNotificationView.Show();
+            CloseAction();
         }
     }
 }
