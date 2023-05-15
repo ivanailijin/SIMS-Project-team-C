@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -214,6 +215,39 @@ namespace TravelService.Application.UseCases
             return isLess;
         }
 
-    
+        public int GetRequestCountForLocation(string selectedLocation, ObservableCollection<TourRequest> guestsRequests, int selectedYear, int selectedMonth)
+        {
+            List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestRepository.GetAll());
+
+            tourRequests = GetLocationData(tourRequests);
+            int requestCount = guestsRequests.Count(r =>
+                r.Location != null &&
+                r.Location.CityAndCountry?.Replace(",", "").Replace(" ", "").Equals(selectedLocation, StringComparison.OrdinalIgnoreCase) == true &&
+                r.TourStart.Year == selectedYear &&
+                (selectedMonth == 0 || r.TourStart.Month == selectedMonth)
+            );
+            return requestCount;
+        }
+
+
+
+
+        public int GetRequestCountForLanguage(Language selectedLanguage, ObservableCollection<TourRequest> guestsRequests, int selectedYear, int selectedMonth)
+        {
+            List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestRepository.GetAll());
+ 
+            tourRequests = GetLanguageData(tourRequests);
+            int requestCount = guestsRequests.Count(r =>
+                r.Language == selectedLanguage &&
+                r.TourStart.Year == selectedYear &&
+                (selectedMonth == 0 || r.TourStart.Month == selectedMonth)
+            );
+            return requestCount;
+
+        }
+
+
+
+
     }
 }
