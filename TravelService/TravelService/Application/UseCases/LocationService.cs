@@ -42,5 +42,9 @@ namespace TravelService.Application.UseCases
         {
             return _locationRepository.GetById(locationId);
         }
+        public Location GetByCityAndCountry(string city, string country)
+        {
+            return _locationRepository.GetByCityAndCountry(city, country);
+        }
     }
 }

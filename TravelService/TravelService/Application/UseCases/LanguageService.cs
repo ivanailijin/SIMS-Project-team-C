@@ -43,5 +43,11 @@ namespace TravelService.Application.UseCases
         {
             return _languageRepository.GetById(languageId);
         }
+        public Language GetLanguageByName(string languageName)
+        {
+            // Assuming you have a language repository with a method to retrieve a language by name
+            return _languageRepository.GetLanguageByName(languageName);
+        }
+
     }
 }

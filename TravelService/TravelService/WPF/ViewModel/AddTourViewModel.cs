@@ -251,14 +251,20 @@ namespace TravelService.WPF.ViewModel
 
             string city = words[0];
             string country = words[1];
+            Location savedLocation = _locationService.GetByCityAndCountry(city, country);
+            if (savedLocation == null)
+            {
+                Location location = new Location(country, city);
+                savedLocation = _locationService.Save(location);
+            }
 
-            Location location = new Location(country, city);
-            Location savedLocation = _locationService.Save(location);
+            Language savedLanguage = _languageService.GetLanguageByName(Language);
 
-
-            Language language = new Language(Language);
-            Language savedLanguage = _languageService.Save(language);
-
+            if (savedLanguage == null)
+            {
+                Language language = new Language(Language);
+                savedLanguage = _languageService.Save(language);
+            }
 
             List<string> formattedPictures = new List<string>();
 
@@ -278,7 +284,7 @@ namespace TravelService.WPF.ViewModel
 
             List<CheckPoint> checkPoints = _checkPointService.GetAll();
             _tourService.Check(checkPoints, tour, TourId);
-
+           
         }
 
         private void Execute_FindPicturesCommand(object obj)

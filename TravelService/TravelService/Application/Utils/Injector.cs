@@ -39,6 +39,9 @@ namespace TravelService.Application.Utils
         { typeof(INewTourNotificationRepository), new NewTourNotificationRepository() },
         { typeof(IRenovationRecommendationRepository), new RenovationRecommendationRepository() },
 
+
+
+
     };
 
         public static T CreateInstance<T>()
