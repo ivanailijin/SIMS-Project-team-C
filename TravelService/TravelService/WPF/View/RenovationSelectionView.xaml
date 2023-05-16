@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         Title="AccommodationRenovationSelectionView" Height="500" Width="800">
+    <Window.Resources>
+        <local:EnumToStringConverter x:Key="EnumConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="400"></RowDefinition>
@@ -21,7 +24,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="180" ></DataGridTextColumn>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="180" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Type" Binding="{Binding TypeText}" Width="180"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type, Converter={StaticResource EnumConverter}}" Width="180"></DataGridTextColumn>
                     <DataGridTemplateColumn Header="Images" Width="240">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

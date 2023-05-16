@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TravelService.View"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         Title="Zahtevi za pomeranje rezervacije" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="768" Width="1024" Background="#dff2f2">
     <Window.Resources>
@@ -42,7 +42,8 @@
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="Padding" Value="10"></Setter>
         </Style>
-       
+
+        <local:EnumToStringConverter x:Key="EnumConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -128,7 +129,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Raspolozivost smestaja" Binding="{Binding Availability}"  Width="*" >
+                <DataGridTextColumn Header="Raspolozivost smestaja" Binding="{Binding Availability, Converter={StaticResource EnumConverter}}"  Width="*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>

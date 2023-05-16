@@ -11,6 +11,8 @@
     <UserControl.Resources>
         <local:BooleanToTextConverter x:Key="BooleanToTextConverter" />
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:EnumToStringConverter x:Key="EnumConverter" />
+        
         <Style x:Key="searchButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="Teal"/>
@@ -108,7 +110,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
                                 <TextBlock Text="• " FontSize="13"></TextBlock>
-                                <TextBlock Text="{Binding TypeText}" FontSize="13"></TextBlock>
+                                <TextBlock Text="{Binding Type, Converter={StaticResource EnumConverter}}" FontSize="13"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
                                 <TextBlock Text="• " FontSize="13"></TextBlock>

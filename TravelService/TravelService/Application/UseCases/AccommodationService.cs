@@ -86,26 +86,6 @@ namespace TravelService.Application.UseCases
             return accommodations;
         }
 
-        public List<Accommodation> GetTypeData(List<Accommodation> accommodations)
-        {
-            foreach (Accommodation accommodation in accommodations)
-            {
-                if (accommodation.Type == TYPE.HOUSE)
-                {
-                    accommodation.TypeText = "House";
-                }
-                else if (accommodation.Type == TYPE.APARTMENT)
-                {
-                    accommodation.TypeText = "Apartment";
-                }
-                else
-                {
-                    accommodation.TypeText = "Cottage";
-                }
-            }
-            return accommodations;
-        }
-
         public List<Accommodation> SortBySuperowner(List<Accommodation> accommodations)
         {
             return accommodations.OrderByDescending(a => a.Owner.SuperOwner).ToList();

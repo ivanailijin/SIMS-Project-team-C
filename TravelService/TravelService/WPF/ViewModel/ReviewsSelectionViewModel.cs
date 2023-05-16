@@ -44,22 +44,6 @@ namespace TravelService.WPF.ViewModel
             {
                 accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
             }
-
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                if (accommodation.Type == TYPE.HOUSE)
-                {
-                    accommodation.TypeText = "House";
-                }
-                else if (accommodation.Type == TYPE.APARTMENT)
-                {
-                    accommodation.TypeText = "Apartment";
-                }
-                else
-                {
-                    accommodation.TypeText = "Cottage";
-                }
-            }
         }
         private void InitializeCommands()
         {
