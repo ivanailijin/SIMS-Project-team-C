@@ -11,10 +11,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class AddTourView : Window, INotifyPropertyChanged
     {
-        public AddTourView(Guide guide)
+        public AddTourView(Guide guide, bool visibility)
         {
             InitializeComponent();
-            AddTourViewModel addTourViewModel = new AddTourViewModel(guide);
+            AddTourViewModel addTourViewModel = new AddTourViewModel(guide, visibility);
             
             DataContext = addTourViewModel;
             if (addTourViewModel.CloseAction == null)

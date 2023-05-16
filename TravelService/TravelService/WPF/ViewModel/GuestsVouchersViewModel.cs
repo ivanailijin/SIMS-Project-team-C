@@ -128,7 +128,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_NotificationCommand(object sender)
         {
-            _notificationService.SendNotification(TourId, Tours.ToList());
+            _notificationService.SendNotification(TourId);
         }
     }
 }

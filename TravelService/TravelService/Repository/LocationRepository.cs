@@ -79,13 +79,11 @@ namespace TravelService.Repository
             }
             return null;
         }
-        public Location GetByCityAndCountry(string city, string country)
+        public Location GetByCityAndCountry(string words)
         {
             _locations = _serializer.FromCSV(FilePath);
-            return _locations.FirstOrDefault(language => language.City == city && language.Country == country);
+            return _locations.Find(location => location.CityAndCountry == words);
         }
-
     }
-
 }
 

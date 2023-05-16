@@ -150,6 +150,7 @@ namespace TravelService.WPF.ViewModel
 
             MostRequestedLocation= _tourRequestService.GetMostRequestedLocationString(TourRequests, selectedYear, selectedMonth);
             MostRequestedLanguage = _tourRequestService.GetMostRequestedLanguageString(TourRequests, selectedYear, selectedMonth);
+            
 
             Location = MostRequestedLocation;
             Language = MostRequestedLanguage;
@@ -161,28 +162,30 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_AddTourLocationCommand(object obj)
         {
-            IsMostRequestedLocationVisible = true;
-            IsMostRequestedLanguageVisible = false;
+            bool locationBool = true;
+            bool languageBool = false;
+            bool visibility = _tourRequestService.IsLocationOrLanguageVisible(locationBool,languageBool);
 
-            AddTourViewModel addTourViewModel = new AddTourViewModel(Guide);
+            AddTourViewModel addTourViewModel = new AddTourViewModel(Guide, visibility);
             addTourViewModel.Location = MostRequestedLocation;
             addTourViewModel.CloseAction = () => { /* Handle close action if needed */ };
 
-            AddTourView addTourView = new AddTourView(Guide);
+            AddTourView addTourView = new AddTourView(Guide, visibility);
             addTourView.DataContext = addTourViewModel;
             addTourView.Show();
         }
 
         private void Execute_AddTourLanguageCommand(object obj)
         {
-            IsMostRequestedLocationVisible = false;
-            IsMostRequestedLanguageVisible = true;
+            bool locationBool = false;
+            bool languageBool = true;
+            bool visibility = _tourRequestService.IsLocationOrLanguageVisible(locationBool, languageBool);
 
-            AddTourViewModel addTourViewModel = new AddTourViewModel(Guide);
+            AddTourViewModel addTourViewModel = new AddTourViewModel(Guide, visibility);
             addTourViewModel.Language = MostRequestedLanguage;
             addTourViewModel.CloseAction = () => { /* Handle close action if needed */ };
 
-            AddTourView addTourView = new AddTourView(Guide);
+            AddTourView addTourView = new AddTourView(Guide, visibility);
             addTourView.DataContext = addTourViewModel;
             addTourView.Show();
         }
