@@ -63,7 +63,7 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Button" Command="{Binding Accept}" HorizontalAlignment="Left" Height="85" Margin="455,259,0,0" Grid.Row="2" VerticalAlignment="Top" Width="260"/>
-        <Button Command="{Binding Stats}" Content="Button" HorizontalAlignment="Left" Margin="815,259,0,0" Grid.Row="2" VerticalAlignment="Top" Height="65" Width="160"/>
+        <Button Content="Accept" Command="{Binding Accept}" HorizontalAlignment="Left" Height="80" Margin="190,254,0,0" Grid.Row="2" VerticalAlignment="Top" Width="245"/>
+        <Button Command="{Binding Stats}" Content="Statistics" HorizontalAlignment="Left" Margin="735,254,0,0" Grid.Row="2" VerticalAlignment="Top" Height="80" Width="260"/>
     </Grid>
 </Window>
