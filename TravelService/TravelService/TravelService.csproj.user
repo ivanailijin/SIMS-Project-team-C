@@ -130,7 +130,13 @@
     <Compile Update="WPF\View\SearchAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\SecondGuestNotificationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\SelectedAccommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ShowGuestsNotificationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ShowGuestsView.xaml.cs">
@@ -257,6 +263,9 @@
     <Page Update="WPF\View\SearchAccommodationView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\SecondGuestNotificationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\SecondGuestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -297,6 +306,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SelectedAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ShowGuestsNotificationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowGuestsView.xaml">

@@ -53,8 +53,8 @@ namespace TravelService.Repository
         public void Delete(TourRequest tourRequest)
         {
             _tourRequests = _serializer.FromCSV(FilePath);
-            TourRequest founded = _tourRequests.Find(r => r.Id == tourRequest.Id);
-            _tourRequests.Remove(founded);
+            TourRequest found = _tourRequests.Find(r => r.Id == tourRequest.Id);
+            _tourRequests.Remove(found);
             _serializer.ToCSV(FilePath, _tourRequests);
         }
 

@@ -24,9 +24,7 @@ namespace TravelService.Application.UseCases
         {
             _tourRequestRepository = tourRequestRepository;
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
-
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
-
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());
         }
         public void Delete(TourRequest tourRequest)
@@ -93,11 +91,8 @@ namespace TravelService.Application.UseCases
             {
                 tourRequests.Location = Locations.Find(loc => loc.Id == tourRequests.LocationId);
                 tourRequests.Language = Languages.Find(lan => lan.Id == tourRequests.LanguageId);
-
             }
-
         }
-      
 
         public List<TourRequest> FindTourRequestsByDate(DateTime startDate, DateTime endDate)
         {
@@ -264,7 +259,7 @@ namespace TravelService.Application.UseCases
             double approvedRequestsPercentage = (double)approvedRequestNumber / (double)totalRequestNumber * 100;
             return Math.Round(approvedRequestsPercentage, 2);
         }
-        public List<TourRequest> GetInvalidRequests(ObservableCollection<TourRequest> guestsRequests)
+        public List<TourRequest> GetInvalidRequests(List<TourRequest> guestsRequests)
         {
             List<TourRequest> invalidRequests = new List<TourRequest>();
             foreach (TourRequest tourRequest in guestsRequests)
@@ -278,7 +273,7 @@ namespace TravelService.Application.UseCases
         }
         public double GetInvalidRequestsPercentage(ObservableCollection<TourRequest> guestsRequests)
         {
-            List<TourRequest> invalidRequests = GetInvalidRequests(guestsRequests);
+            List<TourRequest> invalidRequests = GetInvalidRequests(guestsRequests.ToList());
             double invalidRequestsNumber = invalidRequests.Count();
             double totalRequestNumber = guestsRequests.Count();
             double invalidRequestsPercentage = (double)invalidRequestsNumber / (double)totalRequestNumber * 100;
@@ -302,7 +297,7 @@ namespace TravelService.Application.UseCases
         }
         public double GetInvalidRequestsPercentageByYear(ObservableCollection<TourRequest> guestsRequests, int selectedYear)
         {
-            List<TourRequest> invalidRequests = GetInvalidRequests(guestsRequests);
+            List<TourRequest> invalidRequests = GetInvalidRequests(guestsRequests.ToList());
             double tourRequestYear = 0;
             double tourRequestCount = 0;
             double percentageByYear = 0;

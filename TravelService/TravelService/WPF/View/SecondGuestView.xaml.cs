@@ -15,7 +15,6 @@ using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
 using System.ComponentModel;
 
-
 namespace TravelService.WPF.View
 {
     public partial class SecondGuestView : Window, INotifyPropertyChanged
