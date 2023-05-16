@@ -14,9 +14,9 @@ namespace TravelService.Domain.Model
         public int AccommodationId { get; set; }
         public string Comment { get; set; }
         public int UrgencyLevel { get; set; }
-        
-        public RenovationRecommendation() { }
+        public DateTime DateCreated { get; set; }
 
+        public RenovationRecommendation() { }
         public RenovationRecommendation(int accommodationId, string comment, int urgencyLevel)
         {
             AccommodationId = accommodationId;
@@ -32,6 +32,7 @@ namespace TravelService.Domain.Model
                 AccommodationId.ToString(),
                 Comment,
                 UrgencyLevel.ToString(),
+                DateCreated.ToString(),
             };
             return csvValues;
         }
@@ -42,6 +43,7 @@ namespace TravelService.Domain.Model
             AccommodationId = Convert.ToInt32(values[1]);
             Comment = values[2];
             UrgencyLevel = Convert.ToInt32(values[3]);
+            DateCreated = DateTime.Parse(values[4]);
         }
     }
 }

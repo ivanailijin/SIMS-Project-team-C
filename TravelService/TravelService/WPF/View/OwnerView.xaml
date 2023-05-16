@@ -102,7 +102,7 @@
                 <Border BorderBrush="#696747" Background="#fcfbe3" BorderThickness="3" Margin="5 5 35 5">
                     <StackPanel Orientation="Horizontal" Height="166">
                         <StackPanel Orientation="Vertical">
-                            <Button Style="{StaticResource ResourceKey=RoundedButton}" Background="White" Margin="70 25 0 0" Width="200" Height="97">
+                            <Button Style="{StaticResource ResourceKey=RoundedButton}" Background="White" Margin="70 25 0 0" Width="200" Height="97" Command="{Binding ShowStatisticsCommand}">
                                 <Button.Content>
                                     <Viewbox Width="90" Height="85">
                                         <Image Source="/TravelService;component/Resources/Images/statistics.png"/>

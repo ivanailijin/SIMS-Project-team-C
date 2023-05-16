@@ -4,6 +4,7 @@ using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Ink;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 
@@ -35,6 +36,37 @@ namespace TravelService.Application.UseCases
         public RenovationRecommendation Update(RenovationRecommendation renovation)
         {
             return _renovationRecommendationRepository.Update(renovation);
+        }
+        public int GetRecommendationYearNumber(int year, int accommodationId)
+        {
+            List<RenovationRecommendation> recommendations = GetAll();
+            int recommendationsNumber = 0;
+
+            foreach (RenovationRecommendation recommendation in recommendations)
+            {
+                if (recommendation.AccommodationId == accommodationId && (recommendation.DateCreated.Year == year))
+                {
+                    recommendationsNumber++;
+                }
+            }
+
+            return recommendationsNumber;
+        }
+
+        public int GetRecommendationMonthNumber(int month, int year, int accommodationId)
+        {
+            List<RenovationRecommendation> recommendations = GetAll();
+            int recommendationsNumber = 0;
+
+            foreach (RenovationRecommendation recommendation in recommendations)
+            {
+                if (recommendation.AccommodationId == accommodationId && (recommendation.DateCreated.Year == year) && (recommendation.DateCreated.Month == month))
+                {
+                    recommendationsNumber++;
+                }
+            }
+
+            return recommendationsNumber;
         }
     }
 }

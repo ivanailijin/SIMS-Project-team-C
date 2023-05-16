@@ -14,6 +14,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\AddTourRequestView.xaml.cs">
+	<SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\AccommodationMonthStatisticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\AccommodationStatisticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\AccommodationYearStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ApproveReservationRequestView.xaml.cs">
@@ -175,6 +184,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\AccommodationAvailabilityView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AccommodationMonthStatisticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AccommodationStatisticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AccommodationYearStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\CancelRenovationView.xaml">

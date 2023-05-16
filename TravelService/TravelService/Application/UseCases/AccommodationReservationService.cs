@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -76,7 +77,123 @@ namespace TravelService.Application.UseCases
             }
             return reservationsInLastYear;
         }
+        public int GetReservationYearNumber(int year, int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int reservationsNumber = 0;
 
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if(reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year))
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
+        public int GetCancelledReservationYearNumber(int year, int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int reservationsNumber = 0;
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                if (reservation.AccommodationId == accommodationId && reservation.CheckInDate.Year == year && reservation.IsCancelled == true)
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
+
+        public int GetReservationMonthNumber(int month, int year, int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int reservationsNumber = 0;
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                if (reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year) && (reservation.CheckInDate.Month == month))
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
+        public int GetCancelledReservationMonthNumber(int month, int year, int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int reservationsNumber = 0;
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                if (reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year) && (reservation.CheckInDate.Month == month) && reservation.IsCancelled == true)
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
+        public double GetBusynessPerYear(Accommodation accommodation, int year)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            int daysCount = 0;
+            int daysInYear = DateTime.IsLeapYear(year) ? 366 : 365;
+
+            foreach (AccommodationReservation reservation in reservations)
+            {
+                if(reservation.AccommodationId == accommodation.Id && reservation.CheckInDate.Year == year && reservation.CheckOutDate.Year == year)
+                {
+                    daysCount += reservation.LengthOfStay;
+                }
+            }
+
+            return (double)daysCount / daysInYear;
+        }
+        public double GetBusynessPerMonth(Accommodation accommodation, int year, int month)
+        {
+            List<AccommodationReservation> yearsReservations = GetReservationsInYear(accommodation, year);
+
+            int daysCount = 0; 
+            int daysInMonth = DateTime.DaysInMonth(year, month);
+
+            foreach (AccommodationReservation reservation in yearsReservations)
+            {
+                if(reservation.CheckInDate.Month <= month && reservation.CheckOutDate.Month >= month)
+                {
+                    DateTime firstDate = new DateTime(year, month,1);
+                    DateTime lastDate = new DateTime(year, month, daysInMonth);
+                    if (reservation.CheckInDate > firstDate)
+                        firstDate = reservation.CheckInDate;
+
+                    if(reservation.CheckOutDate < lastDate)
+                        lastDate = reservation.CheckOutDate;
+
+                    TimeSpan reservedDays = lastDate - firstDate;
+                    daysCount += reservedDays.Days + 1;
+                }
+            }
+
+            return (double)daysCount / daysInMonth;
+        }
+
+        public List<AccommodationReservation> GetReservationsInYear(Accommodation accommodation, int year)
+        {
+            List<AccommodationReservation> yearsReservations = new List<AccommodationReservation>();
+            List<AccommodationReservation> reservations = GetAll();
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if(reservation.AccommodationId==accommodation.Id && reservation.CheckInDate.Year == year && reservation.CheckOutDate.Year == year)
+                    yearsReservations.Add(reservation);
+            }
+
+            return yearsReservations;
+        }
         public List<Tuple<DateTime, DateTime>> FindAvailableDates(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying)
         {
             List<DateTime> reservedDates = FindReservedDates(selectedAccommodation);

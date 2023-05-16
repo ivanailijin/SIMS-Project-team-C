@@ -1,0 +1,117 @@
+﻿<Window x:Class="TravelService.WPF.View.AccommodationMonthStatisticsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
+        mc:Ignorable="d"
+        Title="Statistika smestaja po mesecima" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="768" Width="1024">
+    <Window.Resources>
+        <local:MonthConverter x:Key="MonthConverter"/>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Statistika smestaja po mesecima" FontWeight="SemiBold" HorizontalAlignment="Center" FontSize="27" Margin="0 40 0 0"></TextBlock>
+            <StackPanel Orientation="Horizontal" Height="30" Margin=" 0 10 0 0">
+                <TextBlock HorizontalAlignment="Center" Margin="260 0 0 0" VerticalAlignment="Center" FontSize="20">Smestaj:</TextBlock>
+                <TextBlock Width="200" Margin="10 0 0 0" Text="{Binding SelectedAccommodation.Name}" VerticalAlignment="Center" FontSize="18"></TextBlock>
+                <TextBlock Margin="70 0 0 0" VerticalAlignment="Center" FontSize="20">Za godinu:</TextBlock>
+                <TextBlock Margin="10 0 0 0" Text="{Binding SelectedYear.Year}" VerticalAlignment="Center" FontSize="18" ></TextBlock>
+            </StackPanel>
+            <DataGrid x:Name="RequestViewGrid"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 40 0 0" Background="LightGray" ItemsSource="{Binding Path=MonthStatistics, UpdateSourceTrigger=PropertyChanged}"
+                  HeadersVisibility="Column"
+                  RowBackground="#fcfced" AlternatingRowBackground="#f7f6da" Foreground="Black"
+                  FontSize="14" FontFamily="Calibri"
+                   AutoGenerateColumns="False" IsReadOnly="True" RowHeight="30" VerticalContentAlignment="Center"
+                   Width="800" Height="400">
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Mesec" Width="100"  Binding="{Binding Month, Converter={StaticResource MonthConverter}}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Broj rezervacija" Width="163" Binding="{Binding ReservationsNumber}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Broj otkazivanja rezervacija" Width="163" Binding="{Binding CancellationNumber}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Broj pomeranja rezervacija" Binding="{Binding MovingReservationsNumber}"  Width="170" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Broj preporuka za renoviranje" Width="*" Binding="{Binding RecommendationsNumber}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="2"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel  Margin="120 20 0 0" Orientation="Horizontal">
+                <Label FontSize="20">Najveca zauzetost smestaja u mesecu:</Label>
+                <TextBlock Width="100" Height="30" FontSize="20" Margin="20 0 0 0" Text="{Binding BusiestMonth, Converter={StaticResource MonthConverter}}"></TextBlock>
+            </StackPanel>
+            <Button Width ="200" Height="40" Content="Nazad" HorizontalAlignment="Left" Margin="123 40 0 0" Command="{Binding CancelCommand}"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
