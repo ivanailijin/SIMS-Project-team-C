@@ -49,7 +49,7 @@ namespace TravelService.Application.UseCases
         public List<AccommodationReservation> FindByGuestId(int guestId)
         {
             List<AccommodationReservation> foundReservations = new List<AccommodationReservation>();
-            List<AccommodationReservation> reservations = GetAll();
+            List<AccommodationReservation> reservations = _accommodationReservationRepository.GetAll();
 
             foreach (AccommodationReservation reservation in reservations)
             {

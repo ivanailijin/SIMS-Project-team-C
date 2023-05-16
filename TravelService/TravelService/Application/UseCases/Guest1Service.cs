@@ -60,7 +60,7 @@ namespace TravelService.Application.UseCases
                     guest.SuperGuest = true;
                     guest.BonusPoints = 5;
                     guest.SuperGuestExpirationDate = DateTime.Now.AddYears(1);
-                    guest = Update(guest);
+                    guest = _repository.Update(guest);
                 }
             }
             else
@@ -71,14 +71,14 @@ namespace TravelService.Application.UseCases
                     {
                         guest.BonusPoints = 5;
                         guest.SuperGuestExpirationDate = DateTime.Now.AddYears(1);
-                        guest = Update(guest);
+                        guest = _repository.Update(guest);
                     }
                     else
                     {
                         guest.SuperGuest = false;
                         guest.SuperGuestExpirationDate = DateTime.MinValue;
                         guest.BonusPoints = 0;
-                        guest = Update(guest);
+                        guest = _repository.Update(guest);
                     }
                 }
             }
