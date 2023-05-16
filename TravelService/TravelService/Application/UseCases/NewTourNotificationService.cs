@@ -44,11 +44,11 @@ namespace TravelService.Application.UseCases
         {
             _newTourNotificationRepository.Update(newTourNotification);
         }
-        public void SendNotification(int tourId, List<Tour> tours)
-        { 
+        public void SendNotification(int tourId)
+        {
             List<Guest2> guests = new List<Guest2>(_guest2Service.GetAll());
-            
-            Tour currentTour = tours.Find(tour => tour.Id == tourId);
+            List<Tour> Tours = new List<Tour>(_tourService.GetAll());
+            Tour currentTour = Tours.Find(tour => tour.Id == tourId);
             foreach(Guest2 guest2 in guests) 
             {
                 List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestService.GetAll());
