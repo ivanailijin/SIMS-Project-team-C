@@ -24,6 +24,7 @@ namespace TravelService.Domain.Model
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancellingReservation { get; set; }
         public bool RecentlyRenovated { get; set; }
+        public DateTime DateCreated { get; set; }
         public List<Uri> Pictures { get; set; }
 
 
@@ -32,7 +33,7 @@ namespace TravelService.Domain.Model
             Pictures = new List<Uri>();
         }
 
-        public Accommodation(int userId, string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation, List<string> pictures)
+        public Accommodation(int userId, string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation,DateTime dateCreated, List<string> pictures)
         {
             OwnerId = userId;
             Name = name;
@@ -42,6 +43,7 @@ namespace TravelService.Domain.Model
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
             DaysBeforeCancellingReservation = daysBeforeCancellingReservation;
+            DateCreated = dateCreated;
             Pictures = new List<Uri>();
 
             foreach (string picture in pictures)
@@ -95,6 +97,7 @@ namespace TravelService.Domain.Model
                 MinReservationDays.ToString(),
                 DaysBeforeCancellingReservation.ToString(),
                 RecentlyRenovated.ToString(),
+                DateCreated.ToString(),
                 pictureList.ToString(),
             };
             return csvValues;
@@ -111,8 +114,9 @@ namespace TravelService.Domain.Model
             MinReservationDays = Convert.ToInt32(values[6]);
             DaysBeforeCancellingReservation = Convert.ToInt32(values[7]);
             RecentlyRenovated = bool.Parse(values[8]);
+            DateCreated = DateTime.Parse(values[9]);
 
-            string pictures = values[9];
+            string pictures = values[10];
 
             string[] delimitedPictures = pictures.Split(" ,");
 

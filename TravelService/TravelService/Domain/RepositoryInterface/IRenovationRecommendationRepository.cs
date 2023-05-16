@@ -16,4 +16,3 @@ namespace TravelService.Domain.RepositoryInterface
         public RenovationRecommendation Update(RenovationRecommendation renovationRecommendation);
     }
 }
-

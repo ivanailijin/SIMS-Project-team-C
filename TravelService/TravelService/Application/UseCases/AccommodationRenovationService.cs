@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -129,23 +130,33 @@ namespace TravelService.Application.UseCases
 
             for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
             {
-                if (!reservedDates.Contains(date) && !renovationDates.Contains(date))
-                {
-                    availableDates.Add(date);
-                }
-                else
-                {
-                    availableDates.Clear();
-                }
-
-                if (availableDates.Count == duration)
-                {
-                    availableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
-                    availableDates.RemoveAt(0);
-                }
+                CheckDateAvailability(availableDates, reservedDates, renovationDates, date);
+                CheckDatePairExistence(availableDates, availableDatesPair, duration);
             }
             return availableDatesPair;
         }
+
+        public void CheckDateAvailability(List<DateTime> availableDates, List<DateTime> reservedDates, List<DateTime> renovationDates, DateTime date)
+        {
+            if (!reservedDates.Contains(date) && !renovationDates.Contains(date))
+            {
+                availableDates.Add(date);
+            }
+            else
+            {
+                availableDates.Clear();
+            }
+        }
+
+        public void CheckDatePairExistence(List<DateTime> availableDates, List<Tuple<DateTime, DateTime>> availableDatesPair, int duration)
+        {
+            if (availableDates.Count == duration)
+            {
+                availableDatesPair.Add(Tuple.Create(availableDates[0].Date, availableDates[availableDates.Count - 1].Date));
+                availableDates.RemoveAt(0);
+            }
+        }
+
         public List<DateTime> FindRenovationDates(Accommodation selectedAccommodation)
         {
             List<AccommodationRenovation> renovations = GetAll();
