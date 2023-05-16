@@ -70,13 +70,19 @@ namespace TravelService.Application.UseCases
             List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
             foreach (AccommodationReservation reservation in guestReservations)
             {
-                if (reservation.CheckInDate >= oneYearAgo && reservation.CheckOutDate <= DateTime.Today)
+                if (IsReservationInLastYear(reservation, oneYearAgo))
                 {
                     reservationsInLastYear.Add(reservation);
                 }
             }
             return reservationsInLastYear;
         }
+
+        public bool IsReservationInLastYear(AccommodationReservation reservation, DateTime oneYearAgo)
+        {
+            return reservation.CheckInDate >= oneYearAgo && reservation.CheckOutDate <= DateTime.Today;
+        }
+
         public int GetReservationYearNumber(int year, int accommodationId)
         {
             List<AccommodationReservation> reservations = GetAll();
