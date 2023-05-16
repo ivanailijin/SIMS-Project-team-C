@@ -34,6 +34,8 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand AboutMeCommand { get; set; }
         public RelayCommand ThemeCommand { get; set; }
         public RelayCommand LanguageCommand { get; set; }
+
+        public RelayCommand Suggestion { get; set; }
         public Brush Background { get; set; }
         public Brush Foreground { get; set; }
 
@@ -64,6 +66,7 @@ namespace TravelService.WPF.ViewModel
             // AboutMeCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
              ThemeCommand = new RelayCommand(Execute_ChangeThemeCommand, CanExecute_Command);
             LanguageCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
+            Suggestion = new RelayCommand(Execute_SuggestionCommand,CanExecute_Command);    
         }
 
         private string _username;
@@ -78,6 +81,12 @@ namespace TravelService.WPF.ViewModel
                     OnPropertyChanged();
                 }
             }
+        }
+        private void Execute_SuggestionCommand(object obj)
+        {
+            SuggestionForGuideView sugg = new SuggestionForGuideView(Guide);
+            sugg.Show();
+
         }
 
 

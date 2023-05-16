@@ -145,7 +145,24 @@
                 </Button.Template>
             </Button>
         </StackPanel>
-
+        <Button Content="Suggestions" Command="{Binding Suggestion}" Height="40" Width="120" Background="#FFB0DAEB" Foreground="#FF132D57" Canvas.Left="555" Canvas.Top="319">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="550" Canvas.Top="99">
             <Button Content="Requests" Command ="{Binding RequestsCommand}" Height="40" Width="120"  Background="#FF184C75" Foreground="#FFFFFF" Margin="0 0 0 10">

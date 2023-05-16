@@ -317,6 +317,237 @@ namespace TravelService.Application.UseCases
             return Math.Round(percentageByYear, 2);
         }
 
-    
+        public List<LanguageDataPoint> GetLanguageDataPoints(List<Language> languages, double requestNumber, ObservableCollection<TourRequest> GuestsRequests)
+        {
+            List<LanguageDataPoint> DataPoints = new List<LanguageDataPoint>();
+            foreach (Language language in languages)
+            {
+                LanguageDataPoint dataPoint = new LanguageDataPoint(language.Name, FindGuestsRequestsPerLanguage(language, languages, GuestsRequests));
+                DataPoints.Add(dataPoint);
+            }
+            return DataPoints;
+        }
+        public double FindGuestsRequestsPerLanguage(Language Language, List<Language> languages, ObservableCollection<TourRequest> GuestsRequests)
+        {
+            double requestNumber = 0;
+            Language currentLanguage = languages.Find(lan => lan.Id == Language.Id);
+            foreach (TourRequest tourRequest in GuestsRequests)
+            {
+                if (currentLanguage.Id == tourRequest.LanguageId)
+                    requestNumber++;
+            }
+            return requestNumber;
+        }
+        public List<LanguageDataPoint> CalculateLanguageDataPointPositions(List<LanguageDataPoint> languageDataPoints, ObservableCollection<Language> Languages, ObservableCollection<TourRequest> GuestsRequests)
+        {
+            List<LanguageDataPoint> DataPoints = new List<LanguageDataPoint>();
+            double maxX = 300;
+            double maxY = 60;
+
+            for (int i = 0; i < languageDataPoints.Count; i++)
+            {
+                var dataPoint = languageDataPoints[i];
+                double x = CalculateXPosition(dataPoint.Language, maxX, Languages);
+                double y = CalculateYPosition(dataPoint.RequestNumber, maxY, GuestsRequests);
+
+                dataPoint.Language = x.ToString();
+                dataPoint.RequestNumber = y;
+                dataPoint.Id = i;
+                DataPoints.Add(dataPoint);
+            }
+            return DataPoints;
+        }
+        public double CalculateXPosition(string language, double maxX, ObservableCollection<Language> Languages)
+        {
+            int languageIndex = Array.IndexOf(Languages.Select(l => l.Name).ToArray(), language);
+            double interval = maxX / (Languages.Count - 1);
+            double x = (languageIndex) * interval;
+            return Math.Round(x, 2);
+        }
+        public double CalculateYPosition(double requests, double maxY, ObservableCollection<TourRequest> GuestsRequests)
+        {
+            double y = (double)requests / GuestsRequests.Count * maxY;
+            return Math.Round(y, 2);
+        }
+        public List<LocationDataPoint> GetLocationDataPoints(List<Location> locations, double requestNumber, ObservableCollection<TourRequest> guestsRequests)
+        {
+            List<LocationDataPoint> DataPoints = new List<LocationDataPoint>();
+            foreach (Location location in locations)
+            {
+                LocationDataPoint dataPoint = new LocationDataPoint(location.CityAndCountry, location.City, location.Country, FindGuestsRequestsPerLocation(location, locations, guestsRequests));
+                DataPoints.Add(dataPoint);
+            }
+            return DataPoints;
+        }
+        public double FindGuestsRequestsPerLocation(Location Location, List<Location> Locations, ObservableCollection<TourRequest> GuestsRequests)
+        {
+            double requestNumber = 0;
+            Location currentLocation = Locations.Find(loc => loc.Id == Location.Id);
+            foreach (TourRequest tourRequest in GuestsRequests)
+            {
+                if (currentLocation.Id == tourRequest.LocationId)
+                    requestNumber++;
+            }
+            return requestNumber;
+        }
+        public List<LocationDataPoint> CalculateLocationDataPointPositions(List<LocationDataPoint> locationDataPoints, ObservableCollection<Location> Locations, ObservableCollection<TourRequest> GuestsRequests)
+        {
+            List<LocationDataPoint> DataPoints = new List<LocationDataPoint>();
+            double maxX = 300;
+            double maxY = 60;
+
+            for (int i = 0; i < locationDataPoints.Count; i++)
+            {
+                var dataPoint = locationDataPoints[i];
+                double x = CalculateXPositionLocation(dataPoint.Location, maxX, Locations);
+                double y = CalculateYPositionLocation(dataPoint.RequestNumber, maxY, GuestsRequests);
+
+                dataPoint.Location = x.ToString();
+                dataPoint.RequestNumber = y;
+                dataPoint.Id = i;
+                DataPoints.Add(dataPoint);
+            }
+            return DataPoints;
+        }
+        public double CalculateXPositionLocation(string location, double maxX, ObservableCollection<Location> locations)
+        {
+            int locationIndex = Array.IndexOf(locations.Select(l => l.CityAndCountry).ToArray(), location);
+            double interval = maxX / (locations.Count - 1);
+            double x = (locationIndex) * interval;
+            return Math.Round(x, 2);
+        }
+
+        public double CalculateYPositionLocation(double requests, double maxY, ObservableCollection<TourRequest> GuestsRequests)
+        {
+            double y = (double)requests / GuestsRequests.Count * maxY;
+            return Math.Round(y, 2);
+        }
+
+        public double FindAverageGuestNumber(ObservableCollection<TourRequest> guestsRequests)
+        {
+            List<TourRequest> approvedRequests = GetApprovedRequests(guestsRequests);
+            double guestNumberSum = 0;
+            double totalRequestNumber = approvedRequests.Count();
+            double averageGuestNumber = 0;
+            foreach (TourRequest tourRequest in approvedRequests)
+            {
+                guestNumberSum += tourRequest.GuestNumber;
+            }
+            averageGuestNumber = (double)guestNumberSum / (double)totalRequestNumber;
+            return Math.Round(averageGuestNumber, 2);
+        }
+
+        public double GetGuestNumberByYear(ObservableCollection<TourRequest> guestsRequests, int selectedYearGuest)
+        {
+            List<TourRequest> approvedRequests = GetApprovedRequests(guestsRequests);
+            double tourRequestYear = 0;
+            double tourRequestCount = 0;
+            double guestNumberSum = 0;
+            double guestNumberByYear = 0;
+            foreach (TourRequest tourRequest in approvedRequests)
+            {
+                tourRequestYear = tourRequest.TourStart.Year;
+                if (selectedYearGuest == tourRequestYear)
+                {
+                    tourRequestCount++;
+                    guestNumberSum += tourRequest.GuestNumber;
+                }
+            }
+            guestNumberByYear = (double)guestNumberSum / (double)tourRequestCount;
+            double roundedGuestNumber = Math.Round(guestNumberByYear, 2);
+            if (double.IsNaN(roundedGuestNumber))
+                roundedGuestNumber = 0;
+            return roundedGuestNumber;
+        }
+        public string GetMostRequestedLocationString(ObservableCollection<TourRequest> guestsRequests, int selectedYear, int selectedMonth)
+        {
+            Dictionary<int, int> locationCounts = new Dictionary<int, int>();
+
+            foreach (TourRequest request in guestsRequests)
+            {
+                if (request.TourStart.Year == selectedYear && (selectedMonth == 0 || request.TourStart.Month == selectedMonth))
+                {
+                    int locationId = request.LocationId;
+
+                    // Fetch the location based on the location ID
+                    Location location = _locationService.GetLocationById(locationId);
+
+                    if (location != null)
+                    {
+                        if (locationCounts.ContainsKey(locationId))
+                        {
+                            locationCounts[locationId]++;
+                        }
+                        else
+                        {
+                            locationCounts[locationId] = 1;
+                        }
+                    }
+                }
+            }
+
+            int mostRequestedLocationId = 0;
+            int maxRequestCount = 0;
+
+            foreach (KeyValuePair<int, int> kvp in locationCounts)
+            {
+                if (kvp.Value > maxRequestCount)
+                {
+                    maxRequestCount = kvp.Value;
+                    mostRequestedLocationId = kvp.Key;
+                }
+            }
+
+            // Fetch the location name based on the most requested location ID
+            Location mostRequestedLocation = _locationService.GetLocationById(mostRequestedLocationId);
+            string mostRequestedLocationName = mostRequestedLocation?.CityAndCountry;
+
+            return mostRequestedLocationName;
+        }
+
+        public string GetMostRequestedLanguageString(ObservableCollection<TourRequest> guestsRequests, int selectedYear, int selectedMonth)
+        {
+            Dictionary<int, int> languageCounts = new Dictionary<int, int>();
+
+            foreach (TourRequest request in guestsRequests)
+            {
+                if (request.TourStart.Year == selectedYear && (selectedMonth == 0 || request.TourStart.Month == selectedMonth))
+                {
+                    int languageId = request.LanguageId;
+
+                    Language language = _languageService.GetById(languageId);
+
+                    if (language != null)
+                    {
+                        if (languageCounts.ContainsKey(languageId))
+                        {
+                            languageCounts[languageId]++;
+                        }
+                        else
+                        {
+                            languageCounts[languageId] = 1;
+                        }
+                    }
+                }
+            }
+
+            int mostRequestedLanguageId = 0;
+            int maxRequestCount = 0;
+
+            foreach (KeyValuePair<int, int> kvp in languageCounts)
+            {
+                if (kvp.Value > maxRequestCount)
+                {
+                    maxRequestCount = kvp.Value;
+                    mostRequestedLanguageId = kvp.Key;
+                }
+            }
+
+            // Fetch the location name based on the most requested location ID
+            Language mostRequestedLanguage = _languageService.GetById(mostRequestedLanguageId);
+            string mostRequestedLanguageName = mostRequestedLanguage?.Name;
+
+            return mostRequestedLanguageName;
+        }
     }
 }

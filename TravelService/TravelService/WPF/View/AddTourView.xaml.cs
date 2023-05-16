@@ -13,9 +13,9 @@ namespace TravelService.WPF.View
     {
         public AddTourView(Guide guide)
         {
-
             InitializeComponent();
             AddTourViewModel addTourViewModel = new AddTourViewModel(guide);
+            
             DataContext = addTourViewModel;
             if (addTourViewModel.CloseAction == null)
                 addTourViewModel.CloseAction = new Action(this.Close);

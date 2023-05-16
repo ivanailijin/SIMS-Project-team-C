@@ -47,20 +47,21 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private Location _selectedLocation;
+        private string _location;
 
-        public Location SelectedLocation
+        public string Location
         {
-            get => _selectedLocation;
+            get => _location;
             set
             {
-                if (value != _selectedLocation)
+                if (value != _location)
                 {
-                    _selectedLocation = value;
+                    _location = value;
                     OnPropertyChanged();
                 }
             }
         }
+
 
         private string _description;
 
@@ -76,9 +77,9 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        private Language _tourLanguage;
+        private string _tourLanguage;
 
-        public Language SelectedLanguge
+        public string Language
         {
             get => _tourLanguage;
             set
@@ -122,6 +123,12 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+
+        internal void Show()
+        {
+            throw new NotImplementedException();
+        }
+
         private int _duration;
 
         public int Duration
@@ -206,8 +213,7 @@ namespace TravelService.WPF.ViewModel
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
             IncrementCommand = new RelayCommand(Execute_GuestsIncrement, CanExecute_Command);
             DecrementCommand = new RelayCommand(Execute_GuestsDecrement, CanExecute_Command);
-            AddLocationCommand = new RelayCommand(Execute_AddLocation, CanExecute_Command);
-            AddLanguageCommand = new RelayCommand(Execute_AddLanguage, CanExecute_Command);
+         
             AddCheckPointCommand = new RelayCommand(Execute_AddCheckPoint, CanExecute_Command);
             AddTourCommand = new RelayCommand(Execute_AddTourCommand,CanExecute_Command);   
         }
@@ -226,11 +232,7 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private void Execute_AddLanguage(object obj)
-        {
-            AddLanguageView addLanguage = new AddLanguageView(TourId);
-            addLanguage.Show();
-        }
+      
 
         private void Execute_AddCheckPoint(object obj)
         {
@@ -238,18 +240,24 @@ namespace TravelService.WPF.ViewModel
             enterCheckPoint.Show();
         }
 
-        private void Execute_AddLocation(object obj)
-        {
-            AddLocationView addLocationView = new AddLocationView(TourId);
-            addLocationView.Show();
-        }
+       
 
 
         private void Execute_AddTourCommand(object obj)
         {
 
-            Location location = SelectedLocation;
-            Language language = SelectedLanguge;
+
+            string[] words = _location.Split(',');
+
+            string city = words[0];
+            string country = words[1];
+
+            Location location = new Location(country, city);
+            Location savedLocation = _locationService.Save(location);
+
+
+            Language language = new Language(Language);
+            Language savedLanguage = _languageService.Save(language);
 
 
             List<string> formattedPictures = new List<string>();
@@ -261,9 +269,16 @@ namespace TravelService.WPF.ViewModel
                 formattedPictures.Add(picture);
             }
 
-            Tour tour = new Tour(Guide.Id, TourName,SelectedLocation, SelectedLocation.Id, Description, SelectedLanguge, SelectedLanguge.Id, MaxGuestNumber, TourStart, Duration, formattedPictures, Done);
-            _tourService.Save(tour);
-            CloseAction();
+
+
+            Tour tour = new Tour(Guide.Id, TourName, savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures, Done);
+
+
+
+
+            List<CheckPoint> checkPoints = _checkPointService.GetAll();
+            _tourService.Check(checkPoints, tour, TourId);
+
         }
 
         private void Execute_FindPicturesCommand(object obj)

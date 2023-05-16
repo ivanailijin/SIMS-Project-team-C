@@ -37,5 +37,11 @@ namespace TravelService.Application.UseCases
         {
             return _languageRepository.Update(language);
         }
+
+
+        public Language GetById(int languageId)
+        {
+            return _languageRepository.GetById(languageId);
+        }
     }
 }
