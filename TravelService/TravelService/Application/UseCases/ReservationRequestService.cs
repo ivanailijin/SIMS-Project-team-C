@@ -55,7 +55,7 @@ namespace TravelService.Application.UseCases
 
             foreach (ReservationRequest request in requests)
             {
-                if (request.Reservation.AccommodationId == accommodationId && request.Status == STATUS.Approved && (request.NewStartDate.Year == year || request.NewEndDate.Year == year))
+                if (request.Reservation.AccommodationId == accommodationId && request.Status == STATUS.Approved && request.NewStartDate.Year == year)
                 {
                     requestsNumber++;
                 }

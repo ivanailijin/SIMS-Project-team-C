@@ -58,7 +58,7 @@ namespace TravelService.Application.UseCases
 
             foreach(AccommodationReservation reservation in reservations)
             {
-                if(reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year))
+                if(reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year))
                 {
                     reservationsNumber++;
                 }
@@ -73,7 +73,7 @@ namespace TravelService.Application.UseCases
 
             foreach (AccommodationReservation reservation in reservations)
             {
-                if (reservation.AccommodationId == accommodationId && (reservation.CheckInDate.Year == year || reservation.CheckOutDate.Year == year) && reservation.IsCancelled == true)
+                if (reservation.AccommodationId == accommodationId && reservation.CheckInDate.Year == year && reservation.IsCancelled == true)
                 {
                     reservationsNumber++;
                 }
