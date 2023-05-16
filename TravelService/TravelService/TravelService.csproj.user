@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="WPF\View\AcceptingTourRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\AccommodationAvailabilityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
     <Compile Update="WPF\View\FirstGuestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\GuestsRequestsStatisticsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\GuestsRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +41,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\GuestsVouchersView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\LanguageStatisticsGraph.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\LocationStatisticsGraph.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\MostVisited.xaml.cs">
@@ -68,6 +80,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\RenovationSelectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\RequestsStatsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ReserveAccommodationView.xaml.cs">
@@ -112,16 +127,28 @@
     <Compile Update="WPF\View\ScheduledRenovationsCancellationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ScheduleDateView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\SearchAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\SecondGuestNotificationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\SelectedAccommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ShowGuestsNotificationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ShowGuestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ShowTourReviewView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\SuggestionForGuideView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\TourTrackingView.xaml.cs">
@@ -142,6 +169,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\AcceptingTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\AccommodationAvailabilityView.xaml">
@@ -171,6 +201,9 @@
     <Page Update="WPF\View\FirstGuestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\GuestsRequestsStatisticsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\GuestsRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -178,6 +211,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsVouchersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\LanguageStatisticsGraph.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\LocationStatisticsGraph.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\MostVisited.xaml">
@@ -210,6 +249,9 @@
     <Page Update="WPF\View\RenovationSelectionView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\RequestsStatsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\ReserveAccommodationView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -220,9 +262,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ScheduledRenovationsCancellationView.xaml">
+    </Page>
+    <Page Update="WPF\View\ScheduleDateView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SearchAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\SecondGuestNotificationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SecondGuestView.xaml">
@@ -267,10 +314,16 @@
     <Page Update="WPF\View\SelectedAccommodationView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\ShowGuestsNotificationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\ShowGuestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowTourReviewView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\SuggestionForGuideView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\TourReservationView.xaml">

@@ -66,6 +66,19 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _locations);
             return location;
         }
+
+        public Location GetById(int id)
+        {
+            _locations = _serializer.FromCSV(FilePath);
+            foreach (Location locations in _locations)
+            {
+                if (locations.Id == id)
+                {
+                    return locations;
+                }
+            }
+            return null;
+        }
     }
 
 }

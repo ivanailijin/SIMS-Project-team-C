@@ -65,6 +65,18 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _languages);
             return language;
         }
+        public Language GetById(int id)
+        {
+            _languages = _serializer.FromCSV(FilePath);
+            foreach (Language language in _languages)
+            {
+                if (language.Id == id)
+                {
+                    return language;
+                }
+            }
+            return null;
+        }
 
 
     }

@@ -17,21 +17,20 @@ using TravelService.WPF.ViewModel;
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for AddLocationView.xaml
+    /// Interaction logic for RequestsStatsView.xaml
     /// </summary>
-    public partial class AddLanguageView : Window, INotifyPropertyChanged
+    public partial class RequestsStatsView : Window,INotifyPropertyChanged
     {
-        public AddLanguageView(int Id)
+        public RequestsStatsView()
         {
             InitializeComponent();
-            AddLanguageViewModel addLanguageViewModel = new AddLanguageViewModel(Id);
-            DataContext = addLanguageViewModel;
-            if (addLanguageViewModel.CloseAction == null)
-            {
-                addLanguageViewModel.CloseAction = new Action(this.Close);
-            }
+            RequestsStatsViewModel stats = new RequestsStatsViewModel();
+            DataContext = stats;
+            if (stats.CloseAction == null)
+                stats.CloseAction = new Action(this.Close);
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+    
+    public event PropertyChangedEventHandler? PropertyChanged;
     }
-}
+    }

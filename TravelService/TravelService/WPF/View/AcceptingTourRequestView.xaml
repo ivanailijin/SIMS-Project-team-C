@@ -1,0 +1,69 @@
+﻿<Window x:Class="TravelService.WPF.View.AcceptingTourRequestView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="AccommodationAvailabilityView" Height="470" Width="1295">
+
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,10,0,18" Grid.RowSpan="2">
+            <Label Width="111">City and country:</Label>
+            <Label Width="105">Language:</Label>
+            <Label Width="140">Number of guests:</Label>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="0,0,38,0" Orientation="Horizontal">
+            <Border Grid.Row="3" BorderBrush="DimGray" BorderThickness="2" Width="280" Height="40">
+                <ComboBox x:Name="locationComboBox" ItemsSource="{Binding LocationsComboBox}" Text="{Binding Path = Location, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0" Width="280" Height="40" VerticalAlignment="Top">
+                </ComboBox>
+            </Border>
+            <Border Grid.Row="3" BorderBrush="DimGray" BorderThickness="2" Width="280" Height="40">
+                <ComboBox x:Name="languageComboBox" Width="100" Height="20" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" DisplayMemberPath="Name" Margin="5" Visibility="Visible" BorderBrush="Black"></ComboBox>
+
+            </Border>
+
+            <TextBox x:Name="guestsTextBox" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="20" Margin="5" Visibility="Visible" BorderBrush="Black"></TextBox>
+
+            <TextBlock Text="Tour Start Date:" />
+            <DatePicker x:Name="TourStartDatePicker" SelectedDate="{Binding StartDate}" />
+            <TextBlock Text="Tour End Date:" />
+            <DatePicker x:Name="TourEndDatePicker" SelectedDate="{Binding EndDate}" />
+            <Button Content="Search" Command="{Binding SearchDates}" />
+
+            <Button Command="{Binding Search}" Height="20" Margin="30,0,0,0">Search</Button>
+            <Button Command="{Binding }" Height="20" Margin="20,0,0,0">Cancel</Button>
+
+
+
+        </StackPanel>
+        <DataGrid Grid.Row="2" x:Name="allTours"
+                  ItemsSource="{Binding Path=TourRequests  , UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedTourRequest}"
+                  AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Number of guests" Binding="{Binding GuestNumber}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="TourEnd" Binding="{Binding TourEnd}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="TourStart" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="TourStart" Binding="{Binding RequestApproved}" Width="auto"></DataGridTextColumn>
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Button" Command="{Binding Accept}" HorizontalAlignment="Left" Height="85" Margin="455,259,0,0" Grid.Row="2" VerticalAlignment="Top" Width="260"/>
+        <Button Command="{Binding Stats}" Content="Button" HorizontalAlignment="Left" Margin="815,259,0,0" Grid.Row="2" VerticalAlignment="Top" Height="65" Width="160"/>
+    </Grid>
+</Window>

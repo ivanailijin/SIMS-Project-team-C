@@ -157,7 +157,13 @@
                         <DataGridTextColumn Header="Usable until" Binding="{Binding ExpirationDate}" Width="125"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </Grid>            
+            </Grid>
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBox Text="{Binding Path=TourId}"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Margin="0,0,30,0"/>
+                
+                <Button  VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="30" FontSize="18" Command="{Binding NotificationCommand}">send</Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

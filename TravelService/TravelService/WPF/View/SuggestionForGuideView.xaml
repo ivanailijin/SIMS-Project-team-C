@@ -1,0 +1,28 @@
+﻿<Window x:Class="TravelService.WPF.View.SuggestionForGuideView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
+        mc:Ignorable="d"
+        Title="SuggestionForGuideView" Height="450" Width="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Most Requested Language:" FontSize="18" Margin="0 0 0 10"/>
+                <TextBox Text="{Binding MostRequestedLanguage, Mode=OneWay}" FontSize="16" Margin="0 0 0 20" IsReadOnly="True"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Most Requested Location:" FontSize="18" Margin="0 0 0 10"/>
+                <TextBox Text="{Binding MostRequestedLocation, Mode=OneWay}" FontSize="16" Margin="0 0 0 20" IsReadOnly="True"/>
+            </StackPanel>
+            
+    
+            <Button Content="Create Tour for Location" Command="{Binding AddTourLocationCommand}" FontSize="16" Margin="0 0 0 10"/>
+            <Button Content="Create Tour for Language" Command="{Binding AddTourLangaugeCommand}" FontSize="16" Margin="0 0 0 10"/>
+        </StackPanel>
+    </Grid>
+</Window>
+

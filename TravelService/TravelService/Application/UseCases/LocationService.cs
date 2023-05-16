@@ -37,5 +37,10 @@ namespace TravelService.Application.UseCases
         {
             return _locationRepository.Update(location);
         }
+
+        public Location GetLocationById(int locationId)
+        {
+            return _locationRepository.GetById(locationId);
+        }
     }
 }

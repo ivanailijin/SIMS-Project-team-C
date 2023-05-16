@@ -13,6 +13,7 @@ namespace TravelService.WPF.ViewModel
     {
         public Tour SelectedTour { get; set; }
         public GuestVoucher SelectedVoucher { get; set; }
+        public NewTourNotification SelectedNotification { get; set; }
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
 
@@ -25,6 +26,19 @@ namespace TravelService.WPF.ViewModel
                 if (value != _trackCommand)
                 {
                     _trackCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _statisticsCommand;
+        public RelayCommand StatisticsCommand
+        {
+            get => _statisticsCommand;
+            set
+            {
+                if (value != _statisticsCommand)
+                {
+                    _statisticsCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -64,6 +78,19 @@ namespace TravelService.WPF.ViewModel
                 if (value != _requestCommand)
                 {
                     _requestCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _notificationCommand;
+        public RelayCommand NotificationCommand
+        {
+            get => _notificationCommand;
+            set
+            {
+                if (value != _notificationCommand)
+                {
+                    _notificationCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -138,9 +165,11 @@ namespace TravelService.WPF.ViewModel
         {
             this.Guest2 = guest2;
             TrackCommand = new RelayCommand(Execute_TrackCommand, CanExecute_Command);
+            StatisticsCommand = new RelayCommand(Execute_StatisticsCommand, CanExecute_Command);
             TourViewCommand = new RelayCommand(Execute_TourViewCommand, CanExecute_Command);
             ReservationCommand = new RelayCommand(Execute_ReservationCommand, CanExecute_Command);
             RequestCommand = new RelayCommand(Execute_RequestCommand, CanExecute_Command);
+            NotificationCommand = new RelayCommand(Execute_NotificationCommand, CanExecute_Command);
             GuestsRequestsCommand = new RelayCommand(Execute_GuestsRequestsCommand, CanExecute_Command);
             VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
             RateTourCommand = new RelayCommand(Execute_RateTourCommand, CanExecute_Command);
@@ -152,7 +181,12 @@ namespace TravelService.WPF.ViewModel
             return true;
         }
 
-        private void Execute_TrackCommand(object sender) 
+        private void Execute_StatisticsCommand(object sender) 
+        {
+            GuestsRequestsStatisticsView guestsRequestsStatisticsView = new GuestsRequestsStatisticsView(Guest2);
+            guestsRequestsStatisticsView.Show();
+        }
+        private void Execute_TrackCommand(object sender)
         {
             TourTrackingView tourTrackingView = new TourTrackingView(SelectedTour, Guest2);
             tourTrackingView.Show();
@@ -178,6 +212,11 @@ namespace TravelService.WPF.ViewModel
             AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2);
             addTourRequestView.Show();
         }
+        private void Execute_NotificationCommand(object sender)
+        {
+            SecondGuestNotificationsView secondGuestNotificationsView = new SecondGuestNotificationsView(SelectedNotification, Guest2);
+            secondGuestNotificationsView.Show();
+        }
         private void Execute_GuestsRequestsCommand(object sender)
         {
             GuestsRequestsView guestsRequestsView = new GuestsRequestsView(Guest2);
@@ -192,6 +231,12 @@ namespace TravelService.WPF.ViewModel
         {
             GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
             guestsToursView.Show();
+        }
+        public event EventHandler<string> NotificationReceived;
+
+        private void Notify(string message)
+        {
+            NotificationReceived?.Invoke(this, message);
         }
     }
 }

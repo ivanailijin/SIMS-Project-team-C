@@ -148,21 +148,21 @@
                     </Binding>
                 </DatePicker.SelectedDate>
                 <Validation.ErrorTemplate>
-                        <ControlTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                                <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="dateTime"/>
-                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
-                            </Grid>
-                        </ControlTemplate>
-                    </Validation.ErrorTemplate>
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="dateTime"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
 
             </DatePicker>
 
@@ -209,24 +209,60 @@
                 </Viewbox>
             </Button>
 
-            <Button Grid.Row="7" IsDefault="True"   Command="{Binding AddLocationCommand}" Margin="50,3,30,3"  Background="#FFB0DAEB" Grid.Column="1">
-                <Viewbox>
-                    <Canvas Width="24" Height="24">
-                        <Ellipse Width="24" Height="24" Stroke="#FF132D57" StrokeThickness="2" />
-                        <Path Data="M 12,6 V 18 M 6,12 H 18" Stroke="#FF132D57" StrokeThickness="2" />
-                    </Canvas>
-                </Viewbox>
-            </Button>
+            <TextBox x:Name="LocationTextBox"  Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+                     Height="25">
+                <TextBox.Text>
+                    <Binding Path="Location" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:LocationValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
 
-            <Button Grid.Row="8" IsDefault="True"  Command="{Binding AddLanguageCommand}" Margin="50,3,30,3"  Background="#FFB0DAEB" Grid.Column="1">
-                <Viewbox>
-                    <Canvas Width="24" Height="24">
-                        <Ellipse Width="24" Height="24" Stroke="#FF132D57" StrokeThickness="2" />
-                        <Path Data="M 12,6 V 18 M 6,12 H 18" Stroke="#FF132D57" StrokeThickness="2" />
-                    </Canvas>
-                </Viewbox>
-            </Button>
+            <TextBox x:Name="LanguageTextBox" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" 
+                     Height="25">
+                <TextBox.Text>
+                    <Binding Path="Language" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
 
 
@@ -278,7 +314,6 @@
 
     </Grid>
 </Window>
-
 
 
 

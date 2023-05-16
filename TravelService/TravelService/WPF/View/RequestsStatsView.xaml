@@ -1,0 +1,55 @@
+﻿<Window x:Class="TravelService.WPF.View.RequestsStatsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:local="clr-namespace:TravelService.WPF.View"
+     
+
+        Title="Requests Statistics" Height="320" Width="760">
+   
+
+    <Grid Margin="20">
+        <!-- ComboBox za izbor lokacije -->
+        <ComboBox x:Name="locationComboBox" Text="{Binding Path = SelectedLocation, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding LocationsComboBox}"
+          BorderBrush="Transparent" BorderThickness="0" Height="41" VerticalAlignment="Top" Margin="258,45,278,0" RenderTransformOrigin="0.5,0.5">
+            <ComboBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.308"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ComboBox.RenderTransform>
+        </ComboBox>
+        
+
+        <!-- ComboBox za izbor jezika -->
+        <ComboBox ItemsSource="{Binding LanguageComboBox}"
+          SelectedItem="{Binding SelectedLanguage}"
+          DisplayMemberPath="Name"
+          Margin="55,16,505,185"
+          Visibility="Visible"
+          BorderBrush="Black"/>
+
+
+        <!-- ComboBox za izbor godine -->
+        <ComboBox ItemsSource="{Binding Years}"
+          SelectedItem="{Binding SelectedYear}"
+          Margin="255,149,305,55"/>
+
+        <!-- ComboBox za izbor meseca -->
+        <ComboBox ItemsSource="{Binding Months}"
+          SelectedItem="{Binding SelectedMonth}"
+          Margin="480,24,70,186"/>
+
+
+        <!-- Dugme za prikaz statistike za lokaciju -->
+        <Button Content="Show Location Statistics"
+                Command="{Binding ShowLocationStatisticsCommand}"
+                Margin="475,164,55,5"/>
+
+        <!-- Dugme za prikaz statistike za jezik -->
+        <Button Content="Show Language Statistics"
+                Command="{Binding ShowLanguageStatisticsCommand}"
+                Margin="10,199,555,10"/>
+    </Grid>
+</Window>

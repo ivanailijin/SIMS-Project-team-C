@@ -15,7 +15,6 @@ using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
 using System.ComponentModel;
 
-
 namespace TravelService.WPF.View
 {
     public partial class SecondGuestView : Window, INotifyPropertyChanged
@@ -31,5 +30,14 @@ namespace TravelService.WPF.View
             }
         }
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public event EventHandler<string> NotificationReceived;
+
+        public void Notify(string message)
+        {
+            NotificationReceived?.Invoke(this, message);
+        }
+
     }
+
 }

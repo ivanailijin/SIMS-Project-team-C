@@ -18,5 +18,6 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(Language language);
 
         public Language Update(Language language);
+        public Language GetById(int id);
     }
 }
