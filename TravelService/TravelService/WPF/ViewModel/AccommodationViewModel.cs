@@ -32,7 +32,6 @@ namespace TravelService.WPF.ViewModel
                     _accommodations = value;
                     OnPropertyChanged();
                     List<Accommodation> accommodations = _accommodations.ToList();
-                    accommodations = _accommodationService.GetTypeData(accommodations);
                     accommodations = _accommodationService.GetOwnerData(accommodations);
                     accommodations = _accommodationService.SortBySuperowner(accommodations);
                 }
@@ -135,7 +134,6 @@ namespace TravelService.WPF.ViewModel
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             List<Accommodation> accommodations = new List<Accommodation>(_accommodationService.GetAll());
             accommodations = _accommodationService.GetLocationData(accommodations);
-            accommodations = _accommodationService.GetTypeData(accommodations);
             accommodations = _accommodationService.GetOwnerData(accommodations);
             accommodations = _accommodationService.SortBySuperowner(accommodations);
             Accommodations = new ObservableCollection<Accommodation>(accommodations);

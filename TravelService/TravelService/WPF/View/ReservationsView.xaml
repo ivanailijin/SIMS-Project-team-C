@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Height="655" Width="420">
     <UserControl.Resources>
+        <local:EnumToStringConverter x:Key="EnumConverter" />
         <Style TargetType="DataGrid">
             <Setter Property="Background" Value="#d9ffcc" />
             <Setter Property="BorderBrush" Value="Gray" />
@@ -208,7 +209,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
                                         <TextBlock Text="Status: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding StatusText}" FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding Status, Converter={StaticResource EnumConverter}}" FontSize="14"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,2,0,10">
                                         <TextBlock Text="Komentar: " FontSize="14" Style="{StaticResource commentTextBlockStyle}"></TextBlock>

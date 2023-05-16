@@ -23,10 +23,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class RenovationRecommendationView : Window
     {
-        public RenovationRecommendationView(AccommodationReservation selectedAccommodationReservation)
+        public RenovationRecommendationView(Action closeParentWindow, AccommodationReservation selectedAccommodationReservation, OwnerRating ownerRating)
         {
             InitializeComponent();
-            RenovationRecommendationViewModel renovationRecommendationViewModel = new RenovationRecommendationViewModel(selectedAccommodationReservation);
+            RenovationRecommendationViewModel renovationRecommendationViewModel = new RenovationRecommendationViewModel(closeParentWindow, selectedAccommodationReservation, ownerRating);
             DataContext = renovationRecommendationViewModel;
             if (renovationRecommendationViewModel.CloseAction == null)
             {

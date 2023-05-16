@@ -49,7 +49,7 @@ namespace TravelService.Application.UseCases
         public List<AccommodationReservation> FindByGuestId(int guestId)
         {
             List<AccommodationReservation> foundReservations = new List<AccommodationReservation>();
-            List<AccommodationReservation> reservations = GetAll();
+            List<AccommodationReservation> reservations = _accommodationReservationRepository.GetAll();
 
             foreach (AccommodationReservation reservation in reservations)
             {
@@ -65,7 +65,7 @@ namespace TravelService.Application.UseCases
         {
             DateTime oneYearAgo = DateTime.Today.AddYears(-1);
 
-            List<AccommodationReservation> guestReservations = FindByGuestId(guest.Id);
+            List<AccommodationReservation> guestReservations = FindByGuestId(guest.Id); 
             List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
             foreach (AccommodationReservation reservation in guestReservations)
             {
@@ -236,11 +236,11 @@ namespace TravelService.Application.UseCases
 
             if (hasOverlap)
             {
-                return AVAILABILITY.Zauzet;
+                return AVAILABILITY.Unavailable;
             }
             else
             {
-                return AVAILABILITY.Slobodan;
+                return AVAILABILITY.Available;
 
             }
         }

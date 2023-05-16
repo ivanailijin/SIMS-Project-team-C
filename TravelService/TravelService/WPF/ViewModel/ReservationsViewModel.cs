@@ -93,7 +93,6 @@ namespace TravelService.WPF.ViewModel
             Requests = _reservationRequestService.GetReservationData(Requests);
             Requests = _reservationRequestService.GetLocationData(Requests);
             Requests = _reservationRequestService.GetAccommodationData(Requests);
-            Requests = _reservationRequestService.SetStatus(Requests);
             RequestsForDelaying = new ObservableCollection<ReservationRequest>(Requests);
 
             SendRequestCommand = new RelayCommand(Execute_SendRequest, CanExecute_Command);

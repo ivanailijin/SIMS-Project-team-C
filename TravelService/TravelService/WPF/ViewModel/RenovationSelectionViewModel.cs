@@ -19,11 +19,9 @@ namespace TravelService.WPF.ViewModel
         public AccommodationService _accommodationService;
 
         public LocationService _locationService;
-
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand ScheduleRenovationCommand { get; set; }
-
         public Accommodation SelectedAccommodation { get; set; }
         public static ObservableCollection<Accommodation> Accommodations { get; set; }
         public static List<Location> Locations { get; set; }
@@ -42,22 +40,6 @@ namespace TravelService.WPF.ViewModel
             foreach (Accommodation accommodation in Accommodations)
             {
                 accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
-            }
-
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                if (accommodation.Type == TYPE.HOUSE)
-                {
-                    accommodation.TypeText = "House";
-                }
-                else if (accommodation.Type == TYPE.APARTMENT)
-                {
-                    accommodation.TypeText = "Apartment";
-                }
-                else
-                {
-                    accommodation.TypeText = "Cottage";
-                }
             }
         }
         private void InitializeCommands()

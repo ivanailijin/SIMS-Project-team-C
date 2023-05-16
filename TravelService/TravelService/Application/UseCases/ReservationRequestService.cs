@@ -105,26 +105,6 @@ namespace TravelService.Application.UseCases
             return _reservationRequestRepository.FindRequestsByGuestId(guestId);
         }
 
-        public List<ReservationRequest> SetStatus(List<ReservationRequest> requests)
-        { 
-            foreach (ReservationRequest request in requests)
-            {
-                if (request.Status == STATUS.OnHold)
-                {
-                    request.StatusText = "Na cekanju";
-                }
-                else if (request.Status == STATUS.Approved)
-                {
-                    request.StatusText = "Odobren";
-                }
-                else
-                {
-                    request.StatusText = "Odbijen";
-                }
-            }
-            return requests;
-        }
-
         public List<ReservationRequest> GetLocationData(List<ReservationRequest> requests)
         {
             List<Location> locations = _locationService.GetAll();

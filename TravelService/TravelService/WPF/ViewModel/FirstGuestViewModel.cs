@@ -36,7 +36,7 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_NavigateToRatingViewCommand(object obj)
         {
-            RatingView ratingView = new RatingView(Guest1);
+            RatingView ratingView = new RatingView(Guest1, Frame);
             this.Frame.NavigationService.Navigate(ratingView);
         }
 

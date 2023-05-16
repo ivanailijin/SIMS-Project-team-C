@@ -20,7 +20,6 @@ namespace TravelService.Domain.Model
         public Location Location { get; set; }
         public int LocationId { get; set; }
         public TYPE Type { get; set; }
-        public string TypeText { get; set; }
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
         public int DaysBeforeCancellingReservation { get; set; }

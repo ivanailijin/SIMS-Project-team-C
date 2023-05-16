@@ -36,10 +36,5 @@ namespace TravelService.WPF.View
                 ownerRatingViewModel.CloseAction = new Action(this.Close);
             }
         }
-
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            e.Handled = true;
-        }
     }
 }

@@ -24,10 +24,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class RatingView : UserControl
     {
-        public RatingView(Guest1 guest1)
+        public RatingView(Guest1 guest1, Frame frame)
         {
             InitializeComponent();
-            RatingViewModel ratingViewModel = new RatingViewModel(guest1);
+            RatingViewModel ratingViewModel = new RatingViewModel(guest1, frame);
             DataContext = ratingViewModel;
         }
     }
