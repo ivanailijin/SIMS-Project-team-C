@@ -18,6 +18,7 @@ namespace TravelService.WPF.ViewModel
         public TourRequest SelectedTourRequest { get; set; }
         private readonly GuideService _guideService;
         public Tour SelectedTour { get; set; }
+        public bool Visibility { get; set; }
         public Guide Guide { get; set; }
         public List<Guest> Guests { get; set; }
 
@@ -99,7 +100,7 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_AddTourCommand(object obj)
         {
-            AddTourView addTour = new AddTourView(Guide);
+            AddTourView addTour = new AddTourView(Guide, Visibility);
             addTour.Show();
         }
         private void Execute_ActiveToursCommand(object obj)

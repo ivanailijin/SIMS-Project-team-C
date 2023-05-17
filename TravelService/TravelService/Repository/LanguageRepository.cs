@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Serializer;
-
+using System.Linq;
 namespace TravelService.Repository
 {
     public class LanguageRepository : ILanguageRepository
@@ -77,9 +77,11 @@ namespace TravelService.Repository
             }
             return null;
         }
-
-
+        public Language GetLanguageByName(string name)
+        {
+            _languages = _serializer.FromCSV(FilePath);
+            return _languages.FirstOrDefault(language => language.Name == name);
+        }
     }
-
 }
 

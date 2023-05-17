@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.Repository;
-using TravelService.WPF.View;
 
 namespace TravelService.Application.UseCases
 {
@@ -44,12 +38,12 @@ namespace TravelService.Application.UseCases
         {
             _newTourNotificationRepository.Update(newTourNotification);
         }
-        public void SendNotification(int tourId, List<Tour> tours)
-        { 
+        public void SendNotification(int tourId)
+        {
             List<Guest2> guests = new List<Guest2>(_guest2Service.GetAll());
-            
-            Tour currentTour = tours.Find(tour => tour.Id == tourId);
-            foreach(Guest2 guest2 in guests) 
+            List<Tour> Tours = new List<Tour>(_tourService.GetAll());
+            Tour currentTour = Tours.Find(tour => tour.Id == tourId);
+            foreach(Guest2 guest2 in guests)
             {
                 List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestService.GetAll());
                 List<TourRequest> guestsRequests = new List<TourRequest>(_tourRequestService.FindGuestsRequests(tourRequests, guest2.Id));
@@ -59,11 +53,15 @@ namespace TravelService.Application.UseCases
                     if (currentTour.LanguageId == tourRequest.LanguageId || currentTour.LocationId == tourRequest.LocationId)
                     {
                         string description = "Nova tura je kreirana";
-                        NewTourNotification newTourNotification = new NewTourNotification(tourId, guest2.Id, description);
+
+
+                        NewTourNotification newTourNotification = new NewTourNotification(tourId, guest2.Id, description, DateTime.Now);
+
                         Save(newTourNotification);
                     }
                 }
             }
+
         }
         public List<NewTourNotification> GetGuestsNotifications(List<NewTourNotification> notifications, Guest2 guest2)
         {
@@ -80,7 +78,10 @@ namespace TravelService.Application.UseCases
             Tour tour = Tours.Find(tour => tour.Id == tourId);
             return tour;
         }
-        public List<Tour> ShowTourList(List<Location> locations, List<Language> languages, List<CheckPoint> checkPoints,List<Tour>Tours, Tour tour)
+
+
+        public List<Tour> ShowTourList(List<Location> locations, List<Language> languages, List<CheckPoint> checkPoints, List<Tour> Tours, Tour tour)
+
         {
             List<Tour> tours = new List<Tour>();
             tour.Location = locations.Find(loc => loc.Id == tour.LocationId);
@@ -89,5 +90,28 @@ namespace TravelService.Application.UseCases
             tours.Add(tour);
             return tours;
         }
+
+
+        public void TourRequestAcceptedNotification(TourRequest selectedTourRequest)
+        {
+            List<Guest2> guests = new List<Guest2>(_guest2Service.GetAll());
+
+            foreach (Guest2 guest2 in guests)
+            {
+                if (selectedTourRequest.GuestId == guest2.Id)
+                {
+                    string description = "Tura je prihvaćena";
+                    NewTourNotification newTourNotification = new NewTourNotification(0, guest2.Id, description, selectedTourRequest.TourStart);
+                    Save(newTourNotification);
+                    break;
+                }
+            }
+        }
+
+
+
     }
+
 }
+
+

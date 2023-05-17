@@ -196,7 +196,6 @@ namespace TravelService.WPF.ViewModel
 
         }
 
-
         private void Execute_SearchAvailableDates(object sender)
         {
             List<TourRequest> tourRequests = _tourRequestService.FindTourRequestsByDate(StartDate, EndDate);
@@ -206,8 +205,15 @@ namespace TravelService.WPF.ViewModel
             {
                 FilteredRequests.Add(tourRequest);
             }
-            TourRequests = FilteredRequests;
+
+            // Update the TourRequests property with the filtered requests
+            TourRequests.Clear();
+            foreach (TourRequest tourRequest in FilteredRequests)
+            {
+                TourRequests.Add(tourRequest);
+            }
         }
+
 
 
         private void Execute_SearchCommand(object obj)
@@ -218,7 +224,7 @@ namespace TravelService.WPF.ViewModel
 
             List<TourRequest> filteredTourRequests = _tourRequestService.Search(location, language, guestNumber);
 
-            FilteredRequests.Clear(); 
+            FilteredRequests.Clear();
 
             foreach (var tourRequest in filteredTourRequests)
             {
@@ -226,8 +232,13 @@ namespace TravelService.WPF.ViewModel
             }
 
             TourRequests = new ObservableCollection<TravelService.Domain.Model.TourRequest>(FilteredRequests);
-           
+
+            // Set the searched values in the input fields
+            Location = location;
+            Language = language;
+            GuestNumber = guestNumber;
         }
+
         private void Execute_StatsCommand(object obj)
         {
             RequestsStatsView req = new RequestsStatsView();
