@@ -544,10 +544,9 @@ namespace TravelService.Application.UseCases
 
             return mostRequestedLanguageName;
         }
-
         public bool IsLocationOrLanguageVisible(bool locationBool, bool languageBool)
         {
-            if (locationBool == true || languageBool == true) 
+            if (locationBool == true || languageBool == true)
             {
                 return true;
             }
