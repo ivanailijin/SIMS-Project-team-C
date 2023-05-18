@@ -17,6 +17,7 @@ namespace TravelService.WPF.ViewModel
         public Action CloseAction { get; set; }
 
         private readonly TourService _tourService;
+        private readonly NewTourNotificationService _newTourNotificationService;
         private readonly LocationService _locationService;
         private readonly LanguageService _languageService;
         private readonly CheckPointService _checkPointService;
@@ -31,7 +32,7 @@ namespace TravelService.WPF.ViewModel
 
         public int TourId;
         public Guide Guide;
-
+        public bool Visibility;
 
         private string _tourName;
         public string TourName
@@ -198,11 +199,13 @@ namespace TravelService.WPF.ViewModel
             set;
         }
 
-        public AddTourViewModel(Guide guide)
+        public AddTourViewModel(Guide guide,bool visibility)
         {
 
             this.Guide = guide;
+            this.Visibility = visibility;
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
+            _newTourNotificationService = new NewTourNotificationService(Injector.CreateInstance<INewTourNotificationRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _checkPointService = new CheckPointService(Injector.CreateInstance<ICheckPointRepository>());
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());
@@ -251,14 +254,18 @@ namespace TravelService.WPF.ViewModel
 
             string city = words[0];
             string country = words[1];
-
-            Location location = new Location(country, city);
-            Location savedLocation = _locationService.Save(location);
-
-
-            Language language = new Language(Language);
-            Language savedLanguage = _languageService.Save(language);
-
+            Location savedLocation = _locationService.GetByCityAndCountry(_location);
+            if (savedLocation == null)
+            {
+                Location location = new Location(country, city);
+                savedLocation = _locationService.Save(location);
+            }
+            Language savedLanguage = _languageService.GetLanguageByName(Language);
+            if (savedLanguage == null)
+            {
+                Language language = new Language(Language);
+                savedLanguage = _languageService.Save(language);
+            }
 
             List<string> formattedPictures = new List<string>();
 
@@ -269,16 +276,13 @@ namespace TravelService.WPF.ViewModel
                 formattedPictures.Add(picture);
             }
 
-
-
             Tour tour = new Tour(Guide.Id, TourName, savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, MaxGuestNumber, TourStart, Duration, formattedPictures, Done);
-
-
-
+            
 
             List<CheckPoint> checkPoints = _checkPointService.GetAll();
             _tourService.Check(checkPoints, tour, TourId);
-
+            if (Visibility)
+                _newTourNotificationService.SendNotification(tour.Id);
         }
 
         private void Execute_FindPicturesCommand(object obj)

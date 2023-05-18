@@ -15,5 +15,6 @@ namespace TravelService.Domain.RepositoryInterface
         public void Delete(Location location);
         public Location Update(Location location);
         public Location GetById(int id);    
+        public Location GetByCityAndCountry(string words);
     }
 }

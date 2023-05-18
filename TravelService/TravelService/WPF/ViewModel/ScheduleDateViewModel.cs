@@ -16,6 +16,7 @@ namespace TravelService.WPF.ViewModel
         public Guide Guide { get; set; }    
         public Action CloseAction { get; set; }
         private readonly TourRequestService _tourRequestService;
+        private readonly NewTourNotificationService _newTourNotificationService;
         private readonly TourService _tourService;
         public TourRequest SelectedTourRequest { get; set; }
         public List<Tour> ExistingTours { get; set; }
@@ -28,7 +29,7 @@ namespace TravelService.WPF.ViewModel
             SelectedTourRequest = selectedTourRequest;
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
-
+            _newTourNotificationService = new NewTourNotificationService(Injector.CreateInstance<INewTourNotificationRepository>());
             ExistingTours = new List<Tour>();
             ExistingTours.AddRange(_tourService.GetAll());
             SelectedDate=DateTime.Now;
@@ -52,25 +53,25 @@ namespace TravelService.WPF.ViewModel
         // Schedule the tour for the selected date
         private void ScheduleTour(object obj)
         {
-            // Schedule the tour for the selected date
-            if (_tourRequestService.AvailabilityDate(ExistingTours, SelectedDate))
+            // Check if the selected date is within the valid range
+            if (SelectedTourRequest.TourStart <= SelectedDate && SelectedDate <= SelectedTourRequest.TourEnd)
             {
+                // Schedule the tour for the selected date
                 SelectedTourRequest.TourStart = SelectedDate;
                 SelectedTourRequest.RequestApproved = APPROVAL.ACCEPTED;
                 _tourRequestService.Update(SelectedTourRequest);
                 AcceptingTourRequestView acceptingTourRequestView = new AcceptingTourRequestView(Guide, SelectedTourRequest);
                 acceptingTourRequestView.Show();
-
+                _newTourNotificationService.TourRequestAcceptedNotification(SelectedTourRequest);
                 CloseAction();
             }
             else
             {
-                MessageBox.Show(" Moras da izaberes neki drugi datum, tada ims turu. ");
+                MessageBox.Show("You must select a date within the valid tour range.");
             }
-            
-
         }
-      
+
+
 
 
         private bool CanScheduleTour(object obj)
