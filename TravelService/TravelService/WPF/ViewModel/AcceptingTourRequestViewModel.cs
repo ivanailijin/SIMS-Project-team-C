@@ -231,7 +231,7 @@ namespace TravelService.WPF.ViewModel
                 FilteredRequests.Add(tourRequest);
             }
 
-            TourRequests = new ObservableCollection<TravelService.Domain.Model.TourRequest>(FilteredRequests);
+            TourRequests = new ObservableCollection<TourRequest>(FilteredRequests);
 
             // Set the searched values in the input fields
             Location = location;

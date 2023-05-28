@@ -190,15 +190,16 @@ namespace TravelService.Application.UseCases
             }
             return result;
         }
-        public bool HasMatchingLanguage(TourRequest tourRequest, string language)
-        {
-            bool result = false;
-            if (!string.IsNullOrEmpty(language))
-            {
-                result = tourRequest.Language.Name.Replace(",", "").Replace(" ", "").Contains(language);
-            }
-            return result;
-        }
+      public bool HasMatchingLanguage(TourRequest tourRequest, string language)
+{
+    if (string.IsNullOrEmpty(language))
+    {
+        return false;
+    }
+
+    return tourRequest.Language.Name.Equals(language, StringComparison.OrdinalIgnoreCase);
+}
+
         private bool IsGuestNumberLessThanMax(TourRequest tourRequest, string inputGuestNumber)
         {
             bool isLess = false;

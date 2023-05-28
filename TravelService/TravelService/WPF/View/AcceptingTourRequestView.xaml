@@ -29,7 +29,7 @@
                 </ComboBox>
             </Border>
             <Border Grid.Row="3" BorderBrush="DimGray" BorderThickness="2" Width="280" Height="40">
-                <ComboBox x:Name="languageComboBox" Width="100" Height="20" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" DisplayMemberPath="Name" Margin="5" Visibility="Visible" BorderBrush="Black"></ComboBox>
+                <ComboBox x:Name="languageComboBox" Width="100" Height="20" ItemsSource="{Binding LanguageComboBox}" Text="{Binding Path = Language, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" Margin="5" Visibility="Visible" BorderBrush="Black"></ComboBox>
 
             </Border>
 
