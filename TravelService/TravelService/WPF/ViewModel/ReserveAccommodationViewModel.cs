@@ -133,7 +133,7 @@ namespace TravelService.WPF.ViewModel
 
                 DateTime checkInDate = SelectedAvailableDatePair.Item1;
                 DateTime checkOutDate = SelectedAvailableDatePair.Item2;
-                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, Guest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, checkInDate, checkOutDate, LengthOfStay, GuestNumber);
+                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, Guest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.Location.Id, checkInDate, checkOutDate, LengthOfStay, GuestNumber);
                 _accommodationReservationService.Save(reservation);
                 if(Guest1.BonusPoints > 0)
                 {

@@ -283,7 +283,7 @@ namespace TravelService.WPF.ViewModel
                     formattedPictures.Add(picture);
                 }
 
-                Accommodation accommodation = new Accommodation(Owner.Id, AccommodationName, savedLocation, savedLocation.Id, AccommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, DateTime.Today, formattedPictures);
+                Accommodation accommodation = new Accommodation(Owner.Id, AccommodationName, savedLocation, AccommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, DateTime.Today, formattedPictures);
                 _accommodationService.Save(accommodation);
                 CloseAction();
             }

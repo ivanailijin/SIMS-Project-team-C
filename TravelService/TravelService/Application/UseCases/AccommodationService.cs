@@ -81,11 +81,7 @@ namespace TravelService.Application.UseCases
             List<Location> locations = _locationService.GetAll();
             foreach (Accommodation accommodation in accommodations)
             {
-               
-                
-                    accommodation.Location = locations.Find(l => l.Id == accommodation.LocationId);
-                
-
+                accommodation.Location = locations.Find(l => l.Id == accommodation.Location.Id);
             }
             return accommodations;
         }

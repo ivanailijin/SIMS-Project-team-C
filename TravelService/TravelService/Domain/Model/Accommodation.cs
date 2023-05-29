@@ -17,8 +17,7 @@ namespace TravelService.Domain.Model
         public int OwnerId { get; set; }
         public Owner Owner { get; set; }
         public string Name { get; set; }
-        public Location Location { get; set; }
-        public int LocationId { get; set; }
+        public Location Location { get; set; } = new();
         public TYPE Type { get; set; }
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
@@ -33,12 +32,11 @@ namespace TravelService.Domain.Model
             Pictures = new List<Uri>();
         }
 
-        public Accommodation(int userId, string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation,DateTime dateCreated, List<string> pictures)
+        public Accommodation(int userId, string name, Location location, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation,DateTime dateCreated, List<string> pictures)
         {
             OwnerId = userId;
             Name = name;
             Location = location;
-            LocationId = locationId;
             Type = type;
             MaxGuestNumber = maxGuestNumber;
             MinReservationDays = minReservationDays;
@@ -91,7 +89,7 @@ namespace TravelService.Domain.Model
                 Id.ToString(),
                 OwnerId.ToString(),
                 Name,
-                LocationId.ToString(),
+                Location.Id.ToString(),
                 TypeToCSV(),
                 MaxGuestNumber.ToString(),
                 MinReservationDays.ToString(),
@@ -108,7 +106,7 @@ namespace TravelService.Domain.Model
             Id = Convert.ToInt32(values[0]);
             OwnerId = Convert.ToInt32(values[1]);
             Name = values[2];
-            LocationId = Convert.ToInt32(values[3]);
+            Location.Id = Convert.ToInt32(values[3]);
             Type = TypeFromCSV(values[4]);
             MaxGuestNumber = Convert.ToInt32(values[5]);
             MinReservationDays = Convert.ToInt32(values[6]);

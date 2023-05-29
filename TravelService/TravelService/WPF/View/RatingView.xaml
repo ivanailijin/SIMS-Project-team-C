@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RatingViewModel}"
         mc:Ignorable="d"
         Height="655" Width="420">
     <UserControl.Resources>
@@ -218,7 +219,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button Style="{StaticResource reportButtonStyle}" Grid.Row="0" HorizontalAlignment="Right" Margin="0,5,10,0">
+                <Button Style="{StaticResource reportButtonStyle}" Grid.Row="0" HorizontalAlignment="Right" Margin="0,5,15,0">
 
                 </Button>
                 <ListView Grid.Row="1" ItemsSource="{Binding GuestRatings}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
@@ -226,10 +227,10 @@
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
+                                <StackPanel Grid.Column="0" Margin="5,0,0,0">
                                     <TextBlock Text="{Binding Owner.Username}" FontSize="20" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
                                     <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
                                         <TextBlock Text="• " FontSize="15"></TextBlock>
@@ -239,31 +240,39 @@
                                         <TextBlock Text="• " FontSize="15"></TextBlock>
                                         <TextBlock Text="{Binding Reservation.Location.CityAndCountry}" FontSize="15"></TextBlock>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
-                                        <TextBlock Text="Cistoca: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding Cleanness}"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
-                                        <TextBlock Text="Postovanje pravila: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding RulesFollowing}"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                    <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                                        <Rectangle Width="12" Height="12" Fill="#ffc34d" Margin="0 0 4 0" />
                                         <TextBlock Text="Komunikacija: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding Communication}"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
-                                        <TextBlock Text="Nivo bucnosti: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding NoiseLevel}"></TextBlock>
+                                        <Rectangle Width="12" Height="12" Fill="#e62e00" Margin="0 0 4 0" />
+                                        <TextBlock Text="Postovanje pravila: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding RulesFollowing}"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <Rectangle Width="12" Height="12" Fill="#33bbff" Margin="0 0 4 0" />
                                         <TextBlock Text="Postovanje imovine: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding PropertyRespect}"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <Rectangle Width="12" Height="12" Fill="#1e8eb3" Margin="0 0 4 0" />
+                                        <TextBlock Text="Cistoca: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding Cleanness}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                        <Rectangle Width="12" Height="12" Fill="#006680" Margin="0 0 4 0" />
+                                        <TextBlock Text="Nivo bucnosti: " FontSize="14"></TextBlock>
+                                        <TextBlock Text="{Binding NoiseLevel}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,7,0,0">
                                         <TextBlock Text="Komentar: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding Comment}"></TextBlock>
                                     </StackPanel>
                                 </StackPanel>
+
+                                <lvc:PieChart Grid.Column="1" Series="{Binding RatingSeries}" Margin="30,0,0,0" LegendLocation="None" Width="180" Height="180">
+                                </lvc:PieChart>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

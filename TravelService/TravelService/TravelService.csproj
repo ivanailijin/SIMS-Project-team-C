@@ -17,6 +17,7 @@
     <None Remove="Resources\Images\forum.ico" />
     <None Remove="Resources\Images\home-icon.png" />
     <None Remove="Resources\Images\leftarrow.png" />
+    <None Remove="Resources\Images\leftarrowpic.png" />
     <None Remove="Resources\Images\minus.ico" />
     <None Remove="Resources\Images\moving-requests-icon.png" />
     <None Remove="Resources\Images\notification-icon.png" />
@@ -49,6 +50,7 @@
     <None Remove="Resources\Icons\ticket.png" />
     <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Images\reservations.ico" />
+    <None Remove="Resources\Images\rightarrow.png" />
     <None Remove="Resources\Images\search.ico" />
     <None Remove="Resources\Images\star.png" />
 
@@ -83,7 +85,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\leftarrowpic.png" />
     <Resource Include="Resources\Images\recentRenovation.png" />
+    <Resource Include="Resources\Images\rightarrow.png" />
     <Resource Include="Resources\Images\superowner.png" />
   </ItemGroup>
 

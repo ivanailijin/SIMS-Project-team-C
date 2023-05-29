@@ -78,6 +78,20 @@ namespace TravelService.Application.UseCases
             return reservationsInLastYear;
         }
 
+        public List<AccommodationReservation> GetReservationsInLastYearByAccommmodation(int accommodationId, DateTime currentDate, DateTime endDate)
+        {
+            List<AccommodationReservation> accommodationReservations = GetAll();
+            List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in accommodationReservations)
+            {
+                if (reservation.IsCancelled == false && reservation.AccommodationId == accommodationId && reservation.CheckInDate >= currentDate && reservation.CheckOutDate <= endDate)
+                {
+                    reservationsInLastYear.Add(reservation);
+                }
+            }
+            return reservationsInLastYear;
+        }
+
         public bool IsReservationInLastYear(AccommodationReservation reservation, DateTime oneYearAgo)
         {
             return reservation.CheckInDate >= oneYearAgo && reservation.CheckOutDate <= DateTime.Today;
@@ -157,7 +171,6 @@ namespace TravelService.Application.UseCases
                     daysCount += reservation.LengthOfStay;
                 }
             }
-
             return (double)daysCount / daysInYear;
         }
         public double GetBusynessPerMonth(Accommodation accommodation, int year, int month)
@@ -183,7 +196,6 @@ namespace TravelService.Application.UseCases
                     daysCount += reservedDays.Days + 1;
                 }
             }
-
             return (double)daysCount / daysInMonth;
         }
 
@@ -364,7 +376,6 @@ namespace TravelService.Application.UseCases
             else
             {
                 return AVAILABILITY.Available;
-
             }
         }
 
@@ -381,7 +392,6 @@ namespace TravelService.Application.UseCases
                     UnratedOwners.Add(reservation);
                 }
             }
-
             return UnratedOwners;
         }
 
@@ -400,7 +410,7 @@ namespace TravelService.Application.UseCases
             List<Location> locations = _locationService.GetAll();
             foreach (AccommodationReservation reservation in reservations)
             {
-                reservation.Location = locations.Find(l => l.Id == reservation.LocationId);
+                reservation.Location = locations.Find(l => l.Id == reservation.Location.Id);
             }
             return reservations;
         }
@@ -430,24 +440,26 @@ namespace TravelService.Application.UseCases
                     UnratedReservations.Add(reservation);
                 }
             }
-
             return UnratedReservations;
         }
 
-        public Dictionary<string, int> CalculateReservationsByMonth(List<AccommodationReservation> reservations)
+        public Dictionary<string, int> CalculateReservationCountByMonth(Accommodation accommodation)
         {
-            var reservationsByMonth = new Dictionary<string, int>();
+            var currentDate = DateTime.Now;
+            var endDate = currentDate.AddYears(1);
+            var reservations = GetReservationsInLastYearByAccommmodation(accommodation.Id, currentDate, endDate);
+            var reservationCountByMonth = new Dictionary<string, int>();
 
-            foreach (var reservation in reservations)
+            while (currentDate < endDate)
             {
-                string month = reservation.CheckInDate.ToString("MMM-yy");
-                if (!reservationsByMonth.ContainsKey(month))
-                {
-                    reservationsByMonth[month] = 0;
-                }
-                reservationsByMonth[month]++;
+                var monthYear = currentDate.ToString("MMM/yyyy");
+                var count = reservations.Count(r => r.CheckInDate.ToString("MMM/yyyy") == monthYear);
+                reservationCountByMonth.Add(monthYear, count);
+
+                currentDate = currentDate.AddMonths(1);
             }
-            return reservationsByMonth;
+            return reservationCountByMonth;
         }
+
     }
 }

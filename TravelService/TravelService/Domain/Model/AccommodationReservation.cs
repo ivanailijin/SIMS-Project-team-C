@@ -18,7 +18,7 @@ namespace TravelService.Domain.Model
         public int OwnerId { get; set; }
         public Owner Owner { get; set; }
         public int LocationId { get; set; }
-        public Location Location { get; set; }
+        public Location Location { get; set; } = new();
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int LengthOfStay { get; set; }
