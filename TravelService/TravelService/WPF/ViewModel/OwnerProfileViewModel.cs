@@ -19,6 +19,8 @@ namespace TravelService.WPF.ViewModel
     {
         public Owner Owner { get; set; }
         public Action CloseAction { get; set; }
+
+        public OwnerProfileView OwnerProfileView { get; set; }
         public RelayCommand UpdateDataCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
 
@@ -59,13 +61,14 @@ namespace TravelService.WPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public OwnerProfileViewModel(Owner owner)
+        public OwnerProfileViewModel(Owner owner, OwnerProfileView ownerProfileView)
         {
             this.Owner = owner;
             accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             NumberOfAccommodations = accommodationService.GetNumberOfAccommodations(Owner.Id);
             IsSuperOwner = owner.SuperOwner;
             InitializeCommands();
+            OwnerProfileView = ownerProfileView;
         }
         private void InitializeCommands()
         {
@@ -79,7 +82,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            OwnerProfileView.GoBack();
         }
         private bool CanExecute_Command(object arg)
         {

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -22,15 +23,19 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for GuestRatingOverview.xaml
     /// </summary>
-    public partial class GuestRatingOverview : Window, INotifyPropertyChanged
+    public partial class GuestRatingOverview : Page, INotifyPropertyChanged, INavigationInterface
     {
         public GuestRatingOverview(Owner owner)
         {
             InitializeComponent();
-            GuestRatingOverviewViewModel guestRatingOverviewViewModel = new GuestRatingOverviewViewModel(owner);
+            GuestRatingOverviewViewModel guestRatingOverviewViewModel = new GuestRatingOverviewViewModel(owner, this);
             DataContext = guestRatingOverviewViewModel;
-            if (guestRatingOverviewViewModel.CloseAction == null)
-                guestRatingOverviewViewModel.CloseAction = new Action(this.Close);
+            //if (guestRatingOverviewViewModel.CloseAction == null)
+                //guestRatingOverviewViewModel.CloseAction = new Action(this.Close);
+        }
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

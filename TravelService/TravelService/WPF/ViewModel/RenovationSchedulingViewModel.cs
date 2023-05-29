@@ -20,9 +20,10 @@ namespace TravelService.WPF.ViewModel
         public AccommodationRenovationService _renovationService;
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
+        public RelayCommand HomeCommand { get; set; }
         public RelayCommand ScheduleRenovationCommand { get; set; }
         public RelayCommand ShowAvailableDatesCommand { get; set; }
-
+        public RenovationSchedulingView RenovationSchedulingView { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public Tuple<DateTime, DateTime> SelectedAvailableDatePair { get; set; }
 
@@ -99,17 +100,19 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public RenovationSchedulingViewModel(Owner owner, Accommodation selectedAccommodation)
+        public RenovationSchedulingViewModel(Owner owner, Accommodation selectedAccommodation, RenovationSchedulingView renovationSchedulingView)
         {
             InitializeCommands();
             this.Owner = owner;
             SelectedAccommodation = selectedAccommodation;
             AvailableDatesPair = new ObservableCollection<Tuple<DateTime, DateTime>>();
             _renovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>());
+            RenovationSchedulingView = renovationSchedulingView;
         }
         private void InitializeCommands()
         {
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
+            HomeCommand = new RelayCommand(Execute_HomeCommand, CanExecute_Command);
             ScheduleRenovationCommand = new RelayCommand(Execute_ScheduleRenovationCommand, CanExecute_Command);
             ShowAvailableDatesCommand = new RelayCommand(Execute_ShowAvailableDatesCommand, CanExecute_Command);
         }
@@ -139,9 +142,14 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            RenovationSchedulingView.GoBack();
         }
-
+        private void Execute_HomeCommand(object obj)
+        {
+            OwnerView ownerView = new OwnerView(Owner);
+            OwnerWindow ownerWindow = Window.GetWindow(RenovationSchedulingView) as OwnerWindow;
+            ownerWindow?.SwitchToPage(ownerView);
+        }
         private bool CanExecute_Command(object arg)
         {
             return true;

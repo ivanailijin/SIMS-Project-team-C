@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -20,15 +21,20 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for RenovationSelectionView.xaml
     /// </summary>
-    public partial class RenovationSelectionView : Window, INotifyPropertyChanged
+    public partial class RenovationSelectionView : Page, INotifyPropertyChanged, INavigationInterface
     {
         public RenovationSelectionView(Owner owner)
         {
             InitializeComponent();
-            RenovationSelectionViewModel renovationSelectionViewModel = new RenovationSelectionViewModel(owner);
+            RenovationSelectionViewModel renovationSelectionViewModel = new RenovationSelectionViewModel(owner, this);
             DataContext = renovationSelectionViewModel;
-            if (renovationSelectionViewModel.CloseAction == null)
-                renovationSelectionViewModel.CloseAction = new Action(this.Close);
+            //if (renovationSelectionViewModel.CloseAction == null)
+               // renovationSelectionViewModel.CloseAction = new Action(this.Close);
+        }
+
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

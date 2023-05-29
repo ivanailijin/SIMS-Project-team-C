@@ -93,6 +93,33 @@ namespace TravelService.Application.UseCases
 
             return futureRenovations;
         }
+
+        public AccommodationRenovation GetLastRenovation(int accommodationId)
+        {
+            List<AccommodationRenovation> renovations = FindRenovationsByAccommodationId(accommodationId);
+
+            AccommodationRenovation lastRenovation = renovations[0];
+
+            foreach(AccommodationRenovation renovation in renovations)
+            {
+                if(renovation.EndDate > lastRenovation.EndDate)
+                    lastRenovation = renovation;
+            }
+
+            return lastRenovation;
+        }
+
+        public List<Accommodation> GetRenovationData(List<Accommodation> accommodations)
+        {
+            foreach(Accommodation accommodation in accommodations)
+            {
+                AccommodationRenovation lastRenovation = GetLastRenovation(accommodation.Id);
+
+                accommodation.LastRenovation = lastRenovation.EndDate;
+            }
+
+            return accommodations;
+        }
         public List<AccommodationRenovation> FindRenovationsByAccommodationId(int id)
         {
             List<AccommodationRenovation> renovations = GetAll();

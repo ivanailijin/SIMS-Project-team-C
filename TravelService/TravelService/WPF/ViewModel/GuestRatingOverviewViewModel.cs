@@ -24,6 +24,8 @@ namespace TravelService.WPF.ViewModel
         private readonly AccommodationService _accommodationService;
 
         private readonly Guest1Service _guest1Service;
+
+        public GuestRatingOverview GuestRatingOverview { get; set; }
         public ObservableCollection<AccommodationReservation> UnratedReservations { get; set; }
         public AccommodationReservation SelectedReservation { get; set; }
         public Action CloseAction { get; set; }
@@ -31,7 +33,8 @@ namespace TravelService.WPF.ViewModel
         public ICommand RatingCommand { get; set; }
 
         public Owner Owner { get; set; }
-        public GuestRatingOverviewViewModel(Owner owner) {
+        public GuestRatingOverviewViewModel(Owner owner, GuestRatingOverview guestRatingOverview = null)
+        {
             InitializeCommands();
             this.Owner = owner;
             _accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
@@ -44,6 +47,7 @@ namespace TravelService.WPF.ViewModel
             unratedReservations = _accommodationReservationService.GetAccommodationData(unratedReservations);
             unratedReservations = _guest1Service.FindReservationGuest(unratedReservations);
             UnratedReservations = new ObservableCollection<AccommodationReservation>(unratedReservations);
+            GuestRatingOverview = guestRatingOverview;
         }
 
         private void InitializeCommands()
@@ -57,7 +61,8 @@ namespace TravelService.WPF.ViewModel
             if (SelectedReservation != null)
             {
                 GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation, Owner);
-                guestRatingView.ShowDialog();
+                OwnerWindow ownerWindow = Window.GetWindow(GuestRatingOverview) as OwnerWindow;
+                ownerWindow?.SwitchToPage(guestRatingView);
             }
             else
             {
@@ -66,7 +71,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            GuestRatingOverview.GoBack();
         }
 
         private bool CanExecute_Command(object arg)

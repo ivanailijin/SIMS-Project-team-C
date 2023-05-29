@@ -14,7 +14,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\AddTourRequestView.xaml.cs">
-	<SubType>Code</SubType>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\AccommodationMonthStatisticsView.xaml.cs">
       <SubType>Code</SubType>
@@ -68,6 +68,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\OwnerRatingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\OwnerWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\PastTours.xaml.cs">
@@ -247,6 +250,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\OwnerRatingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\OwnerWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\PastTours.xaml">

@@ -6,7 +6,7 @@
         xmlns:val="clr-namespace:TravelService.Validation"
          xmlns:local="clr-namespace:TravelService.WPF.View" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddAccommodationViewModel}"
         mc:Ignorable="d"
-        Title="Dodavanje smestaja" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="630" Width="550" BorderBrush="Black" BorderThickness="0.5" Background="#dff2f2">
+        Title="Dodavanje smestaja" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="768" Width="904" BorderBrush="Black" BorderThickness="0.5" Background="#dff2f2">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -49,11 +49,11 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="540"></RowDefinition>
+            <RowDefinition Height="620"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0" Width="450" Height="470">
+        <Grid Grid.Row="0" Grid.Column="0" Width="600" Height="500">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -62,10 +62,10 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition Height="105"></RowDefinition>
+                <RowDefinition Height="125"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition Width="290"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Style="{StaticResource ResourceKey=LabelText}" Content="Naziv" HorizontalAlignment="Left" Margin="25 0 0 0" Grid.Row="0" Grid.Column="0" Height="28" HorizontalContentAlignment="Center"></Label>
@@ -187,7 +187,7 @@
                     </RadioButton>
                 </StackPanel>
             </GroupBox>
-            <TextBlock FontFamily="Candara" Text="        Apartman          Kuca          Koliba"  Grid.Row="3" Grid.Column="1"></TextBlock>
+            <TextBlock Margin="50 0 0 0" FontFamily="Candara" Text="        Apartman          Kuca          Koliba"  Grid.Row="3" Grid.Column="1"></TextBlock>
             <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="4" Grid.Column="1" Width="150"
                      Height="25">
                 <TextBox.Text>
@@ -266,18 +266,29 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <ListBox BorderThickness="1.5" BorderBrush="Black" x:Name="MyListBox"  ItemsSource="{Binding ListBoxPictures}" Grid.Column="1" Grid.Row="7" Width="150" Height="78"/>
-            <Button Style ="{StaticResource ResourceKey=RoundedLightButton}" Foreground="#1e2d30" FontFamily="Candara" Grid.Column="0" Grid.Row="7" Margin="-16 6 0 0" Width="80" Height="47" x:Name="findPictures" Content="Dodaj slike" HorizontalAlignment="Center" FontSize="14" BorderBrush="#104d4f" 
+            <ItemsControl BorderThickness="1.5" BorderBrush="Black" ItemsSource="{Binding ListBoxPictures}" Margin="0 20 0 0" Grid.Column="1" Grid.Row="7" Width="240" Height="88">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding}" Stretch="UniformToFill" Width="100" Height="65" Margin="7,5,7,7" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Style ="{StaticResource ResourceKey=RoundedLightButton}" Foreground="#1e2d30" FontFamily="Candara" Grid.Column="0" Grid.Row="7" Margin="-16 20 0 0" Width="80" Height="47" x:Name="findPictures" Content="Dodaj slike" HorizontalAlignment="Center" FontSize="14" BorderBrush="#104d4f" 
                     Command="{Binding FindPicturesCommand}">
             </Button>
 
         </Grid>
         <WrapPanel Grid.Row="1" FlowDirection="LeftToRight">
-            <Separator Background="#dff2f2" Width="90"></Separator>
-            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="14" Content="Odustani" IsDefault="True" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5" 
+            <Separator Background="#dff2f2" Width="240"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="16" Content="Odustani" IsDefault="True" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Height="37" Margin="20, 5, 20, 5" 
                     Command="{Binding CancelCommand}"></Button>
-            <Separator Background="#dff2f2" Width="80"></Separator>
-            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="14" Content="Potvrdi"  HorizontalAlignment="Left" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5"
+            <Separator Background="#dff2f2" Width="100"></Separator>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="1" Content="Potvrdi"  HorizontalAlignment="Left" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold" VerticalAlignment="Top" Width="113" Height="37" Margin="20, 5, 20, 5"
                     Command="{Binding AddAccommodationCommand}"/>
             <Separator Background="#dff2f2" Width="180"></Separator>
         </WrapPanel>

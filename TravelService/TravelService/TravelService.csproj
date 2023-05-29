@@ -17,6 +17,9 @@
     <None Remove="Resources\Images\forum.ico" />
     <None Remove="Resources\Images\home-icon.png" />
     <None Remove="Resources\Images\leftarrow.png" />
+    <None Remove="Resources\Images\mini-house.png" />
+    <None Remove="Resources\Images\mini-location.png" />
+    <None Remove="Resources\Images\mini-renovation.png" />
     <None Remove="Resources\Images\minus.ico" />
     <None Remove="Resources\Images\moving-requests-icon.png" />
     <None Remove="Resources\Images\notification-icon.png" />
@@ -29,6 +32,7 @@
     <None Remove="Resources\Images\ratings.png" />
     <None Remove="Resources\Images\recentRenovation.png" />
     <None Remove="Resources\Images\renovation-icon.png" />
+    <None Remove="Resources\Images\renovationCancel.png" />
     <None Remove="Resources\Images\reservations-icon.png" />
     <None Remove="Resources\Images\reservations-request-icon.png" />
     <None Remove="Resources\Icons\bell.png" />
@@ -83,7 +87,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\mini-house.png" />
+    <Resource Include="Resources\Images\mini-location.png" />
+    <Resource Include="Resources\Images\mini-renovation.png" />
     <Resource Include="Resources\Images\recentRenovation.png" />
+    <Resource Include="Resources\Images\renovationCancel.png" />
     <Resource Include="Resources\Images\superowner.png" />
   </ItemGroup>
 
