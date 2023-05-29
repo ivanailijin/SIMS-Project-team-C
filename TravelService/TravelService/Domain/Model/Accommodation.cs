@@ -25,6 +25,7 @@ namespace TravelService.Domain.Model
         public int DaysBeforeCancellingReservation { get; set; }
         public bool RecentlyRenovated { get; set; }
         public DateTime DateCreated { get; set; }
+        public DateTime LastRenovation { get; set; }
         public List<Uri> Pictures { get; set; }
 
 

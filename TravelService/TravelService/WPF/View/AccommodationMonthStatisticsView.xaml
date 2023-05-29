@@ -1,29 +1,81 @@
-﻿<Window x:Class="TravelService.WPF.View.AccommodationMonthStatisticsView"
+﻿<Page x:Class="TravelService.WPF.View.AccommodationMonthStatisticsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="Statistika smestaja po mesecima" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="768" Width="1024">
-    <Window.Resources>
+        Title="Statistika smestaja po mesecima" Background="#ebf2f2" Height="768" Width="1024">
+    <Page.Resources>
         <local:MonthConverter x:Key="MonthConverter"/>
-    </Window.Resources>
+        <local:EnumToStringConverter x:Key="EnumConverter" />
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#476a6b" Background="#55adad" BorderThickness="1.5" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+        <Style x:Key="RoundedButtonLight" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#476a6b" Background="#cbd4d4" BorderThickness="1.5" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+        </Style>
+        <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#b9c7c7"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="LabelDataStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="TextDataStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Page.Resources>
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBlock Text="Statistika smestaja po mesecima" FontWeight="SemiBold" HorizontalAlignment="Center" FontSize="27" Margin="0 40 0 0"></TextBlock>
-            <StackPanel Orientation="Horizontal" Height="30" Margin=" 0 10 0 0">
-                <TextBlock HorizontalAlignment="Center" Margin="260 0 0 0" VerticalAlignment="Center" FontSize="20">Smestaj:</TextBlock>
-                <TextBlock Width="200" Margin="10 0 0 0" Text="{Binding SelectedAccommodation.Name}" VerticalAlignment="Center" FontSize="18"></TextBlock>
-                <TextBlock Margin="70 0 0 0" VerticalAlignment="Center" FontSize="20">Za godinu:</TextBlock>
-                <TextBlock Margin="10 0 0 0" Text="{Binding SelectedYear.Year}" VerticalAlignment="Center" FontSize="18" ></TextBlock>
-            </StackPanel>
-            <DataGrid x:Name="RequestViewGrid"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 40 0 0" Background="LightGray" ItemsSource="{Binding Path=MonthStatistics, UpdateSourceTrigger=PropertyChanged}"
+            <TextBlock Text="Statistika smestaja po mesecima" FontWeight="SemiBold" FontFamily="Candara" HorizontalAlignment="Center" FontSize="29" Margin="0 40 0 0"></TextBlock>
+            <Border BorderThickness="2" BorderBrush="#c7d9d9" Margin="0 20 0 0" Background="White" Width="560">
+                <StackPanel Orientation="Horizontal" Height="35" Margin=" 0 10 0 0" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" HorizontalAlignment="Center" Margin="40 0 0 10" VerticalAlignment="Center" FontSize="20">Smestaj:</TextBlock>
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" FontWeight="SemiBold" Foreground="#094263" Width="200" Margin="10 0 0 10" Text="{Binding SelectedAccommodation.Name}" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Margin="40 0 0 10" VerticalAlignment="Center" FontSize="20">Za godinu:</TextBlock>
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" FontWeight="SemiBold" FontSize="21" Foreground="#094263" Margin="10 0 0 10" Text="{Binding SelectedYear.Year}" VerticalAlignment="Center" ></TextBlock>
+                </StackPanel>
+            </Border>
+            <DataGrid x:Name="RequestViewGrid"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 0" Background="#f5f5f5" ItemsSource="{Binding Path=MonthStatistics, UpdateSourceTrigger=PropertyChanged}"
                   HeadersVisibility="Column"
-                  RowBackground="#fcfced" AlternatingRowBackground="#f7f6da" Foreground="Black"
-                  FontSize="14" FontFamily="Calibri"
+                  RowBackground="#e3e3e1" AlternatingRowBackground="#f5f5f5" Foreground="Black"
+                  FontSize="15" FontFamily="Candara"
+                  ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
                    AutoGenerateColumns="False" IsReadOnly="True" RowHeight="30" VerticalContentAlignment="Center"
-                   Width="800" Height="400">
+                   Width="810" Height="393">
                 <DataGrid.Columns >
                     <DataGridTextColumn Header="Mesec" Width="100"  Binding="{Binding Month, Converter={StaticResource MonthConverter}}">
                         <DataGridTextColumn.ElementStyle>
@@ -41,7 +93,7 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Broj rezervacija" Width="163" Binding="{Binding ReservationsNumber}">
+                    <DataGridTextColumn Header="Broj rezervacija" Width="143" Binding="{Binding ReservationsNumber}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -57,7 +109,7 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Broj otkazivanja rezervacija" Width="163" Binding="{Binding CancellationNumber}">
+                    <DataGridTextColumn Header="Broj otkazivanja rezervacija" Width="185" Binding="{Binding CancellationNumber}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -73,7 +125,7 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Broj pomeranja rezervacija" Binding="{Binding MovingReservationsNumber}"  Width="170" >
+                    <DataGridTextColumn Header="Broj pomeranja rezervacija" Binding="{Binding MovingReservationsNumber}"  Width="180" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -107,11 +159,13 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <StackPanel  Margin="120 20 0 0" Orientation="Horizontal">
-                <Label FontSize="20">Najveca zauzetost smestaja u mesecu:</Label>
-                <TextBlock Width="100" Height="30" FontSize="20" Margin="20 0 0 0" Text="{Binding BusiestMonth, Converter={StaticResource MonthConverter}}"></TextBlock>
+            <StackPanel  Margin="95 25 0 0" Orientation="Horizontal">
+                <Label Style="{StaticResource ResourceKey=LabelDataStyle}" FontSize="20">Najveca zauzetost smestaja u mesecu:</Label>
+                <Border BorderBrush="Black" BorderThickness="2" Background="#919090" Height="32" Margin="20 0 0 0">
+                    <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Width="88" Height="30" FontSize="20" Foreground="White" Margin="26 0 0 0" Text="{Binding BusiestMonth, Converter={StaticResource MonthConverter}}"></TextBlock>
+                </Border>
             </StackPanel>
-            <Button Width ="200" Height="40" Content="Nazad" HorizontalAlignment="Left" Margin="123 40 0 0" Command="{Binding CancelCommand}"></Button>
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" Width ="200" Height="32" Content="Nazad" HorizontalAlignment="Right" Margin="0 40 102 0" Command="{Binding CancelCommand}"></Button>
         </StackPanel>
     </Grid>
-</Window>
+</Page>

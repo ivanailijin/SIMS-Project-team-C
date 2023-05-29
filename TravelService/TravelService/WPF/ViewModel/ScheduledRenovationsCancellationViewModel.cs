@@ -20,6 +20,7 @@ namespace TravelService.WPF.ViewModel
 
         public AccommodationRenovationService _renovationService;
 
+        public ScheduledRenovationsCancellationView ScheduledRenovationsCancellationView { get; set; }
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand CancelRenovationCommand { get; set; }
@@ -57,7 +58,7 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public ScheduledRenovationsCancellationViewModel(Owner owner)
+        public ScheduledRenovationsCancellationViewModel(Owner owner, ScheduledRenovationsCancellationView scheduledRenovationsCancellationView)
         {
             InitializeCommands();
             this.Owner = owner;
@@ -68,6 +69,7 @@ namespace TravelService.WPF.ViewModel
             LastRenovations = new ObservableCollection<AccommodationRenovation>(_accommodationService.GetAccommodationData(lastRenovations));
             List<AccommodationRenovation> futureRenovations = _renovationService.GetFutureRenovations();
             FutureRenovations = new ObservableCollection<AccommodationRenovation>(_accommodationService.GetAccommodationData(futureRenovations));
+            ScheduledRenovationsCancellationView = scheduledRenovationsCancellationView;
         }
         private void InitializeCommands()
         {
@@ -96,7 +98,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            ScheduledRenovationsCancellationView.GoBack();
         }
 
         private bool CanExecute_Command(object arg)

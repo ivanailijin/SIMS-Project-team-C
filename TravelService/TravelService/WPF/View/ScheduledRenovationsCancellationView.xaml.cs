@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -20,15 +21,20 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for ScheduledRenovationsCancellationView.xaml
     /// </summary>
-    public partial class ScheduledRenovationsCancellationView : Window, INotifyPropertyChanged
+    public partial class ScheduledRenovationsCancellationView : Page, INotifyPropertyChanged, INavigationInterface
     {
         public ScheduledRenovationsCancellationView(Owner owner)
         {
             InitializeComponent();
-            ScheduledRenovationsCancellationViewModel scheduledRenovationsCancellationViewModel = new ScheduledRenovationsCancellationViewModel(owner);
+            ScheduledRenovationsCancellationViewModel scheduledRenovationsCancellationViewModel = new ScheduledRenovationsCancellationViewModel(owner, this);
             DataContext = scheduledRenovationsCancellationViewModel;
-            if (scheduledRenovationsCancellationViewModel.CloseAction == null)
-                scheduledRenovationsCancellationViewModel.CloseAction = new Action(this.Close);
+            //if (scheduledRenovationsCancellationViewModel.CloseAction == null)
+             //   scheduledRenovationsCancellationViewModel.CloseAction = new Action(this.Close);
+        }
+
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

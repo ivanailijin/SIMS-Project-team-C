@@ -10,15 +10,20 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.Services;
 using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
-    public class RenovationSelectionViewModel : ViewModelBase
+    public class RenovationSelectionViewModel : ViewModelBase, INavigationInterface
     {
         public AccommodationService _accommodationService;
 
+        public AccommodationRenovationService _renovationService;
+
         public LocationService _locationService;
+
+        public RenovationSelectionView RenovationSelectionView { get; set; }
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand ScheduleRenovationCommand { get; set; }
@@ -28,13 +33,16 @@ namespace TravelService.WPF.ViewModel
         public Owner Owner { get; set; }
 
 
-        public RenovationSelectionViewModel(Owner owner)
+        public RenovationSelectionViewModel(Owner owner, RenovationSelectionView renovationSelectionView)
         {
             InitializeCommands();
             this.Owner = owner;
+            RenovationSelectionView = renovationSelectionView;
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.GetOwnersAccommodations(Owner.Id));
+            _renovationService = new AccommodationRenovationService(Injector.CreateInstance<IAccommodationRenovationRepository>());
+            List<Accommodation> accommodations = _accommodationService.GetOwnersAccommodations(Owner.Id);
+            Accommodations = new ObservableCollection<Accommodation>(_renovationService.GetRenovationData(accommodations));
             Locations = new List<Location>(_locationService.GetAll());
 
             foreach (Accommodation accommodation in Accommodations)
@@ -52,7 +60,8 @@ namespace TravelService.WPF.ViewModel
             if (SelectedAccommodation != null && Owner != null)
             {
                 RenovationSchedulingView renovationSchedulingView = new RenovationSchedulingView(Owner, SelectedAccommodation);
-                renovationSchedulingView.Show();
+                OwnerWindow ownerWindow = Window.GetWindow(RenovationSelectionView) as OwnerWindow;
+                ownerWindow?.SwitchToPage(renovationSchedulingView);
             }
             else
             {
@@ -61,12 +70,17 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            RenovationSelectionView.GoBack();
         }
 
         private bool CanExecute_Command(object arg)
         {
             return true;
+        }
+
+        public void GoBack()
+        {
+            RenovationSelectionView.GoBack();
         }
     }
 }

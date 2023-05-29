@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
@@ -13,6 +14,7 @@ using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -25,6 +27,8 @@ namespace TravelService.WPF.ViewModel
         private readonly AccommodationService _accommodationService;
 
         private readonly Guest1Service _guest1Service;
+
+        public GuestRatingView GuestRatingView { get; set; }
         public Action CloseAction { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand AddGuestRatingCommand { get; set; }
@@ -178,12 +182,13 @@ namespace TravelService.WPF.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public GuestRatingViewModel(AccommodationReservation selectedReservation, Owner owner) 
+        public GuestRatingViewModel(AccommodationReservation selectedReservation, Owner owner, GuestRatingView guestRatingView) 
         {
             InitializeCommands();
             SelectedReservation = selectedReservation;
             ReservationId = selectedReservation.Id;
             this.Owner = owner;
+            GuestRatingView = guestRatingView;
             _guestRatingService = new GuestRatingService(Injector.CreateInstance<IGuestRatingRepository>());
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
@@ -218,7 +223,7 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            GuestRatingView.GoBack();
         }
 
         private bool CanExecute_Command(object arg)

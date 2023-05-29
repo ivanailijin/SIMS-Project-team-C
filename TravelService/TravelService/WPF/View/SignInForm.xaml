@@ -6,9 +6,6 @@
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         Title="Sign in" Height="300" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Window.Resources>
-        
-    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>

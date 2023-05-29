@@ -5,21 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.Services;
 using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
-    public class AccommodationStatisticsViewModel
+    public class AccommodationStatisticsViewModel : INavigationInterface
     {
         public AccommodationService _accommodationService;
 
         public LocationService _locationService;
 
+        public AccommodationStatisticsView AccommodationStatisticsView { get; set; }
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand ShowReviewCommand { get; set; }
@@ -29,9 +32,10 @@ namespace TravelService.WPF.ViewModel
         public static List<Location> Locations { get; set; }
         public Owner Owner { get; set; }
 
-        public AccommodationStatisticsViewModel(Owner owner)
+        public AccommodationStatisticsViewModel(Owner owner, AccommodationStatisticsView accommodationStatisticsView)
         {
             InitializeCommands();
+            AccommodationStatisticsView = accommodationStatisticsView;
             this.Owner = owner;
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
@@ -43,6 +47,11 @@ namespace TravelService.WPF.ViewModel
                 accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
             }
         }
+
+        public void GoBack()
+        {
+            AccommodationStatisticsView.GoBack();
+        }
         private void InitializeCommands()
         {
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
@@ -52,17 +61,18 @@ namespace TravelService.WPF.ViewModel
         {
             if (SelectedAccommodation != null)
             {
-                AccommodationYearStatisticsView accommodationYearStatisticsView = new AccommodationYearStatisticsView(SelectedAccommodation);
-                accommodationYearStatisticsView.Show();
+                AccommodationYearStatisticsView accommodationYearStatisticsView = new AccommodationYearStatisticsView(SelectedAccommodation, Owner);
+                OwnerWindow ownerWindow = Window.GetWindow(AccommodationStatisticsView) as OwnerWindow;
+                ownerWindow?.SwitchToPage(accommodationYearStatisticsView);
             }
             else
             {
-                MessageBox.Show("Please select accommodation to show the review.");
+                MessageBox.Show("Niste izabrali smestaj za prikaz statistike!");
             }
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            GoBack();
         }
 
         private bool CanExecute_Command(object arg)

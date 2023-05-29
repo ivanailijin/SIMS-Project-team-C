@@ -234,6 +234,7 @@ namespace TravelService.WPF.ViewModel
                     Pictures += "|";
                     string destinationFilePath = Path.Combine(destinationFolder, Path.GetFileName(file));
                     File.Copy(file, destinationFilePath);
+                    //BitmapImage image = new BitmapImage(new Uri(file));
                     ListBoxPictures.Add(file);
                 }
 
