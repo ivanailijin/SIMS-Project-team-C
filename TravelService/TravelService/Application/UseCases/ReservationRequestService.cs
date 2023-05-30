@@ -145,7 +145,7 @@ namespace TravelService.Application.UseCases
             List<Location> locations = _locationService.GetAll();
             foreach (ReservationRequest request in requests)
             {
-                request.Reservation.Location = locations.Find(l => l.Id == request.Reservation.Location.Id);
+                request.Reservation.Location = locations.Find(l => l.Id == request.Reservation.LocationId);
             }
             return requests;
         }

@@ -12,13 +12,13 @@ namespace TravelService.Domain.Model
     {
         public int Id { get; set; }
         public int AccommodationId { get; set; }
-        public Accommodation Accommodation { get; set; }
+        public Accommodation Accommodation { get; set; } 
         public int GuestId { get; set; }
         public Guest1 Guest1 { get; set; }
         public int OwnerId { get; set; }
         public Owner Owner { get; set; }
         public int LocationId { get; set; }
-        public Location Location { get; set; } = new();
+        public Location Location { get; set; } 
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int LengthOfStay { get; set; }

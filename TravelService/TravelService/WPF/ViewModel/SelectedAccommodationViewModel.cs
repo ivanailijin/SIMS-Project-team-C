@@ -24,23 +24,6 @@ namespace TravelService.WPF.ViewModel
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
 
-
-        /*
-                private ObservableCollection<KeyValuePair<string, int>> _reservationsByMonth;
-                public ObservableCollection<KeyValuePair<string, int>> ReservationsByMonth
-                {
-                    get { return _reservationsByMonth; }
-                    set
-                    {
-                        _reservationsByMonth = value;
-                        OnPropertyChanged(nameof(ReservationsByMonth));
-                    }
-                }
-        */
-
-        // public ObservableCollection<string> Months => new ObservableCollection<string>(ReservationsByMonth.Select(r => r.Key));
-        //  public ObservableCollection<int> ReservationCounts => new ObservableCollection<int>(ReservationsByMonth.Select(r => r.Value));
-
         public SeriesCollection ReservationSeries { get; set; }
         public List<string> MonthLabels { get; set; }
 

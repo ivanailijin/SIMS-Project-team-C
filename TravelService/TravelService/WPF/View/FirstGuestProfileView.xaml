@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
+         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:FirstGuestProfileViewModel}"
         mc:Ignorable="d"
         Height="655" Width="420" Background="White">
     <UserControl.Resources>
@@ -95,6 +96,15 @@
                 <TextBlock Text="Broj bonus poena: " Margin="20,0,0,0" FontSize="15"></TextBlock>
                 <TextBlock Text="{Binding Guest1.BonusPoints}" FontSize="15"></TextBlock>
             </StackPanel>
+
+            <lvc:CartesianChart Series="{Binding ReservationSeries}" Margin="0,30,0,0" LegendLocation="None" Height="250" Width="400">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Meseci" Labels="{Binding MonthLabels}" Foreground="Black" FontWeight="Bold" FontSize="12"/>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Broj rezervacija" MinValue="0" Foreground="Black" FontWeight="Bold" FontSize="12"/>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
         </StackPanel>
     </Grid>
 </UserControl>

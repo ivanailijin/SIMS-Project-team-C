@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.Repository;
-using TravelService.Serializer;
-using TravelService.Application.Utils;
-using TravelService.WPF.View;
 
 namespace TravelService.Application.UseCases
 {
@@ -51,6 +45,7 @@ namespace TravelService.Application.UseCases
             return UnratedReservations;
         }
 
+
         public Guest1 CheckSuperOwnerStatus(Guest1 guest, int reservationsCount)
         {
             if (!guest.SuperGuest)
@@ -65,9 +60,9 @@ namespace TravelService.Application.UseCases
             }
             else
             {
-                if(DateTime.Now > guest.SuperGuestExpirationDate)
+                if (DateTime.Now > guest.SuperGuestExpirationDate)
                 {
-                    if(reservationsCount >= 10)
+                    if (reservationsCount >= 10)
                     {
                         guest.BonusPoints = 5;
                         guest.SuperGuestExpirationDate = DateTime.Now.AddYears(1);
@@ -84,5 +79,6 @@ namespace TravelService.Application.UseCases
             }
             return guest;
         }
+
     }
 }

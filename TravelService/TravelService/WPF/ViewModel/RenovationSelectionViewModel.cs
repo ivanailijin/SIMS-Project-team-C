@@ -39,7 +39,7 @@ namespace TravelService.WPF.ViewModel
 
             foreach (Accommodation accommodation in Accommodations)
             {
-                accommodation.Location = Locations.Find(l => l.Id == accommodation.Location.Id);
+                accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
             }
         }
         private void InitializeCommands()

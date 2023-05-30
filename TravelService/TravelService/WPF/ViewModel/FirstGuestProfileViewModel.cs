@@ -9,6 +9,11 @@ using TravelService.WPF.View;
 using TravelService.Application.Utils;
 using TravelService.Domain.RepositoryInterface;
 using System.Collections.Generic;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveCharts.Defaults;
+using System.Reflection.Emit;
+using System;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -18,6 +23,8 @@ namespace TravelService.WPF.ViewModel
         private AccommodationReservationService _reservationService;
         public Window FirstView { get; set; }
         public Guest1 Guest1 { get; set; }
+        public SeriesCollection ReservationSeries { get; set; }
+        public List<string> MonthLabels { get; set; }
 
         private int _numberOfReservations;
         public int NumberOfReservations
@@ -30,7 +37,6 @@ namespace TravelService.WPF.ViewModel
                     _numberOfReservations = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -45,7 +51,6 @@ namespace TravelService.WPF.ViewModel
                     _bonusPoints = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -60,7 +65,6 @@ namespace TravelService.WPF.ViewModel
                     _logOutCommand = value;
                     OnPropertyChanged();
                 }
-
             }
         }
         public FirstGuestProfileViewModel(Window firstView, Guest1 guest1)
@@ -77,6 +81,25 @@ namespace TravelService.WPF.ViewModel
             NumberOfReservations = reservationsCount;
 
             LogOutCommand = new RelayCommand(Execute_LogOut, CanExecute_Command);
+
+            MonthLabels = new List<string>();
+
+            Dictionary<string, int> reservationsByMonth = new Dictionary<string, int>(_reservationService.CalculateReservationCountByMonthInPreviousYear(Guest1));
+            ChartValues<ObservableValue> reservationsData = new ChartValues<ObservableValue>();
+
+            foreach (var item in reservationsByMonth)
+            {
+                reservationsData.Add(new ObservableValue(item.Value));
+                MonthLabels.Add(item.Key);
+            }
+
+            ColumnSeries reservationsSeries = new ColumnSeries
+            {
+                Title = "Reservations",
+                Values = reservationsData
+            };
+
+            ReservationSeries = new SeriesCollection { reservationsSeries };
         }
 
         private bool CanExecute_Command(object parameter)

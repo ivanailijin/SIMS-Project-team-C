@@ -78,7 +78,12 @@ namespace TravelService.Application.UseCases
             return reservationsInLastYear;
         }
 
-        public List<AccommodationReservation> GetReservationsInLastYearByAccommmodation(int accommodationId, DateTime currentDate, DateTime endDate)
+        public bool IsReservationInLastYear(AccommodationReservation reservation, DateTime oneYearAgo)
+        {
+            return reservation.CheckInDate >= oneYearAgo && reservation.CheckOutDate <= DateTime.Today;
+        }
+
+        public List<AccommodationReservation> GetReservationsInNextYearByAccommmodation(int accommodationId, DateTime currentDate, DateTime endDate)
         {
             List<AccommodationReservation> accommodationReservations = GetAll();
             List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
@@ -92,9 +97,18 @@ namespace TravelService.Application.UseCases
             return reservationsInLastYear;
         }
 
-        public bool IsReservationInLastYear(AccommodationReservation reservation, DateTime oneYearAgo)
+        public List<AccommodationReservation> GetReservationsInLastYearByGuest(int guestId, DateTime startDate, DateTime endDate)
         {
-            return reservation.CheckInDate >= oneYearAgo && reservation.CheckOutDate <= DateTime.Today;
+            List<AccommodationReservation> accommodationReservations = GetAll();
+            List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in accommodationReservations)
+            {
+                if (reservation.IsCancelled == false && reservation.GuestId == guestId && reservation.CheckInDate >= startDate && reservation.CheckOutDate <= endDate)
+                {
+                    reservationsInLastYear.Add(reservation);
+                }
+            }
+            return reservationsInLastYear;
         }
 
         public int GetReservationYearNumber(int year, int accommodationId)
@@ -206,7 +220,7 @@ namespace TravelService.Application.UseCases
 
             foreach(AccommodationReservation reservation in reservations)
             {
-                if(reservation.AccommodationId==accommodation.Id && reservation.CheckInDate.Year == year && reservation.CheckOutDate.Year == year)
+                if(reservation.AccommodationId ==accommodation.Id && reservation.CheckInDate.Year == year && reservation.CheckOutDate.Year == year)
                     yearsReservations.Add(reservation);
             }
 
@@ -410,7 +424,7 @@ namespace TravelService.Application.UseCases
             List<Location> locations = _locationService.GetAll();
             foreach (AccommodationReservation reservation in reservations)
             {
-                reservation.Location = locations.Find(l => l.Id == reservation.Location.Id);
+                reservation.Location = locations.Find(l => l.Id == reservation.LocationId);
             }
             return reservations;
         }
@@ -447,7 +461,7 @@ namespace TravelService.Application.UseCases
         {
             var currentDate = DateTime.Now;
             var endDate = currentDate.AddYears(1);
-            var reservations = GetReservationsInLastYearByAccommmodation(accommodation.Id, currentDate, endDate);
+            var reservations = GetReservationsInNextYearByAccommmodation(accommodation.Id, currentDate, endDate);
             var reservationCountByMonth = new Dictionary<string, int>();
 
             while (currentDate < endDate)
@@ -457,6 +471,24 @@ namespace TravelService.Application.UseCases
                 reservationCountByMonth.Add(monthYear, count);
 
                 currentDate = currentDate.AddMonths(1);
+            }
+            return reservationCountByMonth;
+        }
+
+        public Dictionary<string, int> CalculateReservationCountByMonthInPreviousYear(Guest1 guest)
+        {
+            var endDate = DateTime.Now;
+            var startDate = endDate.AddYears(-1);
+            var reservations = GetReservationsInLastYearByGuest(guest.Id, startDate, endDate);
+            var reservationCountByMonth = new Dictionary<string, int>();
+
+            while (startDate < endDate)
+            {
+                var monthYear = startDate.ToString("MMM/yyyy");
+                var count = reservations.Count(r => r.CheckInDate.ToString("MMM/yyyy") == monthYear);
+                reservationCountByMonth.Add(monthYear, count);
+
+                startDate = startDate.AddMonths(1);
             }
             return reservationCountByMonth;
         }
