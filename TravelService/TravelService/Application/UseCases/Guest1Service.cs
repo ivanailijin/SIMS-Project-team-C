@@ -9,10 +9,12 @@ namespace TravelService.Application.UseCases
     public class Guest1Service
     {
         private readonly IGuest1Repository _repository;
+        private readonly IAccommodationReservationRepository _reservationRepository;
 
         public Guest1Service(IGuest1Repository repository)
         {
             _repository = repository;
+            _reservationRepository = Injector.CreateInstance<IAccommodationReservationRepository>();
         }
 
         public Guest1 GetByUsername(string username)
@@ -45,9 +47,32 @@ namespace TravelService.Application.UseCases
             return UnratedReservations;
         }
 
-
-        public Guest1 CheckSuperOwnerStatus(Guest1 guest, int reservationsCount)
+        public List<AccommodationReservation> GetReservationsInLastYear(Guest1 guest)
         {
+            DateTime oneYearAgo = DateTime.Today.AddYears(-1);
+
+            List<AccommodationReservation> guestReservations = _reservationRepository.GetAll();
+            List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in guestReservations)
+            {
+                if (IsReservationInLastYear(reservation, oneYearAgo, guest.Id))
+                {
+                    reservationsInLastYear.Add(reservation);
+                }
+            }
+            return reservationsInLastYear;
+        }
+
+        public bool IsReservationInLastYear(AccommodationReservation reservation, DateTime oneYearAgo, int guestId)
+        {
+            return reservation.GuestId == guestId && reservation.IsCancelled == false && reservation.CheckInDate >= oneYearAgo && reservation.CheckOutDate <= DateTime.Today;
+        }
+
+        public Guest1 CheckSuperOwnerStatus(Guest1 guest)
+        {
+            List<AccommodationReservation> reservationsInLastYear = GetReservationsInLastYear(guest);
+            int reservationsCount = reservationsInLastYear.Count;
+
             if (!guest.SuperGuest)
             {
                 if (reservationsCount >= 10)

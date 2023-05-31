@@ -74,9 +74,9 @@ namespace TravelService.WPF.ViewModel
             Guest1 = guest1;
             FirstView = firstView;
 
-            List<AccommodationReservation> reservationsInLastYear = _reservationService.GetReservationsInLastYear(Guest1);
+            List<AccommodationReservation> reservationsInLastYear = _guest1Service.GetReservationsInLastYear(Guest1);
             int reservationsCount = reservationsInLastYear.Count;
-            Guest1 = _guest1Service.CheckSuperOwnerStatus(Guest1, reservationsCount);
+            Guest1 = _guest1Service.CheckSuperOwnerStatus(Guest1);
 
             NumberOfReservations = reservationsCount;
 
