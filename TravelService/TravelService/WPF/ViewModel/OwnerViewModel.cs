@@ -117,7 +117,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_AddAccommodationCommand(object obj)
         {
-            AddAccommodation addAccommodation = new AddAccommodation(Owner);
+            AddAccommodation addAccommodation = new AddAccommodation(Owner, null);
             addAccommodation.Show();
         }
 

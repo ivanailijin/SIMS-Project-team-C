@@ -60,7 +60,7 @@ namespace TravelService.WPF.ViewModel
         {
             if (SelectedReservation != null)
             {
-                GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation, Owner);
+                GuestRatingView guestRatingView = new GuestRatingView(SelectedReservation, Owner, UnratedReservations);
                 OwnerWindow ownerWindow = Window.GetWindow(GuestRatingOverview) as OwnerWindow;
                 ownerWindow?.SwitchToPage(guestRatingView);
             }

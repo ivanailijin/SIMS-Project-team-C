@@ -34,11 +34,10 @@ namespace TravelService.Domain.Model
             Pictures = new List<Uri>();
         }
 
-        public Accommodation(int userId, string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation,DateTime dateCreated, List<string> pictures)
+        public Accommodation(int userId, string name, int locationId,  TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation,DateTime dateCreated, List<string> pictures)
         {
             OwnerId = userId;
             Name = name;
-            Location = location;
             LocationId = locationId;
             Type = type;
             MaxGuestNumber = maxGuestNumber;

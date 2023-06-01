@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,26 +11,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
-using TravelService.Repository;
 using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for GuestRatingView.xaml
+    /// Interaction logic for ClosingAccommodationView.xaml
     /// </summary>
-    public partial class GuestRatingView : Page, INotifyPropertyChanged, INavigationInterface
+    public partial class ClosingAccommodationView : Page, INotifyPropertyChanged, INavigationInterface
     {
-        public GuestRatingView(AccommodationReservation selectedReservation, Owner owner, ObservableCollection<AccommodationReservation> unratedReservations)
+        public ClosingAccommodationView(Location location)
         {
             InitializeComponent();
-            GuestRatingViewModel guestRatingViewModel = new GuestRatingViewModel(selectedReservation, owner, this, unratedReservations);
-            DataContext = guestRatingViewModel;
-            //if (guestRatingViewModel.CloseAction == null)
-              //  guestRatingViewModel.CloseAction = new Action(this.Close);
+            ClosingAccommodationViewModel closingAccommodationView = new ClosingAccommodationViewModel(location, this);
+            DataContext = closingAccommodationView;
         }
         public void GoBack()
         {

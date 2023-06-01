@@ -30,10 +30,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class AddAccommodation : Window, INotifyPropertyChanged
     {
-        public AddAccommodation(Owner owner)
+        public AddAccommodation(Owner owner, Location location)
         {
             InitializeComponent();
-            AddAccommodationViewModel addAccommodationViewModel = new AddAccommodationViewModel(owner);
+            AddAccommodationViewModel addAccommodationViewModel = new AddAccommodationViewModel(owner, location);
             DataContext = addAccommodationViewModel;
             if (addAccommodationViewModel.CloseAction == null)
                 addAccommodationViewModel.CloseAction = new Action(this.Close);

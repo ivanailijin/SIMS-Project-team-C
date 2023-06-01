@@ -6,14 +6,18 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
     public class AccommodationReviewViewModel : ViewModelBase
     {
         public ObservableCollection<Guest1> Guests { get; set; }
+        public ObservableCollection<OwnerRating> Ratings { get; set; }
         public OwnerRatingService _ownerRatingService { get; set; }
         public GuestRatingService _guestRatingService { get; set; }
+        public Guest1Service _guestService { get; set; }
+        public AccommodationReview  AccommodationReview { get; set; }
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand ShowReviewCommand { get; set; }
@@ -32,6 +36,20 @@ namespace TravelService.WPF.ViewModel
                 if (value != _ratingImages)
                 {
                     _ratingImages = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _averageAccommodationRating;
+        public string AverageAccommodationRating
+        {
+            get => _averageAccommodationRating;
+            set
+            {
+                if (value != _averageAccommodationRating)
+                {
+                    _averageAccommodationRating = value;
                     OnPropertyChanged();
                 }
             }
@@ -59,7 +77,7 @@ namespace TravelService.WPF.ViewModel
             {
                 if (value != _cleanliness)
                 {
-                    _correctness = value;
+                    _cleanliness = value;
                     OnPropertyChanged();
                 }
             }
@@ -106,32 +124,46 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private int _numberOfRatings;
+        public int NumberOfRatings
+        {
+            get => _numberOfRatings;
+            set
+            {
+                if (value != _numberOfRatings)
+                {
+                    _numberOfRatings = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
-        public AccommodationReviewViewModel(Accommodation selectedAccommodation, Owner owner)
+        public AccommodationReviewViewModel(Accommodation selectedAccommodation, Owner owner, AccommodationReview accommodationReview)
         {
             InitializeCommands();
             SelectedAccommodation = selectedAccommodation;
             this.Owner = owner;
             _ownerRatingService = new OwnerRatingService(Injector.CreateInstance<IOwnerRatingRepository>());
             _guestRatingService = new GuestRatingService(Injector.CreateInstance<IGuestRatingRepository>());
+            _guestService = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
+            AccommodationReview = accommodationReview;
+
+            Correctness = Math.Round(_ownerRatingService.GetAverageCorrectness(SelectedAccommodation), 2).ToString();
+            Cleanliness = Math.Round(_ownerRatingService.GetAverageCleanliness(SelectedAccommodation), 2).ToString();
+            Location = Math.Round(_ownerRatingService.GetAverageLocation(SelectedAccommodation), 2).ToString();
+            Comfort = Math.Round(_ownerRatingService.GetAverageComfort(SelectedAccommodation), 2).ToString();
+            Content = Math.Round( _ownerRatingService.GetAverageContent(SelectedAccommodation), 2).ToString();
+            RatingImages = _ownerRatingService.GetRatingImages(SelectedAccommodation);
+            NumberOfRatings = _ownerRatingService.GetNumberOfAccommodationRatings(SelectedAccommodation);
+            AverageAccommodationRating = _ownerRatingService.GetAverageAccommodationRating(SelectedAccommodation).ToString();
 
             List<Guest1> guestsList = _ownerRatingService.FindGuestsByAccommodation(SelectedAccommodation);
             List<Guest1> ratedGuests = _guestRatingService.FindRatedGuests(Owner.Id);
 
-            List<Guest1> commonGuests = new List<Guest1>();
-
-            foreach (Guest1 guest in guestsList)
-            {
-                foreach (Guest1 ratedGuest in ratedGuests)
-                {
-                    if (guest.Id == ratedGuest.Id)
-                    {
-                        commonGuests.Add(guest);
-                        break;
-                    }
-                }
-            }
-            Guests = new ObservableCollection<Guest1>(commonGuests);
+            List<Guest1> commonGuests = _guestService.FindCommonGuests(guestsList, ratedGuests);
+            
+            Ratings = new ObservableCollection<OwnerRating>(_ownerRatingService.GetRatingsByGuests(commonGuests));
+            //Guests = new ObservableCollection<Guest1>(commonGuests);
         }
         private void InitializeCommands()
         {
@@ -141,16 +173,10 @@ namespace TravelService.WPF.ViewModel
         private void Execute_ShowReviewCommand(object obj)
         {
             OwnerRating ownerRating = _ownerRatingService.FindByGuestOwnerIds(SelectedGuest.Id, Owner.Id, SelectedAccommodation.Id);
-            Correctness = ownerRating.Correctness.ToString();
-            Cleanliness = ownerRating.Cleanliness.ToString();
-            Location = ownerRating.Location.ToString();
-            Comfort = ownerRating.Comfort.ToString();
-            Content = ownerRating.Content.ToString();
-            RatingImages = ownerRating.Pictures;
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            AccommodationReview.GoBack();
         }
 
         private bool CanExecute_Command(object arg)

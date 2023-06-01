@@ -191,7 +191,7 @@
             <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="4" Grid.Column="1" Width="150"
                      Height="25">
                 <TextBox.Text>
-                    <Binding Path="MaxGuestNumber" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="MaxGuestNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                           <val:NumberValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules> 
@@ -288,7 +288,7 @@
             <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="16" Content="Odustani" IsDefault="True" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" Height="37" Margin="20, 5, 20, 5" 
                     Command="{Binding CancelCommand}"></Button>
             <Separator Background="#dff2f2" Width="100"></Separator>
-            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="1" Content="Potvrdi"  HorizontalAlignment="Left" Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold" VerticalAlignment="Top" Width="113" Height="37" Margin="20, 5, 20, 5"
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara" FontSize="16" Content="Potvrdi" IsDefault="True"  Background="LightSteelBlue" BorderThickness="1" Foreground="#d1e6e6" FontWeight="SemiBold" VerticalAlignment="Top" Width="113" Height="37" Margin="20, 5, 20, 5"
                     Command="{Binding AddAccommodationCommand}"/>
             <Separator Background="#dff2f2" Width="180"></Separator>
         </WrapPanel>

@@ -11,8 +11,8 @@ namespace TravelService.Domain.Model
     public class GuestRating : ISerializable
     {
         public int Id { get; set; }
+        public Owner Owner { get; set; } 
         public int OwnerId { get; set; }
-        public Owner Owner { get; set; }
         public int GuestId { get; set; }
         public int Cleanness { get; set; }
         public int RulesFollowing { get; set; }
