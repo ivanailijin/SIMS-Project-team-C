@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="TravelService" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="768" Width="1024">
+        Title="TravelService" WindowStartupLocation="CenterScreen"  Height="768" Width="1024">
     <Grid>
 
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" ></Frame>

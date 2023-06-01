@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add-accommodation-icon.png" />
-    <None Remove="Resources\Images\airplane.png" />
     <None Remove="Resources\Images\angle-left.png" />
     <None Remove="Resources\Images\angle-right.png" />
     <None Remove="Resources\Images\back.png" />
@@ -60,7 +59,7 @@
     <None Remove="Resources\Images\superowner.png" />
     <None Remove="Resources\Images\tail.png" />
     <None Remove="Resources\Images\travel.png" />
-    <None Remove="Resources\Images\user.ico" />
+    <None Remove="Resources\Images\user1.ico" />
 
     <None Remove="WPF\View\Icons\beautiful-shot-mountains-cloudy-sky-from-inside-plane-windows.jpg" />
     <None Remove="WPF\View\Icons\element5-digital-h9eOO7W5m2s-unsplash.jpg" />
@@ -162,7 +161,7 @@
     <Resource Include="Resources\Images\statistics.png" />
     <Resource Include="Resources\Images\tail.png" />
     <Resource Include="Resources\Images\travel.png" />
-    <Resource Include="Resources\Images\user.ico" />
+    <Resource Include="Resources\Images\user1.ico" />
     <Resource Include="WPF\View\Icons\beautiful-shot-mountains-cloudy-sky-from-inside-plane-windows.jpg" />
     <Resource Include="WPF\View\Icons\element5-digital-h9eOO7W5m2s-unsplash.jpg" />
     <Resource Include="WPF\View\Icons\five-golden-stars-inside-white-message-box-client-excellent-evaluation-by-3d-render.jpg" />
