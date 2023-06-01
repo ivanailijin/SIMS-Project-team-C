@@ -92,7 +92,7 @@
                                             <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Margin="0 33 0 0" FontSize="16" Text="{Binding Location.CityAndCountry}" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0 3 0 0">
-                                            <Image  Width="14" Height="14" Margin="-10, 5, 9, 0" Source="/TravelService;component/Resources/Images/mini-house.png"></Image>
+                                            <Image  Width="14" Height="14" Margin="-10, 5, 9, 0" Source="/TravelService;component/Resources/Images/mini-house2.png"></Image>
                                             <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Margin="0 5 0 0" FontSize="16" Text="{Binding Type, Converter={StaticResource EnumConverter}}" />
                                         </StackPanel>
                                     </StackPanel>
