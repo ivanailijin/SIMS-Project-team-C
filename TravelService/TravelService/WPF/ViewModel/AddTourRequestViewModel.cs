@@ -20,6 +20,8 @@ namespace TravelService.WPF.ViewModel
         private readonly LanguageService _languageService;
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
+        public bool IsForwarded { get; set; }
+        public List<TourRequest> TourRequests { get; set; }
 
         private string _location;
         public string Location
@@ -164,14 +166,17 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        public TourRequest TourRequest { get; set; }
 
-        public AddTourRequestViewModel(Guest2 guest2)
+        public AddTourRequestViewModel(Guest2 guest2, bool isForwarded, List<TourRequest> tourRequests)
         {
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());
 
             Guest2 = guest2;
+            IsForwarded = isForwarded;
+            TourRequests = tourRequests;
             AddRequestCommand = new RelayCommand(Execute_AddRequestCommand, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_Cancel, CanExecute_Command);
             HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
@@ -194,7 +199,10 @@ namespace TravelService.WPF.ViewModel
             Language language = new Language(inputLanguage);
             Language savedLanguage = _languageService.Save(language);
 
-            _tourRequestService.addRequest(savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, GuestNumber, TourStart, TourEnd, Guest2.Id);
+            TourRequest =_tourRequestService.addRequest(savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, GuestNumber, TourStart, TourEnd, Guest2.Id);
+            if (IsForwarded) {
+                TourRequests.Add(TourRequest);
+            }
             CloseAction();
         }
         private void Execute_Cancel(object sender)

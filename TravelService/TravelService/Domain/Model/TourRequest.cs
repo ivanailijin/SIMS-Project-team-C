@@ -85,6 +85,12 @@ namespace TravelService.Domain.Model
             else
                 return APPROVAL.INVALID;
         }
+        public static TourRequest CreateFromCSV(string[] values)
+        {
+            TourRequest tourRequest = new TourRequest();
+            tourRequest.FromCSV(values);
+            return tourRequest;
+        }
     }
 
 }

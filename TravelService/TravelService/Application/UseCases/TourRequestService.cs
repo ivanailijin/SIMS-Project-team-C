@@ -44,10 +44,11 @@ namespace TravelService.Application.UseCases
         {
             _tourRequestRepository.Update(tourRequest);
         }
-        public void addRequest(Location location, int locationId, string description, Language language, int languageId, int guestNumber, DateTime tourStart, DateTime tourEnd, int guestId)
+        public TourRequest addRequest(Location location, int locationId, string description, Language language, int languageId, int guestNumber, DateTime tourStart, DateTime tourEnd, int guestId)
         {
             TourRequest tourRequest = new TourRequest(location, locationId, description, language, languageId, guestNumber, tourStart, tourEnd, APPROVAL.WAITING, guestId);
             _tourRequestRepository.Save(tourRequest);
+            return tourRequest;
         }
         public List<int> FindYears(ObservableCollection<TourRequest> guestsRequests)
         {
