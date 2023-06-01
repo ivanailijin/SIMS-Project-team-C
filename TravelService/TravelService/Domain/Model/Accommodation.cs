@@ -15,10 +15,10 @@ namespace TravelService.Domain.Model
     {
         public int Id { get; set; }
         public int OwnerId { get; set; }
-        public Owner Owner { get; set; }
+        public Owner Owner { get; set; } 
         public string Name { get; set; }
-        public Location Location { get; set; }
         public int LocationId { get; set; }
+        public Location Location { get; set; }
         public TYPE Type { get; set; }
         public int MaxGuestNumber { get; set; }
         public int MinReservationDays { get; set; }
@@ -34,11 +34,10 @@ namespace TravelService.Domain.Model
             Pictures = new List<Uri>();
         }
 
-        public Accommodation(int userId, string name, Location location, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation,DateTime dateCreated, List<string> pictures)
+        public Accommodation(int ownerId, string name, int locationId, TYPE type, int maxGuestNumber, int minReservationDays, int daysBeforeCancellingReservation,DateTime dateCreated, List<string> pictures)
         {
-            OwnerId = userId;
+            OwnerId = ownerId;
             Name = name;
-            Location = location;
             LocationId = locationId;
             Type = type;
             MaxGuestNumber = maxGuestNumber;

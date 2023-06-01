@@ -1,4 +1,5 @@
 ﻿using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,54 +24,8 @@ namespace TravelService.WPF.ViewModel
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
 
-        private Dictionary<string, int> _reservationsByMonth;
-        public Dictionary<string, int> ReservationsByMonth
-        {
-            get { return _reservationsByMonth; }
-            set { _reservationsByMonth = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<KeyValuePair<string, int>> _reservationsByMonthCollection;
-        public ObservableCollection<KeyValuePair<string, int>> ReservationsByMonthCollection
-        {
-            get => _reservationsByMonthCollection;
-            set
-            {
-                if (value != _reservationsByMonthCollection)
-                {
-                    _reservationsByMonthCollection = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private ObservableCollection<string> _months;
-        public ObservableCollection<string> Months
-        {
-            get => _months;
-            set
-            {
-                if (value != _months)
-                {
-                    _months = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private ObservableCollection<int> _counts;
-        public ObservableCollection<int> Counts
-        {
-            get => _counts;
-            set
-            {
-                if (value != _counts)
-                {
-                    _counts = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public SeriesCollection ReservationSeries { get; set; }
+        public List<string> MonthLabels { get; set; }
 
         private int _currentIndex;
         public int CurrentIndex
@@ -180,14 +135,18 @@ namespace TravelService.WPF.ViewModel
             _currentIndex = 0;
             CurrentImage = SelectedAccommodation.Pictures.First();
 
-            List<AccommodationReservation> Reservations = new List<AccommodationReservation>(_reservationService.FindReservationsByAccommodation(SelectedAccommodation.Id));
-            ReservationsByMonth = new Dictionary<string, int>(_reservationService.CalculateReservationsByMonth(Reservations));
+            ReservationSeries = new SeriesCollection();
+            MonthLabels = new List<string>();
 
-            Months = new ObservableCollection<string>(ReservationsByMonth.Keys.ToList());
-            Counts = new ObservableCollection<int>(ReservationsByMonth.Values.ToList());
+            Dictionary<string, int> reservationsByMonth = new Dictionary<string, int>(_reservationService.CalculateReservationCountByMonth(SelectedAccommodation));
 
-            ReservationsByMonthCollection = new ObservableCollection<KeyValuePair<string, int>>(
-            ReservationsByMonth.Select(kv => new KeyValuePair<string, int>(kv.Key, kv.Value)));
+            var lineSeries = new LineSeries { Title = "Broj rezervacija", Values = new ChartValues<int>(reservationsByMonth.Values) };
+            ReservationSeries.Add(lineSeries);
+
+            foreach (var monthYear in reservationsByMonth.Keys)
+            {
+                MonthLabels.Add(monthYear);
+            }
 
             PreviousImageCommand = new RelayCommand(Execute_PreviousImage, CanExecute_Command);
             NextImageCommand = new RelayCommand(Execute_NextImage, CanExecute_Command);

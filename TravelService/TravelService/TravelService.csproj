@@ -12,11 +12,12 @@
     <None Remove="Resources\Images\airplane.png" />
     <None Remove="Resources\Images\angle-left.png" />
     <None Remove="Resources\Images\angle-right.png" />
+    <None Remove="Resources\Images\back.png" />
     <None Remove="Resources\Images\cancellation-icon.png" />
     <None Remove="Resources\Images\forum-icon.png" />
     <None Remove="Resources\Images\forum.ico" />
+    <None Remove="Resources\Images\forward.png" />
     <None Remove="Resources\Images\home-icon.png" />
-    <None Remove="Resources\Images\leftarrow.png" />
     <None Remove="Resources\Images\mini-house.png" />
     <None Remove="Resources\Images\mini-location.png" />
     <None Remove="Resources\Images\mini-renovation.png" />
@@ -45,9 +46,7 @@
     <None Remove="Resources\Icons\home.png" />
     <None Remove="Resources\Icons\keyboard.png" />
     <None Remove="Resources\Icons\play-circle.png" />
-
     <None Remove="Resources\Icons\mark-harpur-K2s_YE031CA-unsplash.jpg" />
-
     <None Remove="Resources\Icons\play.png" />
     <None Remove="Resources\Icons\stats.png" />
     <None Remove="Resources\Icons\ticket.png" />
@@ -58,7 +57,6 @@
 
     <None Remove="Resources\Images\statistics-icon.png" />
     <None Remove="Resources\Images\statistics.png" />
-    <None Remove="Resources\Images\superguest.ico" />
     <None Remove="Resources\Images\superowner.png" />
     <None Remove="Resources\Images\tail.png" />
     <None Remove="Resources\Images\travel.png" />
@@ -87,11 +85,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\back.png" />
+    <Resource Include="Resources\Images\forum.ico" />
+    <Resource Include="Resources\Images\forward.png" />
     <Resource Include="Resources\Images\mini-house.png" />
     <Resource Include="Resources\Images\mini-location.png" />
     <Resource Include="Resources\Images\mini-renovation.png" />
+    <Resource Include="Resources\Images\previous.png" />
+    <Resource Include="Resources\Images\ratings.png" />
     <Resource Include="Resources\Images\recentRenovation.png" />
     <Resource Include="Resources\Images\renovationCancel.png" />
+    <Resource Include="Resources\Images\recentRenovation.png" />
+    <Resource Include="Resources\Images\reservations.ico" />
+    <Resource Include="Resources\Images\search.ico" />
     <Resource Include="Resources\Images\superowner.png" />
   </ItemGroup>
 
@@ -111,9 +117,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\forum-icon.png" />
-    <Resource Include="Resources\Images\forum.ico" />
     <Resource Include="Resources\Images\home-icon.png" />
-    <Resource Include="Resources\Images\leftarrow.png" />
     <Resource Include="Resources\Images\minus.ico" />
     <Resource Include="Resources\Images\moving-requests-icon.png" />
     <Resource Include="Resources\Images\notification-icon.png" />
@@ -123,7 +127,6 @@
     <Resource Include="Resources\Images\rating-icon.png" />
     <Resource Include="Resources\Images\rating.png" />
     <Resource Include="Resources\Images\ratingreport.ico" />
-    <Resource Include="Resources\Images\ratings.png" />
     <Resource Include="Resources\Images\renovation-icon.png" />
     <Resource Include="Resources\Images\reservations-icon.png" />
     <Resource Include="Resources\Images\reservations-request-icon.png" />
@@ -151,15 +154,12 @@
     <Resource Include="Resources\Icons\stats.png" />
     <Resource Include="Resources\Icons\ticket.png" />
     <Resource Include="Resources\Icons\user.png" />
-    <Resource Include="Resources\Images\reservations.ico" />
-    <Resource Include="Resources\Images\search.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\Images\star.png" />
     <Resource Include="Resources\Images\statistics-icon.png" />
     <Resource Include="Resources\Images\statistics.png" />
-    <Resource Include="Resources\Images\superguest.ico" />
     <Resource Include="Resources\Images\tail.png" />
     <Resource Include="Resources\Images\travel.png" />
     <Resource Include="Resources\Images\user.ico" />
