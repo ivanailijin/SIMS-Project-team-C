@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SelectedAccommodationViewModel}"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+        xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SelectedAccommodationViewModel}"
         mc:Ignorable="d"
         Title="SelectedAccommodationView" WindowStartupLocation="CenterScreen" Height="720" Width="420">
     <Window.Resources>
@@ -58,7 +59,7 @@
                 <StackPanel>
                     <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderBrush="White">
                         <Button.Background>
-                            <ImageBrush ImageSource="/TravelService;component/Resources/Images/previous.png"></ImageBrush>
+                            <ImageBrush ImageSource="/TravelService;component/Resources/Images/left_arrow.png"></ImageBrush>
                         </Button.Background>
                     </Button>
                     <Canvas>

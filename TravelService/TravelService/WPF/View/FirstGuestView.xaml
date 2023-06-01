@@ -34,7 +34,7 @@
             <MenuItem Command="{Binding NavigateToReservationsViewCommand}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Vertical" Margin="20,8,5,3.5">
-                        <Image Source="/TravelService;component/Resources/Images/reservations.ico" Width="35" Height="35"/>
+                        <Image Source="/TravelService;component/Resources/Images/reservation.ico" Width="35" Height="35"/>
                         <TextBlock Text="Rezervacije" HorizontalAlignment="Center" Foreground="White"/>
                     </StackPanel>
                 </MenuItem.Header>
@@ -50,7 +50,7 @@
             <MenuItem Command="{Binding NavigateToProfileViewCommand}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Vertical" Margin="20,10,5,3.5">
-                        <Image Source="/TravelService;component/Resources/Images/user.ico" Width="33" Height="33"/>
+                        <Image Source="/TravelService;component/Resources/Images/user1.ico" Width="33" Height="33"/>
                         <TextBlock Text="Profil" HorizontalAlignment="Center" Foreground="White"/>
                     </StackPanel>
                 </MenuItem.Header>
