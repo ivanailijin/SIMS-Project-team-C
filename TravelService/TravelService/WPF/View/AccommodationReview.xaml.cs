@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -24,15 +25,19 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for AccommodationReview.xaml
     /// </summary>
-    public partial class AccommodationReview : Window, INotifyPropertyChanged
+    public partial class AccommodationReview : Page, INotifyPropertyChanged, INavigationInterface
     {
         public AccommodationReview(Accommodation selectedAccommodation, Owner owner)
         {
             InitializeComponent();
-            AccommodationReviewViewModel accommodationReviewViewModel = new AccommodationReviewViewModel(selectedAccommodation, owner);
+            AccommodationReviewViewModel accommodationReviewViewModel = new AccommodationReviewViewModel(selectedAccommodation, owner, this);
             DataContext = accommodationReviewViewModel;
-            if (accommodationReviewViewModel.CloseAction == null)
-                accommodationReviewViewModel.CloseAction = new Action(this.Close);
+            //if (accommodationReviewViewModel.CloseAction == null)
+               // accommodationReviewViewModel.CloseAction = new Action(this.Close);
+        }
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

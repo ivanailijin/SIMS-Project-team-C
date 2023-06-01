@@ -26,9 +26,9 @@ namespace TravelService.WPF.ViewModel
         public MovingReservationRequestsView MovingReservationRequestsView { get; set; }
         public ReservationRequest SelectedRequest { get; set; }
         public Action CloseAction { get; set; }
-        public ICommand DeclineRequestCommand { get; set; }
-        public ICommand ApproveRequestCommand { get; set; }
-        public ICommand CancelCommand { get; set; }
+        public RelayCommand DeclineRequestCommand { get; set; }
+        public RelayCommand ApproveRequestCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
 
 
         public MovingReservationRequestsViewModel(MovingReservationRequestsView movingReservationRequestsView)

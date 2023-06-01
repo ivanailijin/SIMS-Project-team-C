@@ -151,8 +151,10 @@
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1">
                     <StackPanel Orientation="Vertical" Width="512">
-                        <TextBlock HorizontalAlignment="Center" FontFamily="Candara" FontSize="20" FontWeight="SemiBold" Margin="0 8 0 0" VerticalAlignment="Center" Text="Najmanje popularna lokacija:"></TextBlock>
-                        <Border Width="200" Height="108" CornerRadius="3" Margin="0 15 0 0" Background="White" BorderBrush="Black" BorderThickness="1">
+
+                        <TextBlock HorizontalAlignment="Center" FontFamily="Candara" FontSize="20" FontWeight="SemiBold" Margin="0 8 0 0" VerticalAlignment="Center" Text="Najmanje popularna lokacija:">
+                            </TextBlock>
+                            <Border Width="200" Height="108" CornerRadius="3" Margin="0 15 0 0" Background="White" BorderBrush="Black" BorderThickness="1">
                             <ListBox Background="White" FontFamily="Candara" FontSize="15" SelectedItem="{Binding SelectedDeleteLocation}" HorizontalAlignment="Center" ItemsSource="{Binding LeastPopularLocations}">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>

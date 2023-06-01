@@ -31,8 +31,6 @@ namespace TravelService.View
             InitializeComponent();
             MovingReservationRequestsViewModel movingReservationRequestsViewModel = new MovingReservationRequestsViewModel(this);
             DataContext = movingReservationRequestsViewModel;
-            //if (movingReservationRequestsViewModel.CloseAction == null)
-              //  movingReservationRequestsViewModel.CloseAction = new Action(this.Close);
 
         }
         public void GoBack()

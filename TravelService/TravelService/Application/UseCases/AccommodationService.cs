@@ -80,7 +80,7 @@ namespace TravelService.Application.UseCases
         {
             List<Location> locations = _locationService.GetAll();
             foreach (Accommodation accommodation in accommodations)
-            {
+            { 
                 accommodation.Location = locations.Find(l => l.Id == accommodation.LocationId);
             }
             return accommodations;
@@ -183,6 +183,23 @@ namespace TravelService.Application.UseCases
             }
 
             return numberOfAccommodations;
+        }
+
+        public List<Accommodation> GetAccommodationsByLocation(Location location)
+        {
+            List<Accommodation> accommodations = GetAll();
+            accommodations = GetLocationData(accommodations);
+            List<Accommodation> locationAccommodations = new List<Accommodation>();
+
+            foreach(Accommodation accommodation in accommodations)
+            {
+                if(accommodation.Location.Country == location.Country && accommodation.Location.City == location.City)
+                {
+                    locationAccommodations.Add(accommodation);
+                }
+            }
+
+            return locationAccommodations;
         }
 
         public List<AccommodationRenovation> GetAccommodationData(List <AccommodationRenovation> renovations)

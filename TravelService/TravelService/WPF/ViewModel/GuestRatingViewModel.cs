@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -28,6 +29,7 @@ namespace TravelService.WPF.ViewModel
 
         private readonly Guest1Service _guest1Service;
 
+        public ObservableCollection<AccommodationReservation> UnratedReservations { get; set; } 
         public GuestRatingView GuestRatingView { get; set; }
         public Action CloseAction { get; set; }
         public ICommand CancelCommand { get; set; }
@@ -182,13 +184,14 @@ namespace TravelService.WPF.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public GuestRatingViewModel(AccommodationReservation selectedReservation, Owner owner, GuestRatingView guestRatingView) 
+        public GuestRatingViewModel(AccommodationReservation selectedReservation, Owner owner, GuestRatingView guestRatingView, ObservableCollection<AccommodationReservation> unratedReservations) 
         {
             InitializeCommands();
             SelectedReservation = selectedReservation;
             ReservationId = selectedReservation.Id;
             this.Owner = owner;
             GuestRatingView = guestRatingView;
+            UnratedReservations = unratedReservations;
             _guestRatingService = new GuestRatingService(Injector.CreateInstance<IGuestRatingRepository>());
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
@@ -217,8 +220,9 @@ namespace TravelService.WPF.ViewModel
             AccommodationReservation ratedReservation = _reservationService.FindById(ReservationId);
             ratedReservation.IsRated = true;
             _reservationService.Update(ratedReservation);
+            UnratedReservations.Remove(ratedReservation);
 
-            CloseAction();
+            GuestRatingView.GoBack();
         }
 
         private void Execute_CancelCommand(object obj)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.Application.UseCases
 {
@@ -17,11 +18,14 @@ namespace TravelService.Application.UseCases
 
         private readonly RenovationRecommendationService _recommendationService;
 
+        private readonly LocationService _locationService;
+
         public AccommodationStatisticsService()
         {
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
             _recommendationService = new RenovationRecommendationService(Injector.CreateInstance<IRenovationRecommendationRepository>());
+            _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
         }
 
         public List<AccommodationYearStatistics> GetAccommodationYearStatistics(Accommodation accommodation)
@@ -74,7 +78,134 @@ namespace TravelService.Application.UseCases
 
             return busiestMonth;
         }
+        public List<Location> GetThreeLocationsByHighestBusyness()
+        {
+            List<Location> allLocations = _locationService.GetAll();
+            List<Location> topThreeLocations = new List<Location>();
 
+            List<Location> sortedLocations = allLocations.OrderByDescending(l => _reservationService.GetBusynessByLocation(l)).ToList();
+            topThreeLocations = sortedLocations.Take(3).ToList();
+
+            return topThreeLocations;
+        }
+        public List<Location> GetThreeLocationsByLowestBusyness()
+        {
+            List<Location> allLocations = _locationService.GetAll();
+            List<Location> topThreeLocations = new List<Location>();
+
+            List<Location> sortedLocations = allLocations.OrderByDescending(l => _reservationService.GetBusynessByLocation(l)).ToList();
+            sortedLocations.Reverse();
+            topThreeLocations = sortedLocations.Take(3).ToList();
+
+            return topThreeLocations;
+        }
+        public List<Location> GetThreeLocationsByHighestReservations()
+        {
+            List<Location> allLocations = _locationService.GetAll();
+            List<Location> topThreeLocations = new List<Location>();
+
+            List<Location> sortedLocations = allLocations.OrderByDescending(l => _reservationService.GetReservationsNumberByLocation(l)).ToList();
+            topThreeLocations = sortedLocations.Take(3).ToList();
+
+            return topThreeLocations;
+        }
+        public List<Location> GetThreeLocationsByLowestReservations()
+        {
+            List<Location> allLocations = _locationService.GetAll();
+            List<Location> topThreeLocations = new List<Location>();
+
+            List<Location> sortedLocations = allLocations.OrderByDescending(l => _reservationService.GetReservationsNumberByLocation(l)).ToList();
+            sortedLocations.Reverse();
+            topThreeLocations = sortedLocations.Take(3).ToList();
+
+            return topThreeLocations;
+        }
+        public List<Location> GetLocationsWithHighestParameters()
+        {
+            List<Location> locationsByReservations = GetThreeLocationsByHighestReservations();
+            List<Location> locationsByBusyness = GetThreeLocationsByHighestBusyness();
+
+            List<Location> mergedLocations = locationsByReservations.Concat(locationsByBusyness).ToList();
+
+            List<Location> sortedLocations = mergedLocations.OrderByDescending(l => _reservationService.GetReservationsNumberByLocation(l)).ThenByDescending(l => _reservationService.GetBusynessByLocation(l)).ToList();
+
+            List<Location> distinctLocations = new List<Location>();
+
+            foreach (Location location in sortedLocations)
+            {
+                if (!ContainLocation(location, distinctLocations))
+                {
+                    distinctLocations.Add(location);
+                }
+            }
+
+            List<Location> topThreeLocations = distinctLocations.Take(3).ToList();
+
+            return topThreeLocations;
+        }
+        public List<Location> GetLocationsWithLowestParameters()
+        {
+            List<Location> locationsByReservations = GetThreeLocationsByLowestReservations();
+            List<Location> locationsByBusyness = GetThreeLocationsByLowestBusyness();
+
+            List<Location> mergedLocations = locationsByReservations.Concat(locationsByBusyness).ToList();
+
+            List<Location> sortedLocations = mergedLocations.OrderByDescending(l => _reservationService.GetReservationsNumberByLocation(l)).ThenByDescending(l => _reservationService.GetBusynessByLocation(l)).ToList();
+
+            List<Location> distinctLocations = new List<Location>();
+
+            foreach (Location location in sortedLocations)
+            {
+                if (!ContainLocation(location, distinctLocations))
+                {
+                    distinctLocations.Add(location);
+                }
+            }
+
+            List<Location> topThreeLocations = distinctLocations.Take(3).ToList();
+
+            return topThreeLocations;
+        }
+        private bool ContainLocation(Location location, List<Location> locations)
+        {
+            foreach (Location location2 in locations)
+            {
+                if (location2.Id == location.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public Location GetMostPopularLocation()
+        {
+            List<Location> locations = _locationService.GetAll();
+
+            Location MostPopularLocation = locations[0];
+
+            foreach(Location location in locations)
+            {
+                if(_reservationService.GetReservationsNumberByLocation(location) > _reservationService.GetReservationsNumberByLocation(MostPopularLocation))
+                    MostPopularLocation = location;
+            }
+
+            return MostPopularLocation;
+        }
+
+        public Location GetLeastPopularLocation()
+        {
+            List<Location> locations = _locationService.GetAll();
+
+            Location LeastPopularLocation = locations[0];
+
+            foreach (Location location in locations)
+            {
+                if (_reservationService.GetReservationsNumberByLocation(location) < _reservationService.GetReservationsNumberByLocation(LeastPopularLocation))
+                    LeastPopularLocation = location;
+            }
+
+            return LeastPopularLocation;
+        }
         public List<AccommodationMonthStatistics> GetAccommodationMonthStatistics(Accommodation accommodation, int year)
         {
             List<AccommodationMonthStatistics> statistics = new List<AccommodationMonthStatistics>();

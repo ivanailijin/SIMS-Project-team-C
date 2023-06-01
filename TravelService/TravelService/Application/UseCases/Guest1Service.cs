@@ -47,6 +47,24 @@ namespace TravelService.Application.UseCases
             return UnratedReservations;
         }
 
+        public List<Guest1> FindCommonGuests(List<Guest1> firstList, List<Guest1> secondList)
+        {
+            List<Guest1> commonGuests = new List<Guest1>();
+
+            foreach (Guest1 guest in firstList)
+            {
+                foreach (Guest1 guest2 in secondList)
+                {
+                    if (guest.Id == guest2.Id)
+                    {
+                        commonGuests.Add(guest);
+                        break;
+                    }
+                }
+            }
+            return commonGuests;
+        }
+
         public List<AccommodationReservation> GetReservationsInLastYear(Guest1 guest)
         {
             DateTime oneYearAgo = DateTime.Today.AddYears(-1);

@@ -46,6 +46,38 @@ namespace TravelService.Application.UseCases
         {
             return _accommodationReservationRepository.FindById(id);
         }
+        public List<AccommodationReservation> GetReservationsByLocation(Location location)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            GetAccommodationData(reservations);
+            GetLocationData(reservations);
+            List<AccommodationReservation> reservationsByLocation = new List<AccommodationReservation>();
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if(reservation.Accommodation.Location.Country == location.Country && reservation.Accommodation.Location.City == location.City)
+                {
+                    reservationsByLocation.Add(reservation);
+                }
+            }
+            return reservationsByLocation;
+        }
+
+        public double GetBusynessByLocation(Location location)
+        {
+            List<AccommodationReservation> reservations = GetReservationsByLocation(location);
+
+            double busyness = 0;
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                for(int year = reservation.Accommodation.DateCreated.Year; year < DateTime.Today.Year; year++)
+                {
+                    busyness += GetBusynessPerYear(reservation.Accommodation, year);
+                }
+            }
+            return busyness;
+        }
 
         public List<AccommodationReservation> FindByGuestId(int guestId)
         {
@@ -192,6 +224,24 @@ namespace TravelService.Application.UseCases
             return (double)daysCount / daysInMonth;
         }
 
+        public int GetReservationsNumberByLocation(Location location)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            reservations = GetAccommodationData(reservations);
+            GetLocationData(reservations);
+
+            int reservationsNumber = 0;
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if(reservation.Accommodation.Location.Id == location.Id)
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
         public List<AccommodationReservation> GetReservationsInYear(Accommodation accommodation, int year)
         {
             List<AccommodationReservation> yearsReservations = new List<AccommodationReservation>();
@@ -403,7 +453,7 @@ namespace TravelService.Application.UseCases
             List<Location> locations = _locationService.GetAll();
             foreach (AccommodationReservation reservation in reservations)
             {
-                reservation.Location = locations.Find(l => l.Id == reservation.LocationId);
+                reservation.Accommodation.Location = locations.Find(l => l.Id == reservation.Accommodation.LocationId);
             }
             return reservations;
         }

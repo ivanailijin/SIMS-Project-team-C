@@ -57,7 +57,8 @@ namespace TravelService.WPF.ViewModel
             if (SelectedAccommodation != null && Owner != null)
             {
                 AccommodationReview accommodationReview = new AccommodationReview(SelectedAccommodation, Owner);
-                accommodationReview.Show();
+                OwnerWindow ownerWindow = Window.GetWindow(ReviewsSelectionView) as OwnerWindow;
+                ownerWindow?.SwitchToPage(accommodationReview);
             }
             else
             {

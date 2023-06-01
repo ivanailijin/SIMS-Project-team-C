@@ -182,7 +182,7 @@ namespace TravelService.WPF.ViewModel
         }
 
 
-        public AddAccommodationViewModel(Owner owner)
+        public AddAccommodationViewModel(Owner owner, Location location)
         {
             InitializeCommands();
             this.Owner = owner;
@@ -190,6 +190,16 @@ namespace TravelService.WPF.ViewModel
             ListBoxPictures = new ObservableCollection<string>();
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
+
+            if (location != null)
+            {
+                Location = location.CityAndCountry;
+            }
+            else
+            {
+                Location = "";
+            }
+
         }
         public string Error
         {
@@ -234,7 +244,6 @@ namespace TravelService.WPF.ViewModel
                     Pictures += "|";
                     string destinationFilePath = Path.Combine(destinationFolder, Path.GetFileName(file));
                     File.Copy(file, destinationFilePath);
-                    //BitmapImage image = new BitmapImage(new Uri(file));
                     ListBoxPictures.Add(file);
                 }
 
