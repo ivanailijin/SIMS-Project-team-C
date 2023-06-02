@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TravelService.WPF.View.RatingView"
+﻿<Page x:Class="TravelService.WPF.View.RatingView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RatingViewModel}"
         mc:Ignorable="d"
         Height="655" Width="420">
-    <UserControl.Resources>
+    <Page.Resources>
         <Style TargetType="DataGrid">
             <Setter Property="Background" Value="#d9ffcc" />
             <Setter Property="BorderBrush" Value="Gray" />
@@ -125,7 +125,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </UserControl.Resources>
+    </Page.Resources>
     <TabControl>
         <TabItem Header="Ocenjivanje smestaja" FontSize="14">
             <Grid>
@@ -160,7 +160,7 @@
                                     </Style>
                                 </DataGridTextColumn.EditingElementStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="80">
+                            <DataGridTextColumn Header="Location" Binding="{Binding Accommodation.Location.CityAndCountry}" Width="80">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextWrapping" Value="Wrap" />
@@ -280,4 +280,4 @@
             </Grid>
         </TabItem>
     </TabControl>
-</UserControl>
+</Page>

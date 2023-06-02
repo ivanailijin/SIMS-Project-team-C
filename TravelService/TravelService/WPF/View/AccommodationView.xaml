@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TravelService.WPF.View.AccommodationView"
+﻿<Page x:Class="TravelService.WPF.View.AccommodationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Height="655" Width="420">
-    <UserControl.Resources>
+    <Page.Resources>
         <local:BooleanToTextConverter x:Key="BooleanToTextConverter" />
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:EnumToStringConverter x:Key="EnumConverter" />
@@ -70,7 +70,7 @@
             </Setter>
         </Style>
 
-    </UserControl.Resources>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>
@@ -145,4 +145,4 @@
             </i:Interaction.Triggers>
         </ListBox>
     </Grid>
-</UserControl>
+</Page>

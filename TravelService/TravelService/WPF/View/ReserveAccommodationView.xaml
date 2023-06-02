@@ -1,11 +1,11 @@
-﻿<Window x:Class="TravelService.WPF.View.ReserveAccommodationView"
+﻿<Page x:Class="TravelService.WPF.View.ReserveAccommodationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="ReserveAccommodationView"  WindowStartupLocation="CenterScreen" Height="720" Width="420">
+        Title="ReserveAccommodationView" Height="720" Width="420">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -13,9 +13,9 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" HorizontalAlignment="Left" Width="30" Height="30" BorderBrush="White">
+        <Button Grid.Row="0" HorizontalAlignment="Left" Width="30" Height="30" BorderBrush="White" Command="{Binding PreviousPageCommand}">
             <Button.Background>
-                <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.png"></ImageBrush>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/previous.png"></ImageBrush>
             </Button.Background>
         </Button>
 
@@ -48,4 +48,4 @@
             <Button Width="320" Height="65" Content="Rezervisi" FontSize="20" Command="{Binding ReserveAccommodationCommand}"></Button>
         </Grid>
     </Grid>
-</Window>
+</Page>

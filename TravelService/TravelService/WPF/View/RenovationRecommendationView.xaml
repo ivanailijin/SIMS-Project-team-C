@@ -1,12 +1,12 @@
-﻿<Window x:Class="TravelService.WPF.View.RenovationRecommendationView"
+﻿<Page x:Class="TravelService.WPF.View.RenovationRecommendationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="RenovationRecommendationView" Height="720" Width="420" WindowStartupLocation="CenterScreen" Background="#cce6ff">
-    <Window.Resources>
+        Title="RenovationRecommendationView" Height="720" Width="420" Background="#cce6ff">
+    <Page.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="16"/>
@@ -42,11 +42,11 @@
             </Setter>
         </Style>
 
-    </Window.Resources>
+    </Page.Resources>
     <StackPanel>
         <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderThickness="0">
             <Button.Background>
-                <ImageBrush ImageSource="/TravelService;component/Resources/Images/leftarrow.png"></ImageBrush>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/previous.png"></ImageBrush>
             </Button.Background>
         </Button>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -85,4 +85,4 @@
         </Border>
         <Button Width="170" Height="60" HorizontalAlignment="Right" Margin="0,10,30,0" Style="{StaticResource sendRecommendationButtonStyle}" Command="{Binding SendRecommendationCommand}"></Button>
     </StackPanel>
-</Window>
+</Page>

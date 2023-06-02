@@ -21,8 +21,8 @@ namespace TravelService.WPF.ViewModel
     {
         private Guest1Service _guest1Service;
         private AccommodationReservationService _reservationService;
-        public Window FirstView { get; set; }
         public Guest1 Guest1 { get; set; }
+        public FirstGuestProfileView FirstGuestProfileView { get; set; }
         public SeriesCollection ReservationSeries { get; set; }
         public List<string> MonthLabels { get; set; }
 
@@ -67,12 +67,12 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        public FirstGuestProfileViewModel(Window firstView, Guest1 guest1)
+        public FirstGuestProfileViewModel(FirstGuestProfileView firstGuestProfileView, Guest1 guest1)
         {
             _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             Guest1 = guest1;
-            FirstView = firstView;
+            FirstGuestProfileView = firstGuestProfileView;
 
             List<AccommodationReservation> reservationsInLastYear = _guest1Service.GetReservationsInLastYear(Guest1);
             int reservationsCount = reservationsInLastYear.Count;
@@ -111,7 +111,8 @@ namespace TravelService.WPF.ViewModel
         {
             SignInForm signInForm = new SignInForm();
             signInForm.Show();
-            FirstView.Close();
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(FirstGuestProfileView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow.Close();
         }
     }
 }

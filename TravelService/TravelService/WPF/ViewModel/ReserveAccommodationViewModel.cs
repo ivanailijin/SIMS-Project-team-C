@@ -20,10 +20,10 @@ namespace TravelService.WPF.ViewModel
         private AccommodationReservationService _accommodationReservationService;
         private Guest1Service _guest1Service;
         public Accommodation SelectedAccommodation { get; set; }
+        public ReserveAccommodationView ReserveAccommodationView { get; set; }
         public Guest1 Guest1 { get; set; }
         public ObservableCollection<AccommodationReservation> Reservations { get; set; }
         public Tuple<DateTime, DateTime> SelectedAvailableDatePair { get; set; }
-        public Action CloseAction { get; set; }
 
 
         private int _lengthOfStay;
@@ -96,10 +96,25 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public ReserveAccommodationViewModel(Accommodation selectedAccommodation, Guest1 guest1, List<Tuple<DateTime, DateTime>> availableDateRange, List<Tuple<DateTime, DateTime>> availableDateOutsideRange, int lengthOfStay)
+        private RelayCommand _previousPageCommand;
+        public RelayCommand PreviousPageCommand
+        {
+            get => _previousPageCommand;
+            set
+            {
+                if (value != _previousPageCommand)
+                {
+                    _previousPageCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ReserveAccommodationViewModel(ReserveAccommodationView reserveAccommodationView, Accommodation selectedAccommodation, Guest1 guest1, List<Tuple<DateTime, DateTime>> availableDateRange, List<Tuple<DateTime, DateTime>> availableDateOutsideRange, int lengthOfStay)
         {
             _accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
+            ReserveAccommodationView = reserveAccommodationView;
             AvailableDatesPair = new ObservableCollection<Tuple<DateTime, DateTime>>(availableDateRange);
             if (availableDateRange.Count == 0)
             {
@@ -114,6 +129,7 @@ namespace TravelService.WPF.ViewModel
             LengthOfStay = lengthOfStay;
 
             ReserveAccommodationCommand = new RelayCommand(Execute_ReserveAccommodation, CanExecute_Command);
+            PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -140,12 +156,24 @@ namespace TravelService.WPF.ViewModel
                     Guest1.BonusPoints--;
                 }
                 _guest1Service.Update(Guest1);
-                CloseAction();
+                SelectedAccommodationView selectedAccommodationView = new SelectedAccommodationView(SelectedAccommodation, Guest1);
+                FirstGuestWindow firstGuestWindow = Window.GetWindow(ReserveAccommodationView) as FirstGuestWindow;
+                firstGuestWindow?.SwitchToPage(selectedAccommodationView);
             }
             else
             {
                 MessageBox.Show("Please choose date range for your reservation.");
             }
+        }
+
+        public void GoBack()
+        {
+            ReserveAccommodationView.GoBack();
+        }
+
+        private void Execute_PreviousPage(object sender)
+        {
+            GoBack();
         }
     }
 }

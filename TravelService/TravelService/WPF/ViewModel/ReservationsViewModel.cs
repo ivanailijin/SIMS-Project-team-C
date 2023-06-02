@@ -20,8 +20,8 @@ namespace TravelService.WPF.ViewModel
         private readonly AccommodationService _accommodationService;
         private readonly ReservationRequestService _reservationRequestService;
         public AccommodationReservation SelectedActiveReservation { get; set; }
+        public ReservationsView ReservationsView { get; set; }
         public Guest1 Guest1 { get; set; }
-        public Action CloseAction { get; set; }
 
         public event PropertyChangedEventHandler RequestStatusChanged;
 
@@ -77,9 +77,10 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public ReservationsViewModel(Guest1 guest1)
+        public ReservationsViewModel(ReservationsView reservationsView, Guest1 guest1)
         {
             Guest1 = guest1;
+            ReservationsView = reservationsView;
             _accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());

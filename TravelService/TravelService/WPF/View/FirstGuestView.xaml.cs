@@ -19,16 +19,13 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for FirstGuestView.xaml
     /// </summary>
-    public partial class FirstGuestView : Window
+    public partial class FirstGuestView : Page
     {
-        public FirstGuestViewModel firstGuestViewModel { get; set; }
         public FirstGuestView(Guest1 guest1)
         {
             InitializeComponent();
-            var accommodationView = new AccommodationView(guest1);
-            frame.Content = accommodationView;
-            this.firstGuestViewModel = new FirstGuestViewModel(this,frame,guest1);
-            this.DataContext = this.firstGuestViewModel;
+            FirstGuestViewModel firstGuestViewModel = new FirstGuestViewModel(this,frame,guest1);
+            DataContext = firstGuestViewModel;
         }
     }
 }

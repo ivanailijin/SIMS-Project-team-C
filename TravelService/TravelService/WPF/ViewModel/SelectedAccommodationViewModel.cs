@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TravelService.Application.UseCases;
@@ -14,6 +15,7 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.Services;
 using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
@@ -22,8 +24,7 @@ namespace TravelService.WPF.ViewModel
     {
         private AccommodationReservationService _reservationService;
         public Guest1 Guest1 { get; set; }
-        public Action CloseAction { get; set; }
-
+        public SelectedAccommodationView SelectedAccommodationView { get; set; }
         public SeriesCollection ReservationSeries { get; set; }
         public List<string> MonthLabels { get; set; }
 
@@ -127,9 +128,11 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public SelectedAccommodationViewModel(Accommodation selectedAccommodation, Guest1 guest1)
+        public SelectedAccommodationViewModel(SelectedAccommodationView selectedAccommodationView, Accommodation selectedAccommodation, Guest1 guest1)
         {
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            SelectedAccommodationView = selectedAccommodationView;
+
             SelectedAccommodation = selectedAccommodation;
             Guest1 = guest1;
             _currentIndex = 0;
@@ -161,7 +164,10 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_PreviousPage(object sender)
         {
-            CloseAction();
+            FirstGuestView firstGuestView = new FirstGuestView(Guest1);
+            firstGuestView.frame.Navigate(new AccommodationView(Guest1));
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(SelectedAccommodationView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow?.SwitchToPage(firstGuestView);
         }
 
         private void Execute_PreviousImage(object sender)
@@ -185,7 +191,8 @@ namespace TravelService.WPF.ViewModel
         private void Execute_AccommodationAvailabilityWindow(object sender)
         {
             AccommodationAvailabilityView accommodationAvailabilityView = new AccommodationAvailabilityView(SelectedAccommodation, Guest1);
-            accommodationAvailabilityView.Show();
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(SelectedAccommodationView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow?.SwitchToPage(accommodationAvailabilityView);
         }
     }
 }

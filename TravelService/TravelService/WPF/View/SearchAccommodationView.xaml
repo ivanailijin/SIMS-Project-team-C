@@ -1,4 +1,4 @@
-﻿<Window x:Class="TravelService.WPF.View.SearchAccommodationView"
+﻿<Page x:Class="TravelService.WPF.View.SearchAccommodationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,8 +6,8 @@
         xmlns:val="clr-namespace:TravelService.Validation"
         xmlns:local="clr-namespace:TravelService.WPF.View" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SearchAccommodationViewModel}"
         mc:Ignorable="d"
-        Title="SearchAccommodationView" WindowStartupLocation="CenterScreen" Height="720" Width="420" Background="#cce6ff">
-    <Window.Resources>
+        Title="SearchAccommodationView" Height="720" Width="420" Background="#cce6ff">
+    <Page.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
         <Style TargetType="TextBox">
             <Setter Property="BorderThickness" Value="2,2,2,2"></Setter>
@@ -36,7 +36,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -172,4 +172,4 @@
         </Grid>
 
     </Grid>
-</Window>
+</Page>

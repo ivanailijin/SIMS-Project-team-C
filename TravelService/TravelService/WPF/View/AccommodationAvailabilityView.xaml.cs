@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -19,17 +20,18 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for AccommodationAvailabilityView.xaml
     /// </summary>
-    public partial class AccommodationAvailabilityView : Window
+    public partial class AccommodationAvailabilityView : Page, INavigationInterface
     {
         public AccommodationAvailabilityView(Accommodation selectedAccommodation, Guest1 guest1)
         {
             InitializeComponent();
-            AccommodationAvailabilityViewModel accommodationAvailabilityViewModel = new AccommodationAvailabilityViewModel(selectedAccommodation, guest1);
+            AccommodationAvailabilityViewModel accommodationAvailabilityViewModel = new AccommodationAvailabilityViewModel(this, selectedAccommodation, guest1);
             DataContext = accommodationAvailabilityViewModel;
-            if (accommodationAvailabilityViewModel.CloseAction == null)
-            {
-                accommodationAvailabilityViewModel.CloseAction = new Action(this.Close);
-            }
+        }
+
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
     }
 }

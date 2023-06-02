@@ -22,7 +22,7 @@ namespace TravelService.WPF.ViewModel
         private GuestRatingService _guestRatingService;
         public AccommodationReservation SelectedUnratedOwner { get; set; }
         public Guest1 Guest1 { get; set; }
-        public Frame Frame { get; set; }
+        public RatingView RatingView { get; set; }
 
         private ObservableCollection<AccommodationReservation> _unratedOwners;
         public ObservableCollection<AccommodationReservation> UnratedOwners
@@ -66,16 +66,16 @@ namespace TravelService.WPF.ViewModel
 
             }
         }
-        public RatingViewModel(Guest1 guest1, Frame frame)
+        public RatingViewModel(RatingView ratingView, Guest1 guest1)
         {
             this.Guest1 = guest1;
-            Frame = frame;
+            RatingView = ratingView;
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _guestRatingService = new GuestRatingService(Injector.CreateInstance<IGuestRatingRepository>());
 
             List<AccommodationReservation> reservations = new List<AccommodationReservation>(_reservationService.FindUnratedOwners(Guest1.Id));
-            reservations = _reservationService.GetLocationData(reservations);
             reservations = _reservationService.GetAccommodationData(reservations);
+            reservations = _reservationService.GetLocationData(reservations);
             reservations = _reservationService.GetOwnerData(reservations);
             UnratedOwners = new ObservableCollection<AccommodationReservation>(reservations);
 
@@ -99,25 +99,14 @@ namespace TravelService.WPF.ViewModel
         {
             if (SelectedUnratedOwner != null)
             {
-                OwnerRatingView ownerRatingView = new OwnerRatingView(this, SelectedUnratedOwner);
-                ownerRatingView.Closed += OwnerRatingView_Closed; 
-                ownerRatingView.ShowDialog();
+                OwnerRatingView ownerRatingView = new OwnerRatingView(this, Guest1, SelectedUnratedOwner);
+                FirstGuestWindow firstGuestWindow = Window.GetWindow(RatingView) as FirstGuestWindow ?? new(Guest1);
+                firstGuestWindow?.SwitchToPage(ownerRatingView);
             }
             else
             {
                 MessageBox.Show("Odaberite smestaj za ocenjivanje!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-        }
-
-        private void OwnerRatingView_Closed(object sender, EventArgs e)
-        {
-            List<GuestRating> guestRatings = new List<GuestRating>(_guestRatingService.FindCommonGuestRatings(Guest1.Id));
-            guestRatings = _guestRatingService.GetOwnerData(guestRatings);
-            guestRatings = _guestRatingService.GetReservationData(guestRatings);
-            guestRatings = _guestRatingService.GetAccommodationData(guestRatings);
-            guestRatings = _guestRatingService.GetLocationData(guestRatings);
-
-            GuestRatings = new ObservableCollection<GuestRating>(guestRatings);
         }
     }
 }

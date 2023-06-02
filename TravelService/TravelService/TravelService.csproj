@@ -28,6 +28,7 @@
 		<None Remove="Resources\Images\notification-icon.png" />
 		<None Remove="Resources\Images\plane.png" />
 		<None Remove="Resources\Images\plus.ico" />
+		<None Remove="Resources\Images\previous.png" />
 		<None Remove="Resources\Images\profile-icon.png" />
 		<None Remove="Resources\Images\rating-icon.png" />
 		<None Remove="Resources\Images\rating.png" />
@@ -96,6 +97,7 @@
 		<Resource Include="Resources\Images\mini-house2.png" />
 		<Resource Include="Resources\Images\mini-location.png" />
 		<Resource Include="Resources\Images\mini-renovation.png" />
+		<Resource Include="Resources\Images\previous.png" />
 		<Resource Include="Resources\Images\recentRenovation.png" />
 		<Resource Include="Resources\Images\superowner.png" />
 	</ItemGroup>

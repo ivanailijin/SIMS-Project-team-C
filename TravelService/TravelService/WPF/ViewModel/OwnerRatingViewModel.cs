@@ -19,8 +19,9 @@ namespace TravelService.WPF.ViewModel
         private AccommodationReservationService _reservationService;
         private OwnerService _ownerService;
         private OwnerRatingService _ownerRatingService;
+        public OwnerRatingView OwnerRatingView { get; set; }
         public AccommodationReservation SelectedUnratedOwner { get; set; }
-        public Action CloseAction { get; set; }
+        public Guest1 Guest1 { get; set; }
 
         private string _accommodationName;
         public string AccommodationName
@@ -220,10 +221,12 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public OwnerRatingViewModel(RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
+        public OwnerRatingViewModel(OwnerRatingView ownerRatingView, RatingViewModel ratingViewModel, Guest1 guest, AccommodationReservation selectedUnratedOwner)
         {
             _ratingViewModel = ratingViewModel;
+            OwnerRatingView = ownerRatingView;
             SelectedUnratedOwner = selectedUnratedOwner;
+            Guest1 = guest;
             PicturesList = new ObservableCollection<string>();
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
@@ -278,7 +281,7 @@ namespace TravelService.WPF.ViewModel
 
                 _ratingViewModel.UnratedOwners.Remove(ratedOwner);
 
-                CloseAction();
+                GoBack();
             }
         }
 
@@ -315,6 +318,11 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        public void GoBack()
+        {
+            OwnerRatingView.GoBack();
+        }
+
         private void Execute_RenovationRecommendation(object sender)
         {
             List<string> formattedPictures = new List<string>();
@@ -327,18 +335,20 @@ namespace TravelService.WPF.ViewModel
             }
 
             OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.Accommodation.Id, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
-            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView(CloseAction, SelectedUnratedOwner, ownerRating);
-            renovationRecommendationView.Show();
+            RenovationRecommendationView renovationRecommendationView = new RenovationRecommendationView(SelectedUnratedOwner, Guest1, ownerRating);
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(OwnerRatingView) as FirstGuestWindow;
+            firstGuestWindow?.SwitchToPage(renovationRecommendationView);
+
 
             AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
-            ratedOwner.IsOwnerRated = true;
-            _reservationService.Update(ratedOwner);
+          //  ratedOwner.IsOwnerRated = true;
+          //  _reservationService.Update(ratedOwner);
             _ratingViewModel.UnratedOwners.Remove(ratedOwner);
         }
 
         private void Execute_PreviousPage(object sender)
         {
-            CloseAction();
+            GoBack();
         }
     }
 }
