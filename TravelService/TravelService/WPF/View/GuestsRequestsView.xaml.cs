@@ -17,9 +17,6 @@ using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
-    /// <summary>
-    /// Interaction logic for GuestsRequestsView.xaml
-    /// </summary>
     public partial class GuestsRequestsView : Window, INotifyPropertyChanged
     {
         public GuestsRequestsView(Guest2 guest2)

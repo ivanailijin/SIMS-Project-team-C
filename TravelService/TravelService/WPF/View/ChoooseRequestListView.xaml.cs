@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -18,19 +17,17 @@ using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
-    public partial class AddTourRequestView : Window, INotifyPropertyChanged
+    public partial class ChoooseRequestListView : Window
     {
-        public bool IsForwarded { get; set; }
-        public AddTourRequestView(Guest2 guest2, bool isForwarded, ObservableCollection<TourRequest> tourRequests)
+        public ChoooseRequestListView(Guest2 guest2)
         {
             InitializeComponent();
-            AddTourRequestViewModel addTourRequestViewModel = new AddTourRequestViewModel(guest2, isForwarded, tourRequests);
-            DataContext = addTourRequestViewModel;
-            if (addTourRequestViewModel.CloseAction == null)
+            ChooseRequestListViewModel chooseRequestListViewModel = new ChooseRequestListViewModel(guest2);
+            DataContext = chooseRequestListViewModel;
+            if (chooseRequestListViewModel.CloseAction == null)
             {
-                addTourRequestViewModel.CloseAction = new Action(this.Close);
+                chooseRequestListViewModel.CloseAction = new Action(this.Close);
             }
-            IsForwarded = isForwarded;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
     }

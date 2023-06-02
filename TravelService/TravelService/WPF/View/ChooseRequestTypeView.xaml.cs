@@ -17,7 +17,7 @@ using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
-    public partial class ChooseRequestTypeView : Window
+    public partial class ChooseRequestTypeView : Window, INotifyPropertyChanged
     {
         public ChooseRequestTypeView(Guest2 guest2)
         {

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using TravelService.Serializer;
-using TravelService.WPF.View;
 
 
 namespace TravelService.Domain.Model
@@ -14,16 +10,17 @@ namespace TravelService.Domain.Model
         public int Id { get; set; }
         public List<TourRequest> TourRequests { get; set; }
         public APPROVAL Acceptance { get; set; }
+        public Guest2 Guest2 { get; set; }
         public ComplexTourRequest()
         {
             TourRequests = new List<TourRequest>();
         }
 
-        public ComplexTourRequest(int id, APPROVAL acceptance)
+        public ComplexTourRequest(List<TourRequest> tourRequests, APPROVAL acceptance, Guest2 guest2)
         {
-            Id = id;
-            TourRequests = new List<TourRequest>();
+            TourRequests = new List<TourRequest>(tourRequests);
             Acceptance = acceptance;
+            Guest2 = guest2;
         }
         public string[] ToCSV()
         {
@@ -33,11 +30,16 @@ namespace TravelService.Domain.Model
                 requestList.Append(tourRequest.Id.ToString());
                 requestList.Append(" ,");
             }
+            if (requestList.Length > 0)
+            {
+                requestList.Remove(requestList.Length - 1, 1);
+            }
             string[] csvValues =
             {
                 Id.ToString(),
+                requestList.ToString(),
                 RequestApprovedToCSV(),
-                requestList.ToString().TrimEnd(',')
+                Guest2.Id.ToString()
             };
             return csvValues;
         }
@@ -53,16 +55,20 @@ namespace TravelService.Domain.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            Acceptance = RequestApprovedFromCSV(values[1]);
+
+            string[] tourRequestIds = values[1].Split(",");
             TourRequests = new List<TourRequest>();
 
-            for (int i = 2; i < values.Length; i++)
+            foreach (string tourRequestId in tourRequestIds)
             {
-                string[] tourValues = values[i].Split(",");
-                TourRequest tourRequest = new TourRequest();
-                tourRequest.FromCSV(tourValues);
+                int requestId = int.Parse(tourRequestId.Trim());
+                TourRequest tourRequest = new TourRequest { Id = requestId };
                 TourRequests.Add(tourRequest);
             }
+
+            Acceptance = RequestApprovedFromCSV(values[2]);
+            int guestId = int.Parse(values[3]);
+            Guest2 = new Guest2 { Id = guestId };
         }
         public APPROVAL RequestApprovedFromCSV(string requestApproved)
         {

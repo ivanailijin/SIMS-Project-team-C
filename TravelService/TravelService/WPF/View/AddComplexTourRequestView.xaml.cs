@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -19,12 +20,10 @@ namespace TravelService.WPF.View
 {
     public partial class AddComplexTourRequestView : Window, INotifyPropertyChanged
     {
-        public bool IsForwarded { get; set; }
-        public List<TourRequest> TourRequests { get; set; }
-        public AddComplexTourRequestView(Guest2 guest2, bool isForwarded, List<TourRequest> tourRequests)
+        public AddComplexTourRequestView(Guest2 guest2, ObservableCollection<TourRequest> tourRequests)
         {
             InitializeComponent();
-            AddComplexTourRequestViewModel addComplexTourRequestViewModel = new AddComplexTourRequestViewModel(guest2, isForwarded, tourRequests);
+            AddComplexTourRequestViewModel addComplexTourRequestViewModel = new AddComplexTourRequestViewModel(guest2, tourRequests);
             DataContext = addComplexTourRequestViewModel;
             if (addComplexTourRequestViewModel.CloseAction == null)
             {
@@ -33,5 +32,9 @@ namespace TravelService.WPF.View
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

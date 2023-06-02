@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.Collections.ObjectModel;
+using System.Net;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -15,13 +13,23 @@ namespace TravelService.WPF.ViewModel
 {
     public class AddTourRequestViewModel : ViewModelBase
     {
-        private readonly TourRequestService _tourRequestService; 
+        private readonly TourRequestService _tourRequestService;
         private readonly LocationService _locationService;
         private readonly LanguageService _languageService;
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
         public bool IsForwarded { get; set; }
-        public List<TourRequest> TourRequests { get; set; }
+
+        private ObservableCollection<TourRequest> tourRequests;
+        public ObservableCollection<TourRequest> TourRequests
+        {
+            get { return tourRequests; }
+            set
+            {
+                tourRequests = value;
+                OnPropertyChanged(nameof(TourRequests));
+            }
+        }
 
         private string _location;
         public string Location
@@ -168,7 +176,7 @@ namespace TravelService.WPF.ViewModel
         }
         public TourRequest TourRequest { get; set; }
 
-        public AddTourRequestViewModel(Guest2 guest2, bool isForwarded, List<TourRequest> tourRequests)
+        public AddTourRequestViewModel(Guest2 guest2, bool isForwarded, ObservableCollection<TourRequest> tourRequests)
         {
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
@@ -198,11 +206,18 @@ namespace TravelService.WPF.ViewModel
             Location savedLocation = _locationService.Save(location);
             Language language = new Language(inputLanguage);
             Language savedLanguage = _languageService.Save(language);
-
-            TourRequest =_tourRequestService.addRequest(savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, GuestNumber, TourStart, TourEnd, Guest2.Id);
-            if (IsForwarded) {
+            TourRequest = new TourRequest();
+            if (IsForwarded)
+            {
+                TourRequest = _tourRequestService.addRequest(savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, GuestNumber, TourStart, TourEnd, Guest2.Id);
                 TourRequests.Add(TourRequest);
+                CloseAction?.Invoke();
             }
+            else
+            {
+                TourRequest = _tourRequestService.addRequest(savedLocation, savedLocation.Id, Description, savedLanguage, savedLanguage.Id, GuestNumber, TourStart, TourEnd, Guest2.Id);
+            }
+
             CloseAction();
         }
         private void Execute_Cancel(object sender)
@@ -219,11 +234,13 @@ namespace TravelService.WPF.ViewModel
         {
             GuestsVouchersView guestsVouchersView = new GuestsVouchersView(Guest2);
             guestsVouchersView.Show();
+            CloseAction();
         }
         private void Execute_RequestCommand(object sender)
         {
-            AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2);
-            addTourRequestView.Show();
+            ChooseRequestTypeView chooseRequestTypeView = new ChooseRequestTypeView(Guest2);
+            chooseRequestTypeView.Show();
+            CloseAction();
         }
     }
 }

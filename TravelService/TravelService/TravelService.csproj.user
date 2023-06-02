@@ -13,6 +13,9 @@
     <Compile Update="WPF\View\AccommodationAvailabilityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\AddComplexTourRequestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\AddTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,6 +37,9 @@
     <Compile Update="WPF\View\CancelRenovationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ChoooseRequestListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ChooseRequestTypeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -41,6 +47,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\FirstGuestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\GuestsComplexRequestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\GuestsRequestsStatisticsView.xaml.cs">
@@ -160,6 +169,9 @@
     <Compile Update="WPF\View\ShowGuestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ShowRequestListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ShowTourReviewView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -201,10 +213,16 @@
     <Page Update="WPF\View\AccommodationYearStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\AddComplexTourRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\CancelRenovationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\AddTourRequestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ChoooseRequestListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ChooseRequestTypeView.xaml">
@@ -226,6 +244,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\FirstGuestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\GuestsComplexRequestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsRequestsStatisticsView.xaml">
@@ -348,6 +369,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowGuestsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ShowRequestListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowTourReviewView.xaml">

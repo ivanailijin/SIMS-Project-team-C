@@ -217,8 +217,8 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_GuestsRequestsCommand(object sender)
         {
-            GuestsRequestsView guestsRequestsView = new GuestsRequestsView(Guest2);
-            guestsRequestsView.Show();
+            ChoooseRequestListView choooseRequestListView = new ChoooseRequestListView(Guest2);
+            choooseRequestListView.Show();
             CloseAction();
         }
         private void Execute_VoucherViewCommand(object sender)

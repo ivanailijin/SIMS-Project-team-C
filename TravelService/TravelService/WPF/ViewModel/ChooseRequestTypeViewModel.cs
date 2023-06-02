@@ -14,7 +14,8 @@ namespace TravelService.WPF.ViewModel
     {
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
-        public List<TourRequest> TourRequests { get; set; }
+        public ObservableCollection<TourRequest> TourRequests { get; set; }
+        public  TourRequest  TourRequest  { get; set; }
 
         private RelayCommand _singleRequestCommand;
         public RelayCommand SingleRequestCommand
@@ -55,6 +56,7 @@ namespace TravelService.WPF.ViewModel
         public ChooseRequestTypeViewModel(Guest2 guest2) 
         {
             Guest2 = guest2;
+            TourRequests = new ObservableCollection<TourRequest>();
             SingleRequestCommand = new RelayCommand(Execute_SingleRequestCommand, CanExecute_Command);
             ComplexRequestCommand = new RelayCommand(Execute_ComplexRequestCommand, CanExecute_Command);
         }
@@ -64,14 +66,14 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_SingleRequestCommand(object sender)
         {
-            AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2,IsForwarded, TourRequests);
-            addTourRequestView.IsForwarded = IsForwarded;
+            AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2,IsForwarded,TourRequests);
+            addTourRequestView.IsForwarded = false;
             addTourRequestView.Show();
             CloseAction();
         }
         private void Execute_ComplexRequestCommand(object sender)
         {
-            AddComplexTourRequestView addComplexTourRequestView = new AddComplexTourRequestView(Guest2);
+            AddComplexTourRequestView addComplexTourRequestView = new AddComplexTourRequestView(Guest2, TourRequests);
             addComplexTourRequestView.Show();
             CloseAction();
         }
