@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.WPF.Services;
@@ -19,17 +20,16 @@ using TravelService.WPF.ViewModel;
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for RenovationSelectionView.xaml
+    /// Interaction logic for ForumCommentsView.xaml
     /// </summary>
-    public partial class RenovationSelectionView : Page, INotifyPropertyChanged, INavigationInterface
+    public partial class ForumCommentsView : Page, INotifyPropertyChanged, INavigationInterface
     {
-        public RenovationSelectionView(Owner owner)
+        public ForumCommentsView(Owner owner, Forum selectedForum)
         {
             InitializeComponent();
-            RenovationSelectionViewModel renovationSelectionViewModel = new RenovationSelectionViewModel(owner, this);
-            DataContext = renovationSelectionViewModel;
+            ForumCommentsViewModel forumCommentsViewModel = new ForumCommentsViewModel(owner, this, selectedForum);
+            DataContext = forumCommentsViewModel;
         }
-
         public void GoBack()
         {
             NavigationService?.GoBack();

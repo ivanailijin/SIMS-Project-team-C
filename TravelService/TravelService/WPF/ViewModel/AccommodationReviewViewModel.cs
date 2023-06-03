@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -36,10 +37,23 @@ namespace TravelService.WPF.ViewModel
                 if (value != _ratingImages)
                 {
                     _ratingImages = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(RatingImages));
+                    OnPropertyChanged(nameof(CurrentImage));
                 }
             }
         }
+        private int currentImageIndex = 0;
+        public int CurrentImageIndex
+        {
+            get { return currentImageIndex; }
+            set
+            {
+                currentImageIndex = value;
+                OnPropertyChanged(nameof(CurrentImageIndex));
+                OnPropertyChanged(nameof(CurrentImage));
+            }
+        }
+        public Uri CurrentImage => RatingImages.ElementAtOrDefault(CurrentImageIndex);
 
         private string _averageAccommodationRating;
         public string AverageAccommodationRating
@@ -137,6 +151,32 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _previousImageCommand;
+        public RelayCommand PreviousImageCommand
+        {
+            get => _previousImageCommand;
+            set
+            {
+                if (value != _previousImageCommand)
+                {
+                    _previousImageCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _nextImageCommand;
+        public RelayCommand NextImageCommand
+        {
+            get => _nextImageCommand;
+            set
+            {
+                if (value != _nextImageCommand)
+                {
+                    _nextImageCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public AccommodationReviewViewModel(Accommodation selectedAccommodation, Owner owner, AccommodationReview accommodationReview)
         {
@@ -169,6 +209,8 @@ namespace TravelService.WPF.ViewModel
         {
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
             ShowReviewCommand = new RelayCommand(Execute_ShowReviewCommand, CanExecute_Command);
+            PreviousImageCommand = new RelayCommand(Execute_PreviousImageCommand, CanNavigatePrevious);
+            NextImageCommand = new RelayCommand(Execute_NextImageCommand, CanNavigateNext);
         }
         private void Execute_ShowReviewCommand(object obj)
         {
@@ -178,7 +220,28 @@ namespace TravelService.WPF.ViewModel
         {
             AccommodationReview.GoBack();
         }
-
+        private void Execute_NextImageCommand(object obj)
+        {
+            if (CurrentImageIndex < RatingImages.Count - 1)
+            {
+                CurrentImageIndex++;
+            }
+        }
+        private void Execute_PreviousImageCommand(object obj)
+        {
+            if (CurrentImageIndex > 0)
+            {
+                CurrentImageIndex--;
+            }
+        }
+        private bool CanNavigatePrevious(object arg)
+        {
+            return CurrentImageIndex > 0;
+        }
+        private bool CanNavigateNext(object arg)
+        {
+            return CurrentImageIndex < RatingImages.Count - 1;
+        }
         private bool CanExecute_Command(object arg)
         {
             return true;

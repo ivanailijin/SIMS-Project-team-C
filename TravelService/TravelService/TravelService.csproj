@@ -12,6 +12,7 @@
 		<None Remove="Resources\Images\airplane.png" />
 		<None Remove="Resources\Images\back.png" />
 		<None Remove="Resources\Images\cancellation-icon.png" />
+		<None Remove="Resources\Images\chat.png" />
 		<None Remove="Resources\Images\forum-icon.png" />
 		<None Remove="Resources\Images\forum.ico" />
 		<None Remove="Resources\Images\forward.png" />
@@ -90,6 +91,7 @@
 
 	<ItemGroup>
 		<Resource Include="Resources\Images\back.png" />
+		<Resource Include="Resources\Images\chat.png" />
 		<Resource Include="Resources\Images\forward.png" />
 		<Resource Include="Resources\Images\left_arrow.png" />
 		<Resource Include="Resources\Images\mini-house.png" />

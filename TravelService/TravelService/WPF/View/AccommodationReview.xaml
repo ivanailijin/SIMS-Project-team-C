@@ -137,7 +137,42 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Slike gostiju:" FontFamily="Candara" FontSize="18" FontWeight="Normal" Margin="50 10 0 0"></TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" ></StackPanel>
+            <Border BorderBrush="Black" BorderThickness="2" Height="140" Width="940" Margin="0 10 0 0">
+                <StackPanel Orientation="Horizontal" >
+                    <Button Grid.Column="0" Width="30" Height="30" Command="{Binding PreviousImageCommand}" >
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0.5" />
+                        </Button.Background>
+                        <Button.Content>
+                            <Image Source="/TravelService;component/Resources/Images/back.png" />
+                        </Button.Content>
+                    </Button>
+
+                    <ListBox ItemsSource="{Binding RatingImages}" ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="880" Height="150">
+                        <ListBox.ItemsPanel>
+
+                            <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                    <Image Source="{Binding}" Width="200" Height="100" Margin="5" />
+                                </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Button Grid.Column="2" Width="30" Height="30" Command="{Binding NextImageCommand}" >
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0.5" />
+                        </Button.Background>
+                        <Button.Content>
+                            <Image Source="/TravelService;component/Resources/Images/forward.png" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Border>
         </StackPanel>
         
     </Grid>

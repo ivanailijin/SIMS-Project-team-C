@@ -163,7 +163,7 @@
                             <TextBlock Style="{StaticResource ResourceKey=TextStyle}" HorizontalAlignment="Center" Margin="75 10 0 0" FontSize="14">Ocenjivanje gostiju</TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <Button Style="{StaticResource ResourceKey=RoundedButton}" Margin="120 25 0 0" Width="200" Height="97">
+                            <Button Style="{StaticResource ResourceKey=RoundedButton}" Command="{Binding ShowForumsCommand}" Margin="120 25 0 0" Width="200" Height="97">
                                 <Button.Content>
                                     <Viewbox Width="100" Height="85">
                                         <Image Source="/TravelService;component/Resources/Images/forum-icon.png"/>
