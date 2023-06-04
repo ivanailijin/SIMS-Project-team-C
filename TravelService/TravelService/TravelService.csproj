@@ -13,9 +13,11 @@
 		<None Remove="Resources\Images\back.png" />
 		<None Remove="Resources\Images\cancellation-icon.png" />
 		<None Remove="Resources\Images\chat.png" />
+		<None Remove="Resources\Images\comments.png" />
 		<None Remove="Resources\Images\forum-icon.png" />
 		<None Remove="Resources\Images\forum.ico" />
 		<None Remove="Resources\Images\forward.png" />
+		<None Remove="Resources\Images\green-star.png" />
 		<None Remove="Resources\Images\home-icon.png" />
 		<None Remove="Resources\Images\leftarrow.png" />
 		<None Remove="Resources\Images\leftarrowpic.png" />
@@ -66,6 +68,7 @@
 		<None Remove="Resources\Images\tail.png" />
 		<None Remove="Resources\Images\travel.png" />
 		<None Remove="Resources\Images\user1.ico" />
+		<None Remove="Resources\Images\yellow-star.png" />
 
 		<None Remove="WPF\View\Icons\beautiful-shot-mountains-cloudy-sky-from-inside-plane-windows.jpg" />
 		<None Remove="WPF\View\Icons\element5-digital-h9eOO7W5m2s-unsplash.jpg" />
@@ -92,7 +95,9 @@
 	<ItemGroup>
 		<Resource Include="Resources\Images\back.png" />
 		<Resource Include="Resources\Images\chat.png" />
+		<Resource Include="Resources\Images\comments.png" />
 		<Resource Include="Resources\Images\forward.png" />
+		<Resource Include="Resources\Images\green-star.png" />
 		<Resource Include="Resources\Images\left_arrow.png" />
 		<Resource Include="Resources\Images\mini-house.png" />
 		<Resource Include="Resources\Images\mini-house2.png" />
@@ -167,6 +172,7 @@
 		<Resource Include="Resources\Images\tail.png" />
 		<Resource Include="Resources\Images\travel.png" />
 		<Resource Include="Resources\Images\user1.ico" />
+		<Resource Include="Resources\Images\yellow-star.png" />
 		<Resource Include="WPF\View\Icons\beautiful-shot-mountains-cloudy-sky-from-inside-plane-windows.jpg" />
 		<Resource Include="WPF\View\Icons\element5-digital-h9eOO7W5m2s-unsplash.jpg" />
 		<Resource Include="WPF\View\Icons\five-golden-stars-inside-white-message-box-client-excellent-evaluation-by-3d-render.jpg" />

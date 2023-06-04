@@ -8,6 +8,7 @@
       Background="#f2f7f7" Height="768" Width="1024"
       Title="ForumSelectionView">
     <Page.Resources>
+        <local:BooleanToTextForumConverter x:Key="ForumConverter" />
         <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -45,17 +46,31 @@
         <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 7 0 0" FontSize="28" FontFamily="Candara" FontWeight="SemiBold" Text="Forumi"></TextBlock>
 
         <Grid Grid.Row="2" >
-            <ListBox DockPanel.Dock="Bottom" Background="#ebebeb" ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
+            <ListBox DockPanel.Dock="Bottom" Background="#f5f5f5" ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
                      SelectedItem="{Binding SelectedForum, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto"
                      Width="930" Height="510">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="#a8a8a8" Margin="1.5" BorderThickness="4" Background="#dce3e3" Width="893" Height="110">
+                        <Border BorderBrush="#a8a8a8" Margin="1" BorderThickness="3" Background="#dce3e3" Width="893" Height="115">
                             <StackPanel Background="White" Orientation="Horizontal" Margin="0,0,0,0" Height="110">
                                 <Image Width="58" Height="58" Margin="25, 0, 0, 0" Source="/TravelService;component/Resources/Images/chat.png"></Image>
                                 <StackPanel Orientation="Vertical" Width="270" Margin="40 25 0 0">
                                     <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" Foreground="#253ca8" Text="{Binding Name}" FontWeight="Bold" FontSize="21" />
-                                    <Label></Label>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Margin="0 0 0 0" Height="18" Width="18" Source="/TravelService;component/Resources/Images/yellow-star.png">
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Helpful}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                        <TextBlock  Height="38" Margin="8, 17, 0, 0" FontSize="14" VerticalAlignment="Bottom" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding Helpful, Converter={StaticResource ForumConverter}}" />
+                                    </StackPanel>
                                 </StackPanel>
                                 <Image  Width="18" Height="18" Margin="105, 1, 9, 0" Source="/TravelService;component/Resources/Images/mini-location.png"></Image>
                                 <TextBlock Width="160" Style="{StaticResource ResourceKey=TextDataStyle}" Margin="0 44 0 0" FontSize="17.5" Text="{Binding Location.CityAndCountry}" />

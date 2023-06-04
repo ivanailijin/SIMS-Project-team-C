@@ -26,7 +26,7 @@ namespace TravelService.Application.UseCases
         {
             Owner owner = _ownerRepository.GetByUsername(username);
             //owner = CheckIsSuperOwner(owner);
-            owner.NumberOfRatings = 23;
+            owner.NumberOfRatings = 52;
             owner.AverageRating = 4.7;
             owner.SuperOwner = true;
 

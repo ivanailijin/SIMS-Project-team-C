@@ -20,6 +20,7 @@ namespace TravelService.Domain.Model
         public Location Location { get; set; } = new();
         public DateTime DateCreated { get; set; }
         public FORUMSTATUS Status { get; set; }
+        public bool Helpful { get; set; }
         public List<Comment> Comments { get; set; }
 
         public Forum(User user, Location location, String name, DateTime dateCreated, int numberOfComments, FORUMSTATUS status, List<Comment> comments)

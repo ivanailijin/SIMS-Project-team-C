@@ -42,7 +42,9 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_ShowForumCommand(object obj)
         {
-            
+            ForumCommentsView forumCommentsView = new ForumCommentsView(Owner, SelectedForum);
+            OwnerWindow ownerWindow = Window.GetWindow(ForumSelectionView) as OwnerWindow;
+            ownerWindow?.SwitchToPage(forumCommentsView);
         }
         private void Execute_BackCommand(object obj)
         {

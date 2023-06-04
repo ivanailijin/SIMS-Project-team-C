@@ -27,7 +27,9 @@ namespace TravelService.Application.UseCases
         }
         public List<Accommodation> GetAll()
         {
-            return _accommodationRepository.GetAll();
+            List<Accommodation> accommodations = _accommodationRepository.GetAll();
+            accommodations = GetLocationData(accommodations);
+            return accommodations;
         }
         public Accommodation Save(Accommodation accommodation)
         {

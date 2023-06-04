@@ -15,11 +15,13 @@ namespace TravelService.Application.UseCases
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IForumRepository _forumRepository;
+        private readonly UserService _userService;
 
         public CommentService(ICommentRepository commentRepository)
         {
             _commentRepository = commentRepository;
             _forumRepository = Injector.CreateInstance<IForumRepository>();
+            _userService = new UserService(Injector.CreateInstance<IUserRepository>());
         }
         public void Delete(Comment comment)
         {
@@ -30,6 +32,16 @@ namespace TravelService.Application.UseCases
         {
             List<Comment> comments = _commentRepository.GetAll();
             comments = GetForumData(comments);
+            comments = GetUserData(comments);
+            return comments;
+        }
+        public List<Comment> GetUserData(List<Comment> comments)
+        {
+            List<User> users = _userService.GetAll();
+            foreach (Comment comment in comments)
+            {
+                comment.User = users.Find(u => u.Id == comment.User.Id);
+            }
             return comments;
         }
         public List<Comment> GetForumData(List<Comment> comments)

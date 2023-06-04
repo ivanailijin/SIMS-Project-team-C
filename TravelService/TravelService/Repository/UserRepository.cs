@@ -23,7 +23,10 @@ namespace TravelService.Repository
             _serializer = new Serializer<User>();
             _users = _serializer.FromCSV(FilePath);
         }
-
+        public List<User> GetAll()
+        {
+            return _users;
+        }
         public User GetByUsername(string username)
         {
             _users = _serializer.FromCSV(FilePath);

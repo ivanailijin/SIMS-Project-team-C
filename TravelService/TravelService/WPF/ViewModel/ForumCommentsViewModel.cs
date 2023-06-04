@@ -23,17 +23,61 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand ReportCommentCommand { get; set; }
         public RelayCommand AddCommentCommand { get; set; }
         public Forum SelectedForum { get; set; }
-        public ObservableCollection<Forum> Forums { get; set; }
+        public ObservableCollection<Comment> Comments { get; set; }
         public Owner Owner { get; set; }
+
+
+        private int _numberOwnerComments;
+        public int NumberOwnersComments
+        {
+            get => _numberOwnerComments;
+            set
+            {
+                if (value != _numberOwnerComments)
+                {
+                    _numberOwnerComments = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _numberGuestComments;
+        public int NumberGuestsComments
+        {
+            get => _numberGuestComments;
+            set
+            {
+                if (value != _numberGuestComments)
+                {
+                    _numberGuestComments = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _ownerAuthorized;
+        public bool OwnerAuthorized
+        {
+            get => _ownerAuthorized;
+            set
+            {
+                if (value != _ownerAuthorized)
+                {
+                    _ownerAuthorized = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public ForumCommentsViewModel(Owner owner, ForumCommentsView forumCommentsView, Forum selectedForum)
         {
             InitializeCommands();
             _forumService = new ForumService(Injector.CreateInstance<IForumRepository>());
-            Forums = new ObservableCollection<Forum>(_forumService.GetAll());
-            SelectedForum = selectedForum; 
+            SelectedForum = selectedForum;
+            Comments = new ObservableCollection<Comment>(SelectedForum.Comments);
             this.Owner = owner;
             ForumCommentsView = forumCommentsView;
+            NumberGuestsComments = _forumService.GetNumberOfGuestComments(SelectedForum);
+            NumberOwnersComments = _forumService.GetNumberOfOwnerComments(SelectedForum);
+            OwnerAuthorized = _forumService.GetOwnersAuthorization(Owner, SelectedForum);
         }
         private void InitializeCommands()
         {
@@ -51,7 +95,8 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_AddCommentCommand(object obj)
         {
-
+            AddingForumComment addingForumComment = new AddingForumComment(Owner, SelectedForum, Comments);
+            addingForumComment.Show();
         }
         private void Execute_BackCommand(object obj)
         {

@@ -15,12 +15,16 @@ namespace TravelService.Application.UseCases
         private readonly IForumRepository _forumRepository;
         private readonly LocationService _locationService;
         private readonly CommentService _commentService;
+        private readonly UserService _userService;
+        private readonly AccommodationService _accommodationService;
 
         public ForumService(IForumRepository forumRepository)
         {
             _forumRepository = forumRepository;
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _commentService = new CommentService(Injector.CreateInstance<ICommentRepository>());
+            _userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
         }
         public void Delete(Forum forum)
         {
@@ -33,7 +37,61 @@ namespace TravelService.Application.UseCases
             forums = GetLocationData(forums);
             forums = GetCommentsData(forums);
             forums = GetNumberOfComments(forums);
+            forums = GetUserData(forums);
+            forums = GetHelpfulData(forums);
             return forums;
+        }
+        public List<Forum> GetHelpfulData(List<Forum> forums)
+        {
+            foreach(Forum forum in forums)
+            {
+                if(GetNumberOfOwnerComments(forum) >= 10 && GetNumberOfGuestComments(forum) >= 20)
+                {
+                    forum.Helpful = true;
+                }
+                else
+                {
+                    forum.Helpful = false;
+                }
+            }
+            return forums;
+        }
+        public bool GetOwnersAuthorization(Owner owner, Forum forum)
+        {
+            List<Accommodation> ownersAccommodation = _accommodationService.GetOwnersAccommodations(owner.Id);
+
+            foreach(Accommodation accommodation in ownersAccommodation)
+            {
+                if(accommodation.Location.Id == forum.Location.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public int GetNumberOfOwnerComments(Forum forum)
+        {
+            int count = 0;
+            foreach(Comment comment in forum.Comments)
+            {
+                if(comment.User.UserType == "Owner")
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        public int GetNumberOfGuestComments(Forum forum)
+        {
+            int count = 0;
+            foreach (Comment comment in forum.Comments)
+            {
+                if (comment.User.UserType == "Guest1")
+                {
+                    count++;
+                }
+            }
+            return count;
         }
         public List<Forum> GetNumberOfComments(List<Forum> forums)
         {
@@ -72,7 +130,15 @@ namespace TravelService.Application.UseCases
             }
             return forums;
         }
-
+        public List<Forum> GetUserData(List<Forum> forums)
+        {
+            List<User> users = _userService.GetAll();
+            foreach (Forum forum in forums)
+            {
+                forum.User = users.Find(u => u.Id == forum.User.Id);
+            }
+            return forums;
+        }
         public Forum Save(Forum forum)
         {
             return _forumRepository.Save(forum);
@@ -83,6 +149,11 @@ namespace TravelService.Application.UseCases
             _forumRepository.Update(forum);
         }
 
+        public Forum FindById(int id)
+        {
+            Forum forum = _forumRepository.FindById(id);
+            return forum;
+        }
         public List<IGrouping<Location, Forum>> GetForumsByLocation()
         {
             List<Forum> forums = GetAll();

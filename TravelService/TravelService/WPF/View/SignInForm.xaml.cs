@@ -97,7 +97,6 @@ namespace TravelService.WPF.View
 
                 if (user != null)
                 {
-
                     if (user.Password.Equals(txtPassword.Password))
                     {
                         if (txtPassword.Password.Equals("owner123"))
@@ -125,28 +124,10 @@ namespace TravelService.WPF.View
                                 MessageBoxResult result = MessageBox.Show("Na vasoj lokaciji je otvoren novi forum.\nDa li zelite da ih prikazete", "Obavestenje", MessageBoxButton.YesNo, MessageBoxImage.Information);
                                 if (result == MessageBoxResult.Yes)
                                 {
-                                    //foreach(Forum newForum in NewForums){
-                                    //window tog foruma
-                                    //Show
+                                    ForumSelectionView forumSelectionView = new ForumSelectionView(owner);
+                                    ownerWindow?.SwitchToPage(forumSelectionView);
                                 }
                             }
-                            /*List<AccommodationReservation> reservationList = _reservationService.GetAll();
-
-                            foreach (AccommodationReservation reservation in reservationList)
-                            {
-                                Accommodation reservedAccommodation = _accommodationService.FindById(reservation.AccommodationId);
-                                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
-                                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservedAccommodation.OwnerId == owner.Id)
-                                {
-                                    MessageBoxResult result = MessageBox.Show("Imate neocenjene goste.\nDa li zelite da ih ocenite odmah?", "Obavestenje", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                                    if (result == MessageBoxResult.Yes)
-                                    {
-                                        //GuestRatingOverview guestRatingOverview = new GuestRatingOverview(owner);
-                                        //guestRatingOverview.ShowDialog();
-                                    }
-                                    break;
-                                }
-                            }*/
 
                             Close();
                         }
