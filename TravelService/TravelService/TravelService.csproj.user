@@ -46,6 +46,9 @@
     <Compile Update="WPF\View\FirstGuestWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ForumsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\GuestsRequestsStatisticsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -157,6 +160,9 @@
     <Compile Update="WPF\View\SelectedAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\SelectedForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ShowGuestsNotificationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -232,6 +238,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\FirstGuestWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ForumsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsRequestsStatisticsView.xaml">
@@ -348,6 +357,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SelectedAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\SelectedForumView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowGuestsNotificationView.xaml">

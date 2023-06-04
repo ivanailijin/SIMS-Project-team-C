@@ -46,6 +46,12 @@ namespace TravelService.WPF.ViewModel
             Frame.Navigate(reservationsView);
         }
 
+        private void Execute_NavigateToForumsViewCommand(object obj)
+        {
+            ForumsView forumsView = new ForumsView(Guest1);
+            Frame.Navigate(forumsView);
+        }
+
         private void Execute_NavigateToProfileViewCommand(object obj)
         {
             FirstGuestProfileView firstGuestProfileView = new FirstGuestProfileView(Guest1);
@@ -57,6 +63,7 @@ namespace TravelService.WPF.ViewModel
             NavigateToAccommodationViewCommand = new RelayCommand(Execute_NavigateToAccommodationViewCommand, CanExecute_NavigateCommand);
             NavigateToRatingViewCommand = new RelayCommand(Execute_NavigateToRatingViewCommand, CanExecute_NavigateCommand);
             NavigateToReservationsViewCommand = new RelayCommand(Execute_NavigateToReservationsViewCommand, CanExecute_NavigateCommand);
+            NavigateToForumsViewCommand = new RelayCommand(Execute_NavigateToForumsViewCommand, CanExecute_NavigateCommand);
             NavigateToProfileViewCommand = new RelayCommand(Execute_NavigateToProfileViewCommand, CanExecute_NavigateCommand);
 
             FirstGuestView = firstGuestView;

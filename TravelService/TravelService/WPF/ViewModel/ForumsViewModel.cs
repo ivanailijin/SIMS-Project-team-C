@@ -1,0 +1,92 @@
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
+using TravelService.Application.UseCases;
+using TravelService.Application.Utils;
+using TravelService.Commands;
+using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
+
+namespace TravelService.WPF.ViewModel
+{
+    public class ForumsViewModel : ViewModelBase
+    {
+        private ForumService _forumService;
+        public ForumsView ForumView { get; set; }
+        public Guest1 Guest1 { get; set; }
+        public Forum SelectedForum { get; set; }
+
+        private ObservableCollection<IGrouping<Location, Forum>> _allForums;
+        public ObservableCollection<IGrouping<Location, Forum>> AllForums
+        {
+            get { return _allForums; }
+            set
+            {
+                _allForums = value;
+                OnPropertyChanged(nameof(_allForums));
+            }
+        }
+
+        private ObservableCollection<Forum> _forums;
+        public ObservableCollection<Forum> Forums
+        {
+            get { return _forums; }
+            set
+            {
+                _forums = value;
+                OnPropertyChanged(nameof(_forums));
+            }
+        }
+
+        private ObservableCollection<Forum> _myForums;
+        public ObservableCollection<Forum> MyForums
+        {
+            get { return _myForums; }
+            set
+            {
+                _myForums = value;
+                OnPropertyChanged(nameof(_myForums));
+            }
+        }
+
+        private RelayCommand _forumSelectedCommand;
+        public RelayCommand ForumSelectedCommand
+        {
+            get => _forumSelectedCommand;
+            set
+            {
+                if (value != _forumSelectedCommand)
+                {
+                    _forumSelectedCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ForumsViewModel(ForumsView forumsView, Guest1 guest)
+        {
+            ForumView = forumsView;
+            Guest1 = guest;
+            _forumService = new ForumService(Injector.CreateInstance<IForumRepository>());
+            //  List<IGrouping<Location, Forum>> ForumsByLocation = _forumService.GetForumsByLocation();
+            //  AllForums = new ObservableCollection<IGrouping<Location, Forum>>(ForumsByLocation);
+            Forums = new ObservableCollection<Forum>(_forumService.GetAll());
+
+            ForumSelectedCommand = new RelayCommand(Execute_OnItemSelected, CanExecute_Command);
+        }
+
+        private bool CanExecute_Command(object parameter)
+        {
+            return true;
+        }
+
+        private void Execute_OnItemSelected(object sender)
+        {
+            SelectedForumView selectedForumView = new SelectedForumView(Guest1);
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(ForumView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow?.SwitchToPage(selectedForumView);
+        }
+    }
+}

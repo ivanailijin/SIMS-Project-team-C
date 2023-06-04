@@ -39,7 +39,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Command="{Binding }">
+            <MenuItem Command="{Binding NavigateToForumsViewCommand}">
                 <MenuItem.Header>
                     <StackPanel Orientation="Vertical" Margin="20,10,5,3.5">
                         <Image Source="/TravelService;component/Resources/Images/forum.ico" Width="35" Height="33"/>
