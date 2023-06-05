@@ -8,6 +8,7 @@
         Title="SelectedForumView" Height="720" Width="420" Background="White">
     <Page.Resources>
         <local:EnumToVisibilityConverter x:Key="EnumToVisibilityConverter" />
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         
         <Style x:Key="newCommentButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Teal"/>
@@ -87,8 +88,20 @@
                     <TextBlock Text="Zapoceo: " FontSize="14"></TextBlock>
                     <TextBlock Text="{Binding SelectedForum.User.Username}" FontSize="14"></TextBlock>
                 </StackPanel>
-                <StackPanel Margin="8,0,0,0">
-                    <TextBlock Text="Veoma koristan" FontSize="14"></TextBlock>
+                <StackPanel Margin="8,5,0,0" Orientation="Horizontal">
+                    <TextBlock FontSize="15">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedForum.Helpful}" Value="True">
+                                        <Setter Property="Text" Value="Veoma koristan" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <Image Width="20" Height="20" Margin="5,5,0,0" Source="/TravelService;component/Resources/Images/thumbs-up.png" Visibility="{Binding SelectedForum.Helpful, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="10,30,0,0">
@@ -106,9 +119,24 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
                             <Image Source="{Binding User.Picture}" Width="100" Height="100" Margin="0,5,10,5"></Image>
-                            <TextBlock Text="{Binding User.Username}" FontSize="18" FontWeight="DemiBold" Margin="15,0,0,0"></TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding User.Username}" FontSize="18" FontWeight="DemiBold" Margin="15,0,0,0"></TextBlock>
+                                <Image Width="17" Height="17" Margin="5,0,0,0" Source="/TravelService;component/Resources/Images/map-marker.png" Visibility="{Binding IsMarkedComment, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,5,0,0">
-                                <TextBlock Text="Gost" FontSize="14"></TextBlock>
+                                <TextBlock FontSize="14">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsMarkedComment}" Value="True">
+                                                    <Setter Property="Text" Value="• Posetio lokaciju" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Grid.Column="1" Text="{Binding Content}" Padding="5" TextWrapping="Wrap" TextAlignment="Justify"></TextBlock>

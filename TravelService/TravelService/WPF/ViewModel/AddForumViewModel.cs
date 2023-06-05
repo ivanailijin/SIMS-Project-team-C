@@ -18,6 +18,7 @@ namespace TravelService.WPF.ViewModel
         private ForumService _forumService;
         private CommentService _commentService;
         private LocationService _locationService;
+        private AccommodationReservationService _reservationService;
         public AddForumView AddForumView { get; set; }
         public Guest1 Guest1 { get; set; }
 
@@ -98,6 +99,7 @@ namespace TravelService.WPF.ViewModel
             _forumService = new ForumService(Injector.CreateInstance<IForumRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _commentService = new CommentService(Injector.CreateInstance<ICommentRepository>());
+            _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
 
             AddForumCommand = new RelayCommand(Execute_AddForum, CanExecute_Command);
             PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
@@ -122,8 +124,11 @@ namespace TravelService.WPF.ViewModel
         {
             string location = Location?.Replace(",", "").Replace(" ", "");
             Location FoundLocation = _locationService.FindLocationId(location);
+
+            bool IsMarkedComment = _reservationService.HasGuestVisitedLocation(Guest1.Id, FoundLocation.Id);
+
             Forum forum = new Forum(Guest1, Name, FoundLocation, DateTime.Now);
-            Comment comment = new Comment(Guest1, forum, Content, DateTime.Now);
+            Comment comment = new Comment(Guest1, forum, Content, DateTime.Now, IsMarkedComment);
             _forumService.Save(forum);
             _commentService.Save(comment);
 

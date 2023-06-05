@@ -15,13 +15,15 @@ namespace TravelService.Domain.Model
         public Forum Forum { get; set; } = new();
         public string Content { get; set; }
         public DateTime DateCreated { get; set; }
+        public bool IsMarkedComment { get; set; }
 
-        public Comment(User user, Forum forum, string content, DateTime dateCreated)
+        public Comment(User user, Forum forum, string content, DateTime dateCreated, bool isMarkedComment)
         {
             User = user;
             Forum = forum;
             Content = content;
             DateCreated = dateCreated;
+            IsMarkedComment = isMarkedComment;
         }
 
         public Comment() { }
@@ -35,6 +37,7 @@ namespace TravelService.Domain.Model
                 Forum.Id.ToString(),
                 Content,
                 DateCreated.ToString(),
+                IsMarkedComment.ToString()
             };
             return csvValues;
         }
@@ -46,6 +49,7 @@ namespace TravelService.Domain.Model
             Forum.Id = Convert.ToInt32(values[2]);
             Content = values[3];
             DateCreated = DateTime.Parse(values[4]);
+            IsMarkedComment = bool.Parse(values[5]);
         }
     }
 }

@@ -67,7 +67,8 @@ namespace TravelService.WPF.View
         }
         private void AddComment_Click(object sender, RoutedEventArgs e)
         {
-            Comment comment = new Comment(Owner, Forum, CommentContent, DateTime.Now);
+            bool IsMarkedComment = false;
+            Comment comment = new Comment(Owner, Forum, CommentContent, DateTime.Now, IsMarkedComment);
             Comments.Add(comment);
             _commentService.Save(comment);
             Close();

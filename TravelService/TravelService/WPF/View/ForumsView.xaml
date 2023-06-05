@@ -86,7 +86,7 @@
                             <Image Source="/TravelService;component/Resources/Images/plus.ico" Height="20" Width="20"></Image>
                         </Button>
                     </Border>
-                    <ListBox Grid.Row="1" ItemsSource="{Binding MyForums}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="570" Margin="5,5,22,10">
+                    <ListBox Grid.Row="1" ItemsSource="{Binding MyForums}" SelectedItem="{Binding SelectedForum}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="570" Margin="5,5,22,10">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>

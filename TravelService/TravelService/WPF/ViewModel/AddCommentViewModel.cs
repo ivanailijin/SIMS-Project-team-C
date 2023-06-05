@@ -15,6 +15,7 @@ namespace TravelService.WPF.ViewModel
     public class AddCommentViewModel : ViewModelBase
     {
         private CommentService _commentService;
+        private AccommodationReservationService _reservationService;
         public Guest1 Guest1 { get; set; }
         public SelectedForumViewModel SelectedForumViewModel { get; set; }
         public Action CloseAction { get; set; }
@@ -78,6 +79,7 @@ namespace TravelService.WPF.ViewModel
         public AddCommentViewModel(SelectedForumViewModel selectedForumViewModel, Guest1 guest, Forum selectedForum)
         {
             _commentService = new CommentService(Injector.CreateInstance<ICommentRepository>());
+            _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             Guest1 = guest;
             SelectedForumViewModel = selectedForumViewModel;
             SelectedForum = selectedForum;
@@ -93,7 +95,8 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_PublishCommand(object sender)
         {
-            Comment comment = new Comment(Guest1, SelectedForum, Content, DateTime.Now);
+            bool IsMarkedComment = _reservationService.HasGuestVisitedLocation(Guest1.Id, SelectedForum.Location.Id);
+            Comment comment = new Comment(Guest1, SelectedForum, Content, DateTime.Now, IsMarkedComment);
             _commentService.Save(comment);
             SelectedForumViewModel.Comments.Add(comment);
             CloseAction();

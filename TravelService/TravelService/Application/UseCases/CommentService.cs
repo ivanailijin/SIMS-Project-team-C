@@ -2,6 +2,7 @@
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
