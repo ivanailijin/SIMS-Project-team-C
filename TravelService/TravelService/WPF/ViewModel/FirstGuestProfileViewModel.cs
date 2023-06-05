@@ -9,6 +9,11 @@ using TravelService.WPF.View;
 using TravelService.Application.Utils;
 using TravelService.Domain.RepositoryInterface;
 using System.Collections.Generic;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveCharts.Defaults;
+using System.Reflection.Emit;
+using System;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -16,8 +21,10 @@ namespace TravelService.WPF.ViewModel
     {
         private Guest1Service _guest1Service;
         private AccommodationReservationService _reservationService;
-        public Window FirstView { get; set; }
         public Guest1 Guest1 { get; set; }
+        public FirstGuestProfileView FirstGuestProfileView { get; set; }
+        public SeriesCollection ReservationSeries { get; set; }
+        public List<string> MonthLabels { get; set; }
 
         private int _numberOfReservations;
         public int NumberOfReservations
@@ -30,7 +37,6 @@ namespace TravelService.WPF.ViewModel
                     _numberOfReservations = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -45,7 +51,6 @@ namespace TravelService.WPF.ViewModel
                     _bonusPoints = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -60,23 +65,41 @@ namespace TravelService.WPF.ViewModel
                     _logOutCommand = value;
                     OnPropertyChanged();
                 }
-
             }
         }
-        public FirstGuestProfileViewModel(Window firstView, Guest1 guest1)
+        public FirstGuestProfileViewModel(FirstGuestProfileView firstGuestProfileView, Guest1 guest1)
         {
             _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             Guest1 = guest1;
-            FirstView = firstView;
+            FirstGuestProfileView = firstGuestProfileView;
 
-            List<AccommodationReservation> reservationsInLastYear = _reservationService.GetReservationsInLastYear(Guest1);
+            List<AccommodationReservation> reservationsInLastYear = _guest1Service.GetReservationsInLastYear(Guest1);
             int reservationsCount = reservationsInLastYear.Count;
-            Guest1 = _guest1Service.CheckSuperOwnerStatus(Guest1, reservationsCount);
+            Guest1 = _guest1Service.CheckSuperOwnerStatus(Guest1);
 
             NumberOfReservations = reservationsCount;
 
             LogOutCommand = new RelayCommand(Execute_LogOut, CanExecute_Command);
+
+            MonthLabels = new List<string>();
+
+            Dictionary<string, int> reservationsByMonth = new Dictionary<string, int>(_reservationService.CalculateReservationCountByMonthInPreviousYear(Guest1));
+            ChartValues<ObservableValue> reservationsData = new ChartValues<ObservableValue>();
+
+            foreach (var item in reservationsByMonth)
+            {
+                reservationsData.Add(new ObservableValue(item.Value));
+                MonthLabels.Add(item.Key);
+            }
+
+            ColumnSeries reservationsSeries = new ColumnSeries
+            {
+                Title = "Reservations",
+                Values = reservationsData
+            };
+
+            ReservationSeries = new SeriesCollection { reservationsSeries };
         }
 
         private bool CanExecute_Command(object parameter)
@@ -88,7 +111,8 @@ namespace TravelService.WPF.ViewModel
         {
             SignInForm signInForm = new SignInForm();
             signInForm.Show();
-            FirstView.Close();
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(FirstGuestProfileView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow.Close();
         }
     }
 }

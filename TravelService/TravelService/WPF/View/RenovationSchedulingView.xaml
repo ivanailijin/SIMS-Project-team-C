@@ -1,4 +1,4 @@
-﻿<Window x:Class="TravelService.WPF.View.RenovationSchedulingView"
+﻿<Page x:Class="TravelService.WPF.View.RenovationSchedulingView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,22 +6,90 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="RenovationSchedulingView" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="620" Width="800">
+        Title="RenovationSchedulingView" Background="#ebf2f2" Height="768" Width="1024">
+    <Page.Resources>
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#476a6b" Background="#15858a" BorderThickness="1.5" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+        <Style x:Key="SilverRoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#476a6b" Background="#b8cdd4" BorderThickness="1.5" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#b9c7c7"/>
+            <Setter Property="FontSize" Value="15.5"/>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="LabelDataStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        <Style x:Key="TextDataStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Page.Resources>
     <Grid>
         <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal" Height="330">
-                <StackPanel Orientation="Vertical" Margin="100 55 40 10" Width="180">
-                    <Label>Pocetni datum</Label>
-                    <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding StartDate,Mode=OneWayToSource}" ></DatePicker>
-                    <Label Margin="0 10 0 0"  >Krajnji datum</Label>
-                    <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding EndDate, Mode=OneWayToSource}"></DatePicker>
-                    <Label Margin="0 15 0 0">Trajanje renoviranja</Label>
-                    <TextBox Height="20" Text="{Binding RenovationDuration}"></TextBox>
-                    <Button Margin="0 30 0 0" Height="25" Command="{Binding ShowAvailableDatesCommand}">Prikazi</Button>
+            <StackPanel Orientation="Horizontal" Height="45">
+                <Button Style="{StaticResource ResourceKey=SilverRoundedButton}" Height="22" Width="120" Margin="47 15 0 0" HorizontalAlignment="Left" Command="{Binding CancelCommand}">Zatvori</Button>
+                <Button Grid.Row="0" IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" Command="{Binding HomeCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="750 13 0 0" 
+                    >
+                    <Button.Background>
+                        <ImageBrush ImageSource="/TravelService;component/Resources/Images/home-icon.png" />
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0 30 0 0">
+                <TextBlock FontWeight="Normal" FontFamily="Candara" FontSize="24" Foreground="#383838" HorizontalAlignment="Center" Text="Zakazivanje termina za renoviranje"></TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <TextBlock FontWeight="Normal" FontFamily="Candara" Foreground="#828282" FontSize="24" Text="Smestaj:" ></TextBlock>
+                    <TextBlock FontWeight="Normal" FontFamily="Candara" Foreground="#828282" FontSize="24" Margin="10 0 0 0" Text="{Binding SelectedAccommodation.Name}"></TextBlock>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Width="450">
-                    <Label Margin="0 38 0 0" HorizontalAlignment="Center">Slobodni termini:</Label>
-                    <DataGrid ItemsSource="{Binding AvailableDatesPair}" SelectedItem="{Binding SelectedAvailableDatePair}" Margin="0 10 0 0" AutoGenerateColumns="False" Width="300" Height="210">
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="340" Margin="-20 0 0 0 ">
+                <StackPanel Orientation="Vertical" Margin="170 45 40 10" Width="200">
+                    <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="-6 0 0 5">Pocetni datum</Label>
+                    <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding StartDate,Mode=OneWayToSource}" ></DatePicker>
+                    <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="-6 13 0 0"  >Krajnji datum</Label>
+                    <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding EndDate, Mode=OneWayToSource}"></DatePicker>
+                    <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="-6 15 0 2">Trajanje renoviranja</Label>
+                    <TextBox Height="25" BorderBrush="#323333" BorderThickness="1" Text="{Binding RenovationDuration}"></TextBox>
+                    <Button Style="{StaticResource ResourceKey=SilverRoundedButton}" Margin="0 55 0 0" Height="28" Command="{Binding ShowAvailableDatesCommand}">Prikazi</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="60 0 0 0" Width="450">
+                    <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="0 38 0 0" HorizontalAlignment="Center">Slobodni termini:</Label>
+                    <DataGrid ItemsSource="{Binding AvailableDatesPair}" SelectedItem="{Binding SelectedAvailableDatePair}" Margin="0 10 0 0" AutoGenerateColumns="False" Width="350" Height="250"
+                              RowBackground="#f5f7f7" AlternatingRowBackground="#dbdbdb" Foreground="Black"
+                              HeadersVisibility="Column"
+                                FontSize="14" FontFamily="Calibri">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Pocetak termina" Binding="{Binding Item1, StringFormat='{}{0:d}'}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Kraj termina" Binding="{Binding Item2, StringFormat='{}{0:d}'}"  Width="*"></DataGridTextColumn>
@@ -29,14 +97,13 @@
                     </DataGrid>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="270">
-                <StackPanel Orientation="Vertical" Width="230" Margin="90 20 0 0">
-                    <Label>Opis renoviranja</Label>
-                    <TextBox Height="70" Margin="0 12 0 0" Text="{Binding RenovationDescription}"></TextBox>
+            <StackPanel Orientation="Horizontal" Margin="100 33 0 0" Height="235">
+                <StackPanel Orientation="Vertical" Width="280" Margin="47 15 0 0">
+                    <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="10 0 0 0">Opis renoviranja</Label>
+                    <TextBox Height="80" Width="280" BorderBrush="#323333" BorderThickness="2" Margin="0 5 0 0" Text="{Binding RenovationDescription}"></TextBox>
                 </StackPanel>
-                <Button Height="30" Width="90" Margin="110 0 0 45" Command="{Binding CancelCommand}">Zatvori</Button>
-                <Button Height="60" Width="110" Margin="60 0 0 75" Command="{Binding ScheduleRenovationCommand}">Zakazi</Button>
+                <Button Style="{StaticResource ResourceKey=RoundedButton}" Foreground="White" FontWeight="SemiBold" Height="65" Width="170" Margin="190 20 0 80" Command="{Binding ScheduleRenovationCommand}">Zakazi</Button>
             </StackPanel>
         </StackPanel>
     </Grid>
-</Window>
+</Page>

@@ -1,4 +1,5 @@
 ﻿using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TravelService.Application.UseCases;
@@ -13,6 +15,7 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.Services;
 using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
@@ -21,56 +24,9 @@ namespace TravelService.WPF.ViewModel
     {
         private AccommodationReservationService _reservationService;
         public Guest1 Guest1 { get; set; }
-        public Action CloseAction { get; set; }
-
-        private Dictionary<string, int> _reservationsByMonth;
-        public Dictionary<string, int> ReservationsByMonth
-        {
-            get { return _reservationsByMonth; }
-            set { _reservationsByMonth = value; OnPropertyChanged(); }
-        }
-
-        private ObservableCollection<KeyValuePair<string, int>> _reservationsByMonthCollection;
-        public ObservableCollection<KeyValuePair<string, int>> ReservationsByMonthCollection
-        {
-            get => _reservationsByMonthCollection;
-            set
-            {
-                if (value != _reservationsByMonthCollection)
-                {
-                    _reservationsByMonthCollection = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private ObservableCollection<string> _months;
-        public ObservableCollection<string> Months
-        {
-            get => _months;
-            set
-            {
-                if (value != _months)
-                {
-                    _months = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private ObservableCollection<int> _counts;
-        public ObservableCollection<int> Counts
-        {
-            get => _counts;
-            set
-            {
-                if (value != _counts)
-                {
-                    _counts = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public SelectedAccommodationView SelectedAccommodationView { get; set; }
+        public SeriesCollection ReservationSeries { get; set; }
+        public List<string> MonthLabels { get; set; }
 
         private int _currentIndex;
         public int CurrentIndex
@@ -172,22 +128,28 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public SelectedAccommodationViewModel(Accommodation selectedAccommodation, Guest1 guest1)
+        public SelectedAccommodationViewModel(SelectedAccommodationView selectedAccommodationView, Accommodation selectedAccommodation, Guest1 guest1)
         {
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            SelectedAccommodationView = selectedAccommodationView;
+
             SelectedAccommodation = selectedAccommodation;
             Guest1 = guest1;
             _currentIndex = 0;
             CurrentImage = SelectedAccommodation.Pictures.First();
 
-            List<AccommodationReservation> Reservations = new List<AccommodationReservation>(_reservationService.FindReservationsByAccommodation(SelectedAccommodation.Id));
-            ReservationsByMonth = new Dictionary<string, int>(_reservationService.CalculateReservationsByMonth(Reservations));
+            ReservationSeries = new SeriesCollection();
+            MonthLabels = new List<string>();
 
-            Months = new ObservableCollection<string>(ReservationsByMonth.Keys.ToList());
-            Counts = new ObservableCollection<int>(ReservationsByMonth.Values.ToList());
+            Dictionary<string, int> reservationsByMonth = new Dictionary<string, int>(_reservationService.CalculateReservationCountByMonth(SelectedAccommodation));
 
-            ReservationsByMonthCollection = new ObservableCollection<KeyValuePair<string, int>>(
-            ReservationsByMonth.Select(kv => new KeyValuePair<string, int>(kv.Key, kv.Value)));
+            var lineSeries = new LineSeries { Title = "Broj rezervacija", Values = new ChartValues<int>(reservationsByMonth.Values) };
+            ReservationSeries.Add(lineSeries);
+
+            foreach (var monthYear in reservationsByMonth.Keys)
+            {
+                MonthLabels.Add(monthYear);
+            }
 
             PreviousImageCommand = new RelayCommand(Execute_PreviousImage, CanExecute_Command);
             NextImageCommand = new RelayCommand(Execute_NextImage, CanExecute_Command);
@@ -202,7 +164,10 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_PreviousPage(object sender)
         {
-            CloseAction();
+            FirstGuestView firstGuestView = new FirstGuestView(Guest1);
+            firstGuestView.frame.Navigate(new AccommodationView(Guest1));
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(SelectedAccommodationView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow?.SwitchToPage(firstGuestView);
         }
 
         private void Execute_PreviousImage(object sender)
@@ -226,7 +191,8 @@ namespace TravelService.WPF.ViewModel
         private void Execute_AccommodationAvailabilityWindow(object sender)
         {
             AccommodationAvailabilityView accommodationAvailabilityView = new AccommodationAvailabilityView(SelectedAccommodation, Guest1);
-            accommodationAvailabilityView.Show();
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(SelectedAccommodationView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow?.SwitchToPage(accommodationAvailabilityView);
         }
     }
 }

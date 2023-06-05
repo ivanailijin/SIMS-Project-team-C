@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -24,17 +25,18 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for OwnerRatingView.xaml
     /// </summary>
-    public partial class OwnerRatingView : Window
+    public partial class OwnerRatingView : Page, INavigationInterface
     {
-        public OwnerRatingView(RatingViewModel ratingViewModel, AccommodationReservation selectedUnratedOwner)
+        public OwnerRatingView(RatingViewModel ratingViewModel, Guest1 guest, AccommodationReservation selectedUnratedOwner)
         {
             InitializeComponent();
-            OwnerRatingViewModel ownerRatingViewModel = new OwnerRatingViewModel(ratingViewModel, selectedUnratedOwner);
+            OwnerRatingViewModel ownerRatingViewModel = new OwnerRatingViewModel(this, ratingViewModel, guest, selectedUnratedOwner);
             DataContext = ownerRatingViewModel;
-            if (ownerRatingViewModel.CloseAction == null)
-            {
-                ownerRatingViewModel.CloseAction = new Action(this.Close);
-            }
+        }
+
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
     }
 }

@@ -1,12 +1,15 @@
-﻿<Window x:Class="TravelService.WPF.View.OwnerView"
+﻿<Page x:Class="TravelService.WPF.View.OwnerView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:TravelService.WPF.ViewModel"
+        xmlns:views="clr-namespace:TravelService.View"
         xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="TravelService" WindowStartupLocation="CenterScreen" Icon="/TravelService;component/Resources/Images/airplane.png" Height="768" Width="1024">
-    <Window.Resources>
+        Title="TravelService"  Height="751" Width="1024">
+    <Page.Resources>
         <local:BooleanToTextConverter x:Key="BooleanToTextConverter" />
         <Style x:Key="TextStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily" Value="Candara"/>
@@ -49,11 +52,11 @@
             <Setter Property="FontFamily" Value="Candara" ></Setter>
             <Setter Property="FontSize" Value="14" ></Setter>
         </Style>
-    </Window.Resources>
-    <Grid>
+    </Page.Resources>
+    <Grid >
 
         <StackPanel Orientation="Horizontal">
-            <Border BorderBrush="#7a5167" Background="#fae8f1" BorderThickness="3" Margin="5 5 5 7">
+            <Border BorderBrush="#7a5167" Background="#fae8f1"  BorderThickness="3" Margin="5 5 5 27">
                 <StackPanel Orientation="Vertical" Width="300">
                     <Border Width="80" Height="80" Margin="0, 50, 0, 0" CornerRadius="15">
                         <Image  Width="80" Height="80" Margin="0, 0, 0, 0" Source="{Binding Owner.ProfilePicture}"></Image>
@@ -175,6 +178,7 @@
                     <StackPanel Orientation="Horizontal" Height="166">
                         <StackPanel Orientation="Vertical">
                             <Button Style="{StaticResource ResourceKey=RoundedButton}" Margin="240 25 0 0" Width="200" Height="97" Command="{Binding ReservationRequestsCommand}" >
+                                
                                 <Button.Content>
                                     <Viewbox Width="90" Height="80">
                                         <Image Source="/TravelService;component/Resources/Images/reservations-icon.png"/>
@@ -189,5 +193,6 @@
 
         </StackPanel>
 
+        
     </Grid>
-</Window>
+</Page>

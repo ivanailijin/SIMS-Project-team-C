@@ -1,18 +1,22 @@
-﻿using System;
+﻿using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using LiveCharts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TravelService.Serializer;
+using System.Windows.Media;
 
 namespace TravelService.Domain.Model
 {
     public class GuestRating : ISerializable
     {
         public int Id { get; set; }
+        public Owner Owner { get; set; } 
         public int OwnerId { get; set; }
-        public Owner Owner { get; set; }
         public int GuestId { get; set; }
         public int Cleanness { get; set; }
         public int RulesFollowing { get; set; }
@@ -22,8 +26,44 @@ namespace TravelService.Domain.Model
         public string Comment { get; set; }
         public int ReservationId { get; set; }
         public AccommodationReservation Reservation { get; set; }
+        public SeriesCollection RatingSeries
+        {
+            get
+            {
+                var series = new SeriesCollection
+                {
+                    new PieSeries
+                    {
+                        Title = "Cistoca",
+                        Values = new ChartValues<double> { Cleanness },
+                    },
+                    new PieSeries
+                    {
+                        Title = "Postovanje pravila",
+                        Values = new ChartValues<double> { RulesFollowing },
+                    },
+                    new PieSeries
+                    {
+                        Title = "Komunikacija",
+                        Values = new ChartValues<double> { Communication },
+                    },
+                    new PieSeries
+                    {
+                        Title = "Nivo bucnosti",
+                        Values = new ChartValues<double> { NoiseLevel },
+                    },
+                    new PieSeries
+                    {
+                        Title = "Postovanje imovine",
+                        Values = new ChartValues<double> { PropertyRespect },
+                    }
+                };
+                return series;
+            }
+        }
+    
 
-        public GuestRating() { }
+    public GuestRating() { }
         public GuestRating(int ownerId, int guestId, int cleanness, int rulesFollowing, int communication, int noiseLevel, int propertyRespect, string comment, int reservationId)
         {
             OwnerId = ownerId;

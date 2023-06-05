@@ -11,28 +11,29 @@ namespace TravelService.Domain.Model
     public class OwnerRating : ISerializable
     {
         public int Id { get; set; }
+        public AccommodationReservation Reservation { get; set; }
         public int ReservationId { get; set; }
-        public int AccommodationId { get; set; }
         public Accommodation Accommodation { get; set; }
-        public int GuestId { get; set; }
+        public int AccommodationId { get; set; }
         public Guest1 Guest { get; set; }
+        public int GuestId { get; set; }
+        public Owner Owner { get; set; } 
         public int OwnerId { get; set; }
-        public Owner Owner { get; set; }
         public int Correctness { get; set; }
         public int Cleanliness { get; set; }
         public int Location { get; set; }
         public int Comfort { get; set; }
         public int Content { get; set; }
+        public double AverageRating { get; set; }
         public string Comment { get; set; }
         public List<Uri> Pictures { get; set; }
         public int RenovationRecommendationId { get; set; }
-        public RenovationRecommendation Recommendation { get; set; }
+        public RenovationRecommendation Recommendation { get; set; } 
 
         public OwnerRating()
         {
             Pictures = new List<Uri>();
         }
-
 
         public OwnerRating(int reservationId, int accommodationId, int guestId, int ownerId, int correctness, int cleanliness, int location, int comfort, int content, string comment, List<string> pictures)
         {

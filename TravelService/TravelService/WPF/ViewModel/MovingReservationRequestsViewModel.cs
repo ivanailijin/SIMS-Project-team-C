@@ -13,6 +13,7 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.View;
 using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
@@ -22,17 +23,19 @@ namespace TravelService.WPF.ViewModel
         private readonly ReservationRequestService _reservationRequestService;
         public ObservableCollection<ReservationRequest> ReservationRequests { get; set; }
 
+        public MovingReservationRequestsView MovingReservationRequestsView { get; set; }
         public ReservationRequest SelectedRequest { get; set; }
         public Action CloseAction { get; set; }
-        public ICommand DeclineRequestCommand { get; set; }
-        public ICommand ApproveRequestCommand { get; set; }
-        public ICommand CancelCommand { get; set; }
+        public RelayCommand DeclineRequestCommand { get; set; }
+        public RelayCommand ApproveRequestCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
 
 
-        public MovingReservationRequestsViewModel()
+        public MovingReservationRequestsViewModel(MovingReservationRequestsView movingReservationRequestsView)
         {
             InitializeCommands();
 
+            MovingReservationRequestsView = movingReservationRequestsView;
             _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
             List<ReservationRequest> reservationRequests = _reservationRequestService.GetAllUnsolvedRequests();
             reservationRequests = _reservationRequestService.GetReservationData(reservationRequests);
@@ -51,7 +54,7 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            MovingReservationRequestsView.GoBack();
         }
         private void Execute_DeclineRequestCommand(object obj)
         {

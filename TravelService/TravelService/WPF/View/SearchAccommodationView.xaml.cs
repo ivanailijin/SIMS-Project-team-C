@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -19,17 +20,18 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for SearchAccommodationView.xaml
     /// </summary>
-    public partial class SearchAccommodationView : Window
+    public partial class SearchAccommodationView : Page, INavigationInterface
     {
         public SearchAccommodationView(AccommodationViewModel accommodationViewModel)
         {
             InitializeComponent();
-            SearchAccommodationViewModel searchAccommodationView = new SearchAccommodationViewModel(accommodationViewModel);
+            SearchAccommodationViewModel searchAccommodationView = new SearchAccommodationViewModel(this, accommodationViewModel);
             DataContext = searchAccommodationView;
-            if (searchAccommodationView.CloseAction == null)
-            {
-                searchAccommodationView.CloseAction = new Action(this.Close);
-            }
+        }
+
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
     }
 }

@@ -46,6 +46,38 @@ namespace TravelService.Application.UseCases
         {
             return _accommodationReservationRepository.FindById(id);
         }
+        public List<AccommodationReservation> GetReservationsByLocation(Location location)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            GetAccommodationData(reservations);
+            GetLocationData(reservations);
+            List<AccommodationReservation> reservationsByLocation = new List<AccommodationReservation>();
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if(reservation.Accommodation.Location.Country == location.Country && reservation.Accommodation.Location.City == location.City)
+                {
+                    reservationsByLocation.Add(reservation);
+                }
+            }
+            return reservationsByLocation;
+        }
+
+        public double GetBusynessByLocation(Location location)
+        {
+            List<AccommodationReservation> reservations = GetReservationsByLocation(location);
+
+            double busyness = 0;
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                for(int year = reservation.Accommodation.DateCreated.Year; year < DateTime.Today.Year; year++)
+                {
+                    busyness += GetBusynessPerYear(reservation.Accommodation, year);
+                }
+            }
+            return busyness;
+        }
 
         public List<AccommodationReservation> FindByGuestId(int guestId)
         {
@@ -62,21 +94,34 @@ namespace TravelService.Application.UseCases
             return foundReservations;
         }
 
-        public List<AccommodationReservation> GetReservationsInLastYear(Guest1 guest)
+        public List<AccommodationReservation> GetReservationsInNextYearByAccommmodation(int accommodationId, DateTime currentDate, DateTime endDate)
         {
-            DateTime oneYearAgo = DateTime.Today.AddYears(-1);
-
-            List<AccommodationReservation> guestReservations = FindByGuestId(guest.Id); 
+            List<AccommodationReservation> accommodationReservations = GetAll();
             List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
-            foreach (AccommodationReservation reservation in guestReservations)
+            foreach (AccommodationReservation reservation in accommodationReservations)
             {
-                if (reservation.CheckInDate >= oneYearAgo && reservation.CheckOutDate <= DateTime.Today)
+                if (reservation.IsCancelled == false && reservation.AccommodationId == accommodationId && reservation.CheckInDate >= currentDate && reservation.CheckOutDate <= endDate)
                 {
                     reservationsInLastYear.Add(reservation);
                 }
             }
             return reservationsInLastYear;
         }
+
+        public List<AccommodationReservation> GetReservationsInLastYearByGuest(int guestId, DateTime startDate, DateTime endDate)
+        {
+            List<AccommodationReservation> accommodationReservations = GetAll();
+            List<AccommodationReservation> reservationsInLastYear = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in accommodationReservations)
+            {
+                if (reservation.IsCancelled == false && reservation.GuestId == guestId && reservation.CheckInDate >= startDate && reservation.CheckOutDate <= endDate)
+                {
+                    reservationsInLastYear.Add(reservation);
+                }
+            }
+            return reservationsInLastYear;
+        }
+
         public int GetReservationYearNumber(int year, int accommodationId)
         {
             List<AccommodationReservation> reservations = GetAll();
@@ -151,7 +196,6 @@ namespace TravelService.Application.UseCases
                     daysCount += reservation.LengthOfStay;
                 }
             }
-
             return (double)daysCount / daysInYear;
         }
         public double GetBusynessPerMonth(Accommodation accommodation, int year, int month)
@@ -177,10 +221,27 @@ namespace TravelService.Application.UseCases
                     daysCount += reservedDays.Days + 1;
                 }
             }
-
             return (double)daysCount / daysInMonth;
         }
 
+        public int GetReservationsNumberByLocation(Location location)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            reservations = GetAccommodationData(reservations);
+            GetLocationData(reservations);
+
+            int reservationsNumber = 0;
+
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if(reservation.Accommodation.Location.Id == location.Id)
+                {
+                    reservationsNumber++;
+                }
+            }
+
+            return reservationsNumber;
+        }
         public List<AccommodationReservation> GetReservationsInYear(Accommodation accommodation, int year)
         {
             List<AccommodationReservation> yearsReservations = new List<AccommodationReservation>();
@@ -188,7 +249,7 @@ namespace TravelService.Application.UseCases
 
             foreach(AccommodationReservation reservation in reservations)
             {
-                if(reservation.AccommodationId==accommodation.Id && reservation.CheckInDate.Year == year && reservation.CheckOutDate.Year == year)
+                if(reservation.AccommodationId ==accommodation.Id && reservation.CheckInDate.Year == year && reservation.CheckOutDate.Year == year)
                     yearsReservations.Add(reservation);
             }
 
@@ -358,7 +419,6 @@ namespace TravelService.Application.UseCases
             else
             {
                 return AVAILABILITY.Available;
-
             }
         }
 
@@ -375,7 +435,6 @@ namespace TravelService.Application.UseCases
                     UnratedOwners.Add(reservation);
                 }
             }
-
             return UnratedOwners;
         }
 
@@ -394,7 +453,7 @@ namespace TravelService.Application.UseCases
             List<Location> locations = _locationService.GetAll();
             foreach (AccommodationReservation reservation in reservations)
             {
-                reservation.Location = locations.Find(l => l.Id == reservation.LocationId);
+                reservation.Accommodation.Location = locations.Find(l => l.Id == reservation.Accommodation.LocationId);
             }
             return reservations;
         }
@@ -424,24 +483,44 @@ namespace TravelService.Application.UseCases
                     UnratedReservations.Add(reservation);
                 }
             }
-
             return UnratedReservations;
         }
 
-        public Dictionary<string, int> CalculateReservationsByMonth(List<AccommodationReservation> reservations)
+        public Dictionary<string, int> CalculateReservationCountByMonth(Accommodation accommodation)
         {
-            var reservationsByMonth = new Dictionary<string, int>();
+            var currentDate = DateTime.Now;
+            var endDate = currentDate.AddYears(1);
+            var reservations = GetReservationsInNextYearByAccommmodation(accommodation.Id, currentDate, endDate);
+            var reservationCountByMonth = new Dictionary<string, int>();
 
-            foreach (var reservation in reservations)
+            while (currentDate < endDate)
             {
-                string month = reservation.CheckInDate.ToString("MMM-yy");
-                if (!reservationsByMonth.ContainsKey(month))
-                {
-                    reservationsByMonth[month] = 0;
-                }
-                reservationsByMonth[month]++;
+                var monthYear = currentDate.ToString("MMM/yyyy");
+                var count = reservations.Count(r => r.CheckInDate.ToString("MMM/yyyy") == monthYear);
+                reservationCountByMonth.Add(monthYear, count);
+
+                currentDate = currentDate.AddMonths(1);
             }
-            return reservationsByMonth;
+            return reservationCountByMonth;
         }
+
+        public Dictionary<string, int> CalculateReservationCountByMonthInPreviousYear(Guest1 guest)
+        {
+            var endDate = DateTime.Now;
+            var startDate = endDate.AddYears(-1);
+            var reservations = GetReservationsInLastYearByGuest(guest.Id, startDate, endDate);
+            var reservationCountByMonth = new Dictionary<string, int>();
+
+            while (startDate < endDate)
+            {
+                var monthYear = startDate.ToString("MMM/yyyy");
+                var count = reservations.Count(r => r.CheckInDate.ToString("MMM/yyyy") == monthYear);
+                reservationCountByMonth.Add(monthYear, count);
+
+                startDate = startDate.AddMonths(1);
+            }
+            return reservationCountByMonth;
+        }
+
     }
 }

@@ -22,6 +22,7 @@ namespace TravelService.WPF.ViewModel
 
         public LocationService _locationService;
 
+        public ReviewsSelectionView ReviewsSelectionView { get; set; }
         public Action CloseAction { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand ShowReviewCommand { get; set; }
@@ -31,7 +32,7 @@ namespace TravelService.WPF.ViewModel
         public static List<Location> Locations { get; set; }
         public Owner Owner { get; set; }
 
-        public ReviewsSelectionViewModel(Owner owner)
+        public ReviewsSelectionViewModel(Owner owner, ReviewsSelectionView reviewsSelectionView)
         {
             InitializeCommands();
             this.Owner = owner;
@@ -44,6 +45,7 @@ namespace TravelService.WPF.ViewModel
             {
                 accommodation.Location = Locations.Find(l => l.Id == accommodation.LocationId);
             }
+            ReviewsSelectionView = reviewsSelectionView;
         }
         private void InitializeCommands()
         {
@@ -55,7 +57,8 @@ namespace TravelService.WPF.ViewModel
             if (SelectedAccommodation != null && Owner != null)
             {
                 AccommodationReview accommodationReview = new AccommodationReview(SelectedAccommodation, Owner);
-                accommodationReview.Show();
+                OwnerWindow ownerWindow = Window.GetWindow(ReviewsSelectionView) as OwnerWindow;
+                ownerWindow?.SwitchToPage(accommodationReview);
             }
             else
             {
@@ -64,7 +67,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            ReviewsSelectionView.GoBack();
         }
 
         private bool CanExecute_Command(object arg)

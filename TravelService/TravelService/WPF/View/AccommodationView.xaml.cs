@@ -26,12 +26,12 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for AccommodationView.xaml
     /// </summary>
-    public partial class AccommodationView : UserControl
+    public partial class AccommodationView : Page
     {
         public AccommodationView(Guest1 guest1)
         {
             InitializeComponent();
-            AccommodationViewModel accommodationViewModel = new AccommodationViewModel(guest1);
+            AccommodationViewModel accommodationViewModel = new AccommodationViewModel(this, guest1);
             DataContext = accommodationViewModel;
         }
     }

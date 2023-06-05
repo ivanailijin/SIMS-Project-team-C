@@ -182,7 +182,7 @@ namespace TravelService.WPF.ViewModel
         }
 
 
-        public AddAccommodationViewModel(Owner owner)
+        public AddAccommodationViewModel(Owner owner, Location location)
         {
             InitializeCommands();
             this.Owner = owner;
@@ -190,6 +190,16 @@ namespace TravelService.WPF.ViewModel
             ListBoxPictures = new ObservableCollection<string>();
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
+
+            if (location != null)
+            {
+                Location = location.CityAndCountry;
+            }
+            else
+            {
+                Location = "";
+            }
+
         }
         public string Error
         {
@@ -283,7 +293,7 @@ namespace TravelService.WPF.ViewModel
                     formattedPictures.Add(picture);
                 }
 
-                Accommodation accommodation = new Accommodation(Owner.Id, AccommodationName, savedLocation, savedLocation.Id, AccommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, DateTime.Today, formattedPictures);
+                Accommodation accommodation = new Accommodation(Owner.Id, AccommodationName, savedLocation.Id, AccommodationType, MaxGuestNumber, MinReservationDays, DaysBeforeCancellingReservation, DateTime.Today, formattedPictures);
                 _accommodationService.Save(accommodation);
                 CloseAction();
             }

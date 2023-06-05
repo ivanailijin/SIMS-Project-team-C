@@ -15,16 +15,20 @@ namespace TravelService.Application.UseCases
     {
         private readonly IOwnerRatingRepository _ownerRatingRepository;
         private readonly Guest1Service _guestService;
+        private readonly AccommodationService _accommodationService;
 
         public OwnerRatingService(IOwnerRatingRepository ownerRatingRepository)
         {
             _ownerRatingRepository = ownerRatingRepository;
             _guestService = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
         }
 
         public List<OwnerRating> GetAll()
         {
-            return _ownerRatingRepository.GetAll();
+            List<OwnerRating> ownerRatings = _ownerRatingRepository.GetAll();
+            ownerRatings = GetGuestData(ownerRatings);
+            return GetAccommodationData(ownerRatings);
         }
 
         public OwnerRating Save(OwnerRating ownerRating)
@@ -36,7 +40,28 @@ namespace TravelService.Application.UseCases
         {
             return _ownerRatingRepository.NextId();
         }
+        public List<OwnerRating> GetGuestData(List<OwnerRating> ownerRatings)
+        {
+            List<Guest1> guests = _guestService.GetAll();
 
+            foreach (OwnerRating ownerRating in ownerRatings)
+            {
+                ownerRating.Guest = guests.Find(g => g.Id == ownerRating.GuestId);
+            }
+
+            return ownerRatings;
+        }
+        public List<OwnerRating> GetAccommodationData(List<OwnerRating> ownerRatings)
+        {
+            List<Accommodation> accommodations = _accommodationService.GetAll();
+
+            foreach(OwnerRating ownerRating in ownerRatings)
+            {
+                ownerRating.Accommodation = accommodations.Find(a => a.Id == ownerRating.AccommodationId);
+            }
+
+            return ownerRatings;
+        }
         public int GetNumberOfRatings(int ownerId)
         {
             int ratingCount = 0;
@@ -50,6 +75,153 @@ namespace TravelService.Application.UseCases
                 }
             }
             return ratingCount;
+        }
+        public int GetNumberOfAccommodationRatings(Accommodation accommodation)
+        {
+            int ratingCount = 0;
+            List<OwnerRating> ownerRatings = GetAll();
+
+            foreach (OwnerRating rating in ownerRatings)
+            {
+                if (rating.AccommodationId == accommodation.Id)
+                {
+                    ratingCount++;
+                }
+            }
+            return ratingCount;
+        }
+        public double GetAverageCleanliness(Accommodation accommodation)
+        {
+            double sum = 0;
+            double count = 0;
+
+            List<OwnerRating> ownerRatings = GetAll();
+
+            foreach(OwnerRating rating in ownerRatings)
+            {
+                if(rating.AccommodationId == accommodation.Id)
+                {
+                    sum += rating.Cleanliness;
+                    count++;
+                }
+            }
+            return sum / count;
+        }
+        public double GetAverageCorrectness(Accommodation accommodation)
+        {
+            double sum = 0;
+            double count = 0;
+
+            List<OwnerRating> ownerRatings = GetAll();
+
+            foreach (OwnerRating rating in ownerRatings)
+            {
+                if (rating.AccommodationId == accommodation.Id)
+                {
+                    sum += rating.Correctness;
+                    count++;
+                }
+            }
+            return sum / count;
+        }
+        public double GetAverageLocation(Accommodation accommodation)
+        {
+            double sum = 0;
+            double count = 0;
+
+            List<OwnerRating> ownerRatings = GetAll();
+
+            foreach (OwnerRating rating in ownerRatings)
+            {
+                if (rating.AccommodationId == accommodation.Id)
+                {
+                    sum += rating.Location;
+                    count++;
+                }
+            }
+            return sum / count;
+        }
+        public double GetAverageComfort(Accommodation accommodation)
+        {
+            double sum = 0;
+            double count = 0;
+
+            List<OwnerRating> ownerRatings = GetAll();
+
+            foreach (OwnerRating rating in ownerRatings)
+            {
+                if (rating.AccommodationId == accommodation.Id)
+                {
+                    sum += rating.Comfort;
+                    count++;
+                }
+            }
+            return sum / count;
+        }
+        public double GetAverageContent(Accommodation accommodation)
+        {
+            double sum = 0;
+            double count = 0;
+
+            List<OwnerRating> ownerRatings = GetAll();
+
+            foreach (OwnerRating rating in ownerRatings)
+            {
+                if (rating.AccommodationId == accommodation.Id)
+                {
+                    sum += rating.Content;
+                    count++;
+                }
+            }
+            return sum / count;
+        }
+        public List<Uri> GetRatingImages(Accommodation accommodation)
+        {
+            List<Uri> ratingImages = new List<Uri>();
+            List<OwnerRating> ownerRatings = GetAll();
+
+            foreach (OwnerRating rating in ownerRatings)
+            {
+                if (rating.AccommodationId == accommodation.Id)
+                {
+                    foreach(Uri picture in rating.Pictures)
+                    {
+                        ratingImages.Add(picture);
+                    }
+                }
+            }
+            return ratingImages;
+        }
+        public double GetAverageAccommodationRating(Accommodation accommodation)
+        {
+            return (double)(GetAverageCleanliness(accommodation) + GetAverageComfort(accommodation) + GetAverageCorrectness(accommodation)
+                            + GetAverageLocation(accommodation) + GetAverageContent(accommodation)) / 5;
+        }
+        public OwnerRating FindByGuestId(Guest1 guest)
+        {
+            List<OwnerRating> ownerRatings = GetAll();
+            foreach(OwnerRating rating in ownerRatings)
+            {
+                if(rating.GuestId == guest.Id)
+                {
+                    return rating;
+                }
+            }
+            return null;
+        }
+        public List<OwnerRating> GetRatingsByGuests(List<Guest1> guests)
+        {
+            List<OwnerRating> ownerRatings = new List<OwnerRating>();
+
+            foreach(Guest1 guest in guests)
+            {
+                OwnerRating ownerRating = FindByGuestId(guest);
+                ownerRating.AverageRating = (double)(ownerRating.Cleanliness + ownerRating.Correctness +
+                                            ownerRating.Comfort + ownerRating.Content + ownerRating.Location) / 5;
+                ownerRatings.Add(ownerRating);
+            }
+
+            return ownerRatings;
         }
         public double GetAverageRating(int ownerId)
         {

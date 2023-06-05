@@ -18,7 +18,7 @@ namespace TravelService.WPF.ViewModel
         private readonly AccommodationReservationService _reservationService;
         public Accommodation SelectedAccommodation { get; set; }
         public Guest1 Guest1 { get; set; }
-        public Action CloseAction { get; set; }
+        public AccommodationAvailabilityView AccommodationAvailabilityView { get; set; }
 
         private DateTime _checkInDate;
         public DateTime CheckInDate
@@ -77,13 +77,35 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public AccommodationAvailabilityViewModel(Accommodation selectedAccommodation, Guest1 guest1)
+        private RelayCommand _previousPageCommand;
+        public RelayCommand PreviousPageCommand
+        {
+            get => _previousPageCommand;
+            set
+            {
+                if (value != _previousPageCommand)
+                {
+                    _previousPageCommand = value;
+                    OnPropertyChanged();
+                }
+
+            }
+        }
+
+        public AccommodationAvailabilityViewModel(AccommodationAvailabilityView accommodationAvailabillityView, Accommodation selectedAccommodation, Guest1 guest1)
         {
             SelectedAccommodation = selectedAccommodation;
+            AccommodationAvailabilityView = accommodationAvailabillityView;
             Guest1 = guest1;
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
 
             SearchAvailableDatesCommand = new RelayCommand(Execute_SearchAvailableDates, CanExecute_Command);
+            PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
+        }
+
+        public void GoBack()
+        {
+            AccommodationAvailabilityView.GoBack();
         }
 
         private bool CanExecute_Command(object parameter)
@@ -115,8 +137,13 @@ namespace TravelService.WPF.ViewModel
             }
 
             ReserveAccommodationView reserveAccommodationView = new ReserveAccommodationView(SelectedAccommodation, Guest1, AvailableDateRange, AvailableDatesOutsideRange, LengthOfStay);
-            reserveAccommodationView.Show();
-            CloseAction();
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(AccommodationAvailabilityView) as FirstGuestWindow;
+            firstGuestWindow?.SwitchToPage(reserveAccommodationView);
+        }
+
+        private void Execute_PreviousPage(object sender)
+        {
+            GoBack();
         }
     }
 }

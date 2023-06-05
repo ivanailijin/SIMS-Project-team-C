@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.Services;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
     public class SearchAccommodationViewModel : ViewModelBase
     {
-        private AccommodationViewModel _accommodationViewModel;
         private AccommodationService _accommodationService;
+        private INavigationInterface _navigationInterface;
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
         public ObservableCollection<string> LocationsComboBox { get; set; }
-        public Action CloseAction { get; set; }
+        public AccommodationViewModel _accommodationViewModel;
+        public SearchAccommodationView SearchAccommodationView { get; set; }
 
         private string _accommodationName;
         public string AccommodationName
@@ -172,9 +176,10 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public SearchAccommodationViewModel(AccommodationViewModel accommodationViewModel)
+        public SearchAccommodationViewModel(INavigationInterface navigationInterface, AccommodationViewModel accommodationViewModel)
         {
             _accommodationViewModel = accommodationViewModel;
+            _navigationInterface = navigationInterface;
             LocationsComboBox = new ObservableCollection<string>();
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             FilteredAccommodations = new ObservableCollection<Accommodation>();
@@ -222,7 +227,7 @@ namespace TravelService.WPF.ViewModel
             }
 
             _accommodationViewModel.Accommodations = FilteredAccommodations;
-            CloseAction();
+            _navigationInterface.GoBack();
         }
 
         private void Execute_DecreaseGuestNumber(object sender)
@@ -265,7 +270,7 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_PreviousPage(object sender)
         {
-            CloseAction();
+            _navigationInterface.GoBack();
         }
     }
 }

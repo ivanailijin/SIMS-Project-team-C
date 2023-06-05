@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.View
@@ -23,17 +24,18 @@ namespace TravelService.View
     /// <summary>
     /// Interaction logic for MovingReservationRequestsView.xaml
     /// </summary>
-    public partial class MovingReservationRequestsView : Window, INotifyPropertyChanged
+    public partial class MovingReservationRequestsView : Page, INotifyPropertyChanged, INavigationInterface
     {
-        
         public MovingReservationRequestsView()
         {
             InitializeComponent();
-            MovingReservationRequestsViewModel movingReservationRequestsViewModel = new MovingReservationRequestsViewModel();
+            MovingReservationRequestsViewModel movingReservationRequestsViewModel = new MovingReservationRequestsViewModel(this);
             DataContext = movingReservationRequestsViewModel;
-            if (movingReservationRequestsViewModel.CloseAction == null)
-                movingReservationRequestsViewModel.CloseAction = new Action(this.Close);
 
+        }
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

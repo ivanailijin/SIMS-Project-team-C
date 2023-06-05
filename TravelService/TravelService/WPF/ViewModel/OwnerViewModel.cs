@@ -6,9 +6,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.View;
+using TravelService.WPF.Services;
 using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
@@ -17,7 +20,10 @@ namespace TravelService.WPF.ViewModel
     {
         public Owner Owner { get; set; }
 
+        public NavigationService _navigationService;
         public Action CloseAction { get; set; }
+        public OwnerView OwnerView { get; set; }
+        public Frame MainFrame { get; set; }
         public RelayCommand AddAccommodationCommand { get; set; }
         public RelayCommand GuestRatingCommand { get; set; }
         public RelayCommand ReviewSelectionCommand { get; set; }
@@ -26,7 +32,23 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand ShowProfileCommand { get; set; }    
         public RelayCommand ScheduleRenovationCommand { get; set; }    
         public RelayCommand ShowRenovationsCommand { get; set; }    
-        public RelayCommand ShowStatisticsCommand { get; set; }    
+        public RelayCommand ShowStatisticsCommand { get; set; }
+
+        private object _currentViewModel;
+
+        public object CurrentViewModel 
+        {
+            get => _currentViewModel;
+            set
+            {
+                if (value != _currentViewModel)
+                {
+                    _currentViewModel = value;
+                    OnPropertyChanged();
+                }
+            }
+
+        }
 
 
         private bool _isSuperOwner;
@@ -50,9 +72,10 @@ namespace TravelService.WPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public OwnerViewModel(Owner owner)
+        public OwnerViewModel(Owner owner, OwnerView ownerView)
         {
             this.Owner = owner;
+            OwnerView = ownerView;
             IsSuperOwner = owner.SuperOwner;
             InitializeCommands();
         }
@@ -71,52 +94,59 @@ namespace TravelService.WPF.ViewModel
         private void Execute_ShowStatisticsCommand(object obj)
         {
             AccommodationStatisticsView accommodationStatisticsView = new AccommodationStatisticsView(Owner);
-            accommodationStatisticsView.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(accommodationStatisticsView);
         }
         private void Execute_ShowRenovationsCommand(object obj)
         {
             ScheduledRenovationsCancellationView scheduledRenovationsCancellationView = new ScheduledRenovationsCancellationView(Owner);
-            scheduledRenovationsCancellationView.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(scheduledRenovationsCancellationView);
         }
         private void Execute_ScheduleRenovationCommand(object obj)
         {
             RenovationSelectionView renovationSelectionView = new RenovationSelectionView(Owner);
-            renovationSelectionView.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(renovationSelectionView);
         }
         private void Execute_ShowProfileCommand(object obj)
         {
             OwnerProfileView ownerProfileView = new OwnerProfileView(Owner);
-            ownerProfileView.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(ownerProfileView);
         }
         private void Execute_AddAccommodationCommand(object obj)
         {
-            AddAccommodation addAccommodation = new AddAccommodation(Owner);
+            AddAccommodation addAccommodation = new AddAccommodation(Owner, null);
             addAccommodation.Show();
         }
 
         private void Execute_GuestRatingCommand(object obj)
         {
             GuestRatingOverview ratingOverview = new GuestRatingOverview(Owner);
-            ratingOverview.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(ratingOverview);
         }
 
         private void Execute_ReviewSelectionCommand(object obj)
         {
             ReviewsSelectionView reviewSelection = new ReviewsSelectionView(Owner);
-            reviewSelection.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(reviewSelection);
         }
 
         private void Execute_ReservationRequestsCommand(object obj)
         {
             MovingReservationRequestsView movingReservationRequests = new MovingReservationRequestsView();
-            movingReservationRequests.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(movingReservationRequests);
         }
 
         private void Execute_LogOutCommand(object obj)
         {
             SignInForm signInForm = new SignInForm();
             signInForm.Show();
-            CloseAction();
+            //CloseAction();
         }
 
         private bool CanExecute_Command(object arg)

@@ -98,8 +98,8 @@ namespace TravelService.WPF.View
                         if (txtPassword.Password.Equals("owner123"))
                         {
                             Owner owner = _ownerService.GetByUsername(Username);
-                            OwnerView ownerView = new OwnerView(owner);
-                            ownerView.Show();
+                            OwnerWindow ownerWindow = new OwnerWindow(owner);
+                            ownerWindow.Show();
 
                             List<AccommodationReservation> reservationList = _reservationService.GetAll();
 
@@ -112,8 +112,8 @@ namespace TravelService.WPF.View
                                     MessageBoxResult result = MessageBox.Show("Imate neocenjene goste.\nDa li zelite da ih ocenite odmah?", "Obavestenje", MessageBoxButton.YesNo, MessageBoxImage.Information);
                                     if (result == MessageBoxResult.Yes)
                                     {
-                                        GuestRatingOverview guestRatingOverview = new GuestRatingOverview(owner);
-                                        guestRatingOverview.ShowDialog();
+                                        //GuestRatingOverview guestRatingOverview = new GuestRatingOverview(owner);
+                                        //guestRatingOverview.ShowDialog();
                                     }
                                     break;
                                 }
@@ -123,8 +123,8 @@ namespace TravelService.WPF.View
                         else if (txtPassword.Password.Equals("guest1123"))
                         {
                             Guest1 guest1 = _guest1Service.GetByUsername(Username);
-                            FirstGuestView firstGuestView = new FirstGuestView(guest1);
-                            firstGuestView.Show();
+                            FirstGuestWindow firstGuestWindow = new FirstGuestWindow(guest1);
+                            firstGuestWindow.Show();
                             Close();
                         }
                         else if (txtPassword.Password.Equals("guest2123"))

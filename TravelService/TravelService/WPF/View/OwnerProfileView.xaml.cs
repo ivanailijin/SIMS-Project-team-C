@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
+using TravelService.WPF.Services;
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -20,16 +21,21 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for OwnerProfileView.xaml
     /// </summary>
-    public partial class OwnerProfileView : Window
+    public partial class OwnerProfileView : Page, INavigationInterface
     {
         public OwnerProfileView(Owner owner)
         {
             InitializeComponent();
-            OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(owner);
+            OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(owner, this);
             DataContext = ownerProfileViewModel;
-            if (ownerProfileViewModel.CloseAction == null)
-                ownerProfileViewModel.CloseAction = new Action(this.Close);
+            //if (ownerProfileViewModel.CloseAction == null)
+               // ownerProfileViewModel.CloseAction = new Action(this.Close);
         }
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

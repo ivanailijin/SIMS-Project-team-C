@@ -5,6 +5,7 @@ using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -13,10 +14,11 @@ namespace TravelService.WPF.ViewModel
         private RenovationRecommendationService _renovationRecommendationService;
         private OwnerService _ownerService;
         private OwnerRatingService _ownerRatingService;
+        private AccommodationReservationService _reservationService;
+        public RenovationRecommendationView RenovationRecommendationView { get; set; }
         public OwnerRating Rating { get; set; }
         public AccommodationReservation SelectedUnratedOwner { get; set; }
-        public Action CloseAction { get; set; }
-        public Action CloseParentWindow { get; set; }
+        public Guest1 Guest1 { get; set; }
 
         private string _accommodationName;
         public string AccommodationName
@@ -102,14 +104,16 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public RenovationRecommendationViewModel(Action closeParentWindow, AccommodationReservation selectedUnratedOwner, OwnerRating rating)
+        public RenovationRecommendationViewModel(RenovationRecommendationView renovationRecommendationView, AccommodationReservation selectedUnratedOwner, Guest1 guest, OwnerRating rating)
         {
             SelectedUnratedOwner = selectedUnratedOwner;
-            CloseParentWindow = closeParentWindow;
+            RenovationRecommendationView = renovationRecommendationView;
+            Guest1 = guest;
             _renovationRecommendationService = new RenovationRecommendationService(Injector.CreateInstance<IRenovationRecommendationRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
             _ownerRatingService = new OwnerRatingService(Injector.CreateInstance<IOwnerRatingRepository>());
-            Rating = rating;
+            _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            Rating = rating; 
 
             AccommodationName = selectedUnratedOwner.Accommodation.Name;
             Owner owner = _ownerService.FindById(selectedUnratedOwner.OwnerId);
@@ -126,7 +130,12 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_PreviousPage(object sender)
         {
-            CloseAction();
+            GoBack();
+        }
+
+        public void GoBack()
+        {
+            RenovationRecommendationView.GoBack();
         }
 
         private void Execute_SendRecommendation(object sender)
@@ -142,8 +151,14 @@ namespace TravelService.WPF.ViewModel
                 _renovationRecommendationService.Save(renovationRecommendation);
                 Rating.RenovationRecommendationId = renovationRecommendation.Id;
                 _ownerRatingService.Save(Rating);
-                CloseAction();
-                CloseParentWindow();
+                AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
+                ratedOwner.IsOwnerRated = true;
+                _reservationService.Update(ratedOwner);
+
+                FirstGuestView firstGuestView = new FirstGuestView(Guest1);
+                firstGuestView.frame.Navigate(new RatingView(Guest1));
+                FirstGuestWindow firstGuestWindow = Window.GetWindow(RenovationRecommendationView) as FirstGuestWindow;
+                firstGuestWindow?.SwitchToPage(firstGuestView);
             }
         }
 

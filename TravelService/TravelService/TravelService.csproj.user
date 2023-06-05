@@ -14,7 +14,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\AddTourRequestView.xaml.cs">
-	<SubType>Code</SubType>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\AccommodationMonthStatisticsView.xaml.cs">
       <SubType>Code</SubType>
@@ -34,10 +34,16 @@
     <Compile Update="WPF\View\CancelRenovationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ClosingAccommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\FirstGuestProfileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\FirstGuestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\FirstGuestWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\GuestsRequestsStatisticsView.xaml.cs">
@@ -68,6 +74,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\OwnerRatingView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\OwnerWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\PastTours.xaml.cs">
@@ -201,6 +210,9 @@
     <Page Update="WPF\View\AddTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\ClosingAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\DeclineReservationRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -217,6 +229,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\FirstGuestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\FirstGuestWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsRequestsStatisticsView.xaml">
@@ -247,6 +262,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\OwnerRatingView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\OwnerWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\PastTours.xaml">

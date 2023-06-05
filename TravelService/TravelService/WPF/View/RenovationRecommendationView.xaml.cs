@@ -21,17 +21,18 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for RenovationRecommendationView.xaml
     /// </summary>
-    public partial class RenovationRecommendationView : Window
+    public partial class RenovationRecommendationView : Page
     {
-        public RenovationRecommendationView(Action closeParentWindow, AccommodationReservation selectedAccommodationReservation, OwnerRating ownerRating)
+        public RenovationRecommendationView(AccommodationReservation selectedAccommodationReservation, Guest1 guest, OwnerRating ownerRating)
         {
             InitializeComponent();
-            RenovationRecommendationViewModel renovationRecommendationViewModel = new RenovationRecommendationViewModel(closeParentWindow, selectedAccommodationReservation, ownerRating);
+            RenovationRecommendationViewModel renovationRecommendationViewModel = new RenovationRecommendationViewModel(this, selectedAccommodationReservation, guest, ownerRating);
             DataContext = renovationRecommendationViewModel;
-            if (renovationRecommendationViewModel.CloseAction == null)
-            {
-                renovationRecommendationViewModel.CloseAction = new Action(this.Close);
-            }
+        }
+
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
     }
 }

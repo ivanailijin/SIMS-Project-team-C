@@ -1,73 +1,144 @@
-﻿<Window x:Class="TravelService.WPF.View.AccommodationReview"
+﻿<Page x:Class="TravelService.WPF.View.AccommodationReview"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="AccommodationReview" Height="500" Width="800" WindowStartupLocation="CenterScreen">
+        Title="AccommodationReview" Background="#ebf2f2" Height="768" Width="1024">
+    <Page.Resources>
+        <local:EnumToStringConverter x:Key="EnumConverter" />
+        <local:TakeConverter x:Key="TakeConverter" />
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#476a6b" Background="#76aeb0" BorderThickness="1.5" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+        </Style>
+        <Style x:Key="LabelDataStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="TextDataStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Candara"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Page.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="340"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Guests who rated the accommodation" Foreground="DarkSlateBlue" FontWeight="Bold" TextAlignment="Center" Margin="0,20"  FontSize="13" ></TextBlock>
-        <DataGrid  VerticalAlignment="Center" ItemsSource="{Binding Path=Guests, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedGuest, UpdateSourceTrigger=PropertyChanged}"
-                   AutoGenerateColumns="False" IsReadOnly="True"
-                   Width="240" Height="310" Grid.Row="1">
-            <DataGrid.Columns >
-                <DataGridTextColumn Header="Name" Width="230" Binding="{Binding Username}">
-                </DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-                <Label HorizontalContentAlignment="Center" Width="120" Margin="10"  Content="Correctness:"/>
-                <TextBox x:Name="Correctness" Text="{Binding Correctness}"  Width="140"/>
+
+        
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Height="37">
+                <Button Style="{StaticResource ResourceKey=RoundedButton}" Command="{Binding CancelCommand}" Width="130" Height="25" Content="Nazad" Margin="30 0 0 0" ></Button>
+                <Button IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="770 5 0 0" 
+                        Command="{Binding HomeCommand}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/TravelService;component/Resources/Images/home-icon.png" />
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="40">
+                <TextBlock Text="Recenzije gostiju" FontFamily="Candara" FontSize="28" Margin="0 7 0 0 "></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="70">
+                <Border Width="90" Height="45" Background="CornflowerBlue" Margin="50 0 0 0">
+                    <TextBlock Text="{Binding AverageAccommodationRating}" FontFamily="Candara" FontSize="30" HorizontalAlignment="Center" Foreground="White"></TextBlock>
+                </Border>
+                <TextBlock Width="16" Height="30" Margin="30 32 0 0" Text="{Binding NumberOfRatings}" FontFamily="Candara" FontSize="18"></TextBlock>
+                <TextBlock Height="30" Margin="0 36 0 0" Text="recenzije" FontFamily="Candara" FontSize="17"></TextBlock>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock></TextBlock>
+                    <TextBlock></TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="27">
+                <TextBlock Text="Kategorije:" FontFamily="Candara" FontSize="18" FontWeight="SemiBold" Margin="50 5 0 0"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="80">
+                <StackPanel Orientation="Vertical" Width="270" Margin="50 20 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Cistoca" FontFamily="Candara" Margin="7 0 0 0" FontSize="16"></TextBlock>
+                        <TextBlock Text="{Binding Cleanliness}" Margin="180 0 0 8" HorizontalAlignment="Right" FontFamily="Candara" FontSize="17"></TextBlock>
+                    </StackPanel>
+                    <Slider Minimum="0" Maximum="5" Value="{Binding Cleanliness}"  IsEnabled="True"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="270" Margin="50 20 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Korektnost vlasnika" FontFamily="Candara" Margin="6 0 0 0" FontSize="16"></TextBlock>
+                        <TextBlock Text="{Binding Correctness}" Margin="97 0 0 8" HorizontalAlignment="Right" FontFamily="Candara" FontSize="17"></TextBlock>
+                    </StackPanel>
+                    <Slider Minimum="0" Maximum="5" Value="{Binding Correctness}"  />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="270" Margin="50 20 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Lokacija" FontFamily="Candara" Margin="5 0 0 0" FontSize="16"></TextBlock>
+                        <TextBlock Text="{Binding Location}" Margin="180 0 0 8" HorizontalAlignment="Right" FontFamily="Candara" FontSize="17"></TextBlock>
+                    </StackPanel>
+                    <Slider Minimum="0" Maximum="5" Value="{Binding Location}"  />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="80">
+                <StackPanel Orientation="Vertical" Width="270" Margin="50 20 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Udobnost" Margin="5 0 0 0" FontFamily="Candara" FontSize="16"></TextBlock>
+                        <TextBlock Text="{Binding Comfort}" Margin="165 0 0 8" HorizontalAlignment="Right" FontFamily="Candara" FontSize="17"></TextBlock>
+                    </StackPanel>
+                    <Slider Minimum="0" Maximum="5" Value="{Binding Comfort}"  />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Width="270" Margin="50 20 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Sadrzaji" Margin="5 0 0 0" FontFamily="Candara" FontSize="16"></TextBlock>
+                        <TextBlock Text="{Binding Content}" Margin="180 0 0 8" HorizontalAlignment="Right" FontFamily="Candara" FontSize="17"></TextBlock>
+                    </StackPanel>
+                    <Slider Minimum="0" Maximum="5" Value="{Binding Content}"  />
+                </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Cleanliness:"/>
-                <TextBox x:Name="Cleanliness" Text="{Binding Cleanliness}"  Width="140"/>
+                <TextBlock Text="Komentari:" FontFamily="Candara" FontSize="18" FontWeight="Normal" Margin="50 0 0 0"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="180">
+                <Border Height="170" BorderThickness="1" BorderBrush="Black" Width="940" Margin="40 0 0 0">
+                    <ListBox  ItemsSource="{Binding Ratings}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.CanContentScroll="True">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate >
+                            <DataTemplate >
+                                <Border BorderBrush="Black" BorderThickness="1" Width="220" Height="150" Margin="10 0 0 0">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Width="100" FontFamily="Candara" FontStyle="Normal" FontSize="17" Margin="20 10 0 0"  Text="{Binding Guest.Username}" />
+                                            <Border Background="CornflowerBlue" BorderBrush="Black" BorderThickness="1" Margin="42 5 0 0">
+                                                <TextBlock Width="32" FontFamily="Candara" FontSize="17" Foreground="White" HorizontalAlignment="Center" Margin="15 3 0 5" Text="{Binding AverageRating}" />
+                                            </Border>
+                                        </StackPanel>
+                                        <TextBlock HorizontalAlignment="Center" FontFamily="Candara" FontSize="16" Margin="0 20 0 0" Text="{Binding Comment}"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Location:"/>
-                <TextBox x:Name="Location" Text="{Binding Location}" Width="140"/>
+                <TextBlock Text="Slike gostiju:" FontFamily="Candara" FontSize="18" FontWeight="Normal" Margin="50 10 0 0"></TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Comfort:"/>
-                <TextBox x:Name="Comfort" Text="{Binding Comfort}" Width="140"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label HorizontalContentAlignment="Center" Width="120" Margin="10" Content="Content:"/>
-                <TextBox x:Name="Content" Text="{Binding Content}" Width="140"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label HorizontalContentAlignment="Center" Width="120" Height="90" Margin="10" Content="Pictures:"/>
-                <ItemsControl ItemsSource="{Binding RatingImages}" Width="320">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding}" Width="100" Height="100" Margin="5"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <StackPanel Orientation="Horizontal" ></StackPanel>
         </StackPanel>
-        <WrapPanel Grid.Row="2" Grid.Column="0" FlowDirection="LeftToRight" Margin="10,10,5,5">
-            <Separator Width="75" Background="White"></Separator>
-            <Button Content ="Show review" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="23" Margin="20, 5, 20, 5"
-                    Command="{Binding ShowReviewCommand}"/>
-            <Separator Width="20" Background="White"></Separator>
-        </WrapPanel>
+        
     </Grid>
-</Window>
+</Page>
