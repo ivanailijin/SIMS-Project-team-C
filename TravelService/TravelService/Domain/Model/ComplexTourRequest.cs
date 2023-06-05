@@ -8,6 +8,7 @@ namespace TravelService.Domain.Model
     public class ComplexTourRequest : ISerializable
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public List<TourRequest> TourRequests { get; set; }
         public APPROVAL Acceptance { get; set; }
         public Guest2 Guest2 { get; set; }
@@ -16,8 +17,9 @@ namespace TravelService.Domain.Model
             TourRequests = new List<TourRequest>();
         }
 
-        public ComplexTourRequest(List<TourRequest> tourRequests, APPROVAL acceptance, Guest2 guest2)
+        public ComplexTourRequest(string name, List<TourRequest> tourRequests, APPROVAL acceptance, Guest2 guest2)
         {
+            Name = name;
             TourRequests = new List<TourRequest>(tourRequests);
             Acceptance = acceptance;
             Guest2 = guest2;
@@ -37,6 +39,7 @@ namespace TravelService.Domain.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                Name,
                 requestList.ToString(),
                 RequestApprovedToCSV(),
                 Guest2.Id.ToString()
@@ -55,8 +58,9 @@ namespace TravelService.Domain.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
+            Name = values[1];
 
-            string[] tourRequestIds = values[1].Split(",");
+            string[] tourRequestIds = values[2].Split(",");
             TourRequests = new List<TourRequest>();
 
             foreach (string tourRequestId in tourRequestIds)
@@ -66,8 +70,8 @@ namespace TravelService.Domain.Model
                 TourRequests.Add(tourRequest);
             }
 
-            Acceptance = RequestApprovedFromCSV(values[2]);
-            int guestId = int.Parse(values[3]);
+            Acceptance = RequestApprovedFromCSV(values[3]);
+            int guestId = int.Parse(values[4]);
             Guest2 = new Guest2 { Id = guestId };
         }
         public APPROVAL RequestApprovedFromCSV(string requestApproved)

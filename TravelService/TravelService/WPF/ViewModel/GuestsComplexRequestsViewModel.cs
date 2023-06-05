@@ -49,6 +49,17 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private List<TourRequest> _tourRequests;
+
+        public List<TourRequest> GuestsTourRequests
+        {
+            get { return _tourRequests; }
+            set
+            {
+                _tourRequests = value;
+                OnPropertyChanged(nameof(GuestsTourRequests));
+            }
+        }
         public GuestsComplexRequestsViewModel(Guest2 guest2, ComplexTourRequest selectedComplexRequest) 
         {
             _complexTourRequestService = new ComplexTourRequestService(Injector.CreateInstance<IComplexTourRequestRepository>());
@@ -56,8 +67,7 @@ namespace TravelService.WPF.ViewModel
             Guest2 = guest2;
             SelectedComplexRequest = selectedComplexRequest;
             List<ComplexTourRequest> complexRequests = new List<ComplexTourRequest>(_complexTourRequestService.GetAll());
-            List<ComplexTourRequest> guestsComplexRequests = new List<ComplexTourRequest>(_complexTourRequestService.GetGuestsComplexRequests(Guest2.Id, complexRequests));
-            List<TourRequest> tourRequests = new List<TourRequest>(_complexTourRequestService.GetTourRequests(guestsComplexRequests));
+            List<ComplexTourRequest> guestsComplexRequests = new List<ComplexTourRequest>(_complexTourRequestService.FindValidComplexRequests(Guest2.Id, complexRequests));
             GuestsComplexRequests = new ObservableCollection<ComplexTourRequest>(guestsComplexRequests);
             ShowComplexRequestCommand = new RelayCommand(Execute_ShowComplexRequestCommand, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);

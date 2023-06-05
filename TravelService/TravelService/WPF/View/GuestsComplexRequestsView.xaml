@@ -159,7 +159,15 @@
                                     <ListBox  x:Name="listBoxReqeusts" Height="100" ItemsSource="{Binding Path=TourRequests}">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Id}" Foreground="Black"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Id}" Foreground="Black"/>
+                                                    <TextBlock Text=", " Foreground="Black" />
+                                                    <TextBlock Text="{Binding Description}" Foreground="Black"/>
+                                                    <TextBlock Text=", " Foreground="Black" />
+                                                    <TextBlock Text="{Binding GuestNumber}" Foreground="Black"/>
+                                                    <TextBlock Text=", " Foreground="Black" />
+                                                    <TextBlock Text="{Binding RequestApproved}" Foreground="Black"/>
+                                                </StackPanel>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>

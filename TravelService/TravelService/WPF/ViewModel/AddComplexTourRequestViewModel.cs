@@ -40,6 +40,19 @@ namespace TravelService.WPF.ViewModel
                 _isForwarded = value;
             }
         }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private RelayCommand _addRequestCommand;
         public RelayCommand AddRequestCommand
         {
@@ -95,7 +108,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_SubmitCommand(object sender)
         {
-            _complexTourRequestService.saveComplexRequest(Guest2, TourRequests.ToList());
+            _complexTourRequestService.saveComplexRequest(Name, Guest2, TourRequests.ToList());
             CloseAction();
         }
         public event PropertyChangedEventHandler PropertyChanged;

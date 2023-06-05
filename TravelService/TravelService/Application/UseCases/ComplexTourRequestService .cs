@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.Repository;
 
 namespace TravelService.Application.UseCases
 {
@@ -44,9 +42,9 @@ namespace TravelService.Application.UseCases
             _complexTourRequestRepository.Update(tourRequest);
         }
 
-        public void saveComplexRequest(Guest2 guest2,List<TourRequest> tourRequests)
+        public void saveComplexRequest(string name, Guest2 guest2, List<TourRequest> tourRequests)
         {
-            ComplexTourRequest complexTourRequest = new ComplexTourRequest(tourRequests,APPROVAL.WAITING, guest2);
+            ComplexTourRequest complexTourRequest = new ComplexTourRequest(name, tourRequests, APPROVAL.WAITING, guest2);
             Save(complexTourRequest);
         }
 
@@ -63,22 +61,25 @@ namespace TravelService.Application.UseCases
             return guestsComplexRequests;
         }
 
-        public List<TourRequest> GetTourRequests(List<ComplexTourRequest> guestsComplexRequests)
+        public List<ComplexTourRequest> GetComplexRequests(int guestId, List<ComplexTourRequest> complexRequests)
         {
-            List<TourRequest> requests = new List<TourRequest>();
-            List<TourRequest> tourRequests = new List<TourRequest>(_tourRequestService.GetAll());
+            List<ComplexTourRequest> guestsComplexRequests = new List<ComplexTourRequest>(GetGuestsComplexRequests(guestId, complexRequests));
+            List<TourRequest> allTourRequests = new List<TourRequest>(_tourRequestService.GetAll());
+
             foreach (ComplexTourRequest complexTourRequest in guestsComplexRequests)
             {
-                foreach (TourRequest tourRequest in tourRequests)
+                List<int> requestIds = getTourRequestIds(complexTourRequest.TourRequests);
+                complexTourRequest.TourRequests.Clear();
+                foreach (int id in requestIds)
                 {
-                    if (complexTourRequest.TourRequests.Contains(tourRequest))
+                    TourRequest foundRequest = allTourRequests.FirstOrDefault(request => request.Id == id);
+                    if (foundRequest != null)
                     {
-                        TourRequest currentRequest = tourRequests.Find(request => request.Id == tourRequest.Id);
-                        requests.Add(currentRequest);
+                        complexTourRequest.TourRequests.Add(foundRequest);
                     }
                 }
             }
-            return requests;
+            return guestsComplexRequests;
         }
 
         public List<TourRequest> FindTourRequests(ComplexTourRequest selectedComplexRequest, int guestId, List<TourRequest> tourRequests)
@@ -97,9 +98,68 @@ namespace TravelService.Application.UseCases
                             requests.Add(tourRequest);
                         }
                     }
-                }                
+                }
             }
             return requests;
+        }
+        public List<int> getTourRequestIds(List<TourRequest> tourRequests)
+        {
+            List<int> ids = new List<int>();
+            foreach (TourRequest request in tourRequests)
+            {
+                ids.Add(request.Id);
+            }
+            return ids;
+        }
+        public List<ComplexTourRequest> FindValidComplexRequests(int guestId, List<ComplexTourRequest> complexRequests)
+        {
+            List<ComplexTourRequest> allComplexRequests = new List<ComplexTourRequest>(GetComplexRequests(guestId, complexRequests));
+            foreach (ComplexTourRequest complexRequest in allComplexRequests)
+            {
+                TourRequest firstRequest = complexRequest.TourRequests.FirstOrDefault();
+                if (IsFirstRequestValid(firstRequest))
+                {
+                    bool complexRequestAccepted = CheckAcceptance(complexRequest.TourRequests);
+                    if (complexRequestAccepted)
+                    {
+                        complexRequest.Acceptance = APPROVAL.ACCEPTED;
+                        Update(complexRequest);
+                    }
+                }
+                else
+                {
+                    complexRequest.Acceptance = APPROVAL.INVALID;
+                    Update(complexRequest);
+                }
+            }
+            return allComplexRequests;
+        }
+
+        private bool IsFirstRequestValid(TourRequest firstRequest)
+        {
+            TimeSpan timeSpan = firstRequest.TourStart - DateTime.Now;
+            if (timeSpan.TotalHours < 48)
+            {
+                firstRequest.RequestApproved = APPROVAL.INVALID;
+                _tourRequestService.Update(firstRequest);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool CheckAcceptance(List<TourRequest> tourRequests)
+        {
+            foreach (TourRequest request in tourRequests)
+            {
+                if (request.RequestApproved == APPROVAL.WAITING || request.RequestApproved == APPROVAL.WAITING)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

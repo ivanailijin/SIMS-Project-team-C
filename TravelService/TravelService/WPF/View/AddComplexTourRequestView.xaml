@@ -3,10 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:local="clr-namespace:TravelService.WPF.View" xmlns:val="clr-namespace:TravelService.Validation"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="AddComplexTourRequestView" Height="460" Width="960">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox">
+                    <Border BorderBrush="Red"
+                            BorderThickness="1"/>
+                </AdornedElementPlaceholder>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -150,8 +161,35 @@
             </Grid>
             <Border Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="180,20,180,8" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="15,15,15,15"></Border>
 
-            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="20,10,0,0">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="3" Margin="0,60,0,0">
+            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="20,20,0,0">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="220,20,0,0">
+                    <Label Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Margin="0,0,0,0" Foreground="White" FontWeight="DemiBold" Content="Name :"></Label>
+                    <TextBox x:Name="nameTextBox" Width="180" Height="30" Margin="24,10,0,10" Visibility="Visible" BorderBrush="Black" HorizontalAlignment="Right">
+                        <TextBox.Text>
+                            <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red" Margin="0,-15,0,0"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="3" Margin="0,20,0,0">
                     <Button  Grid.Row="3" Height="42" Margin="22,2,-10,0" Command="{Binding AddRequestCommand}" Background="#D36582" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="220" VerticalAlignment="Top">Add one request</Button>
                     <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="White" VerticalAlignment="Bottom"  Margin="15,17,22,10"  ToolTip="Allows you to fill in a request for a new tour.">
                         <Button.Template>
@@ -164,7 +202,7 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
-                <ListView ItemsSource="{Binding TourRequests}" Grid.Row="1" Margin=" -20,50,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="100" Width="200">
+                <ListView ItemsSource="{Binding TourRequests}" Grid.Row="1" Margin=" -20,20,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="100" Width="200">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
