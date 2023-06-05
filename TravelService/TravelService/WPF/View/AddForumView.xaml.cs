@@ -18,15 +18,15 @@ using TravelService.WPF.ViewModel;
 namespace TravelService.WPF.View
 {
     /// <summary>
-    /// Interaction logic for SelectedForumView.xaml
+    /// Interaction logic for AddForumView.xaml
     /// </summary>
-    public partial class SelectedForumView : Page, INavigationInterface
+    public partial class AddForumView : Page, INavigationInterface
     {
-        public SelectedForumView(Guest1 guest, Forum selectedForum)
+        public AddForumView(Guest1 guest)
         {
             InitializeComponent();
-            SelectedForumViewModel selectedForumViewModel = new SelectedForumViewModel(this, guest, selectedForum);
-            DataContext = selectedForumViewModel;
+            AddForumViewModel addForumViewModel = new AddForumViewModel(this, guest);
+            DataContext = addForumViewModel;
         }
 
         public void GoBack()

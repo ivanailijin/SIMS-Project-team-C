@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="SelectedForumView" Height="720" Width="420">
+        Title="SelectedForumView" Height="720" Width="420" Background="White">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderThickness="0">
+            <Button.Background>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/previous.png"></ImageBrush>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>

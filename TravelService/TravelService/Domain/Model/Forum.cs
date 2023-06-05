@@ -21,14 +21,13 @@ namespace TravelService.Domain.Model
         public FORUMSTATUS Status { get; set; }
         public List<Comment> Comments { get; set; }
 
-        public Forum(User user, string name, Location location, DateTime dateCreated, FORUMSTATUS status, List<Comment> comments)
+        public Forum(User user, string name, Location location, DateTime dateCreated)
         {
             User = user;
             Name = name;
             Location = location;
             DateCreated = dateCreated;
-            Status = status;
-            Comments = comments;
+            Status = FORUMSTATUS.Open;
         }
 
         public Forum()  

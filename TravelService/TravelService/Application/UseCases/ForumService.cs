@@ -89,5 +89,20 @@ namespace TravelService.Application.UseCases
             var forumsByLocation = forums.GroupBy(f => f.Location).ToList();
             return forumsByLocation;
         }
+
+        public List<Forum> FindByGuestId(int guestId)
+        {
+            List<Forum> foundForums = new List<Forum>();
+            List<Forum> forums = GetAll();
+
+            foreach (Forum forum in forums)
+            {
+                if (forum.User.Id == guestId)
+                {
+                    foundForums.Add(forum);
+                }
+            }
+            return foundForums;
+        }
     }
 }

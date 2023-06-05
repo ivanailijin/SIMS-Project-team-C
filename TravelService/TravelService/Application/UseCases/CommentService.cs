@@ -42,6 +42,21 @@ namespace TravelService.Application.UseCases
             return comments;
         }
 
+        public List<Comment> FindByForumId(int id)
+        {
+            List<Comment> comments = GetAll();
+            comments = GetForumData(comments);
+            List<Comment> foundedComments = new List<Comment>();
+            foreach(Comment comment in comments)
+            {
+                if(comment.Forum.Id == id)
+                {
+                    foundedComments.Add(comment);
+                }
+            }
+            return foundedComments;
+        }
+
         public Comment Save(Comment comment)
         {
             return _commentRepository.Save(comment);

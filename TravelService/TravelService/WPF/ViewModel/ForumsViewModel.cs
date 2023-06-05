@@ -65,6 +65,20 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private RelayCommand _addForumCommand;
+        public RelayCommand AddForumCommand
+        {
+            get => _addForumCommand;
+            set
+            {
+                if (value != _addForumCommand)
+                {
+                    _addForumCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ForumsViewModel(ForumsView forumsView, Guest1 guest)
         {
             ForumView = forumsView;
@@ -73,8 +87,10 @@ namespace TravelService.WPF.ViewModel
             //  List<IGrouping<Location, Forum>> ForumsByLocation = _forumService.GetForumsByLocation();
             //  AllForums = new ObservableCollection<IGrouping<Location, Forum>>(ForumsByLocation);
             Forums = new ObservableCollection<Forum>(_forumService.GetAll());
+            MyForums = new ObservableCollection<Forum>(_forumService.FindByGuestId(Guest1.Id));
 
             ForumSelectedCommand = new RelayCommand(Execute_OnItemSelected, CanExecute_Command);
+            AddForumCommand = new RelayCommand(Execute_AddForum, CanExecute_Command);
         }
 
         private bool CanExecute_Command(object parameter)
@@ -84,9 +100,16 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_OnItemSelected(object sender)
         {
-            SelectedForumView selectedForumView = new SelectedForumView(Guest1);
+            SelectedForumView selectedForumView = new SelectedForumView(Guest1, SelectedForum);
             FirstGuestWindow firstGuestWindow = Window.GetWindow(ForumView) as FirstGuestWindow ?? new(Guest1);
             firstGuestWindow?.SwitchToPage(selectedForumView);
+        }
+
+        private void Execute_AddForum(object sender)
+        {
+            AddForumView addForumView = new AddForumView(Guest1);
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(ForumView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow?.SwitchToPage(addForumView);
         }
     }
 }

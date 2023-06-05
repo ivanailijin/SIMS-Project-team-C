@@ -75,8 +75,39 @@
                     </i:Interaction.Triggers>
                 </ListBox>
             </TabItem>
-            <TabItem>
-                
+            <TabItem Header="Moji forumi" FontSize="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="320,5,0,0" VerticalAlignment="Top">
+                        <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding AddForumCommand}">
+                            <Image Source="/TravelService;component/Resources/Images/plus.ico" Height="20" Width="20"></Image>
+                        </Button>
+                    </Border>
+                    <ListBox Grid.Row="1" ItemsSource="{Binding MyForums}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="570" Margin="5,5,22,10">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Location.CityAndCountry}" FontWeight="DemiBold" FontSize="20"/>
+                                    <Border BorderBrush="Gray" BorderThickness="1" Height="70" Width="370" Margin="0,5,0,10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name}" Margin="10,25" FontSize="15"/>
+                                            <!-- Dodajte ostale prikazne elemente foruma -->
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                <i:InvokeCommandAction Command="{Binding ForumSelectedCommand}"
+                                                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ListBox>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

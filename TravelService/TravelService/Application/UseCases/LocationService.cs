@@ -46,5 +46,17 @@ namespace TravelService.Application.UseCases
         {
             return _locationRepository.GetByCityAndCountry(words);
         }
+        public Location FindLocationId(string locationName)
+        {
+            List<Location> locations = GetAll();
+            foreach(Location location in locations)
+            {
+                if(location.CityAndCountry.Replace(",", "").Replace(" ", "").Contains(locationName))
+                {
+                    return location;
+                }
+            }
+            return null;
+        }
     }
 }
