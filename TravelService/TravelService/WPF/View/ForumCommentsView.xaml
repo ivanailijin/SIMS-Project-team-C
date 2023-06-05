@@ -11,6 +11,9 @@
     <Page.Resources>
         <local:BooleanToTextForumConverter x:Key="ForumConverter" />
         <local:BooleanToTextOwnerConverter x:Key="OwnerConverter" />
+        <local:IntToStringConverter x:Key="IntToStringConverter" />
+        <local:IntToReportConverter x:Key="ReportConverter" />
+        <local:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
         <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -96,7 +99,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <ListBox DockPanel.Dock="Bottom" Background="#f5f5f5" ItemsSource="{Binding Comments, UpdateSourceTrigger=PropertyChanged}"
-                     SelectedItem="{Binding SelectedForum, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     SelectedItem="{Binding SelectedComment, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden"
                      Width="930" Height="400" Margin="40 20 0 0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -129,6 +132,10 @@
                                             </Image>
                                             <TextBlock  Margin="8, 2, 0, 0" FontSize="11.5" VerticalAlignment="Bottom" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding User.UserType, Converter={StaticResource OwnerConverter}}" />
                                         </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="7 -15 0 0">
+                                            <TextBlock Text="{Binding ReportsNumber, Converter={StaticResource IntToStringConverter},Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Candara" FontSize="17" Margin="15 0 0 0" Foreground="#154b7a" FontWeight="SemiBold"></TextBlock>
+                                            <TextBlock Text="{Binding ReportsNumber, Converter={StaticResource ReportConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Candara" FontSize="15" Foreground="#4b4c52" Margin="0 -3 0 0"></TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="20 10 0 0">
                                         <StackPanel Orientation="Horizontal">
@@ -146,7 +153,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Style="{StaticResource ResourceKey=RoundedButton}" Command="{Binding BackCommand}" Content="Nazad" Foreground="White" Margin="120 30 0 0" Width="145" Height="37"></Button>
                 <Button Style="{StaticResource ResourceKey=RoundedButton}" Command="{Binding AddCommentCommand}" Content="Ostavi komentar" Foreground="White" IsEnabled="{Binding OwnerAuthorized}" Margin="170 30 0 0" Width="145" Height="37"></Button>
-                <Button Style="{StaticResource ResourceKey=RoundedButton}" Content="Prijavi komentar" Foreground="White" Margin="190 30 0 0" Width="145" Height="35"></Button>
+                <Button Style="{StaticResource ResourceKey=RoundedButton}" Command="{Binding ReportCommentCommand}" Content="Prijavi komentar" Foreground="White" Margin="190 30 0 0" Width="145" Height="35"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

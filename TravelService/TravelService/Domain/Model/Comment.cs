@@ -14,6 +14,7 @@ namespace TravelService.Domain.Model
         public User User { get; set; } = new();
         public Forum Forum { get; set; } = new();
         public string Content { get; set; }
+        public int ReportsNumber { get; set; }
         public DateTime DateCreated { get; set; }
 
         public Comment(User user, Forum forum, string content, DateTime dateCreated)
@@ -22,6 +23,7 @@ namespace TravelService.Domain.Model
             Forum = forum;
             Content = content;
             DateCreated = dateCreated;
+            ReportsNumber = 0;
         }
 
         public Comment() { }
@@ -35,6 +37,7 @@ namespace TravelService.Domain.Model
                 Forum.Id.ToString(),
                 Content,
                 DateCreated.ToString(),
+                ReportsNumber.ToString(),
             };
             return csvValues;
         }
@@ -46,6 +49,7 @@ namespace TravelService.Domain.Model
             Forum.Id = Convert.ToInt32(values[2]);
             Content = values[3];
             DateCreated = DateTime.Parse(values[4]);
+            ReportsNumber = Convert.ToInt32(values[5]);
         }
     }
 }

@@ -36,7 +36,16 @@ namespace TravelService.Application.UseCases
         {
             return _repository.Update(guest1);
         }
-
+        public bool CheckCommentsOrigin(int userId)
+        {
+            List<Guest1> guests = _repository.GetAll();
+            foreach(Guest1 guest in guests)
+            {
+                if (guest.Id == userId)
+                    return false;
+            }
+            return true;
+        }
         public List<AccommodationReservation> FindReservationGuest(List<AccommodationReservation> UnratedReservations)
         {
             List<Guest1> guests = GetAll();
@@ -46,7 +55,19 @@ namespace TravelService.Application.UseCases
             }
             return UnratedReservations;
         }
+        public bool CheckGuestsPresence(int userId, Location location)
+        {
+            List<AccommodationReservation> reservations = _reservationRepository.GetAll();
 
+            foreach(AccommodationReservation reservation in reservations)
+            {
+                if (reservation.GuestId == userId && reservation.LocationId == location.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public List<Guest1> FindCommonGuests(List<Guest1> firstList, List<Guest1> secondList)
         {
             List<Guest1> commonGuests = new List<Guest1>();
