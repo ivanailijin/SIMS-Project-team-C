@@ -40,6 +40,9 @@
     <Compile Update="WPF\View\ClosingAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ClosingForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\FirstGuestProfileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -223,6 +226,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ClosingAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ClosingForumView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\DeclineReservationRequestView.xaml">

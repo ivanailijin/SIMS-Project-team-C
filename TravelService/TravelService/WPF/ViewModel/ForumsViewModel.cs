@@ -18,17 +18,6 @@ namespace TravelService.WPF.ViewModel
         public Guest1 Guest1 { get; set; }
         public Forum SelectedForum { get; set; }
 
-        private ObservableCollection<IGrouping<Location, Forum>> _allForums;
-        public ObservableCollection<IGrouping<Location, Forum>> AllForums
-        {
-            get { return _allForums; }
-            set
-            {
-                _allForums = value;
-                OnPropertyChanged(nameof(_allForums));
-            }
-        }
-
         private ObservableCollection<Forum> _forums;
         public ObservableCollection<Forum> Forums
         {
@@ -84,8 +73,6 @@ namespace TravelService.WPF.ViewModel
             ForumView = forumsView;
             Guest1 = guest;
             _forumService = new ForumService(Injector.CreateInstance<IForumRepository>());
-            //  List<IGrouping<Location, Forum>> ForumsByLocation = _forumService.GetForumsByLocation();
-            //  AllForums = new ObservableCollection<IGrouping<Location, Forum>>(ForumsByLocation);
             Forums = new ObservableCollection<Forum>(_forumService.GetAll());
             MyForums = new ObservableCollection<Forum>(_forumService.FindByGuestId(Guest1.Id));
 
@@ -100,7 +87,7 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_OnItemSelected(object sender)
         {
-            SelectedForumView selectedForumView = new SelectedForumView(Guest1, SelectedForum);
+            SelectedForumView selectedForumView = new SelectedForumView(Guest1, SelectedForum, this);
             FirstGuestWindow firstGuestWindow = Window.GetWindow(ForumView) as FirstGuestWindow ?? new(Guest1);
             firstGuestWindow?.SwitchToPage(selectedForumView);
         }

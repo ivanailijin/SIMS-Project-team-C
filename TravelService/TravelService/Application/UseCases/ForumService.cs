@@ -15,12 +15,14 @@ namespace TravelService.Application.UseCases
         private readonly IForumRepository _forumRepository;
         private readonly LocationService _locationService;
         private readonly CommentService _commentService;
+        private readonly UserService _userService;
 
         public ForumService(IForumRepository forumRepository)
         {
             _forumRepository = forumRepository;
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _commentService = new CommentService(Injector.CreateInstance<ICommentRepository>());
+            _userService = new UserService(Injector.CreateInstance<IUserRepository>());
         }
         public void Delete(Forum forum)
         {
@@ -32,6 +34,7 @@ namespace TravelService.Application.UseCases
             List<Forum> forums = _forumRepository.GetAll();
             forums = GetLocationData(forums);
             forums = GetCommentsData(forums);
+            forums = GetUserData(forums);
             forums = GetNumberOfComments(forums);
             return forums;
         }
@@ -73,6 +76,16 @@ namespace TravelService.Application.UseCases
             return forums;
         }
 
+        public List<Forum> GetUserData(List<Forum> forums)
+        {
+            List<User> users = _userService.GetAll();
+            foreach (Forum forum in forums)
+            {
+                forum.User = users.Find(u => u.Id == forum.User.Id);
+            }
+            return forums;
+        }
+
         public Forum Save(Forum forum)
         {
             return _forumRepository.Save(forum);
@@ -81,13 +94,6 @@ namespace TravelService.Application.UseCases
         public void Update(Forum forum)
         {
             _forumRepository.Update(forum);
-        }
-
-        public List<IGrouping<Location, Forum>> GetForumsByLocation()
-        {
-            List<Forum> forums = GetAll();
-            var forumsByLocation = forums.GroupBy(f => f.Location).ToList();
-            return forumsByLocation;
         }
 
         public List<Forum> FindByGuestId(int guestId)
@@ -103,6 +109,37 @@ namespace TravelService.Application.UseCases
                 }
             }
             return foundForums;
+        }
+
+        public Forum FindById(int forumId)
+        {
+            List<Forum> forums = GetAll();
+            foreach (Forum forum in forums)
+            {
+                if (forum.Id == forumId)
+                {
+                    return forum;
+                }
+            }
+            return null;
+        }
+
+        public Forum CloseForum(int forumId)
+        {
+            Forum forum = FindById(forumId);
+            forum.Status = FORUMSTATUS.Closed;
+            _forumRepository.Update(forum);
+            return forum;
+        }
+
+        public bool IsUserForumOwner(int userId,  Forum forum) 
+        {
+            bool result = false;
+            if (userId == forum.User.Id)
+            {
+                result = true;
+            }
+            return result;
         }
     }
 }

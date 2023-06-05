@@ -22,10 +22,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class SelectedForumView : Page, INavigationInterface
     {
-        public SelectedForumView(Guest1 guest, Forum selectedForum)
+        public SelectedForumView(Guest1 guest, Forum selectedForum, ForumsViewModel forumsViewModel)
         {
             InitializeComponent();
-            SelectedForumViewModel selectedForumViewModel = new SelectedForumViewModel(this, guest, selectedForum);
+            SelectedForumViewModel selectedForumViewModel = new SelectedForumViewModel(this, guest, selectedForum, forumsViewModel);
             DataContext = selectedForumViewModel;
         }
 

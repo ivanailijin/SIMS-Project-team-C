@@ -29,5 +29,10 @@ namespace TravelService.Repository
             _users = _serializer.FromCSV(FilePath);
             return _users.FirstOrDefault(u => u.Username == username);
         }
+
+        public List<User> GetAll()
+        {
+            return _serializer.FromCSV(FilePath);
+        }
     }
 }
