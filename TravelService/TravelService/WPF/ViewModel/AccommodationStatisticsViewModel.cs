@@ -95,7 +95,8 @@ namespace TravelService.WPF.ViewModel
         private void Execute_AddAccommodationCommand(object obj)
         {
             AddAccommodation addAccommodation = new AddAccommodation(Owner, SelectedAddLocation);
-            addAccommodation.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(AccommodationStatisticsView) as OwnerWindow;
+            ownerWindow?.SwitchToPage(addAccommodation);
         }
         private void Execute_CancelCommand(object obj)
         {

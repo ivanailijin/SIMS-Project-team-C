@@ -9,6 +9,7 @@ using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
+using System.Linq;
 
 namespace TravelService.WPF.View
 {
@@ -18,12 +19,15 @@ namespace TravelService.WPF.View
     public partial class SignInForm : Window
     {
         private readonly UserService _userService;
+        public DateTime LastOwnersLogIn { get; set; }
 
         private readonly GuideRepository _guideRepository;
 
         private readonly Guest1Service _guest1Service;
 
         private readonly Guest2Service _guest2Service;
+
+        private readonly ForumService _forumService;
 
         private readonly OwnerService _ownerService;
         private readonly GuideService _guideService;
@@ -81,6 +85,7 @@ namespace TravelService.WPF.View
             _guest2Service = new Guest2Service(Injector.CreateInstance<IGuest2Repository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             _invitationService = new InvitationService(Injector.CreateInstance<IInvitationRepository>());
+            _forumService = new ForumService(Injector.CreateInstance<IForumRepository>());
             _tourRepository = new TourRepository();
             _repositoryCheckPoint = new CheckPointRepository();
             _guideRepository = new GuideRepository();
@@ -94,7 +99,6 @@ namespace TravelService.WPF.View
 
                 if (user != null)
                 {
-
                     if (user.Password.Equals(txtPassword.Password))
                     {
                         if (txtPassword.Password.Equals("owner123"))
@@ -103,23 +107,30 @@ namespace TravelService.WPF.View
                             OwnerWindow ownerWindow = new OwnerWindow(owner);
                             ownerWindow.Show();
 
-                            List<AccommodationReservation> reservationList = _reservationService.GetAll();
+                            LastOwnersLogIn = owner.LastLogIn;
+                            owner.LastLogIn = DateTime.Now;
+                            _ownerService.Update(owner);
 
-                            foreach (AccommodationReservation reservation in reservationList)
+                            ObservableCollection<Forum> NewForums = new ObservableCollection<Forum>();
+
+                            foreach (Forum forum in _forumService.GetAll())
                             {
-                                Accommodation reservedAccommodation = _accommodationService.FindById(reservation.AccommodationId);
-                                TimeSpan dayDifference = DateTime.Today - reservation.CheckOutDate;
-                                if (!reservation.IsRated && dayDifference.Days < 5 && dayDifference.Days > 0 && reservedAccommodation.OwnerId == owner.Id)
+                                if (forum.DateCreated > LastOwnersLogIn)
                                 {
-                                    MessageBoxResult result = MessageBox.Show("Imate neocenjene goste.\nDa li zelite da ih ocenite odmah?", "Obavestenje", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                                    if (result == MessageBoxResult.Yes)
-                                    {
-                                        //GuestRatingOverview guestRatingOverview = new GuestRatingOverview(owner);
-                                        //guestRatingOverview.ShowDialog();
-                                    }
-                                    break;
+                                    NewForums.Add(forum);
                                 }
                             }
+
+                            if (NewForums.Any())
+                            {
+                                MessageBoxResult result = MessageBox.Show("Na vasoj lokaciji je otvoren novi forum.\nDa li zelite da ih prikazete", "Obavestenje", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                                if (result == MessageBoxResult.Yes)
+                                {
+                                    ForumSelectionView forumSelectionView = new ForumSelectionView(owner);
+                                    ownerWindow?.SwitchToPage(forumSelectionView);
+                                }
+                            }
+
                             Close();
                         }
                         else if (txtPassword.Password.Equals("guest1123"))

@@ -37,5 +37,10 @@ namespace TravelService.WPF.View
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

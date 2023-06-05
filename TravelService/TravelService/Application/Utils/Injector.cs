@@ -38,6 +38,8 @@ namespace TravelService.Application.Utils
         { typeof(ITourRequestRepository), new TourRequestRepository() },
         { typeof(INewTourNotificationRepository), new NewTourNotificationRepository() },
         { typeof(IRenovationRecommendationRepository), new RenovationRecommendationRepository() },
+        { typeof(IForumRepository), new ForumRepository() },
+        { typeof(ICommentRepository), new CommentRepository() },
     };
 
         public static T CreateInstance<T>()

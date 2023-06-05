@@ -17,6 +17,10 @@ namespace TravelService.Application.UseCases
         {
             _repository = repository;
         }
+        public List<User> GetAll()
+        {
+            return _repository.GetAll();
+        }
         public User GetByUsername(string username)
         {
             User user = _repository.GetByUsername(username);

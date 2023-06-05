@@ -107,37 +107,90 @@
                 <TextBlock Text="Komentari:" FontFamily="Candara" FontSize="18" FontWeight="Normal" Margin="50 0 0 0"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="180">
-                <Border Height="170" BorderThickness="1" BorderBrush="Black" Width="940" Margin="40 0 0 0">
-                    <ListBox  ItemsSource="{Binding Ratings}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                        ScrollViewer.CanContentScroll="True">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate >
-                            <DataTemplate >
-                                <Border BorderBrush="Black" BorderThickness="1" Width="220" Height="150" Margin="10 0 0 0">
-                                    <StackPanel Orientation="Vertical">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Width="100" FontFamily="Candara" FontStyle="Normal" FontSize="17" Margin="20 10 0 0"  Text="{Binding Guest.Username}" />
-                                            <Border Background="CornflowerBlue" BorderBrush="Black" BorderThickness="1" Margin="42 5 0 0">
-                                                <TextBlock Width="32" FontFamily="Candara" FontSize="17" Foreground="White" HorizontalAlignment="Center" Margin="15 3 0 5" Text="{Binding AverageRating}" />
-                                            </Border>
+                <Border Height="167" BorderThickness="1" Background="White" BorderBrush="Black" Width="940" Margin="40 0 0 0">
+                    <StackPanel Orientation="Horizontal" >
+                        <Button Grid.Column="0" Width="30" Height="30" Command="{Binding PreviousCommentCommand}" >
+                            <Button.Background>
+                                <SolidColorBrush Color="White" Opacity="0.5" />
+                            </Button.Background>
+                            <Button.Content>
+                                <Image Source="/TravelService;component/Resources/Images/back.png" />
+                            </Button.Content>
+                        </Button>
+
+                        <ListBox  ItemsSource="{Binding DisplayedRatings}" SelectedIndex="{Binding CurrentCommentIndex}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Hidden" Width="880" Background="White" BorderBrush="Transparent"
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="3" Rows="1" FlowDirection="LeftToRight" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ListBox.ItemTemplate >
+                                <DataTemplate >
+                                    <Border BorderBrush="Black" BorderThickness="1" Width="260" Height="157" Margin="10 0 0 0">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Width="100" FontFamily="Candara" FontStyle="Normal" FontSize="17" Margin="20 10 0 0"  Text="{Binding Guest.Username}" />
+                                                <Border Background="CornflowerBlue" BorderBrush="Black" BorderThickness="1" Margin="72 7 0 0">
+                                                    <TextBlock Width="32" FontFamily="Candara" FontSize="17" Foreground="White" HorizontalAlignment="Center" Margin="15 3 0 5" Text="{Binding AverageRating}" />
+                                                </Border>
+                                            </StackPanel>
+                                            <TextBlock HorizontalAlignment="Center" FontFamily="Candara" FontSize="16" Margin="0 20 0 0" Text="{Binding Comment}"/>
                                         </StackPanel>
-                                        <TextBlock HorizontalAlignment="Center" FontFamily="Candara" FontSize="16" Margin="0 20 0 0" Text="{Binding Comment}"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Button Grid.Column="2" Width="30" Height="30" Command="{Binding NextCommentCommand}" >
+                            <Button.Background>
+                                <SolidColorBrush Color="White" Opacity="0.5" />
+                            </Button.Background>
+                            <Button.Content>
+                                <Image Source="/TravelService;component/Resources/Images/forward.png" />
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Slike gostiju:" FontFamily="Candara" FontSize="18" FontWeight="Normal" Margin="50 10 0 0"></TextBlock>
+                <TextBlock Text="Slike gostiju:" FontFamily="Candara" FontSize="18" FontWeight="Normal" Margin="50 5 0 0"></TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" ></StackPanel>
+            <Border BorderBrush="Black" BorderThickness="2" Height="145" Width="940" Margin="0 10 0 0">
+                <StackPanel Orientation="Horizontal" >
+                    <Button Grid.Column="0" Width="30" Height="30" Command="{Binding PreviousImageCommand}" >
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0.5" />
+                        </Button.Background>
+                        <Button.Content>
+                            <Image Source="/TravelService;component/Resources/Images/back.png" />
+                        </Button.Content>
+                    </Button>
+
+                    <ListBox ItemsSource="{Binding DisplayedImages}" SelectedIndex="{Binding CurrentIndex}" ScrollViewer.HorizontalScrollBarVisibility="Visible" 
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="#ebf2f2" BorderBrush="Transparent" Width="880" Height="155">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" FlowDirection="LeftToRight" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding}" Stretch="UniformToFill" Width="230" Height="135" Margin="20 0" />
+                                </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Button Grid.Column="2" Width="30" Height="30" Command="{Binding NextImageCommand}" >
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0.5" />
+                        </Button.Background>
+                        <Button.Content>
+                            <Image Source="/TravelService;component/Resources/Images/forward.png" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Border>
         </StackPanel>
         
     </Grid>

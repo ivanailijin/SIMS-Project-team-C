@@ -13,6 +13,9 @@
     <Compile Update="WPF\View\AccommodationAvailabilityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\AddingForumComment.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\AddTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -44,6 +47,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\FirstGuestWindow.xaml.cs">
+        <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ForumCommentsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ForumSelectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\GuestsRequestsStatisticsView.xaml.cs">
@@ -204,6 +213,9 @@
     <Page Update="WPF\View\AccommodationYearStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\AddingForumComment.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\CancelRenovationView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -232,6 +244,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\FirstGuestWindow.xaml">
+        <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ForumCommentsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ForumSelectionView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsRequestsStatisticsView.xaml">

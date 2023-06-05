@@ -23,6 +23,7 @@ namespace TravelService.Domain.Model
         public double AverageRating { get; set; }
         public int NumberOfRatings { get; set; }
         public Uri ProfilePicture { get; set; }
+        public DateTime LastLogIn { get; set; }
         public Owner()
         {
             Accommodations = new List<Accommodation>();
@@ -67,6 +68,7 @@ namespace TravelService.Domain.Model
                 PhoneNumber,
                 Email,
                 ProfilePicture.ToString(),
+                LastLogIn.ToString(),
                 };
             return csvValues;
         }
@@ -87,6 +89,7 @@ namespace TravelService.Domain.Model
 
             string profilePicture = values[11];
             ProfilePicture = new Uri(profilePicture);
+            LastLogIn = DateTime.Parse(values[12]);
         }
     }
 }

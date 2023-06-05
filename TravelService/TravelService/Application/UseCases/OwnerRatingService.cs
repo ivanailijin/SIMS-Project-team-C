@@ -223,6 +223,19 @@ namespace TravelService.Application.UseCases
 
             return ownerRatings;
         }
+        public List<OwnerRating> GetFirstTenRatings()
+        {
+            List<OwnerRating> ratings = _ownerRatingRepository.GetAll();
+            List<OwnerRating> firstRatings = new List<OwnerRating>();
+            for(int i = 0; i < 10; i++)
+            {
+                ratings[i].Guest = _guestService.FindById(ratings[i].GuestId);
+                ratings[i].AverageRating = (double)(ratings[i].Cleanliness + ratings[i].Correctness +
+                                            ratings[i].Comfort + ratings[i].Content + ratings[i].Location) / 5;
+                firstRatings.Add(ratings[i]);
+            }
+            return firstRatings;
+        }
         public double GetAverageRating(int ownerId)
         {
             int ratingCount = 0;

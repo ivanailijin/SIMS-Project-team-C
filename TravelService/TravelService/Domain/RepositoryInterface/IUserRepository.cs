@@ -11,5 +11,6 @@ namespace TravelService.Domain.RepositoryInterface
     public interface IUserRepository
     {
         public User GetByUsername(string username);
+        public List<User> GetAll();
     }
 }
