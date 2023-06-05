@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Resources\Images\add-accommodation-icon.png" />
     <None Remove="Resources\Images\airplane.png" />
+    <None Remove="Resources\Images\arrow-left.png" />
     <None Remove="Resources\Images\back.png" />
     <None Remove="Resources\Images\cancellation-icon.png" />
     <None Remove="Resources\Images\chat.png" />
@@ -21,7 +22,6 @@
     <None Remove="Resources\Images\home-icon.png" />
     <None Remove="Resources\Images\leftarrow.png" />
     <None Remove="Resources\Images\leftarrowpic.png" />
-    <None Remove="Resources\Images\left_arrow.png" />
     <None Remove="Resources\Images\mini-house.png" />
     <None Remove="Resources\Images\mini-house2.png" />
     <None Remove="Resources\Images\mini-location.png" />
@@ -93,12 +93,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\arrow-left.png" />
     <Resource Include="Resources\Images\back.png" />
     <Resource Include="Resources\Images\chat.png" />
     <Resource Include="Resources\Images\comments.png" />
     <Resource Include="Resources\Images\forward.png" />
     <Resource Include="Resources\Images\green-star.png" />
-    <Resource Include="Resources\Images\left_arrow.png" />
     <Resource Include="Resources\Images\mini-house.png" />
     <Resource Include="Resources\Images\mini-house2.png" />
     <Resource Include="Resources\Images\mini-location.png" />

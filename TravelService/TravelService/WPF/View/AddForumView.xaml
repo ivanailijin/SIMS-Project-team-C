@@ -1,0 +1,72 @@
+﻿<Page x:Class="TravelService.WPF.View.AddForumView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
+        mc:Ignorable="d"
+        Title="AddForumView" Height="720" Width="420" Background="#cce6ff">
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="2,2,2,2"></Setter>
+            <Setter Property="BorderBrush" Value="DimGray"></Setter>
+        </Style>
+        <Style x:Key="createButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Content" Value="Pretrazi"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="420"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderThickness="0">
+            <Button.Background>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/arrow-left.png"></ImageBrush>
+            </Button.Background>
+        </Button>
+        <Label Grid.Row="1" Content="Novi forum" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"></Label>
+        <Grid Grid.Row="2" Width="280" Height="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Naziv" VerticalAlignment="Bottom" FontSize="16"></Label>
+            <TextBox x:Name="nameBox" Grid.Row="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="280" Height="40" VerticalAlignment="Top"></TextBox>
+            <Label Grid.Row="2" Content="Lokacija" VerticalAlignment="Bottom" FontSize="16"></Label>
+            <TextBox Grid.Row="3" Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}" Width="280" Height="40" VerticalAlignment="Top"></TextBox>
+            <Label Grid.Row="4" Content="Komentar" VerticalAlignment="Bottom" FontSize="16"></Label>
+            <TextBox Grid.Row="5" Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}" Width="280" Height="100" VerticalAlignment="Top"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Button Style="{StaticResource createButtonStyle}" Width="320" Height="65" Content="Potvrdi" FontSize="20" BorderThickness="2,2,2,2" Command="{Binding AddForumCommand}"></Button>
+        </Grid>
+    </Grid>
+</Page>

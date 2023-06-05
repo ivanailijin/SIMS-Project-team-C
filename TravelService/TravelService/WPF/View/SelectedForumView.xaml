@@ -1,0 +1,131 @@
+﻿<Page x:Class="TravelService.WPF.View.SelectedForumView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelService.WPF.View"
+        mc:Ignorable="d"
+        Title="SelectedForumView" Height="720" Width="420" Background="White">
+    <Page.Resources>
+        <local:EnumToVisibilityConverter x:Key="EnumToVisibilityConverter" />
+        
+        <Style x:Key="newCommentButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Width" Value="165"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ContentPresenter Content="Novi komentar"
+                                HorizontalAlignment="Center"
+                                              VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="closeForumButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Width" Value="165"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ContentPresenter Content="Zatvori forum"
+                                HorizontalAlignment="Center"
+                                              VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="460"></RowDefinition>
+            <RowDefinition Height="140"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderThickness="0">
+            <Button.Background>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/arrow-left.png"></ImageBrush>
+            </Button.Background>
+        </Button>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="270"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="40,0,0,0">
+                <Label Content="{Binding SelectedForum.Name}" FontSize="20" FontWeight="DemiBold"></Label>
+                <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
+                    <TextBlock Text="Zapoceo: " FontSize="14"></TextBlock>
+                    <TextBlock Text="{Binding SelectedForum.User.Username}" FontSize="14"></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="8,0,0,0">
+                    <TextBlock Text="Veoma koristan" FontSize="14"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="10,30,0,0">
+                <TextBlock Text="{Binding SelectedForum.NumberOfComments}" FontSize="18" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="odgovora" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+        </Grid>
+        <ListBox Grid.Row="2" ItemsSource="{Binding Comments}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="440" Background="#cce6ff">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                            <ColumnDefinition Width="240"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <Image Source="{Binding User.Picture}" Width="100" Height="100" Margin="0,5,10,5"></Image>
+                            <TextBlock Text="{Binding User.Username}" FontSize="18" FontWeight="DemiBold" Margin="15,0,0,0"></TextBlock>
+                            <StackPanel Orientation="Horizontal" Margin="15,5,0,0">
+                                <TextBlock Text="Gost" FontSize="14"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{Binding Content}" Padding="5" TextWrapping="Wrap" TextAlignment="Justify"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,55">
+            <Separator Width="25" Background="Transparent"></Separator>
+            <Button Style="{StaticResource newCommentButtonStyle}" Command="{Binding NewCommentCommand}" Visibility="{Binding SelectedForum.Status, Converter={StaticResource EnumToVisibilityConverter}}">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+            </Button>
+            <Separator Width="20" Background="Transparent"></Separator>
+            <Button Style="{StaticResource closeForumButtonStyle}" Command="{Binding CloseForumCommand}" IsEnabled="{Binding IsForumOwner}" Visibility="{Binding SelectedForum.Status, Converter={StaticResource EnumToVisibilityConverter}}">
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

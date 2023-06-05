@@ -82,7 +82,7 @@
 
         <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="25" Height="25" Margin="5,0,0,0" BorderThickness="0">
             <Button.Background>
-                <ImageBrush ImageSource="/TravelService;component/Resources/Images/previous.png"></ImageBrush>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/arrow-left.png"></ImageBrush>
             </Button.Background>
         </Button>
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,15,0,0">

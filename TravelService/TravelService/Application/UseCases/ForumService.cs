@@ -69,6 +69,7 @@ namespace TravelService.Application.UseCases
             }
             return false;
         }
+
         public int GetNumberOfOwnerComments(Forum forum)
         {
             int count = 0;
@@ -93,12 +94,15 @@ namespace TravelService.Application.UseCases
             }
             return count;
         }
+        
+
         public List<Forum> GetNumberOfComments(List<Forum> forums)
         {
             foreach (Forum forum in forums)
             {
                 int count = 0;
-                foreach(Comment comment in forum.Comments)
+
+                foreach (Comment comment in forum.Comments)
                 {
                     count++;
                 }
@@ -106,6 +110,7 @@ namespace TravelService.Application.UseCases
             }
             return forums;
         }
+
         public List<Forum> GetCommentsData(List<Forum> forums)
         {
             List<Comment> comments = _commentService.GetAll();
@@ -130,6 +135,7 @@ namespace TravelService.Application.UseCases
             }
             return forums;
         }
+
         public List<Forum> GetUserData(List<Forum> forums)
         {
             List<User> users = _userService.GetAll();
@@ -139,6 +145,7 @@ namespace TravelService.Application.UseCases
             }
             return forums;
         }
+
         public Forum Save(Forum forum)
         {
             return _forumRepository.Save(forum);
@@ -154,11 +161,37 @@ namespace TravelService.Application.UseCases
             Forum forum = _forumRepository.FindById(id);
             return forum;
         }
-        public List<IGrouping<Location, Forum>> GetForumsByLocation()
+        public List<Forum> FindByGuestId(int guestId)
         {
+            List<Forum> foundForums = new List<Forum>();
             List<Forum> forums = GetAll();
-            var forumsByLocation = forums.GroupBy(f => f.Location).ToList();
-            return forumsByLocation;
+
+            foreach (Forum forum in forums)
+            {
+                if (forum.User.Id == guestId)
+                {
+                    foundForums.Add(forum);
+                }
+            }
+            return foundForums;
+        }
+
+        public Forum CloseForum(int forumId)
+        {
+            Forum forum = FindById(forumId);
+            forum.Status = FORUMSTATUS.Closed;
+            _forumRepository.Update(forum);
+            return forum;
+        }
+
+        public bool IsUserForumOwner(int userId,  Forum forum) 
+        {
+            bool result = false;
+            if (userId == forum.User.Id)
+            {
+                result = true;
+            }
+            return result;
         }
     }
 }

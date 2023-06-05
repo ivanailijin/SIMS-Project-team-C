@@ -14,6 +14,7 @@ namespace TravelService.Domain.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public string UserType { get; set; }
+        public Uri Picture { get; set; }
 
         public User() { }
 
@@ -26,7 +27,7 @@ namespace TravelService.Domain.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, UserType };
+            string[] csvValues = { Id.ToString(), Username, Password, UserType, Picture.ToString() };
             return csvValues;
         }
 
@@ -36,6 +37,8 @@ namespace TravelService.Domain.Model
             Username = values[1];
             Password = values[2];
             UserType = values[3];
+            string profilePicture = values[4];
+            Picture = new Uri(profilePicture);
         }
     }
 }

@@ -16,6 +16,9 @@
     <Compile Update="WPF\View\AddingForumComment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\AddForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\AddTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -40,6 +43,9 @@
     <Compile Update="WPF\View\ClosingAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ClosingForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\FirstGuestProfileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +59,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ForumSelectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ForumsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\GuestsRequestsStatisticsView.xaml.cs">
@@ -166,6 +175,9 @@
     <Compile Update="WPF\View\SelectedAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\SelectedForumView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ShowGuestsNotificationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -216,6 +228,9 @@
     <Page Update="WPF\View\AddingForumComment.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\AddForumView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\CancelRenovationView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -223,6 +238,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ClosingAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ClosingForumView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\DeclineReservationRequestView.xaml">
@@ -250,6 +268,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ForumSelectionView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ForumsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\GuestsRequestsStatisticsView.xaml">
@@ -366,6 +387,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SelectedAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\SelectedForumView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowGuestsNotificationView.xaml">

@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Button Grid.Row="0" HorizontalAlignment="Left" Width="30" Height="30" BorderBrush="White" Command="{Binding PreviousPageCommand}">
             <Button.Background>
-                <ImageBrush ImageSource="/TravelService;component/Resources/Images/previous.png"></ImageBrush>
+                <ImageBrush ImageSource="/TravelService;component/Resources/Images/arrow-left.png"></ImageBrush>
             </Button.Background>
         </Button>
 

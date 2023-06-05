@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Collections.Generic;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -35,6 +29,17 @@ namespace TravelService.Application.UseCases
             comments = GetUserData(comments);
             return comments;
         }
+
+        public List<Comment> GetForumData(List<Comment> comments)
+        {
+            List<Forum> forums = _forumRepository.GetAll();
+            foreach (Comment comment in comments)
+            {
+                comment.Forum = forums.Find(f => f.Id == comment.Forum.Id);
+            }
+            return comments;
+        }
+
         public List<Comment> GetUserData(List<Comment> comments)
         {
             List<User> users = _userService.GetAll();
@@ -44,14 +49,21 @@ namespace TravelService.Application.UseCases
             }
             return comments;
         }
-        public List<Comment> GetForumData(List<Comment> comments)
+
+        public List<Comment> FindByForumId(int id)
         {
-            List<Forum> forums = _forumRepository.GetAll();
+            List<Comment> comments = GetAll();
+            comments = GetForumData(comments);
+            comments = GetUserData(comments);
+            List<Comment> foundedComments = new List<Comment>();
             foreach (Comment comment in comments)
             {
-                comment.Forum = forums.Find(f => f.Id == comment.Forum.Id);
+                if (comment.Forum.Id == id)
+                {
+                    foundedComments.Add(comment);
+                }
             }
-            return comments;
+            return foundedComments;
         }
 
         public Comment Save(Comment comment)
@@ -65,3 +77,6 @@ namespace TravelService.Application.UseCases
         }
     }
 }
+
+
+

@@ -1,12 +1,11 @@
-﻿<Window x:Class="TravelService.WPF.View.CancelReservationConfirmView"
+﻿<Window x:Class="TravelService.WPF.View.ClosingForumView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Title="Otkazivanje rezervacije" 
-        Height="240" Width="300"
+        Title="Zatvaranjae foruma" Height="240" Width="300"
         WindowStartupLocation="CenterScreen" Background="#cce6ff">
     <Window.Resources>
         <Style x:Key="confirmButtonStyle" TargetType="Button">
@@ -62,7 +61,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
-            <TextBlock Text="Da li ste sigurni da zelite da otkazete rezervaciju?" Width="200" FontSize="17" Margin="0,20,0,0" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Text="Da li ste sigurni da zelite da zatvorite forum?" FontSize="17" Margin="0,20,0,0" Width="200" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,10,0,0">
             <Separator Background="Transparent"></Separator>

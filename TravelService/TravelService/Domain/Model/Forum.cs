@@ -15,7 +15,7 @@ namespace TravelService.Domain.Model
     {
         public int Id { get; set; }
         public User User { get; set; } = new();
-        public String Name { get; set; }
+        public string Name { get; set; }
         public int NumberOfComments { get; set; }
         public Location Location { get; set; } = new();
         public DateTime DateCreated { get; set; }
@@ -23,7 +23,7 @@ namespace TravelService.Domain.Model
         public bool Helpful { get; set; }
         public List<Comment> Comments { get; set; }
 
-        public Forum(User user, Location location, String name, DateTime dateCreated, int numberOfComments, FORUMSTATUS status, List<Comment> comments)
+        public Forum(User user, Location location, string name, DateTime dateCreated, int numberOfComments, FORUMSTATUS status, List<Comment> comments)
         {
             User = user;
             Location = location;
@@ -33,9 +33,18 @@ namespace TravelService.Domain.Model
             Comments = comments;
         }
 
-        public Forum() 
+        public Forum()
         {
-            Comments = new List<Comment> ();
+            Comments = new List<Comment>();
+        }
+
+        public Forum(User user, string name, Location location, DateTime dateCreated)
+        {
+            User = user;
+            Name = name;
+            Location = location;
+            DateCreated = dateCreated;
+            Status = FORUMSTATUS.Open;
         }
 
         public string StatusToCSV()
@@ -72,7 +81,7 @@ namespace TravelService.Domain.Model
         {
             Id = Convert.ToInt32(values[0]);
             User.Id = Convert.ToInt32(values[1]);
-            Name = Convert.ToString(values[2]);
+            Name = values[2];
             Location.Id = Convert.ToInt32(values[3]);
             DateCreated = Convert.ToDateTime(values[4]);
             Status = StatusFromCSV(values[5]);

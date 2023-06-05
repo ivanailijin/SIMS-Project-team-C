@@ -1,28 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelService.Application.UseCases;
+using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
-using TravelService.Application.Utils;
-using TravelService.WPF.View;
 using TravelService.Domain.RepositoryInterface;
-using System.Windows;
-using System.Collections.ObjectModel;
 
 namespace TravelService.WPF.ViewModel
 {
-    public class CancelReservationConfirmViewModel : ViewModelBase
+    public class ClosingForumViewModel : ViewModelBase
     {
-        private readonly AccommodationReservationService _accommodationReservationService;
-        private readonly AccommodationService _accommodationService;
-        private ObservableCollection<AccommodationReservation> _activeReservations;
-        public static ObservableCollection<AccommodationReservation> ActiveReservations { get; set; }
-        public AccommodationReservation SelectedReservation { get; set; }
+        private ForumService _forumService;
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
+        public SelectedForumViewModel SelectedForumViewModel { get; set; }
+
+        private Forum _selectedForum;
+        public Forum SelectedForum
+        {
+            get => _selectedForum;
+            set
+            {
+                if (value != _selectedForum)
+                {
+                    _selectedForum = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private RelayCommand confirmCommand;
         public RelayCommand ConfirmCommand
@@ -52,14 +61,11 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public CancelReservationConfirmViewModel(ObservableCollection<AccommodationReservation> activeReservations, AccommodationReservation selectedReservation, Guest1 guest1)
+        public ClosingForumViewModel(Forum selectedForum, SelectedForumViewModel selectedForumViewModel)
         {
-            ActiveReservations = activeReservations;
-            SelectedReservation = selectedReservation;
-            Guest1 = guest1;
-
-            _accommodationReservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
-            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
+            _forumService = new ForumService(Injector.CreateInstance<IForumRepository>());
+            SelectedForum = selectedForum;
+            SelectedForumViewModel = selectedForumViewModel;
 
             ConfirmCommand = new RelayCommand(Execute_ConfirmCommand, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
@@ -72,8 +78,8 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_ConfirmCommand(object sender)
         {
-            _accommodationReservationService.CancelReservation(SelectedReservation);
-            ActiveReservations.Remove(SelectedReservation);
+            Forum forum = _forumService.CloseForum(SelectedForum.Id);
+            SelectedForumViewModel.SelectedForum = forum;
             CloseAction();
         }
 
