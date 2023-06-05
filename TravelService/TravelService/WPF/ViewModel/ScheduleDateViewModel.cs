@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -12,6 +13,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class ScheduleDateViewModel : ViewModelBase
     {
+        public NavigationService NavigationService;
+        public ScheduleDateView ScheduleDateView;
         public Guest2 Guest2 { get; set; }
         public Guide Guide { get; set; }    
         public Action CloseAction { get; set; }
@@ -23,9 +26,10 @@ namespace TravelService.WPF.ViewModel
         public bool IsDateAvailable { get; set; }
         public RelayCommand ScheduleCommand { get; set; }
 
-        public ScheduleDateViewModel(TourRequest selectedTourRequest)
+        public ScheduleDateViewModel(TourRequest selectedTourRequest,NavigationService navigationService,ScheduleDateView scheduleDateView)
         {
-
+            NavigationService = navigationService;
+            ScheduleDateView = scheduleDateView;
             SelectedTourRequest = selectedTourRequest;
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
@@ -54,14 +58,14 @@ namespace TravelService.WPF.ViewModel
         private void ScheduleTour(object obj)
         {
             // Check if the selected date is within the valid range
-            if (SelectedTourRequest.TourStart <= SelectedDate && SelectedDate <= SelectedTourRequest.TourEnd)
+            if (SelectedTourRequest.TourStart <= SelectedDate && SelectedDate <= SelectedTourRequest.TourEnd && SelectedDate !=null)
             {
                 // Schedule the tour for the selected date
                 SelectedTourRequest.TourStart = SelectedDate;
                 SelectedTourRequest.RequestApproved = APPROVAL.ACCEPTED;
                 _tourRequestService.Update(SelectedTourRequest);
-                AcceptingTourRequestView acceptingTourRequestView = new AcceptingTourRequestView(Guide, SelectedTourRequest);
-                acceptingTourRequestView.Show();
+                NavigationService.Navigate(new AcceptingTourRequestView(Guide, SelectedTourRequest,NavigationService));
+               
                 _newTourNotificationService.TourRequestAcceptedNotification(SelectedTourRequest);
                 CloseAction();
             }

@@ -10,18 +10,23 @@ using TravelService.Commands;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Application.Utils;
 using TravelService.WPF.View;
+using System.Windows.Navigation;
 
 namespace TravelService.WPF.ViewModel
 {
     public class ReportViewModel : ViewModelBase
     {
+        public NavigationService NavigationService;
+        public ReportView ReportView;
         public Action CloseAction { get; set; }
         private readonly TourReviewService _tourReviewService;
         public TourReview SelectedTourReview { get; set; }  
         public Guest SelectedGuest { get; set; } 
 
-        public ReportViewModel(TourReview selectedTourReview,Guest selectedGuest)
+        public ReportViewModel(TourReview selectedTourReview,Guest selectedGuest,NavigationService navigationService,ReportView reportView)
         {
+            NavigationService = navigationService;
+            ReportView = reportView;
             SelectedGuest = selectedGuest;
             SelectedTourReview = selectedTourReview;
             _tourReviewService = new TourReviewService(Injector.CreateInstance<ITourReviewRepository>());
@@ -69,8 +74,8 @@ namespace TravelService.WPF.ViewModel
 
             SelectedTourReview.Valid =false;
             _tourReviewService.Update(SelectedTourReview);
-            ShowTourReviewView showTourReviewsView = new ShowTourReviewView(SelectedGuest, SelectedTourReview);
-            showTourReviewsView.Show();
+            NavigationService.Navigate( new ShowTourReviewView(SelectedGuest, SelectedTourReview,NavigationService));
+          
 
         }
 
@@ -78,8 +83,8 @@ namespace TravelService.WPF.ViewModel
         {
             SelectedTourReview.Valid = true;
             _tourReviewService.Update(SelectedTourReview);
-            ShowTourReviewView showTourReviewsView = new ShowTourReviewView(SelectedGuest, SelectedTourReview);
-            showTourReviewsView.Show();
+            NavigationService.Navigate(new ShowTourReviewView(SelectedGuest, SelectedTourReview, NavigationService));
+           
         }
     }
 

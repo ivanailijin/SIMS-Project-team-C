@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -13,6 +14,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class ShowTourReviewsViewModel : ViewModelBase
     {
+        public NavigationService NavigationService;
+        public ShowTourReviewView ShowTourReviewView;
         public Action CloseAction { get; set; }
         public Guest SelectedGuest { get; set; }
         public List<TourReview> TourReviews { get; set; }
@@ -21,17 +24,19 @@ namespace TravelService.WPF.ViewModel
         private readonly TourReviewService _tourReviewService;
         public RelayCommand CancelCommand { get; set; }
 
-        public ShowTourReviewsViewModel(Guest selectedGuest, TourReview selectedTourReview)
+        public ShowTourReviewsViewModel(Guest selectedGuest, TourReview selectedTourReview,NavigationService navigationService, ShowTourReviewView showTourReviewView)
         {
-
-                SelectedTourReview = selectedTourReview;
-                SelectedGuest = selectedGuest;
-                _tourReviewService = new TourReviewService(Injector.CreateInstance<ITourReviewRepository>());
-                TourReviews = _tourReviewService.GetAll();
-                Reviews = _tourReviewService.FindGuestsTourReviews(TourReviews, SelectedGuest);
+            NavigationService = navigationService;
+            ShowTourReviewView = showTourReviewView;
+            SelectedTourReview = selectedTourReview;
+            SelectedGuest = selectedGuest;
+            _tourReviewService = new TourReviewService(Injector.CreateInstance<ITourReviewRepository>());
+            TourReviews = _tourReviewService.GetAll();
+            Reviews = _tourReviewService.FindGuestsTourReviews(TourReviews, SelectedGuest);
 
             showReportCommand = new RelayCommand(Execute_Report, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
+         
         }
 
         private RelayCommand showReport;
@@ -63,8 +68,7 @@ namespace TravelService.WPF.ViewModel
         {
             if (SelectedTourReview != null)
             {
-                ReportView reportView = new ReportView(SelectedTourReview,SelectedGuest);
-                reportView.Show();
+              NavigationService.Navigate(new ReportView(SelectedTourReview,SelectedGuest,NavigationService));
             }
             else
             {

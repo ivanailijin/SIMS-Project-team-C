@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
@@ -19,18 +20,15 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for ReportView.xaml
     /// </summary>
-    public partial class ReportView : Window
+    public partial class ReportView : Page
     {
         
-        public ReportView(TourReview selectedTourReview,Guest selectedguest)
+        public ReportView(TourReview selectedTourReview,Guest selectedguest,NavigationService navigationService)
         {
             InitializeComponent();
-            ReportViewModel reportViewModel = new ReportViewModel(selectedTourReview, selectedguest);
-            DataContext = reportViewModel;
-            if (reportViewModel.CloseAction == null)
-            {
-                reportViewModel.CloseAction = new Action(this.Close);
-            }
+           this.DataContext = new ReportViewModel(selectedTourReview, selectedguest, navigationService,this);
+          
+            
 
         }
     }

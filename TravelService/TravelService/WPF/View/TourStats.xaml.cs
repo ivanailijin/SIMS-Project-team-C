@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
@@ -20,15 +21,17 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for TourStats.xaml
     /// </summary>
-    public partial class TourStats : Window,INotifyPropertyChanged
+    public partial class TourStats : Page,INotifyPropertyChanged
     {
+        public NavigationService NavigationService;
         public readonly GuestRepository _guestRepository;
         public Tour SelectedTour { get; set; }
         public List<TourStatistics> TourStatisticsList { get; set; }
 
 
-        public TourStats(Tour selectedTour)
+        public TourStats(Tour selectedTour,NavigationService navigationService)
         {
+            NavigationService = navigationService;
             InitializeComponent();
             DataContext = this;
             SelectedTour = selectedTour;

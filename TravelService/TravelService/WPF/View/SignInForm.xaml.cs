@@ -26,6 +26,7 @@ namespace TravelService.WPF.View
         private readonly Guest2Service _guest2Service;
 
         private readonly OwnerService _ownerService;
+        private readonly GuideService _guideService;
 
         private readonly AccommodationService _accommodationService;
 
@@ -75,6 +76,7 @@ namespace TravelService.WPF.View
             _userService = new UserService(Injector.CreateInstance<IUserRepository>());
             _ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
             _guest1Service = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
+            _guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             _guest2Service = new Guest2Service(Injector.CreateInstance<IGuest2Repository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
@@ -145,13 +147,13 @@ namespace TravelService.WPF.View
                         }
                         else if (txtPassword.Password.Equals("guide123"))
                         {
-                            Guide guide = _guideRepository.GetByUsername(Username);
-                            GuideHomePageView guideHomePage = new GuideHomePageView(guide);
-                            guideHomePage.Show();
+                            Guide Guide = _guideService.GetByUsername(Username);
+                            GuideHomePageView view = new GuideHomePageView(Guide);
+                            view.Show();
 
                             List<Tour> TourList = _tourRepository.GetAll();
 
-                            foreach (Tour tour in TourList)
+                            /*foreach (Tour tour in TourList)
                             {
                                 Tour thisTour = _tourRepository.FindById(tour.Id);
 
@@ -166,7 +168,7 @@ namespace TravelService.WPF.View
                                     }
                                     break;
                                 }
-                            }
+                            }*/
 
                             Close();
                         }

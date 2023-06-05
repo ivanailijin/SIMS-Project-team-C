@@ -21,16 +21,16 @@ namespace TravelService.Repository
         public double WithVoucherPercentage { get; set; }
         public double WithoutVoucherPercentage { get; set; }
         private List<Guest> guests = new List<Guest>();
-        
+
         private List<Guest> _guest;
-        public static GuestVoucherRepository _guestVoucherRepository { get; set; }  
+        public static GuestVoucherRepository _guestVoucherRepository { get; set; }
 
         public GuestRepository()
         {
             _serializer = new Serializer<Guest>();
             _guest = _serializer.FromCSV(FilePath);
             guests = new List<Guest>();
-            _guestVoucherRepository = new GuestVoucherRepository(); 
+            _guestVoucherRepository = new GuestVoucherRepository();
         }
 
         public List<Guest> GetAll()
@@ -84,11 +84,14 @@ namespace TravelService.Repository
             {
                 if (guest.CheckPointId == selectedCheckPoint.CheckPointId && guest.TourId == selectedTour.Id)
                 {
+                    guest.CheckPointName = selectedCheckPoint.Name;
+                    guest.TourName = selectedTour.Name;
                     filteredGuests.Add(guest);
                 }
             }
             return filteredGuests;
         }
+
 
         public List<Guest> FindByTourId(int tourId)
         {
@@ -153,7 +156,6 @@ namespace TravelService.Repository
 
     }
 }
-
 
 
 

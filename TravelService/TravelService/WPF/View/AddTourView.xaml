@@ -1,4 +1,4 @@
-﻿<Window x:Class="TravelService.WPF.View.AddTourView"
+﻿<Page x:Class="TravelService.WPF.View.AddTourView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,8 +8,9 @@
        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
        xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
         mc:Ignorable="d"
-        Title="AddTour" Height="450" Width="900" ResizeMode="NoResize">
-    <Window.Resources>
+        Title="AddTour"   d:DesignHeight="600" d:DesignWidth="544"
+       DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Page.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
                 <AdornedElementPlaceholder x:Name="textBox">
@@ -18,50 +19,82 @@
                 </AdornedElementPlaceholder>
                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
             </StackPanel>
-
         </ControlTemplate>
-    </Window.Resources>
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="Pink" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Rounded1Button" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="#FF82F082" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RoundedLightButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#166470" Background="#d9d9d9" BorderThickness="2" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LabelText" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontFamily" Value="Candara"></Setter>
+            <Setter Property="FontWeight" Value="Normal"></Setter>
+        </Style>
+        <local:RadioButtonConverter x:Key="RadioButtonConverter" />
+    </Page.Resources>
 
-    <Grid Margin="0 0 0 0">
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/Icons/daniela-cuevas-t7YycgAoVSw-unsplash.jpg"/>
-        </Grid.Background>
+    <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="579.04"></RowDefinition>
-
-
+            <RowDefinition Height="505"></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0" Margin="200,64,375,200">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="500" Width="456" Margin="40,55,0,0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto" MinHeight="37.96"></RowDefinition>
+                <RowDefinition Height="Auto" MinHeight="37.96"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="60" MinHeight="37.09"></RowDefinition>
 
+                <RowDefinition Height="6" MinHeight="63.09"></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="37*"></ColumnDefinition>
-                <ColumnDefinition Width="28*"/>
-
+                <ColumnDefinition Width="215"></ColumnDefinition>
+                <ColumnDefinition Width="Auto" MinWidth="177"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="TourName" Grid.Column="0" Height="25" Margin="0,0,1,0"  Foreground="#FF05729F" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana" Grid.ColumnSpan="2"/>
-            <Label Content="Description" Grid.Row="1" Grid.Column="0" Height="25" Margin="0,0,1,0" Grid.ColumnSpan="2" Foreground="#FF05729F" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana"/>
-            <Label Content="Duration in hours" Grid.Row="2" Grid.Column="0" Height="25" Margin="0,0,1,0" Grid.ColumnSpan="2"  Foreground="#FF05729F" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana"/>
-            <Label Content="Tour Start" Grid.Row="3" Grid.Column="0" Height="25" Margin="0,0,1,0" Grid.ColumnSpan="2"  Foreground="#FF05729F" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana"/>
-            <Label Content="Maximum of guest" Grid.Row="4" Grid.Column="0" Height="25" Margin="0,0,1,0" Grid.ColumnSpan="2"  Foreground="#FF05729F" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana"/>
-            <Label Content="One or more pictures " Grid.Row="5" Grid.Column="0" Height="25" Margin="0,0,1,0" Grid.ColumnSpan="2"  Foreground="#FFB0DAEB" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana"/>
-            <Label Content="CheckPoints(min 2)" Grid.Row="6" Grid.Column="0" Height="25" Margin="0,0,1,0" Grid.ColumnSpan="2"  Foreground="#FFB0DAEB" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana"/>
-            <Label Content="Location(coutry,city)" Grid.Row="7" Grid.Column="0" Height="25" Margin="0,0,1,0" Grid.ColumnSpan="2"  Foreground="#FFB0DAEB" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana"/>
-            <Label Content="Language" Grid.Row="8" Grid.Column="0" Height="25" Margin="0,0,1,0" Grid.ColumnSpan="2"   Foreground="#FFB0DAEB" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" FontFamily="Verdana"/>
+            <Label Style="{StaticResource ResourceKey=LabelText}" Content="TourName" HorizontalAlignment="Left" Margin="25,8,0,8" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" Width="76" FontWeight="Bold"/>
+            <Label Style="{StaticResource ResourceKey=LabelText}" Content="Description" HorizontalAlignment="Left" Margin="25,7,0,8" Grid.Row="1" Grid.Column="0"  HorizontalContentAlignment="Center" Width="82" FontWeight="Bold" />
+            <Label Style="{StaticResource ResourceKey=LabelText}" Content="Duration in hours" Grid.Row="2" HorizontalAlignment="Left" Margin="25,4,0,3" Grid.Column="0" HorizontalContentAlignment="Center" Width="120" FontWeight="Bold"/>
+            <Label Style="{StaticResource ResourceKey=LabelText}" Content="Tour Start" Grid.Row="4" HorizontalAlignment="Left" Margin="25,8,0,8" Grid.Column="0" HorizontalContentAlignment="Center" Width="73" FontWeight="Bold"/>
+            <Label Style="{StaticResource ResourceKey=LabelText}"  Content="Maximum of guest" HorizontalAlignment="Left" Margin="25,1,0,37" Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" FontWeight="Bold" Grid.RowSpan="2" Width="129"/>
+            <Label Style="{StaticResource ResourceKey=LabelText}"  Content="Location(coutry,city)" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" Margin="25,5,0,32" HorizontalContentAlignment="Center" FontWeight="Bold"  Grid.RowSpan="2" Width="143"/>
+            <Label Style="{StaticResource ResourceKey=LabelText}"  Content="Language" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" Margin="25,5,0,6" HorizontalContentAlignment="Center" Width="91" FontWeight="Bold"/>
 
-
-            <TextBox Grid.Row="0" Background="#FFA9DDFF" Margin="22,6,8,5" Grid.Column="1">
+            <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="0" Grid.Column="1"   Margin="21,2,2,4">
                 <TextBox.Text>
                     <Binding Path="TourName" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -86,14 +119,11 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-
-
-
-            <TextBox Grid.Row="1" Background="#FFB0DAEB " Margin="22,6,8,5" Grid.Column="1">
+            <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="1" Grid.Column="1"   Margin="21,2,2,4">
                 <TextBox.Text>
                     <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                            <val:LocationValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -114,7 +144,10 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <TextBox Grid.Row="2"  Margin="22,6,8,5" Background="#FFB0DAEB" Grid.Column="1">
+
+
+
+            <TextBox BorderThickness="1.5" BorderBrush="Black" Grid.Row="2" Grid.Column="1"  Margin="21,2,2,4">
                 <TextBox.Text>
                     <Binding Path="Duration" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -139,7 +172,7 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <DatePicker Grid.Row="3" Width="120" HorizontalAlignment="Center" Margin="22,6,8,5"   Background="#FFB0DAEB"  Grid.Column="1">
+            <DatePicker Grid.Row="4" HorizontalAlignment="Left"   Margin="21,2,2,4"  Grid.Column="1" Width="160">
                 <DatePicker.SelectedDate>
                     <Binding Path="TourStart" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -166,55 +199,11 @@
 
             </DatePicker>
 
-
-            <TextBox  Grid.Row="4"  Grid.Column="1" Background="#FFA9DDFF"   Width="100"  Margin="0,6,0,6"
-              Text="{Binding MaxGuestNumber, Mode=TwoWay}"
-              TextAlignment="Center"
-              VerticalContentAlignment="Center"
-              IsReadOnly="True"
-              BorderThickness="0" HorizontalAlignment="Center"  />
-
-            <StackPanel Grid.Row="4" Grid.Column="1"
-                Orientation="Vertical"
-                VerticalAlignment="Center"
-                Margin="92,0,-5,0" Height="40">
-
-                <Button Content="▲" Background="#FFA9DDFF"
-                Width="20"
-                Height="20"
-                Command="{Binding IncrementCommand}" RenderTransformOrigin="1.315,0.602"/>
-
-                <Button Content="▼" Background="#FFA9DDFF"
-                Width="20"
-                Height="20"
-                Command="{Binding DecrementCommand}"/>
-            </StackPanel>
-
-
-            <Button Grid.Row="5" IsDefault="True" Command="{Binding FindPicturesCommand}" Margin="50,3,30,3"  Background="#FFB0DAEB" Grid.Column="1">
-                <Viewbox>
-                    <Canvas Width="24" Height="24">
-                        <Ellipse Width="24" Height="24" Stroke="#FF132D57" StrokeThickness="2" />
-                        <Path Data="M 12,6 V 18 M 6,12 H 18" Stroke="#FF132D57" StrokeThickness="2" />
-                    </Canvas>
-                </Viewbox>
-            </Button>
-
-            <Button  Grid.Row="6"  Command="{Binding AddCheckPointCommand}" Height="30"  Margin="50,0,30,1"  Background="#FFB0DAEB" Grid.Column="1" VerticalAlignment="Bottom">
-                <Viewbox>
-                    <Canvas Width="24" Height="24">
-                        <Ellipse Width="24" Height="24" Stroke="#FF132D57" StrokeThickness="2" />
-                        <Path Data="M 12,6 V 18 M 6,12 H 18" Stroke="#FF132D57" StrokeThickness="2" />
-                    </Canvas>
-                </Viewbox>
-            </Button>
-
-            <TextBox x:Name="LocationTextBox"  Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
-                     Height="25">
-                <TextBox.Text>
-                    <Binding Path="Location" UpdateSourceTrigger="PropertyChanged">
+            <TextBox BorderThickness="1.5" BorderBrush="Black" x:Name="CancelDaysBox"  Grid.Row="5" Grid.Column="1"  Margin="21,2,2,4">
+                <TextBox.Text >
+                    <Binding Path="MaxGuestNumber" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
-                            <val:LocationValidation ValidationStep="RawProposedValue"/>
+                            <val:NumberValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -236,13 +225,11 @@
                 </Validation.ErrorTemplate>
             </TextBox>
 
-
-            <TextBox x:Name="LanguageTextBox" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" 
-                     Height="25">
-                <TextBox.Text>
-                    <Binding Path="Language" UpdateSourceTrigger="PropertyChanged">
+            <TextBox BorderThickness="1.5" BorderBrush="Black" x:Name="LocationTextBox"  Grid.Row="6" Grid.Column="1"  Margin="21,2,2,4">
+                <TextBox.Text >
+                    <Binding Path="Location" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
-                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                            <val:NumberValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -263,59 +250,65 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
+            <TextBox BorderThickness="1.5" BorderBrush="Black" x:Name="LanguageTextBox"  Grid.Row="7" Grid.Column="1"  Margin="21,2,2,4">
+                <TextBox.Text >
+                    <Binding Path="Language" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <val:NumberValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
+                            <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <ListBox BorderThickness="1.5" BorderBrush="Black" x:Name="MyListBox"  ItemsSource="{Binding ListBoxPictures}" Grid.Column="1" Grid.Row="9"  Margin="20,10,2,9"/>
+            <ListBox BorderThickness="1.5" BorderBrush="Black" x:Name="ListBox"  ItemsSource="{Binding ListBoxCheckPoint}" Grid.Column="1" Grid.Row="8"  Margin="20,10,2,9"/>
+            <Button Style ="{StaticResource ResourceKey=RoundedLightButton}" Foreground="#1e2d30" FontFamily="Candara" Grid.Row="9" Margin="25,5,0,10" Width="120" x:Name="findPictures" Content="Dodaj slike" HorizontalAlignment="Left" FontSize="14" BorderBrush="#104d4f" 
+                    Command="{Binding FindPicturesCommand}"/>
+            <Button Style ="{StaticResource ResourceKey=RoundedLightButton}" Foreground="#1e2d30" FontFamily="Candara" Grid.Row="8" Margin="25,5,0,6" Width="120" x:Name="findCheckpoints" Content="Dodaj cekpointe" HorizontalAlignment="Left" FontSize="14" BorderBrush="#104d4f" 
+                    Command="{Binding AddCheckPointCommand}"/>
+            <WrapPanel FlowDirection="LeftToRight"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,25,0,0" Grid.Row="10" Grid.ColumnSpan="2">
 
+                <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara"  FontSize="14" Content="Odustani" IsDefault="True"  BorderThickness="1" Foreground="Red" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5" 
+                    Command="{Binding CancelCommand}"/>
 
+                <Button Style="{StaticResource ResourceKey=Rounded1Button}" FontFamily="Candara" FontSize="14" Content="Potvrdi"  HorizontalAlignment="Left"  BorderThickness="1" Foreground="#FF076107" FontWeight="SemiBold" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5"
+                    Command="{Binding AddAccommodationCommand}"/>
 
+            </WrapPanel>
 
         </Grid>
-        <Label Content="You are adding Tour! Please fill in all the fields!" HorizontalAlignment="Left" Height="40" Margin="170,-1,0,0" VerticalAlignment="Top" Width="550" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Foreground="#FF05729F" FontWeight="Bold" FontSize="20"  FontFamily="Verdana"></Label>
-        <Button Content="Add Tour" Command ="{Binding AddTourCommand}" Background="#FFB0DAEB" Foreground="#FF132D57" Margin="566,254,230,295" >
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-
-        <Button Content="Go Back" Command ="{Binding CancelCommand}" Background="#FF142D57" Foreground="#FFB0DAEB"  Margin="566,314,230,235" >
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-
-
-
-        <Border BorderBrush="#FFB0DAEB" BorderThickness="4" Height="350" Margin="170,49,185,0" VerticalAlignment="Top"/>
-
+        <Border  BorderThickness="1" HorizontalAlignment="Center" Height="500" Grid.RowSpan="2" VerticalAlignment="Center" Width="456">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Red" Offset="0" />
+                    <GradientStop Color="Orange" Offset="0.17" />
+                    <GradientStop Color="Yellow" Offset="0.33" />
+                    <GradientStop Color="Green" Offset="0.5" />
+                    <GradientStop Color="Blue" Offset="0.67" />
+                    <GradientStop Color="Indigo" Offset="0.83" />
+                    <GradientStop Color="Violet" Offset="1" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+        </Border>
+        <Frame x:Name="MyPopupFrame"  HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="Collapsed" Margin=" 0 170 0 0 " />
     </Grid>
-</Window>
 
-
+</Page>
 
 
 

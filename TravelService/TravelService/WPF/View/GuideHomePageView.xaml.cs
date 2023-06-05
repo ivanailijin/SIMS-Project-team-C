@@ -25,16 +25,19 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class GuideHomePageView : Window,INotifyPropertyChanged
     {
+
+        double panelWidth;
+        bool hidden;
+
         public GuideHomePageView(Guide guide)
         {
+           
             InitializeComponent();
-            GuideHomePageViewModel guideHomePageViewModel = new GuideHomePageViewModel(guide);
-            DataContext = guideHomePageViewModel;
-            if (guideHomePageViewModel.CloseAction == null)
-                guideHomePageViewModel.CloseAction = new Action(this.Close);
+            this.DataContext = new GuideHomePageViewModel(this.Main.NavigationService, guide, this);
+           
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-       
 
+        
     }
 }

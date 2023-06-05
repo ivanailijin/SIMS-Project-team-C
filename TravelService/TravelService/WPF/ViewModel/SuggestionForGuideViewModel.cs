@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -15,6 +16,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class SuggestionForGuideViewModel :ViewModelBase
     {
+        public AddTourView AddTourView { get; set; }
+        public NavigationService NavigationService { get; set; }
         private int selectedYear;
         private int selectedMonth;
         
@@ -136,8 +139,10 @@ namespace TravelService.WPF.ViewModel
 
 
 
-        public SuggestionForGuideViewModel(Guide guide)
+        public SuggestionForGuideViewModel(Guide guide,NavigationService navigationService)
         {
+            
+            NavigationService = navigationService;  
             this.Guide = guide;
             selectedYear = DateTime.Now.Year - 1;
             selectedMonth = DateTime.Now.Month;
@@ -166,13 +171,10 @@ namespace TravelService.WPF.ViewModel
             bool languageBool = false;
             bool visibility = _tourRequestService.IsLocationOrLanguageVisible(locationBool,languageBool);
 
-            AddTourViewModel addTourViewModel = new AddTourViewModel(Guide, visibility);
+            AddTourViewModel addTourViewModel = new AddTourViewModel(AddTourView,Guide, visibility,NavigationService);
             addTourViewModel.Location = MostRequestedLocation;
             addTourViewModel.CloseAction = () => { /* Handle close action if needed */ };
-
-            AddTourView addTourView = new AddTourView(Guide, visibility);
-            addTourView.DataContext = addTourViewModel;
-            addTourView.Show();
+            NavigationService.Navigate(new AddTourView(Guide, visibility, NavigationService));
         }
 
         private void Execute_AddTourLanguageCommand(object obj)
@@ -181,13 +183,11 @@ namespace TravelService.WPF.ViewModel
             bool languageBool = true;
             bool visibility = _tourRequestService.IsLocationOrLanguageVisible(locationBool, languageBool);
 
-            AddTourViewModel addTourViewModel = new AddTourViewModel(Guide, visibility);
+            AddTourViewModel addTourViewModel = new AddTourViewModel(AddTourView,Guide, visibility,NavigationService);
             addTourViewModel.Language = MostRequestedLanguage;
             addTourViewModel.CloseAction = () => { /* Handle close action if needed */ };
 
-            AddTourView addTourView = new AddTourView(Guide, visibility);
-            addTourView.DataContext = addTourViewModel;
-            addTourView.Show();
+            NavigationService.Navigate(new AddTourView(Guide, visibility, NavigationService));
         }
 
         private bool CanExecute_Command(object arg)

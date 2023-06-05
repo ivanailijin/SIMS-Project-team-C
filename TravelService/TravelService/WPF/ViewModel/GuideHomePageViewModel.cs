@@ -15,6 +15,10 @@ namespace TravelService.WPF.ViewModel
 {
     public class GuideHomePageViewModel : ViewModelBase
     {
+        public Frame PopupFrame { get; set; }
+        public GuideHomePageView GuideHomePageView { get; set; }
+       
+        public NavigationService NavigationService { get; set; }
         public TourRequest SelectedTourRequest { get; set; }
         private readonly GuideService _guideService;
         public Tour SelectedTour { get; set; }
@@ -35,29 +39,27 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand AboutMeCommand { get; set; }
         public RelayCommand ThemeCommand { get; set; }
         public RelayCommand LanguageCommand { get; set; }
+        public RelayCommand FutureToursCommand { get; set; }
 
         public RelayCommand Suggestion { get; set; }
         public Brush Background { get; set; }
         public Brush Foreground { get; set; }
 
-        System.Windows.Media.Color lightBackgroundColor = System.Windows.Media.Color.FromRgb(255, 255, 255);
-        System.Windows.Media.Color lightForegroundColor = System.Windows.Media.Color.FromRgb(0, 0, 0);
-        System.Windows.Media.Color darkBackgroundColor = System.Windows.Media.Color.FromRgb(0, 0, 0);
-        System.Windows.Media.Color darkForegroundColor = System.Windows.Media.Color.FromRgb(255, 255, 255);
 
 
 
-        public GuideHomePageViewModel(Guide guide)
+        public GuideHomePageViewModel(NavigationService navigationService,Guide guide,GuideHomePageView guideHomePageView)
         {
-
+            NavigationService = navigationService;
             this.Guide = guide;
+            GuideHomePageView = guideHomePageView;
             _guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
 
             this.Username = guide.Username;
 
 
             LogOutCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
-            ActiveToursCommand = new RelayCommand(Execute_ActiveToursCommand, CanExecute_Command);
+            FutureToursCommand = new RelayCommand(Execute_Future, CanExecute_Command);
             AddTourCommand = new RelayCommand(Execute_AddTourCommand, CanExecute_Command);
             CancelTourCommand = new RelayCommand(Execute_CAncelTourCommand, CanExecute_Command);
             PastToursCommand = new RelayCommand(Execute_PastToursCommand, CanExecute_Command);
@@ -65,10 +67,14 @@ namespace TravelService.WPF.ViewModel
             // RequestsComplexCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
             BestTourCommand = new RelayCommand(Execute_BestTourCommand, CanExecute_Command);
             // AboutMeCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
-             ThemeCommand = new RelayCommand(Execute_ChangeThemeCommand, CanExecute_Command);
+          
             LanguageCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
-            Suggestion = new RelayCommand(Execute_SuggestionCommand,CanExecute_Command);    
-        }
+            Suggestion = new RelayCommand(Execute_SuggestionCommand,CanExecute_Command);
+
+            PopupFrame = guideHomePageView.MyPopupFrame;
+
+            NavigationService.Navigate(new ActiveToursView(SelectedTour, NavigationService))
+;        }
 
         private string _username;
         public string Username
@@ -83,53 +89,49 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private void Execute_Future(object obk)
+        {
+            NavigationService.Navigate(new MyTours(SelectedTour, Guide, NavigationService));
+        }
         private void Execute_SuggestionCommand(object obj)
         {
-            SuggestionForGuideView sugg = new SuggestionForGuideView(Guide);
-            sugg.Show();
+            var suggestion = new SuggestionForGuideView(Guide, NavigationService);
+            OpenPopupPage(suggestion);
+        }
+        private void OpenPopupPage(Page SuggestionForGuideView)
+        {
+            PopupFrame.Navigate(SuggestionForGuideView);
+            PopupFrame.Visibility = System.Windows.Visibility.Visible;
 
         }
 
 
         private void Execute_RequestsCommand(object obj)
         {
-            AcceptingTourRequestView accepting = new AcceptingTourRequestView(Guide, SelectedTourRequest);
-            accepting.Show();
+            NavigationService.Navigate(new AcceptingTourRequestView(Guide, SelectedTourRequest,NavigationService));
+            
 
         }
 
         private void Execute_AddTourCommand(object obj)
         {
-            AddTourView addTour = new AddTourView(Guide, Visibility);
-            addTour.Show();
+            NavigationService.Navigate(new AddTourView( Guide,Visibility, NavigationService));
         }
-        private void Execute_ActiveToursCommand(object obj)
-        {
-            ActiveToursView activeTours = new ActiveToursView(SelectedTour);
-            activeTours.Show();
-            CloseAction();
-        }
+       
         private void Execute_CAncelTourCommand(object obj)
         {
-
-            MyTours myTours = new MyTours(SelectedTour, Guide);
-            myTours.Show();
-            CloseAction();
+            NavigationService.Navigate(new MyTours(SelectedTour,Guide, NavigationService));
         }
 
         private void Execute_PastToursCommand(object obj)
         {
 
-            PastTours pastTours = new PastTours(SelectedTour, Guide);
-            pastTours.Show();
-            CloseAction();
+            NavigationService.Navigate(new PastTours(SelectedTour, Guide, NavigationService));
         }
 
         private void Execute_BestTourCommand(object obj)
         {
-            MostVisited mostVisited = new MostVisited(Guide);
-            mostVisited.Show();
-            CloseAction();
+            NavigationService.Navigate(new MostVisited(Guide, NavigationService));
         }
 
 
@@ -148,22 +150,7 @@ namespace TravelService.WPF.ViewModel
 
        
 
-        private void Execute_ChangeThemeCommand(object obj)
-        {
-            if (this.Background is SolidColorBrush brush && brush.Color == lightBackgroundColor)
-            {
-                // Switch to dark theme
-                this.Background = new SolidColorBrush(darkBackgroundColor);
-                this.Foreground = new SolidColorBrush(darkForegroundColor);
-            }
-            else
-            {
-                // Switch to light theme
-                this.Background = new SolidColorBrush(lightBackgroundColor);
-                this.Foreground = new SolidColorBrush(lightForegroundColor);
-            }
-        }
-
+    
 
        
 

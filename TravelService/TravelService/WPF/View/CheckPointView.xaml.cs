@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 
@@ -13,9 +14,9 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for CheckPointView.xaml
     /// </summary>
-    public partial class CheckPointView : Window
+    public partial class CheckPointView : Page
     {
-
+        public NavigationService NavigationService;
         public Tour SelectedTour { get; set; }
         public CheckPoint SelectedCheckPoint { get; set; }
         private ObservableCollection<CheckPoint> _checkPoints;
@@ -29,8 +30,9 @@ namespace TravelService.WPF.View
         public List<Guest> _guests { get; set; }
 
 
-        public CheckPointView(Tour selectedTour)
+        public CheckPointView(Tour selectedTour,NavigationService navigationService)
         {
+            NavigationService = navigationService;
             InitializeComponent();
             DataContext = this;
 
@@ -72,11 +74,10 @@ namespace TravelService.WPF.View
             if (SelectedCheckPoint != null)
             {
                 List<Guest> guestsAtCheckpoint = _guestRepository.filterGuestsByCheckpointAndTour(_guests, SelectedCheckPoint, SelectedTour);
-                GuestPresence guestPresence = new GuestPresence(SelectedTour, SelectedCheckPoint);
-                guestPresence.Show();
-                Close();
+                NavigationService.Navigate(new GuestPresence(SelectedTour, SelectedCheckPoint, NavigationService));
             }
         }
+     
 
         private int numChecked = 0;
 
@@ -98,17 +99,16 @@ namespace TravelService.WPF.View
             SelectedTour.Done = true;
             _tourRepository.Update(SelectedTour);
             MessageBox.Show("The tour was successfully completed");
-            ActiveToursView activeToursView = new ActiveToursView(SelectedTour);
-            activeToursView.Show();
-            Close();
+          
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("The tour is cancelled");
-            ActiveToursView activeToursView = new ActiveToursView(SelectedTour);
-            activeToursView.Show();
-            Close();
+            
         }
+        
+
+
     }
 }

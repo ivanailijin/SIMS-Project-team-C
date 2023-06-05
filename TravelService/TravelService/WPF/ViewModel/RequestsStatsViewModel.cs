@@ -4,17 +4,21 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 
 {
     public class RequestsStatsViewModel :ViewModelBase
     {
+        public NavigationService NavigationService;
+        public RequestsStatsView RequestsStatsView;
 
 
         public Action CloseAction { get; set; }
@@ -115,8 +119,10 @@ namespace TravelService.WPF.ViewModel
         }
 
 
-        public RequestsStatsViewModel()
+        public RequestsStatsViewModel(RequestsStatsView requestsStatsView,NavigationService navigationService)
         {
+            NavigationService = navigationService;
+            RequestsStatsView = requestsStatsView;
             Years = new ObservableCollection<int>(Enumerable.Range(DateTime.Now.Year - 10, 10));
             Months = new ObservableCollection<int>(Enumerable.Range(1, 12));
             SelectedYear = DateTime.Now.Year;

@@ -13,6 +13,8 @@ namespace TravelService.Domain.Model
         public int Id { get; set; }
         public string Username { get; set; }
         public int CheckPointId { get; set; }
+      public string CheckPointName { get; set; }
+        public string TourName { get; set; }    
         public int TourId { get; set; }
         public bool Attendence { get; set; }
         public int Age { get; set; }
@@ -31,7 +33,7 @@ namespace TravelService.Domain.Model
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, CheckPointId.ToString(), TourId.ToString(), Attendence.ToString(), Age.ToString() };
+            string[] csvValues = { Id.ToString(), Username, CheckPointId.ToString(), CheckPointName, TourId.ToString(),TourName, Attendence.ToString(), Age.ToString() };
             return csvValues;
         }
 
@@ -40,9 +42,12 @@ namespace TravelService.Domain.Model
             Id = int.Parse(values[0]);
             Username = values[1];
             CheckPointId = int.Parse(values[2]);
-            TourId = int.Parse(values[3]);
-            Attendence = bool.Parse(values[4]);
-            Age = int.Parse(values[5]);
+            CheckPointName = values[3];
+            
+            TourId = int.Parse(values[4]);
+            TourName = values[5];   
+            Attendence = bool.Parse(values[6]);
+            Age = int.Parse(values[7]);
         }
     }
 }

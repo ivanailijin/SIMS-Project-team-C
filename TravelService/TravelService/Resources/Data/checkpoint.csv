@@ -1,11 +1,11 @@
 1|Kalemegdan|1|False
-2|Avala|1|False
+2|Avala|1|True
 3|Kalemegdan|2|True
 4|Avala|2|True
 5|Knez Mihajlova|2|True
 6|Petrovaradinska tvrdjava|3|False
 7|Limanski Park|3|True
-8|Karlovacka Gimnazija|4|False
+8|Karlovacka Gimnazija|4|True
 9|Karlovacka Crkva|4|False
 10|Panteon|5|False
 11|Koloseum|5|False
@@ -61,3 +61,5 @@
 68|zuzazu|0|False
 69|ww|0|False
 70|ww|0|False
+67|d|0|False
+68|dd|0|False

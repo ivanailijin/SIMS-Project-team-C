@@ -13,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
@@ -23,8 +24,9 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for GuestPresence.xaml
     /// </summary>
-    public partial class GuestPresence : Window
+    public partial class GuestPresence : Page
     {
+        public NavigationService NavigationService { get; set; }
         public Guest SelectedGuest { get; set; }
         public List<Guest> SelectedGuests { get; set; }
         public List<CheckPoint> CheckPoints { get; set; }
@@ -36,8 +38,9 @@ namespace TravelService.WPF.View
         public Tour SelectedTour { get; set; }
         public InvitationRepository _repositoryInvitation { get; set; }
 
-        public GuestPresence(Tour selectedTour, CheckPoint selectedcCheckPoint)
+        public GuestPresence(Tour selectedTour, CheckPoint selectedcCheckPoint, NavigationService navigationService)
         {
+            NavigationService = navigationService;
             InitializeComponent();
             DataContext = this;
             _repositoryTour = new TourRepository();
@@ -51,8 +54,10 @@ namespace TravelService.WPF.View
             SelectedGuests = new List<Guest>();
 
             _guests = new ObservableCollection<Guest>(_repositoryGuest.filterGuestsByCheckpointAndTour(convertGuestList(_guests), SelectedCheckPoint, SelectedTour));
+
             GuestDataGrid.ItemsSource = _guests;
         }
+
 
         private List<Guest> convertGuestList(ObservableCollection<Guest> observableCollection)
         {
@@ -78,8 +83,9 @@ namespace TravelService.WPF.View
         }
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            CheckPointView checkPointView = new CheckPointView(SelectedTour);
-            checkPointView.Show();
+            NavigationService.Navigate(new CheckPointView(SelectedTour, NavigationService));
         }
+
+
     }
 }

@@ -7,6 +7,7 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
+
 	<ItemGroup>
 		<None Remove="Resources\Images\add-accommodation-icon.png" />
 		<None Remove="Resources\Images\airplane.png" />
@@ -50,6 +51,51 @@
 		<None Remove="Resources\Icons\keyboard.png" />
 		<None Remove="Resources\Icons\play-circle.png" />
 
+    <None Remove="Resources\Icons\icons8-best-seller-48.png" />
+    <None Remove="Resources\Icons\icons8-cancel-48.png" />
+    <None Remove="Resources\Icons\icons8-future-64.png" />
+    <None Remove="Resources\Icons\icons8-home-48.png" />
+    <None Remove="Resources\Icons\icons8-menu-50.png" />
+    <None Remove="Resources\Icons\icons8-past-64.png" />
+    <None Remove="Resources\Icons\icons8-plus-48.png" />
+    <None Remove="Resources\Icons\icons8-request-16.png" />
+    <None Remove="Resources\Icons\icons8-statistics-64.png" />
+    <None Remove="Resources\Icons\icons8-suggestion-64.png" />
+    <None Remove="Resources\Images\add-accommodation-icon.png" />
+    <None Remove="Resources\Images\airplane.png" />
+    <None Remove="Resources\Images\angle-left.png" />
+    <None Remove="Resources\Images\angle-right.png" />
+    <None Remove="Resources\Images\cancellation-icon.png" />
+    <None Remove="Resources\Images\forum-icon.png" />
+    <None Remove="Resources\Images\forum.ico" />
+    <None Remove="Resources\Images\home-icon.png" />
+    <None Remove="Resources\Images\leftarrow.png" />
+    <None Remove="Resources\Images\minus.ico" />
+    <None Remove="Resources\Images\moving-requests-icon.png" />
+    <None Remove="Resources\Images\notification-icon.png" />
+    <None Remove="Resources\Images\plane.png" />
+    <None Remove="Resources\Images\plus.ico" />
+    <None Remove="Resources\Images\profile-icon.png" />
+    <None Remove="Resources\Images\rating-icon.png" />
+    <None Remove="Resources\Images\rating.png" />
+    <None Remove="Resources\Images\ratingreport.ico" />
+    <None Remove="Resources\Images\ratings.png" />
+    <None Remove="Resources\Images\recentRenovation.png" />
+    <None Remove="Resources\Images\renovation-icon.png" />
+    <None Remove="Resources\Images\reservations-icon.png" />
+    <None Remove="Resources\Images\reservations-request-icon.png" />
+    <None Remove="Resources\Icons\bell.png" />
+    <None Remove="Resources\Icons\calendar.png" />
+    <None Remove="Resources\Icons\daniela-cuevas-t7YycgAoVSw-unsplash.jpg" />
+    <None Remove="Resources\Icons\document.png" />
+    <None Remove="Resources\Icons\file.png" />
+    <None Remove="Resources\Icons\help.png" />
+    <None Remove="Resources\Icons\help2.png" />
+    <None Remove="Resources\Icons\home.png" />
+    <None Remove="Resources\Icons\keyboard.png" />
+    <None Remove="Resources\Icons\play-circle.png" />
+
+
 		<None Remove="Resources\Icons\mark-harpur-K2s_YE031CA-unsplash.jpg" />
 
 		<None Remove="Resources\Icons\play.png" />
@@ -58,6 +104,16 @@
 		<None Remove="Resources\Icons\user.png" />
 		<None Remove="Resources\Images\search.ico" />
 		<None Remove="Resources\Images\star.png" />
+
+    <None Remove="Resources\Icons\play.png" />
+    <None Remove="Resources\Icons\stats.png" />
+    <None Remove="Resources\Icons\ticket.png" />
+    <None Remove="Resources\Icons\user.png" />
+    <None Remove="Resources\Images\reservations.ico" />
+    <None Remove="Resources\Images\Screenshot 2023-03-16 235900.png" />
+    <None Remove="Resources\Images\search.ico" />
+    <None Remove="Resources\Images\slika.jpg" />
+    <None Remove="Resources\Images\star.png" />
 
 		<None Remove="Resources\Images\statistics-icon.png" />
 		<None Remove="Resources\Images\statistics.png" />
@@ -89,6 +145,7 @@
 
 	</ItemGroup>
 
+
 	<ItemGroup>
 		<Resource Include="Resources\Images\back.png" />
 		<Resource Include="Resources\Images\forward.png" />
@@ -101,6 +158,22 @@
 		<Resource Include="Resources\Images\recentRenovation.png" />
 		<Resource Include="Resources\Images\superowner.png" />
 	</ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-best-seller-48.png" />
+    <Resource Include="Resources\Icons\icons8-cancel-48.png" />
+    <Resource Include="Resources\Icons\icons8-future-64.png" />
+    <Resource Include="Resources\Icons\icons8-home-48.png" />
+    <Resource Include="Resources\Icons\icons8-menu-50.png" />
+    <Resource Include="Resources\Icons\icons8-past-64.png" />
+    <Resource Include="Resources\Icons\icons8-plus-48.png" />
+    <Resource Include="Resources\Icons\icons8-request-16.png" />
+    <Resource Include="Resources\Icons\icons8-statistics-64.png" />
+    <Resource Include="Resources\Icons\icons8-suggestion-64.png" />
+    <Resource Include="Resources\Images\recentRenovation.png" />
+    <Resource Include="Resources\Images\slika.jpg" />
+    <Resource Include="Resources\Images\superowner.png" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />

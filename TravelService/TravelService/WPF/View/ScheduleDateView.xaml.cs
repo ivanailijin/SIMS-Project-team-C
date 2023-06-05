@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
@@ -20,15 +21,13 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for ScheduleDate.xaml
     /// </summary>
-    public partial class ScheduleDateView : Window, INotifyPropertyChanged
+    public partial class ScheduleDateView : Page, INotifyPropertyChanged
     {
-        public ScheduleDateView(TourRequest selectedTourRequest )
+        public ScheduleDateView(TourRequest selectedTourRequest,NavigationService navigationService )
         {
             InitializeComponent();
-            ScheduleDateViewModel scheduteDate = new ScheduleDateViewModel(selectedTourRequest);
-            DataContext = scheduteDate;
-            if (scheduteDate.CloseAction == null)
-                scheduteDate.CloseAction = new Action(this.Close);
+          this.DataContext= new ScheduleDateViewModel(selectedTourRequest,navigationService,this);
+          
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
