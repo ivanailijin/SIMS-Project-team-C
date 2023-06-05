@@ -76,6 +76,20 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private RelayCommand _addCommentCommand;
+        public RelayCommand AddCommentCommand
+        {
+            get => _addCommentCommand;
+            set
+            {
+                if (value != _addCommentCommand)
+                {
+                    _addCommentCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private RelayCommand _closeForumCommand;
         public RelayCommand CloseForumCommand
         {
@@ -102,8 +116,8 @@ namespace TravelService.WPF.ViewModel
             IsForumOwner = _forumService.IsUserForumOwner(Guest1.Id, SelectedForum);
 
             PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
+            AddCommentCommand = new RelayCommand(Execute_AddComment, CanExecute_Command);
             CloseForumCommand = new RelayCommand(Execute_CloseForum, CanExecute_Command);
-            ForumsViewModel = forumsViewModel;
         }
 
         private bool CanExecute_Command(object parameter)
@@ -120,6 +134,11 @@ namespace TravelService.WPF.ViewModel
         {
             ForumsViewModel.SelectedForum = SelectedForum;
             GoBack();
+        }
+        private void Execute_AddComment(object sender)
+        {
+            AddCommentView addCommentView = new AddCommentView(this, Guest1, SelectedForum);
+            addCommentView.Show();
         }
 
         private void Execute_CloseForum(object sender)

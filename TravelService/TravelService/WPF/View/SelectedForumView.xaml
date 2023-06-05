@@ -119,7 +119,7 @@
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,55">
             <Separator Width="25" Background="Transparent"></Separator>
-            <Button Style="{StaticResource newCommentButtonStyle}" Command="{Binding NewCommentCommand}" Visibility="{Binding SelectedForum.Status, Converter={StaticResource EnumToVisibilityConverter}}">
+            <Button Style="{StaticResource newCommentButtonStyle}" Command="{Binding AddCommentCommand}" Visibility="{Binding SelectedForum.Status, Converter={StaticResource EnumToVisibilityConverter}}">
                 <TextBlock TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
             </Button>
             <Separator Width="20" Background="Transparent"></Separator>
