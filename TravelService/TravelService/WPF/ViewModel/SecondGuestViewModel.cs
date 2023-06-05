@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.WPF.View;
@@ -160,8 +156,7 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-
-        public SecondGuestViewModel(Guest2 guest2) 
+        public SecondGuestViewModel(Guest2 guest2)
         {
             this.Guest2 = guest2;
             TrackCommand = new RelayCommand(Execute_TrackCommand, CanExecute_Command);
@@ -181,7 +176,7 @@ namespace TravelService.WPF.ViewModel
             return true;
         }
 
-        private void Execute_StatisticsCommand(object sender) 
+        private void Execute_StatisticsCommand(object sender)
         {
             GuestsRequestsStatisticsView guestsRequestsStatisticsView = new GuestsRequestsStatisticsView(Guest2);
             guestsRequestsStatisticsView.Show();
@@ -206,31 +201,37 @@ namespace TravelService.WPF.ViewModel
         {
             TourReservationView tourReservationView = new TourReservationView(SelectedTour, SelectedVoucher, Guest2);
             tourReservationView.Show();
+            CloseAction();
         }
         private void Execute_RequestCommand(object sender)
         {
-            AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2);
-            addTourRequestView.Show();
+            ChooseRequestTypeView chooseRequestTypeView = new ChooseRequestTypeView(Guest2);
+            chooseRequestTypeView.Show();
+            CloseAction();
         }
         private void Execute_NotificationCommand(object sender)
         {
             SecondGuestNotificationsView secondGuestNotificationsView = new SecondGuestNotificationsView(SelectedNotification, Guest2);
             secondGuestNotificationsView.Show();
+            CloseAction();
         }
         private void Execute_GuestsRequestsCommand(object sender)
         {
-            GuestsRequestsView guestsRequestsView = new GuestsRequestsView(Guest2);
-            guestsRequestsView.Show();
+            ChoooseRequestListView choooseRequestListView = new ChoooseRequestListView(Guest2);
+            choooseRequestListView.Show();
+            CloseAction();
         }
         private void Execute_VoucherViewCommand(object sender)
         {
             GuestsVouchersView guestsVouchersView = new GuestsVouchersView(Guest2);
             guestsVouchersView.Show();
+            CloseAction();
         }
         private void Execute_RateTourCommand(object sender)
         {
             GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
             guestsToursView.Show();
+            CloseAction();
         }
         public event EventHandler<string> NotificationReceived;
 

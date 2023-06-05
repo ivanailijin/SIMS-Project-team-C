@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using TravelService.Serializer;
 
 public enum APPROVAL { WAITING, ACCEPTED, INVALID };
@@ -23,6 +18,7 @@ namespace TravelService.Domain.Model
         public DateTime TourEnd { get; set; }
         public APPROVAL RequestApproved { get; set; }
         public int GuestId { get; set; }
+
 
         public TourRequest() { }
 
@@ -51,7 +47,7 @@ namespace TravelService.Domain.Model
                 TourStart.ToString(),
                 TourEnd.ToString(),
                 RequestApprovedToCSV(),
-                GuestId.ToString(),
+                GuestId.ToString()
             };
             return csvValues;
         }
@@ -84,6 +80,12 @@ namespace TravelService.Domain.Model
                 return APPROVAL.ACCEPTED;
             else
                 return APPROVAL.INVALID;
+        }
+        public static TourRequest CreateFromCSV(string[] values)
+        {
+            TourRequest tourRequest = new TourRequest();
+            tourRequest.FromCSV(values);
+            return tourRequest;
         }
     }
 
