@@ -28,13 +28,22 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="#162626" Background="#8dc3c4" BorderThickness="1" CornerRadius="1">
+                        <Border x:Name="border" BorderBrush="#5c5c5c" Background="#52a0a3" BorderThickness="1.5" CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#acadad"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#8dc3c4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Setter Property="FontFamily" Value="Candara"></Setter>
+            <Setter Property="FontSize" Value="13.5"></Setter>
         </Style>
     </Page.Resources>
     <Grid>
@@ -85,45 +94,48 @@
                         <TextBlock Style="{StaticResource ResourceKey=TextStyle}" Height="40" Margin="-5 15 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" TextAlignment="Center"> registrovanih smestaja</TextBlock>
                     </StackPanel>
                 </Border>
-                <Button Style="{StaticResource ResourceKey=RoundedButton}" Height="28" Width="125" Margin="0 58 0 0" FontSize="15" HorizontalAlignment="Left" Content="Nazad" Command="{Binding CancelCommand}"></Button>
+                <Button Style="{StaticResource ResourceKey=RoundedButton}" Height="28" Width="125" Margin="0 63 0 0" FontSize="15" HorizontalAlignment="Left" Content="Nazad" Command="{Binding CancelCommand}"></Button>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Border Width="490" Height="595" Background="#f2f5f7" BorderBrush="Black" CornerRadius="2" BorderThickness="1.5" Margin="5 73 25 13">
+                <Border Width="490" Height="600" Background="#f2f5f7" BorderBrush="Black" CornerRadius="2" BorderThickness="1.5" Margin="5 78 25 13">
                     <StackPanel Orientation="Vertical">
-                        <StackPanel Height="70" Margin="30 0 0 0" Orientation="Horizontal">
+                        <StackPanel Height="60" Margin="30 0 0 0" Orientation="Horizontal">
                             <TextBlock Width="170" Style ="{StaticResource ResourceKey=LabelDataStyle}" VerticalAlignment="Center" Margin="20 30 0 0" FontSize="15" FontWeight="SemiBold"> Ime i prezime:</TextBlock>
-                            <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" VerticalAlignment="Center" Margin="29 27 0 0" Text="{Binding Owner.Username}"></TextBlock>
-                            <Button Style="{StaticResource ResourceKey=RoundedButton}" Width="62" Height="25" HorizontalAlignment="Right" Margin="98 -30 0 0" Content="Izmeni" Command="{Binding UpdateDataCommand}"></Button>
+                            <TextBox VerticalAlignment="Center" Margin="29 27 0 0" FontFamily="Candara" FontSize="14" Background="#f2f5f7" BorderBrush="Transparent" Text="{Binding Owner.Username, Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled}">
+                            </TextBox>
                         </StackPanel>
                         <StackPanel Height="60" Margin="30 10" Orientation="Horizontal">
                             <TextBlock Width="170" Style ="{StaticResource ResourceKey=LabelDataStyle}" VerticalAlignment="Center" Margin="20 10 0 0" FontSize="15" FontWeight="SemiBold">Datum rodjenja:</TextBlock>
-                            <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" VerticalAlignment="Center" Margin="29 12 0 0" Text="{Binding Owner.DateOfBirth, StringFormat='{}{0:dd.MM.yyyy.}'}"></TextBlock>
+                            <TextBox  VerticalAlignment="Center" Margin="29 12 0 0" FontFamily="Candara" FontSize="14" Background="#f2f5f7" BorderBrush="Transparent" Text="{Binding Owner.DateOfBirth, StringFormat='{}{0:dd.MM.yyyy.}', Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled}"></TextBox>
                         </StackPanel>
                         <StackPanel Height="60" Margin="30 10" Orientation="Horizontal">
                             <TextBlock Width="170" Style ="{StaticResource ResourceKey=LabelDataStyle}" VerticalAlignment="Center" Margin="20 0" FontSize="15" FontWeight="SemiBold">JMBG:</TextBlock>
-                            <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" VerticalAlignment="Center" Margin="10 -5 0 0" Text="{Binding Owner.JMBG}"></TextBlock>
+                            <TextBox  VerticalAlignment="Center" Margin="10 -5 0 0" FontFamily="Candara" FontSize="14" Background="#f2f5f7" BorderBrush="Transparent" Text="{Binding Owner.JMBG, Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled}"></TextBox>
                         </StackPanel>
                         <StackPanel Height="60" Margin="30 10" Orientation="Horizontal">
                             <TextBlock Width="170" Style ="{StaticResource ResourceKey=LabelDataStyle}" VerticalAlignment="Center" Margin="20 0" FontSize="15" FontWeight="SemiBold">Pol:</TextBlock>
-                            <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding Owner.Gender}"></TextBlock>
+                            <TextBox VerticalAlignment="Center" Margin="10 0 0 0" FontFamily="Candara" FontSize="14" Background="#f2f5f7" BorderBrush="Transparent" Text="{Binding Owner.Gender, Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled}"></TextBox>
                         </StackPanel>
                         <StackPanel Height="60" Margin="30 10" Orientation="Horizontal">
                             <TextBlock Width="170" Style ="{StaticResource ResourceKey=LabelDataStyle}" VerticalAlignment="Center" Margin="20 0" FontSize="15" FontWeight="SemiBold">Adresa:</TextBlock>
-                            <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding Owner.Address}"></TextBlock>
+                            <TextBox VerticalAlignment="Center" Margin="10 0 0 0" FontFamily="Candara" FontSize="14" Background="#f2f5f7" BorderBrush="Transparent" Text="{Binding Owner.Address, Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled}"></TextBox>
                         </StackPanel>
                         <Line X1="0" Y1="0" X2="460" Stroke="Black" StrokeThickness="2" Margin="15 10"></Line>
-                        <StackPanel Height="60" Margin="30 10" Orientation="Horizontal">
+                        <StackPanel Height="55" Margin="30 10" Orientation="Horizontal">
                             <TextBlock Width="170" Style ="{StaticResource ResourceKey=LabelDataStyle}" VerticalAlignment="Center" Margin="20 0" FontSize="15" FontWeight="SemiBold">Telefon:</TextBlock>
-                            <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" VerticalAlignment="Center" Margin="10 -5 0 0" Text="{Binding Owner.PhoneNumber}"></TextBlock>
+                            <TextBox VerticalAlignment="Center" Margin="10 -5 0 0" FontFamily="Candara" FontSize="14" Background="#f2f5f7" BorderBrush="Transparent" Text="{Binding Owner.PhoneNumber, Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled}"></TextBox>
                         </StackPanel>
-                        <StackPanel Height="60" Margin="30 10" Orientation="Horizontal">
+                        <StackPanel Height="55" Margin="30 10" Orientation="Horizontal">
                             <TextBlock Width="170" Style ="{StaticResource ResourceKey=LabelDataStyle}" VerticalAlignment="Center" Margin="20 0" FontSize="15" FontWeight="SemiBold">Email:</TextBlock>
-                            <TextBlock Style="{StaticResource ResourceKey=TextDataStyle}" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding Owner.Email}"></TextBlock>
+                            <TextBox VerticalAlignment="Center" Margin="10 0 0 0" FontFamily="Candara" FontSize="14" Background="#f2f5f7" BorderBrush="Transparent" Text="{Binding Owner.Email, Mode=TwoWay}" IsEnabled="{Binding IsFormEnabled}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 36 0 0">
+                            <Button Style="{StaticResource ResourceKey=RoundedButton}" IsEnabled="{Binding IsChangeEnabled}"  Width="105" Height="24" HorizontalAlignment="Right" Content="Izmeni" Margin="95 -30 0 0" Command="{Binding UpdateDataCommand}" ></Button>
+                            <Button Style="{StaticResource ResourceKey=RoundedButton}" IsEnabled="{Binding IsSaveEnabled}" Width="105" Height="24" HorizontalAlignment="Right" Content="Sacuvaj izmenu" Margin="98 -30 0 0" Command="{Binding SaveDataCommand}"></Button>
                         </StackPanel>
                     </StackPanel>
                 </Border>
             </StackPanel>
         </StackPanel>
-        
     </Grid>
 </Page>

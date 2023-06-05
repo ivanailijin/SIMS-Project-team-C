@@ -134,7 +134,8 @@ namespace TravelService.WPF.ViewModel
         private void Execute_AddAccommodationCommand(object obj)
         {
             AddAccommodation addAccommodation = new AddAccommodation(Owner, null);
-            addAccommodation.Show();
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(addAccommodation);
         }
 
         private void Execute_GuestRatingCommand(object obj)

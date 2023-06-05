@@ -19,6 +19,7 @@ using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
+using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -31,6 +32,7 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand AddAccommodationCommand { get; set; }
         public RelayCommand FindPicturesCommand { get; set; }
+        public AddAccommodation AddAccommodationView { get; set; }
         public Owner Owner { get; set; }
 
         public ObservableCollection<string> types
@@ -182,10 +184,11 @@ namespace TravelService.WPF.ViewModel
         }
 
 
-        public AddAccommodationViewModel(Owner owner, Location location)
+        public AddAccommodationViewModel(Owner owner, Location location, AddAccommodation addAccommodationView)
         {
             InitializeCommands();
             this.Owner = owner;
+            AddAccommodationView = addAccommodationView;
             types = new ObservableCollection<string>();
             ListBoxPictures = new ObservableCollection<string>();
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
@@ -300,7 +303,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            AddAccommodationView.GoBack();
         }
 
         private bool CanExecute_Command(object arg)

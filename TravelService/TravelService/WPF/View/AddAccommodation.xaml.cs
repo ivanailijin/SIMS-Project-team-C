@@ -22,21 +22,24 @@ using Microsoft.Win32;
 using System.IO;
 using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
+using TravelService.WPF.Services;
 
 namespace TravelService.WPF.View
 {
     /// <summary>
     /// Interaction logic for AddAccommodation.xaml
     /// </summary>
-    public partial class AddAccommodation : Window, INotifyPropertyChanged
+    public partial class AddAccommodation : Page, INotifyPropertyChanged, INavigationInterface
     {
         public AddAccommodation(Owner owner, Location location)
         {
             InitializeComponent();
-            AddAccommodationViewModel addAccommodationViewModel = new AddAccommodationViewModel(owner, location);
+            AddAccommodationViewModel addAccommodationViewModel = new AddAccommodationViewModel(owner, location, this);
             DataContext = addAccommodationViewModel;
-            if (addAccommodationViewModel.CloseAction == null)
-                addAccommodationViewModel.CloseAction = new Action(this.Close);
+        }
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -15,13 +16,14 @@ using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
-    public class OwnerProfileViewModel : ViewModelBase
+    public class OwnerProfileViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public Owner Owner { get; set; }
         public Action CloseAction { get; set; }
-
+        public OwnerService ownerService { get; set; }
         public OwnerProfileView OwnerProfileView { get; set; }
         public RelayCommand UpdateDataCommand { get; set; }
+        public RelayCommand SaveDataCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
 
         public AccommodationService accommodationService;
@@ -53,6 +55,45 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private bool _isFormEnabled;
+        public bool IsFormEnabled
+        {
+            get { return _isFormEnabled; }
+            set
+            {
+                if (_isFormEnabled != value)
+                {
+                    _isFormEnabled = value;
+                    OnPropertyChanged(nameof(IsFormEnabled));
+                }
+            }
+        }
+        private bool _isSaveEnabled;
+        public bool IsSaveEnabled
+        {
+            get { return _isSaveEnabled; }
+            set
+            {
+                if (_isSaveEnabled != value)
+                {
+                    _isSaveEnabled = value;
+                    OnPropertyChanged(nameof(IsSaveEnabled));
+                }
+            }
+        }
+        private bool _isChangeEnabled;
+        public bool IsChangeEnabled
+        {
+            get { return _isChangeEnabled; }
+            set
+            {
+                if (_isChangeEnabled != value)
+                {
+                    _isChangeEnabled = value;
+                    OnPropertyChanged(nameof(IsChangeEnabled));
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -64,21 +105,34 @@ namespace TravelService.WPF.ViewModel
         public OwnerProfileViewModel(Owner owner, OwnerProfileView ownerProfileView)
         {
             this.Owner = owner;
+            ownerService = new OwnerService(Injector.CreateInstance<IOwnerRepository>());
             accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
             NumberOfAccommodations = accommodationService.GetNumberOfAccommodations(Owner.Id);
             IsSuperOwner = owner.SuperOwner;
             InitializeCommands();
+            IsFormEnabled = false;
+            IsSaveEnabled = IsFormEnabled;
+            IsChangeEnabled = !IsFormEnabled;
             OwnerProfileView = ownerProfileView;
         }
         private void InitializeCommands()
         {
             UpdateDataCommand = new RelayCommand(Execute_UpdateDataCommand, CanExecute_Command);
+            SaveDataCommand = new RelayCommand(Execute_SaveDataCommand, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
         }
         private void Execute_UpdateDataCommand(object obj)
         {
-            UpdateOwnerProfileView updateOwnerProfileView = new UpdateOwnerProfileView(Owner);
-            updateOwnerProfileView.Show();
+            IsFormEnabled = true;
+            IsSaveEnabled = IsFormEnabled;
+            IsChangeEnabled = !IsFormEnabled;
+        }
+        private void Execute_SaveDataCommand(object obj)
+        {
+            ownerService.Update(Owner);
+            IsFormEnabled = false;
+            IsSaveEnabled = IsFormEnabled;
+            IsChangeEnabled = !IsFormEnabled;
         }
         private void Execute_CancelCommand(object obj)
         {

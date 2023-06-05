@@ -28,8 +28,6 @@ namespace TravelService.WPF.View
             InitializeComponent();
             AccommodationStatisticsViewModel accommodationStatisticsViewModel = new AccommodationStatisticsViewModel(owner, this);
             DataContext = accommodationStatisticsViewModel;
-            //if (accommodationStatisticsViewModel.CloseAction == null)
-              //  accommodationStatisticsViewModel.CloseAction = new Action(this.Close);
         }
         public void GoBack()
         {
