@@ -7,6 +7,7 @@ namespace TravelService.Domain.Model
 {
     public class ComplexTourRequest : ISerializable
     {
+
         public int Id { get; set; }
         public string Name { get; set; }
         public List<TourRequest> TourRequests { get; set; }
@@ -17,7 +18,7 @@ namespace TravelService.Domain.Model
             TourRequests = new List<TourRequest>();
         }
 
-        public ComplexTourRequest(string name, List<TourRequest> tourRequests, APPROVAL acceptance, Guest2 guest2)
+        public ComplexTourRequest(List<TourRequest> tourRequests, string name, APPROVAL acceptance, Guest2 guest2)
         {
             Name = name;
             TourRequests = new List<TourRequest>(tourRequests);
@@ -57,6 +58,7 @@ namespace TravelService.Domain.Model
         }
         public void FromCSV(string[] values)
         {
+
             Id = int.Parse(values[0]);
             Name = values[1];
 

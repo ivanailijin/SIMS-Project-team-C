@@ -44,7 +44,7 @@ namespace TravelService.Application.UseCases
 
         public void saveComplexRequest(string name, Guest2 guest2, List<TourRequest> tourRequests)
         {
-            ComplexTourRequest complexTourRequest = new ComplexTourRequest(name, tourRequests, APPROVAL.WAITING, guest2);
+            ComplexTourRequest complexTourRequest = new ComplexTourRequest(tourRequests, name, APPROVAL.WAITING, guest2);
             Save(complexTourRequest);
         }
 
