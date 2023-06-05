@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -13,19 +15,36 @@ using TravelService.WPF.View;
 
 namespace TravelService.WPF.ViewModel
 {
-    public class ForumCommentsViewModel : ViewModelBase
+    public class ForumCommentsViewModel : ViewModelBase, INotifyPropertyChanged
     {
         public ForumCommentsView ForumCommentsView { get; set; }
 
         public ForumService _forumService;
+
+        public CommentService _commentService;
+
+        public Guest1Service _guestService;
         public Action CloseAction { get; set; }
         public RelayCommand BackCommand { get; set; }
         public RelayCommand ReportCommentCommand { get; set; }
         public RelayCommand AddCommentCommand { get; set; }
         public Forum SelectedForum { get; set; }
-        public ObservableCollection<Comment> Comments { get; set; }
+        public Comment SelectedComment { get; set; }
         public Owner Owner { get; set; }
 
+        private ObservableCollection<Comment> _comments;
+        public ObservableCollection<Comment> Comments
+        {
+            get => _comments;
+            set
+            {
+                if (value != _comments)
+                {
+                    _comments = value;
+                    OnPropertyChanged(nameof(Comments));
+                }
+            }
+        }
 
         private int _numberOwnerComments;
         public int NumberOwnersComments
@@ -71,6 +90,8 @@ namespace TravelService.WPF.ViewModel
         {
             InitializeCommands();
             _forumService = new ForumService(Injector.CreateInstance<IForumRepository>());
+            _guestService = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
+            _commentService = new CommentService(Injector.CreateInstance<ICommentRepository>());
             SelectedForum = selectedForum;
             Comments = new ObservableCollection<Comment>(SelectedForum.Comments);
             this.Owner = owner;
@@ -87,11 +108,24 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_ReportCommentCommand(object obj)
         {
-
-        }
-        private void Execute_ShowForumCommand(object obj)
-        {
-
+            if (_guestService.CheckCommentsOrigin(SelectedComment.User.Id))
+            {
+                MessageBoxResult result = MessageBox.Show($"Autor komentara nije gost.\nNe mozete ga prijaviti!", "Obavestenje", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (_guestService.CheckGuestsPresence(SelectedComment.User.Id, SelectedForum.Location))
+            {
+                MessageBoxResult result = MessageBox.Show($"Izabrani korisnik je bio na lokaciji {SelectedForum.Location.CityAndCountry}.\nNe mozete ga prijaviti!", "Obavestenje", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show($"Da li ste sigurni da zelite da prijavite komentar korisnika {SelectedComment.User.Username}?", "Potvrda prijave", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if(result == MessageBoxResult.Yes) 
+                {
+                    SelectedComment.ReportsNumber = ++SelectedComment.ReportsNumber;
+                    Comments = new ObservableCollection<Comment>(SelectedForum.Comments);
+                    _commentService.Update(SelectedComment);
+                }
+            }
         }
         private void Execute_AddCommentCommand(object obj)
         {
@@ -106,6 +140,13 @@ namespace TravelService.WPF.ViewModel
         private bool CanExecute_Command(object arg)
         {
             return true;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

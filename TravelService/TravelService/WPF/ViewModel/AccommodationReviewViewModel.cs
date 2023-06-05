@@ -26,7 +26,6 @@ namespace TravelService.WPF.ViewModel
         public Owner Owner { get; set; }
         public Guest1 SelectedGuest { get; set; }
 
-
         private List<Uri> _ratingImages;
 
         public List<Uri> RatingImages

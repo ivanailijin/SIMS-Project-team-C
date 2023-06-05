@@ -118,7 +118,7 @@
                             </Button.Content>
                         </Button>
 
-                        <ListBox  ItemsSource="{Binding DisplayedRatings}" SelectedIndex="{Binding CurrentCommentIndex}"
+                        <ListBox  ItemsSource="{Binding DisplayedRatings}" SelectedIndex="{Binding CurrentCommentIndex}" 
                         ScrollViewer.HorizontalScrollBarVisibility="Hidden" Width="880" Background="White" BorderBrush="Transparent"
                         ScrollViewer.VerticalScrollBarVisibility="Hidden">
                             <ItemsControl.ItemsPanel>
