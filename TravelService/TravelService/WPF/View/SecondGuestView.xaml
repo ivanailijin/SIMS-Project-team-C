@@ -103,6 +103,7 @@
                     <TextBlock Text="{Binding Username}" FontSize="20" Foreground="White"/>
                 </StackPanel>
             </StackPanel>
+            <Grid/>
         </Grid>
         <Grid Grid.Column="1" Background="AliceBlue">
             <Grid.RowDefinitions>

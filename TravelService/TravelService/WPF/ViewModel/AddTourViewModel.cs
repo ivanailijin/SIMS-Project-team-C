@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -14,6 +16,9 @@ namespace TravelService.WPF.ViewModel
 {
     public class AddTourViewModel : ViewModelBase
     {
+        public Frame PopupFrame { get; set; }
+        public AddTourView AddTourView { get; set; }
+        public NavigationService NavigationService { get; set; }
         public Action CloseAction { get; set; }
 
         private readonly TourService _tourService;
@@ -199,9 +204,11 @@ namespace TravelService.WPF.ViewModel
             set;
         }
 
-        public AddTourViewModel(Guide guide,bool visibility)
+        public AddTourViewModel(AddTourView addTourView,Guide guide,bool visibility,NavigationService navigationService)
         {
-
+            ListBoxPictures = new ObservableCollection<string>();
+            AddTourView = addTourView;  
+            NavigationService = navigationService;
             this.Guide = guide;
             this.Visibility = visibility;
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
@@ -218,7 +225,11 @@ namespace TravelService.WPF.ViewModel
             DecrementCommand = new RelayCommand(Execute_GuestsDecrement, CanExecute_Command);
          
             AddCheckPointCommand = new RelayCommand(Execute_AddCheckPoint, CanExecute_Command);
-            AddTourCommand = new RelayCommand(Execute_AddTourCommand,CanExecute_Command);   
+            
+            
+            AddTourCommand = new RelayCommand(Execute_AddTourCommand,CanExecute_Command);
+
+            PopupFrame = addTourView.MyPopupFrame;
         }
 
 
@@ -239,8 +250,8 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_AddCheckPoint(object obj)
         {
-            EnterCheckPointView enterCheckPoint = new EnterCheckPointView(TourId);
-            enterCheckPoint.Show();
+            var enterCheckPoint = new EnterCheckPointView(TourId,NavigationService);
+            OpenPopupPage(enterCheckPoint);
         }
 
        
@@ -312,12 +323,19 @@ namespace TravelService.WPF.ViewModel
                     Pictures += "|";
                     string destinationFilePath = System.IO.Path.Combine(destinationFolder, Path.GetFileName(file));
                     File.Copy(file, destinationFilePath);
+                    ListBoxPictures.Add(file);
 
                 }
 
                 Pictures = Pictures.Substring(0, Pictures.Length - 1);
 
             }
+        }
+        private void OpenPopupPage(Page EnterCheckPointView)
+        {
+            PopupFrame.Navigate(EnterCheckPointView);
+            PopupFrame.Visibility = System.Windows.Visibility.Visible;
+
         }
 
         private void Execute_CancelCommand(object obj)

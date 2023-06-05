@@ -5,13 +5,15 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 
 namespace TravelService.WPF.View
 {
-    public partial class MostVisited : Window, INotifyPropertyChanged
+    public partial class MostVisited : Page, INotifyPropertyChanged
     {
+        public NavigationService NavigationService;
         public int SelectedYear { get; set; }
         private readonly TourRepository _tourRepository;
         public List<Tour> MostVisitedTours { get; set; }
@@ -22,8 +24,9 @@ namespace TravelService.WPF.View
         public Guide Guide { get; set; }
         public List<int> AvailableYears { get; set; }
 
-        public MostVisited(Guide guide)
+        public MostVisited(Guide guide,NavigationService navigationService)
         {
+            NavigationService = navigationService;  
             InitializeComponent();
             DataContext = this;
             _locationRepository = new LocationRepository();

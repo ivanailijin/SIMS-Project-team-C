@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
@@ -20,17 +21,13 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for SuggestionForGuideView.xaml
     /// </summary>
-    public partial class SuggestionForGuideView : Window, INotifyPropertyChanged
+    public partial class SuggestionForGuideView : Page, INotifyPropertyChanged
     {
-        public SuggestionForGuideView(Guide Guide)
+        public SuggestionForGuideView(Guide Guide,NavigationService navigationService)
         {
             InitializeComponent();
-            SuggestionForGuideViewModel sugg = new SuggestionForGuideViewModel(Guide);
-            DataContext = sugg;
-            if (sugg.CloseAction == null)
-            {
-                sugg.CloseAction = new Action(this.Close);
-            }
+            this.DataContext = new SuggestionForGuideViewModel(Guide,navigationService);
+         
         }
         public event PropertyChangedEventHandler? PropertyChanged;
     }

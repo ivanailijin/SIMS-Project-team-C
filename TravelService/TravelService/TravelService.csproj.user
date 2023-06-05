@@ -14,7 +14,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\AddTourRequestView.xaml.cs">
-	<SubType>Code</SubType>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\AccommodationMonthStatisticsView.xaml.cs">
       <SubType>Code</SubType>

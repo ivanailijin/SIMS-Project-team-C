@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -16,6 +17,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class ShowGuestsViewModel : ViewModelBase
     {
+        public NavigationService NavigationService;
+        public ShowGuestsView ShowGuestsView;
         public Action CloseAction { get; set; }
         private readonly GuestService _guestService;
         private readonly CheckPointService _checkPointService;
@@ -29,8 +32,10 @@ namespace TravelService.WPF.ViewModel
         public Guide Guide { get; set; }
         public RelayCommand CancelCommand { get; set; }
 
-        public ShowGuestsViewModel(Tour selectedTour,Guest selectedGuest)
+        public ShowGuestsViewModel(Tour selectedTour,Guest selectedGuest,NavigationService navigationService,ShowGuestsView showGuestsView)
         {
+            ShowGuestsView = showGuestsView;
+            NavigationService = navigationService;
             SelectedGuest = selectedGuest;
             SelectedTour = selectedTour;
             _guestService = new GuestService(Injector.CreateInstance<IGuestRepository>());
@@ -77,9 +82,8 @@ namespace TravelService.WPF.ViewModel
                 MessageBox.Show("Please select guest first.");
                 return;
             }
-
-            ShowTourReviewView showTourReviewsView = new ShowTourReviewView(SelectedGuest,SelectedTourReview);
-            showTourReviewsView.Show();
+            NavigationService.Navigate(new ShowTourReviewView(SelectedGuest, SelectedTourReview, NavigationService));
+           
         }
         private void Execute_CancelCommand(object obj)
         {

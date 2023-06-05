@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
@@ -23,18 +24,15 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for ShowTourReviewView.xaml
     /// </summary>
-    public partial class ShowTourReviewView : Window, INotifyPropertyChanged
+    public partial class ShowTourReviewView : Page, INotifyPropertyChanged
     {
         
-        public ShowTourReviewView(Guest selectGuest,TourReview selectedTourReview)
+        public ShowTourReviewView(Guest selectGuest,TourReview selectedTourReview,NavigationService navigationService)
         {
             InitializeComponent();  
-            ShowTourReviewsViewModel showTourReviewsViewModel = new ShowTourReviewsViewModel(selectGuest, selectedTourReview); 
-            DataContext=showTourReviewsViewModel;
-            if (showTourReviewsViewModel.CloseAction == null)
-            {
-                showTourReviewsViewModel.CloseAction = new Action(this.Close);
-            }
+           this.DataContext= new ShowTourReviewsViewModel(selectGuest, selectedTourReview,navigationService,this); 
+        
+            
 
 
 

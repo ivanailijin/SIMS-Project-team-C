@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
@@ -23,15 +24,12 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for PastTours.xaml
     /// </summary>
-    public partial class PastTours : Window,INotifyPropertyChanged
+    public partial class PastTours : Page,INotifyPropertyChanged
     {
-        public PastTours(Tour selectedTour,Guide selectedGuide)
+        public PastTours(Tour selectedTour,Guide selectedGuide, NavigationService navigationService)
         {
             InitializeComponent();
-            PastToursViewModel pastToursViewModel = new PastToursViewModel(selectedTour,selectedGuide);
-            DataContext = pastToursViewModel;
-            if (pastToursViewModel.CloseAction == null)
-                pastToursViewModel.CloseAction = new Action(this.Close);
+            this.DataContext = new PastToursViewModel(this, selectedTour, selectedGuide, navigationService);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
     }

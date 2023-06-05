@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\icons8-best-seller-48.png" />
+    <None Remove="Resources\Icons\icons8-cancel-48.png" />
+    <None Remove="Resources\Icons\icons8-future-64.png" />
+    <None Remove="Resources\Icons\icons8-home-48.png" />
+    <None Remove="Resources\Icons\icons8-menu-50.png" />
+    <None Remove="Resources\Icons\icons8-past-64.png" />
+    <None Remove="Resources\Icons\icons8-plus-48.png" />
+    <None Remove="Resources\Icons\icons8-request-16.png" />
+    <None Remove="Resources\Icons\icons8-statistics-64.png" />
+    <None Remove="Resources\Icons\icons8-suggestion-64.png" />
     <None Remove="Resources\Images\add-accommodation-icon.png" />
     <None Remove="Resources\Images\airplane.png" />
     <None Remove="Resources\Images\angle-left.png" />
@@ -49,7 +59,9 @@
     <None Remove="Resources\Icons\ticket.png" />
     <None Remove="Resources\Icons\user.png" />
     <None Remove="Resources\Images\reservations.ico" />
+    <None Remove="Resources\Images\Screenshot 2023-03-16 235900.png" />
     <None Remove="Resources\Images\search.ico" />
+    <None Remove="Resources\Images\slika.jpg" />
     <None Remove="Resources\Images\star.png" />
 
     <None Remove="Resources\Images\statistics-icon.png" />
@@ -83,7 +95,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-best-seller-48.png" />
+    <Resource Include="Resources\Icons\icons8-cancel-48.png" />
+    <Resource Include="Resources\Icons\icons8-future-64.png" />
+    <Resource Include="Resources\Icons\icons8-home-48.png" />
+    <Resource Include="Resources\Icons\icons8-menu-50.png" />
+    <Resource Include="Resources\Icons\icons8-past-64.png" />
+    <Resource Include="Resources\Icons\icons8-plus-48.png" />
+    <Resource Include="Resources\Icons\icons8-request-16.png" />
+    <Resource Include="Resources\Icons\icons8-statistics-64.png" />
+    <Resource Include="Resources\Icons\icons8-suggestion-64.png" />
     <Resource Include="Resources\Images\recentRenovation.png" />
+    <Resource Include="Resources\Images\Screenshot 2023-03-16 235900.png" />
+    <Resource Include="Resources\Images\slika.jpg" />
     <Resource Include="Resources\Images\superowner.png" />
   </ItemGroup>
 

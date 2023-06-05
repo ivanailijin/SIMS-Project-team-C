@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 using TravelService.WPF.ViewModel;
@@ -14,17 +16,15 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for TourOverview.xaml
     /// </summary>
-    public partial class ActiveToursView : Window
+    public partial class ActiveToursView : Page
     {
-        public ActiveToursView(Tour selectedTour)
+        public ActiveToursView(Tour selectedTour, NavigationService navigationService)
         {
             InitializeComponent();
-            ActiveToursViewModel activeToursViewModel = new ActiveToursViewModel(selectedTour);
-            DataContext = activeToursViewModel;
-            if (activeToursViewModel.CloseAction == null)
-                activeToursViewModel.CloseAction = new Action(this.Close);
-        }
+            this.DataContext = new ActiveToursViewModel(this, selectedTour, navigationService);
 
-        
+
+
+        }
     }
 }

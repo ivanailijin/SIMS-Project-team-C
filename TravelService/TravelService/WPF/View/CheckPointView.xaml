@@ -1,25 +1,48 @@
-﻿<Window x:Class="TravelService.WPF.View.CheckPointView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TravelService.WPF.View"
-        mc:Ignorable="d"
-        Title="CheckPointView" Height="350" Width="346">
-    <Grid Margin="9,0,0,25">
-        <ListView x:Name="ListCheckBox" Margin="10,9,24,-2" ItemsSource="{Binding FilteredCheckPoint}" SelectedItem="{Binding SelectedCheckPoint}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding Active}" Content="{Binding Name}" Tag="{Binding CheckPointId}" Checked="CheckBox_Checked"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Content="Mark" Click ="Mark_Click" HorizontalAlignment="Left" Height="30" Margin="13,238,0,0" VerticalAlignment="Top" Width="81" RenderTransformOrigin="0.072,0.926"/>
-        <Button  x:Name="EndButton" Content="End Tour" Click ="End_Click"  HorizontalAlignment="Left" Height="32" Margin="107,236,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="0.455,1.039" IsEnabled="False"/>
-        <Button Content="Cancel" Click ="Cancel_Click" HorizontalAlignment="Left" Height="32" Margin="215,237,0,0" VerticalAlignment="Top" Width="87" />
+﻿<Page x:Class="TravelService.WPF.View.CheckPointView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:TravelService.WPF.View"
+      mc:Ignorable="d"
+      Title="CheckPointView" d:DesignHeight="350" d:DesignWidth="544">
+    <Grid >
+        <Border BorderBrush="Black"/>
+        <Grid />
+        <!-- Overlay grid with semi-transparent background -->
+        <Border Background="White" BorderBrush=" Red" Width="500" Height="200" CornerRadius="10"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ListView x:Name="ListCheckBox" Background="LightYellow" ItemsSource="{Binding FilteredCheckPoint}" SelectedItem="{Binding SelectedCheckPoint}"
+                          Grid.Row="0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding Active}" Content="{Binding Name}" Tag="{Binding CheckPointId}" Checked="CheckBox_Checked"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <WrapPanel Margin="100 70 50 50" Grid.Row="4">
+                    <Button Content="Mark" Click="Mark_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="30"  Width="100" Background="LawnGreen"
+                        Grid.Row="4"  />
+
+                    <Button x:Name="EndButton" Content="End Tour" Click="End_Click" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="30"  Background="Pink" Width="100" IsEnabled="False" 
+                        Grid.Row="4"/>
+
+                    <Button Content="Close"  HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                        Grid.Row="4"  Height="30" Width="100" Background="IndianRed" />
+
+                </WrapPanel>
+            </Grid>
+            
+        </Border>
     </Grid>
-
-</Window>
-
+</Page>

@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
@@ -22,16 +23,11 @@ namespace TravelService.WPF.View
     public partial class ShowGuestsView : Window
     {
 
-        public ShowGuestsView(Tour selectedTour, Guest selectedGuest)
+        public ShowGuestsView(Tour selectedTour, Guest selectedGuest,NavigationService navigationService)
         {
             InitializeComponent();
-            ShowGuestsViewModel showGuestsViewModel = new ShowGuestsViewModel(selectedTour,selectedGuest);
-            DataContext = showGuestsViewModel;
-            if (showGuestsViewModel.CloseAction == null)
-            {
-                showGuestsViewModel.CloseAction = new Action(this.Close);
-            }
-
+         this.DataContext= new ShowGuestsViewModel(selectedTour,selectedGuest,navigationService,this);
+          
         }
     }
 

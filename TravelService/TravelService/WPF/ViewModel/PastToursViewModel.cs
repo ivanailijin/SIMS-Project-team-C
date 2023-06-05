@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -17,6 +18,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class PastToursViewModel : ViewModelBase
     {
+        public PastTours PastTours { get; set; }
+        public NavigationService NavigationService { get; set; }
 
         public readonly TourService _tourService;
         public readonly LocationService _locationService;
@@ -39,8 +42,10 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand ReviewsCommand { get; set; }
 
 
-        public PastToursViewModel(Tour selectedTour, Guide guide)
+        public PastToursViewModel(PastTours pastTours,Tour selectedTour, Guide guide,NavigationService navigationService)
         {
+            PastTours = pastTours;
+            NavigationService = navigationService;
             this.Guide = guide;
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
@@ -77,9 +82,9 @@ namespace TravelService.WPF.ViewModel
             }
 
             // Show the statistics for the selected tour
-            TourStats statsWindow = new TourStats(SelectedTour);
-            statsWindow.ShowDialog();
-            CloseAction();
+
+            NavigationService.Navigate(new TourStats(SelectedTour, NavigationService));
+            
 
         }
         private bool CanExecute_Command(object arg)
@@ -88,9 +93,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_CancelCommand(object obj)
         {
-            GuideHomePageView guideHomePageView = new GuideHomePageView(Guide);
-            guideHomePageView.ShowDialog(); 
-            CloseAction();
+           
         }
         private void Execute_ReviewsCommand(object obj)
         {
@@ -99,8 +102,7 @@ namespace TravelService.WPF.ViewModel
                 MessageBox.Show("Please select a tour first.");
                 return;
             }
-            ShowGuestsView showGuestsView = new ShowGuestsView(SelectedTour, SelectedGuest);
-            showGuestsView.ShowDialog();
+          NavigationService.Navigate( new ShowGuestsView(SelectedTour, SelectedGuest,NavigationService));
             
         }
 

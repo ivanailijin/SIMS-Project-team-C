@@ -1,4 +1,4 @@
-﻿<Window x:Class="TravelService.WPF.View.TourStats"
+﻿<Page x:Class="TravelService.WPF.View.TourStats"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Tour Statistics" Height="450" Width="800">
@@ -22,4 +22,4 @@
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
-</Window>
+</Page>

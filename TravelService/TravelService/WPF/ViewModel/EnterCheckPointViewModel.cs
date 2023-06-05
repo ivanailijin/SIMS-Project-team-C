@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -14,6 +15,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class EnterCheckPointViewModel : ViewModelBase
     {
+        public NavigationService NavgationService;
+        public EnterCheckPointView EnterCheckPointView;
         public int TourId;
         private readonly CheckPointService _checkPointService;
         private readonly TourService _tourService;
@@ -37,8 +40,10 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public EnterCheckPointViewModel(int Id)
+        public EnterCheckPointViewModel(EnterCheckPointView enterCheckPointView,int Id,NavigationService navigationService)
         {
+            NavgationService= navigationService;    
+            EnterCheckPointView= enterCheckPointView;   
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
             _checkPointService = new CheckPointService(Injector.CreateInstance<ICheckPointRepository>());
             TourId = Id;

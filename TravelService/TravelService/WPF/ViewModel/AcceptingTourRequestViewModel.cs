@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -19,8 +20,9 @@ namespace TravelService.WPF.ViewModel
     public class AcceptingTourRequestViewModel : ViewModelBase
     {
 
-       
 
+        public NavigationService NavigationService;
+        public AcceptingTourRequestView AcceptingTourRequestView { get; set; }  
         public TourRequest SelectedTourRequest { get; set; }
         public Action CloseAction { get; set; }
 
@@ -163,9 +165,11 @@ namespace TravelService.WPF.ViewModel
         }
 
 
-        public AcceptingTourRequestViewModel(Guide guide,TourRequest selectedTourRequest)
+        public AcceptingTourRequestViewModel(Guide guide, TourRequest selectedTourRequest, AcceptingTourRequestView acceptingTourRequestView,NavigationService navigationService)
         {
             SelectedTourRequest = selectedTourRequest;
+            AcceptingTourRequestView = acceptingTourRequestView;
+            NavigationService = navigationService;
 
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
@@ -191,9 +195,9 @@ namespace TravelService.WPF.ViewModel
             LocationsComboBox.Insert(0, "");
             SearchDates = new RelayCommand(Execute_SearchAvailableDates, CanExecute_Command);
             Search = new RelayCommand(Execute_SearchCommand, CanExecute_Command);
-            Accept = new RelayCommand(Execute_Accept,CanExecute_Command);   
-            Stats = new RelayCommand(Execute_StatsCommand,CanExecute_Command);  
-
+            Accept = new RelayCommand(Execute_Accept, CanExecute_Command);
+            Stats = new RelayCommand(Execute_StatsCommand, CanExecute_Command);
+            AcceptingTourRequestView = acceptingTourRequestView;
         }
 
         private void Execute_SearchAvailableDates(object sender)
@@ -241,8 +245,7 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_StatsCommand(object obj)
         {
-            RequestsStatsView req = new RequestsStatsView();
-            req.Show();
+            NavigationService.Navigate(new RequestsStatsView(NavigationService));
         }
 
 
@@ -258,9 +261,7 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_Accept(object sender)
         {
-            ScheduleDateView schedule = new ScheduleDateView(SelectedTourRequest);
-            schedule.Show();
-            CloseAction();
+            NavigationService.Navigate(new ScheduleDateView(SelectedTourRequest, NavigationService));
         }
      
     }

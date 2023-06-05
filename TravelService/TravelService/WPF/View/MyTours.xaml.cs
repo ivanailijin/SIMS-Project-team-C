@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 
@@ -12,8 +14,9 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for MyTours.xaml
     /// </summary>
-    public partial class MyTours : Window
+    public partial class MyTours : Page
     {
+        public NavigationService NavigationService;
         public readonly TourRepository _tourRepository;
         public readonly LocationRepository _locationRepository;
         public readonly LanguageRepository _languageRepository;
@@ -32,8 +35,9 @@ namespace TravelService.WPF.View
         public Tour SelectedTour { get; set; }
         public Guide Guide { get; set; }
 
-        public MyTours(Tour selectedTour,Guide guide)
+        public MyTours(Tour selectedTour,Guide guide,NavigationService navigationService)
         {
+            NavigationService = navigationService;
             InitializeComponent();
             DataContext = this;
             this.Guide = guide;
