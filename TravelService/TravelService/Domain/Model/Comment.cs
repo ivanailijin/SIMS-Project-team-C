@@ -16,14 +16,17 @@ namespace TravelService.Domain.Model
         public string Content { get; set; }
         public int ReportsNumber { get; set; }
         public DateTime DateCreated { get; set; }
+        public bool IsMarkedComment { get; set; }
+        public bool IsOwnersAccommodationOnLocation { get; set; }
 
-        public Comment(User user, Forum forum, string content, DateTime dateCreated)
+        public Comment(User user, Forum forum, string content, DateTime dateCreated, bool isMarkedComment)
         {
             User = user;
             Forum = forum;
             Content = content;
             DateCreated = dateCreated;
             ReportsNumber = 0;
+            IsMarkedComment = isMarkedComment;
         }
 
         public Comment() { }
@@ -38,6 +41,7 @@ namespace TravelService.Domain.Model
                 Content,
                 DateCreated.ToString(),
                 ReportsNumber.ToString(),
+                IsMarkedComment.ToString()
             };
             return csvValues;
         }
@@ -50,6 +54,7 @@ namespace TravelService.Domain.Model
             Content = values[3];
             DateCreated = DateTime.Parse(values[4]);
             ReportsNumber = Convert.ToInt32(values[5]);
+            IsMarkedComment = bool.Parse(values[6]);
         }
     }
 }

@@ -522,5 +522,12 @@ namespace TravelService.Application.UseCases
             return reservationCountByMonth;
         }
 
+        public bool HasGuestVisitedLocation(int guestId, int locationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+
+            bool hasReservation = reservations.Exists(r => r.GuestId == guestId && r.LocationId == locationId && r.CheckOutDate < DateTime.Today && !r.IsCancelled);
+            return hasReservation;
+        }
     }
 }

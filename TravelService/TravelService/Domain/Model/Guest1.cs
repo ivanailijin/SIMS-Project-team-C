@@ -13,6 +13,7 @@ namespace TravelService.Domain.Model
         public bool SuperGuest { get; set; }
         public DateTime SuperGuestExpirationDate { get; set; }
         public int BonusPoints { get; set; }
+        public Uri Picture { get; set; }
 
         public Guest1(string username, string password, string userType)
         {
@@ -28,7 +29,7 @@ namespace TravelService.Domain.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Username, Password, UserType, SuperGuest.ToString(), SuperGuestExpirationDate.ToString(), BonusPoints.ToString(), };
+            string[] csvValues = { Id.ToString(), Username, Password, UserType, SuperGuest.ToString(), SuperGuestExpirationDate.ToString(), BonusPoints.ToString(), Picture.ToString() };
             return csvValues;
         }
 
@@ -41,6 +42,8 @@ namespace TravelService.Domain.Model
             SuperGuest = Convert.ToBoolean(values[4]);
             SuperGuestExpirationDate = Convert.ToDateTime(values[5]);
             BonusPoints = Convert.ToInt32(values[6]);
+            string profilePicture = values[7];
+            Picture = new Uri(profilePicture);
         }
     }
 }

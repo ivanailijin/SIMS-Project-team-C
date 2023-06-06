@@ -13,6 +13,9 @@
     <Compile Update="WPF\View\AccommodationAvailabilityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\AddCommentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\AddingForumComment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -240,6 +243,9 @@
     <Page Update="WPF\View\AccommodationYearStatisticsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\AddCommentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\AddingForumComment.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -286,7 +292,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\FirstGuestWindow.xaml">
-        <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ForumCommentsView.xaml">
       <SubType>Designer</SubType>

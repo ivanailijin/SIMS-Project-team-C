@@ -8,7 +8,6 @@
         Title="AddForumView" Height="720" Width="420" Background="#cce6ff">
     <Page.Resources>
         <Style TargetType="TextBox">
-            <Setter Property="BorderThickness" Value="2,2,2,2"></Setter>
             <Setter Property="BorderBrush" Value="DimGray"></Setter>
         </Style>
         <Style x:Key="createButtonStyle" TargetType="Button">

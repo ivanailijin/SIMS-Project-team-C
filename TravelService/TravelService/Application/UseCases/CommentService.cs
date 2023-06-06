@@ -10,12 +10,14 @@ namespace TravelService.Application.UseCases
         private readonly ICommentRepository _commentRepository;
         private readonly IForumRepository _forumRepository;
         private readonly UserService _userService;
+        private readonly AccommodationService _accommodationService;
 
         public CommentService(ICommentRepository commentRepository)
         {
             _commentRepository = commentRepository;
             _forumRepository = Injector.CreateInstance<IForumRepository>();
             _userService = new UserService(Injector.CreateInstance<IUserRepository>());
+            _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
         }
         public void Delete(Comment comment)
         {
@@ -55,6 +57,7 @@ namespace TravelService.Application.UseCases
             List<Comment> comments = GetAll();
             comments = GetForumData(comments);
             comments = GetUserData(comments);
+            comments = GetOwnerData(comments);
             List<Comment> foundedComments = new List<Comment>();
             foreach (Comment comment in comments)
             {
@@ -75,8 +78,39 @@ namespace TravelService.Application.UseCases
         {
             _commentRepository.Update(comment);
         }
+
+        public List<Comment> GetOwnerData(List<Comment> comments)
+        {
+            foreach (Comment comment in comments)
+            {
+                if (comment.User.UserType == "Owner" && IsOwnersAccommodationOnLocation(comment.User, comment.Forum))
+                {
+                    comment.IsOwnersAccommodationOnLocation = true;
+                }
+                else
+                {
+                    comment.IsOwnersAccommodationOnLocation = false;
+                }
+            }
+            return comments;
+        }
+
+        public bool IsOwnersAccommodationOnLocation(User user, Forum forum)
+        {
+            List<Accommodation> ownersAccommodation = _accommodationService.GetOwnersAccommodations(user.Id);
+
+            foreach (Accommodation accommodation in ownersAccommodation)
+            {
+                if (accommodation.Location.Id == forum.Location.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
+
 
 
 

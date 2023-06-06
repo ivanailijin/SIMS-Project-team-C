@@ -24,29 +24,29 @@ namespace TravelService.WPF.ViewModel
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
 
-        private RelayCommand confirmCommand;
+        private RelayCommand _confirmCommand;
         public RelayCommand ConfirmCommand
         {
-            get => confirmCommand;
+            get => _confirmCommand;
             set
             {
-                if (value != confirmCommand)
+                if (value != _confirmCommand)
                 {
-                    confirmCommand = value;
+                    _confirmCommand = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private RelayCommand cancelCommand;
+        private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand
         {
-            get => cancelCommand;
+            get => _cancelCommand;
             set
             {
-                if (value != cancelCommand)
+                if (value != _cancelCommand)
                 {
-                    cancelCommand = value;
+                    _cancelCommand = value;
                     OnPropertyChanged();
                 }
             }
