@@ -12,17 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TravelService.Domain.Model;
+using TravelService.WPF.Services;
+using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
 {
     /// <summary>
     /// Interaction logic for ReserveAnywhereView.xaml
     /// </summary>
-    public partial class ReserveAnywhereView : Page
+    public partial class ReserveAnywhereView : Page, INavigationInterface
     {
-        public ReserveAnywhereView()
+        public ReserveAnywhereView(Accommodation selectedAccommodation, Guest1 guest)
         {
             InitializeComponent();
+            ReserveAnywhereViewModel reserveAnywhereViewModel = new ReserveAnywhereViewModel(this, selectedAccommodation, guest);
+            DataContext = reserveAnywhereViewModel;
+        }
+
+        public void GoBack()
+        {
+            NavigationService?.GoBack();
         }
     }
 }

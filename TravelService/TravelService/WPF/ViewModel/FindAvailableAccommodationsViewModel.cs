@@ -13,7 +13,7 @@ namespace TravelService.WPF.ViewModel
 {
     public class FindAvailableAccommodationsViewModel : ViewModelBase
     {
-        private AccommodationService accommodationService;
+        private AccommodationReservationService _reservationService;
         public Guest1 Guest1 { get; set; }
         public FindAvailableAccommodationsView FindAvailableAccommodationsView { get; set; }
 
@@ -31,8 +31,8 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private DateTime _checkInDate;
-        public DateTime CheckInDate
+        private DateTime? _checkInDate;
+        public DateTime? CheckInDate
         {
             get => _checkInDate;
             set
@@ -45,8 +45,8 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private DateTime _checkOutDate;
-        public DateTime CheckOutDate
+        private DateTime? _checkOutDate;
+        public DateTime? CheckOutDate
         {
             get => _checkOutDate;
             set
@@ -104,7 +104,7 @@ namespace TravelService.WPF.ViewModel
 
         public FindAvailableAccommodationsViewModel(FindAvailableAccommodationsView findAvailableAccommodationsView, Guest1 guest1)
         {
-            accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
+            _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
             Guest1 = guest1;
             FindAvailableAccommodationsView = findAvailableAccommodationsView;
 
@@ -124,8 +124,19 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_SearchAvailableAccommodations(object sender)
         {
-            //logika za pretragu
-            List<Accommodation> accommodations = accommodationService.GetAll();
+            List<Accommodation> accommodations = new List<Accommodation>();
+            if (CheckInDate != null && CheckOutDate != null)
+            {
+                DateTime checkInDate = CheckInDate.Value;
+                DateTime checkOutDate = CheckOutDate.Value;
+                accommodations = _reservationService.FilterAvailableAccommodations(checkInDate, checkOutDate, LengthOfStay, GuestNumber);
+            }
+            else
+            {
+                DateTime checkInDate = DateTime.Today;
+                DateTime checkOutDate = checkInDate.AddYears(1);
+                accommodations = _reservationService.FilterAvailableAccommodations(checkInDate, checkOutDate, LengthOfStay, GuestNumber);
+            }
             FirstGuestView firstGuestView = new FirstGuestView(Guest1);
             firstGuestView.frame.Navigate(new RecommendedAccommodationView(Guest1, accommodations, GuestNumber, LengthOfStay));
             FirstGuestWindow firstGuestWindow = Window.GetWindow(FindAvailableAccommodationsView) as FirstGuestWindow ?? new(Guest1);

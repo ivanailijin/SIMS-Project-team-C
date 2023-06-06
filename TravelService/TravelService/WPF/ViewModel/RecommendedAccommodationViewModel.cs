@@ -88,9 +88,9 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_OnItemSelected(object sender)
         {
-           // SelectedAccommodationView selectedAccommodationView = new SelectedAccommodationView(SelectedAccommodation, Guest1);
+            ReserveAnywhereView reserveAnywhereView = new ReserveAnywhereView(SelectedAccommodation, Guest1);
             FirstGuestWindow firstGuestWindow = Window.GetWindow(RecommendedAccommodationView) as FirstGuestWindow ?? new(Guest1);
-           // firstGuestWindow?.SwitchToPage(selectedAccommodationView);
+            firstGuestWindow?.SwitchToPage(reserveAnywhereView);
         }
 
         private void Execute_PreviousPage(object sender)

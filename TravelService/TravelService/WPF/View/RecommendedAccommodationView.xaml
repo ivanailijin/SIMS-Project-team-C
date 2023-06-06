@@ -26,7 +26,7 @@
             </Button.Background>
         </Button>
         <Label Grid.Row="1" Content="Nase ponude" FontSize="27" HorizontalAlignment="Center"></Label>
-        <ListBox Grid.Row="2" ItemsSource="{Binding FoundAccommodations}" SelectedItem="{Binding SelectedAccommodation}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="530" Background="#cce6ff">
+        <ListBox Grid.Row="2" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="530" Background="#cce6ff">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

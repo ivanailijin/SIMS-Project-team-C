@@ -145,6 +145,9 @@
     <Compile Update="WPF\View\ReserveAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ReserveAnywhereView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ReviewsSelectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -373,6 +376,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ReserveAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ReserveAnywhereView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ReviewsSelectionView.xaml">
