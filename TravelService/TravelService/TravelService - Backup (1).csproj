@@ -1,0 +1,199 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\icons8-best-seller-48.png" />
+    <None Remove="Resources\Icons\icons8-cancel-48.png" />
+    <None Remove="Resources\Icons\icons8-future-64.png" />
+    <None Remove="Resources\Icons\icons8-home-48.png" />
+    <None Remove="Resources\Icons\icons8-menu-50.png" />
+    <None Remove="Resources\Icons\icons8-past-64.png" />
+    <None Remove="Resources\Icons\icons8-plus-48.png" />
+    <None Remove="Resources\Icons\icons8-request-16.png" />
+    <None Remove="Resources\Icons\icons8-statistics-64.png" />
+    <None Remove="Resources\Icons\icons8-suggestion-64.png" />
+    <None Remove="Resources\Images\add-accommodation-icon.png" />
+    <None Remove="Resources\Images\airplane.png" />
+    <None Remove="Resources\Images\angle-left.png" />
+    <None Remove="Resources\Images\angle-right.png" />
+    <None Remove="Resources\Images\cancellation-icon.png" />
+    <None Remove="Resources\Images\forum-icon.png" />
+    <None Remove="Resources\Images\forum.ico" />
+    <None Remove="Resources\Images\home-icon.png" />
+    <None Remove="Resources\Images\leftarrow.png" />
+    <None Remove="Resources\Images\minus.ico" />
+    <None Remove="Resources\Images\moving-requests-icon.png" />
+    <None Remove="Resources\Images\notification-icon.png" />
+    <None Remove="Resources\Images\plane.png" />
+    <None Remove="Resources\Images\plus.ico" />
+    <None Remove="Resources\Images\profile-icon.png" />
+    <None Remove="Resources\Images\rating-icon.png" />
+    <None Remove="Resources\Images\rating.png" />
+    <None Remove="Resources\Images\ratingreport.ico" />
+    <None Remove="Resources\Images\ratings.png" />
+    <None Remove="Resources\Images\recentRenovation.png" />
+    <None Remove="Resources\Images\renovation-icon.png" />
+    <None Remove="Resources\Images\reservations-icon.png" />
+    <None Remove="Resources\Images\reservations-request-icon.png" />
+    <None Remove="Resources\Icons\bell.png" />
+    <None Remove="Resources\Icons\calendar.png" />
+    <None Remove="Resources\Icons\daniela-cuevas-t7YycgAoVSw-unsplash.jpg" />
+    <None Remove="Resources\Icons\document.png" />
+    <None Remove="Resources\Icons\file.png" />
+    <None Remove="Resources\Icons\help.png" />
+    <None Remove="Resources\Icons\help2.png" />
+    <None Remove="Resources\Icons\home.png" />
+    <None Remove="Resources\Icons\keyboard.png" />
+    <None Remove="Resources\Icons\play-circle.png" />
+
+    <None Remove="Resources\Icons\mark-harpur-K2s_YE031CA-unsplash.jpg" />
+
+    <None Remove="Resources\Icons\play.png" />
+    <None Remove="Resources\Icons\stats.png" />
+    <None Remove="Resources\Icons\ticket.png" />
+    <None Remove="Resources\Icons\user.png" />
+    <None Remove="Resources\Images\reservations.ico" />
+    <None Remove="Resources\Images\Screenshot 2023-03-16 235900.png" />
+    <None Remove="Resources\Images\search.ico" />
+    <None Remove="Resources\Images\slika.jpg" />
+    <None Remove="Resources\Images\star.png" />
+
+    <None Remove="Resources\Images\statistics-icon.png" />
+    <None Remove="Resources\Images\statistics.png" />
+    <None Remove="Resources\Images\superguest.ico" />
+    <None Remove="Resources\Images\superowner.png" />
+    <None Remove="Resources\Images\tail.png" />
+    <None Remove="Resources\Images\travel.png" />
+    <None Remove="Resources\Images\user.ico" />
+
+    <None Remove="WPF\View\Icons\beautiful-shot-mountains-cloudy-sky-from-inside-plane-windows.jpg" />
+    <None Remove="WPF\View\Icons\element5-digital-h9eOO7W5m2s-unsplash.jpg" />
+    <None Remove="WPF\View\Icons\five-golden-stars-inside-white-message-box-client-excellent-evaluation-by-3d-render.jpg" />
+    <None Remove="WPF\View\Icons\icons8-checkpoint-goal-flag-for-progress-and-opportunity-24.png" />
+    <None Remove="WPF\View\Icons\icons8-couple-like-50 %281%29.png" />
+    <None Remove="WPF\View\Icons\icons8-exclamation-mark-64.png" />
+    <None Remove="WPF\View\Icons\icons8-language-64.png" />
+    <None Remove="WPF\View\Icons\icons8-location-100.png" />
+    <None Remove="WPF\View\Icons\icons8-location-48.png" />
+    <None Remove="WPF\View\Icons\icons8-map-marker-100.png" />
+    <None Remove="WPF\View\Icons\icons8-multiple-stars-48.png" />
+    <None Remove="WPF\View\Icons\icons8-report-58.png" />
+    <None Remove="WPF\View\Icons\icons8-visit-48.png" />
+    <None Remove="WPF\View\Icons\language.png" />
+    <None Remove="WPF\View\Icons\star.png" />
+    <None Remove="WPF\View\Icons\sun.png" />
+    <None Remove="WPF\View\Icons\top-view-tourist-items-arrangement.jpg" />
+    <None Remove="WPF\View\Icons\woman %282%29.png" />
+    <None Remove="WPF\View\Icons\—Slidesdocs—design illustration of shanghai tourism_50ce7aaf10.jpg" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icons8-best-seller-48.png" />
+    <Resource Include="Resources\Icons\icons8-cancel-48.png" />
+    <Resource Include="Resources\Icons\icons8-future-64.png" />
+    <Resource Include="Resources\Icons\icons8-home-48.png" />
+    <Resource Include="Resources\Icons\icons8-menu-50.png" />
+    <Resource Include="Resources\Icons\icons8-past-64.png" />
+    <Resource Include="Resources\Icons\icons8-plus-48.png" />
+    <Resource Include="Resources\Icons\icons8-request-16.png" />
+    <Resource Include="Resources\Icons\icons8-statistics-64.png" />
+    <Resource Include="Resources\Icons\icons8-suggestion-64.png" />
+    <Resource Include="Resources\Images\recentRenovation.png" />
+    <Resource Include="Resources\Images\slika.jpg" />
+    <Resource Include="Resources\Images\superowner.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\add-accommodation-icon.png" />
+    <Resource Include="Resources\Images\airplane.png" />
+    <Resource Include="Resources\Images\cancellation-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\forum-icon.png" />
+    <Resource Include="Resources\Images\forum.ico" />
+    <Resource Include="Resources\Images\home-icon.png" />
+    <Resource Include="Resources\Images\leftarrow.png" />
+    <Resource Include="Resources\Images\minus.ico" />
+    <Resource Include="Resources\Images\moving-requests-icon.png" />
+    <Resource Include="Resources\Images\notification-icon.png" />
+    <Resource Include="Resources\Images\plane.png" />
+    <Resource Include="Resources\Images\plus.ico" />
+    <Resource Include="Resources\Images\profile-icon.png" />
+    <Resource Include="Resources\Images\rating-icon.png" />
+    <Resource Include="Resources\Images\rating.png" />
+    <Resource Include="Resources\Images\ratingreport.ico" />
+    <Resource Include="Resources\Images\ratings.png" />
+    <Resource Include="Resources\Images\renovation-icon.png" />
+    <Resource Include="Resources\Images\reservations-icon.png" />
+    <Resource Include="Resources\Images\reservations-request-icon.png" />
+    <Resource Include="Resources\Icons\bell.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\calendar.png" />
+    <Resource Include="Resources\Icons\daniela-cuevas-t7YycgAoVSw-unsplash.jpg" />
+    <Resource Include="Resources\Icons\document.png" />
+    <Resource Include="Resources\Icons\file.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\help.png" />
+    <Resource Include="Resources\Icons\help2.png" />
+    <Resource Include="Resources\Icons\home.png" />
+    <Resource Include="Resources\Icons\keyboard.png" />
+
+    <Resource Include="Resources\Icons\play-circle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+
+    <Resource Include="Resources\Icons\mark-harpur-K2s_YE031CA-unsplash.jpg" />
+
+    <Resource Include="Resources\Icons\play.png" />
+    <Resource Include="Resources\Icons\stats.png" />
+    <Resource Include="Resources\Icons\ticket.png" />
+    <Resource Include="Resources\Icons\user.png" />
+    <Resource Include="Resources\Images\search.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\star.png" />
+    <Resource Include="Resources\Images\statistics-icon.png" />
+    <Resource Include="Resources\Images\statistics.png" />
+    <Resource Include="Resources\Images\superguest.ico" />
+    <Resource Include="Resources\Images\tail.png" />
+    <Resource Include="Resources\Images\travel.png" />
+
+    <Resource Include="WPF\View\Icons\beautiful-shot-mountains-cloudy-sky-from-inside-plane-windows.jpg" />
+    <Resource Include="WPF\View\Icons\element5-digital-h9eOO7W5m2s-unsplash.jpg" />
+    <Resource Include="WPF\View\Icons\five-golden-stars-inside-white-message-box-client-excellent-evaluation-by-3d-render.jpg" />
+    <Resource Include="WPF\View\Icons\icons8-checkpoint-goal-flag-for-progress-and-opportunity-24.png" />
+    <Resource Include="WPF\View\Icons\icons8-couple-like-50 (1).png" />
+    <Resource Include="WPF\View\Icons\icons8-exclamation-mark-64.png" />
+    <Resource Include="WPF\View\Icons\icons8-language-64.png" />
+    <Resource Include="WPF\View\Icons\icons8-location-100.png" />
+    <Resource Include="WPF\View\Icons\icons8-location-48.png" />
+    <Resource Include="WPF\View\Icons\icons8-map-marker-100.png" />
+    <Resource Include="WPF\View\Icons\icons8-multiple-stars-48.png" />
+    <Resource Include="WPF\View\Icons\icons8-report-58.png" />
+    <Resource Include="WPF\View\Icons\icons8-visit-48.png" />
+    <Resource Include="WPF\View\Icons\language.png" />
+    <Resource Include="WPF\View\Icons\star.png" />
+    <Resource Include="WPF\View\Icons\sun.png" />
+    <Resource Include="WPF\View\Icons\top-view-tourist-items-arrangement.jpg" />
+    <Resource Include="WPF\View\Icons\woman (2).png" />
+    <Resource Include="WPF\View\Icons\—Slidesdocs—design illustration of shanghai tourism_50ce7aaf10.jpg" />
+  </ItemGroup>
+
+</Project>

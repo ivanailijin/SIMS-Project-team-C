@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -16,6 +16,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class GuestsRequestsViewModel : ViewModelBase
     {
+
+      
         private readonly TourRequestService _tourRequestService;
         public ObservableCollection<TourRequest> GuestsRequests{ get; set; }
 
@@ -50,6 +52,7 @@ namespace TravelService.WPF.ViewModel
         }
         public GuestsRequestsViewModel(Guest2 guest2) 
         {
+      
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
 
             Guest2 = guest2;

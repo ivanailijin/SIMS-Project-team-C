@@ -5,8 +5,8 @@ using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -338,10 +338,10 @@ namespace TravelService.WPF.ViewModel
 
         }
 
-        private void Execute_CancelCommand(object obj)
+       private void Execute_CancelCommand(object obj)
         {
             CloseAction();
-        }
+        } 
 
         private bool CanExecute_Command(object arg)
         {

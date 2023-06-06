@@ -167,7 +167,7 @@
 
         </WrapPanel>
 
-
+        <Frame x:Name="MyPopupFrame" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="Collapsed" Height="0" Width="0"/>
     </Grid>
 
 </Page>

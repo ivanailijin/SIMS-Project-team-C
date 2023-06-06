@@ -18,6 +18,7 @@ namespace TravelService.Repository
         private readonly GuestRepository _guestRepository;
         private readonly GuestVoucherRepository _guestVoucherRepository;
         private readonly CheckPointRepository _repositoryCheckPoint;
+        private readonly LanguageRepository _languageRepository;
 
         private List<Tour> _tours;
 
@@ -51,6 +52,7 @@ namespace TravelService.Repository
             _guestRepository = new GuestRepository();
             _guestVoucherRepository = new GuestVoucherRepository();
             _repositoryCheckPoint = new CheckPointRepository();
+            _languageRepository = new LanguageRepository();
         }
 
         public List<Tour> GetAll()
@@ -80,6 +82,7 @@ namespace TravelService.Repository
         public void Delete(Tour tours)
         {
             _tours = _serializer.FromCSV(FilePath);
+            Console.WriteLine("Izbrisana");
             Tour founded = _tours.Find(c => c.Id == tours.Id);
             _tours.Remove(founded);
             _serializer.ToCSV(FilePath, _tours);
@@ -406,6 +409,20 @@ namespace TravelService.Repository
             return null;
         }
 
+        public List<Tour> GetTourByLanguageId(int languageId)
+        {
+            var language = _languageRepository.GetById(languageId);
+            if (language != null)
+            {
+                var tours = GetAll().Where(t => t.LanguageId == languageId).ToList();
+                return tours;
+            }
+            return null;
+        }
+
+
+
+
         public Tour GetMostVisitedTour(List<Tour> tours, List<Guest> guests, List<Location> locations, int year = 0)
         {
             int maxVisits = 0;
@@ -444,5 +461,91 @@ namespace TravelService.Repository
         }
 
 
+        public bool Otkaz(int guideId)
+        {
+            List<Tour> allTours = GetAll();
+            List<Tour> toursToDelete = FindByGuideId(guideId,allTours);
+
+            if (toursToDelete.Count == 0) return false;
+
+            foreach (Tour tour in toursToDelete)
+            {
+                if (tour.TourStart > DateTime.Now)
+                {
+                    Delete(tour);
+                }
+            }
+
+            return true;
+        }
+        private List<Tour> FindByGuideId(int guideId, List<Tour> allTours)
+        {
+            List<Tour> tours = new List<Tour>();
+
+            foreach (Tour tour in allTours)
+            {
+                if (tour.GuideId == guideId)
+                {
+                    tours.Add(tour);
+                }
+            }
+
+            return tours;
+        }
+
+
+        public void PoslatiVaucer()
+        {
+            List<Tour> tours = GetAll(); // Pretpostavljamo da postoji metoda koja vraća sve ture
+            List<Guest> guests = _guestRepository.GetAll(); // Pretpostavljamo da postoji metoda koja vraća sve goste
+
+            foreach (Tour tour in tours)
+            {
+                foreach (Guest guest in guests)
+                {
+                    if (guest.TourId == tour.Id)
+                    {
+                        GuestVoucher newVoucher = new GuestVoucher("Vaucer zbog otkaza", VOUCHERTYPE.QUIT, 200, "17f", false, guest.Id, -1, DateTime.Now.AddYears(2));
+                        _guestVoucherRepository.Save(newVoucher);
+
+                        if (guest.VoucherList == null)
+                        {
+                            guest.VoucherList = new List<GuestVoucher> { newVoucher };
+                        }
+                        else
+                        {
+                            guest.VoucherList.Add(newVoucher);
+                            UpdateVouchersForAnyTour();
+                        }
+
+                        _guestRepository.Save(guest);
+                        _guestRepository.Update(guest);
+                    }
+                }
+            }
+        }
+
+
+
+
+        public void UpdateVouchersForAnyTour()
+        {
+            if (_guestRepository != null)
+            {
+                List<Guest> guests = _guestRepository.GetAllGuestsWithVouchers();
+
+                foreach (Guest guest in guests)
+                {
+                    foreach (GuestVoucher voucher in guest.VoucherList)
+                    {
+                        voucher.TourId = -1;
+                        _guestVoucherRepository.Update(voucher);
+                    }
+
+                    _guestRepository.Save(guest);
+                    _guestRepository.Update(guest);
+                }
+            }
+        }
     }
 }

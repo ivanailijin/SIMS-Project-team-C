@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -18,7 +18,7 @@ namespace TravelService.WPF.ViewModel
     {
         public Guest2 Guest2 { get; set; }
         public Action CloseAction { get; set; }
-
+   
         private readonly VoucherService _voucherService;
         private readonly NewTourNotificationService _notificationService;
         private readonly TourService _tourService;
@@ -94,6 +94,7 @@ namespace TravelService.WPF.ViewModel
         }
         public GuestsVouchersViewModel( Guest2 guest2) 
         {
+           
             Guest2 = guest2;
             Username = guest2.Username;
             _voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());

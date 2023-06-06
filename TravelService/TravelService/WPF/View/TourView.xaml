@@ -29,7 +29,8 @@
             <Button Command="{Binding SearchTourCommand}" Height="20" Margin="30,0,0,0">Search</Button>
             <Button Command="{Binding ShowAllToursCommand}" Height="20" Margin="30,0,0,0">Show all tours</Button>
             <Button Command="{Binding CancelCommand}" Height="20" Margin="20,0,0,0">Cancel</Button>
-            
+            <Button Command="{Binding SuperGuides}" Height="20" Margin="20,0,0,0">Show SuggestedTours</Button>
+
 
         </StackPanel>
         <DataGrid Grid.Row="2" x:Name="allTours"

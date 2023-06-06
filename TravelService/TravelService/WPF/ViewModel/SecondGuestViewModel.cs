@@ -11,6 +11,7 @@ namespace TravelService.WPF.ViewModel
 {
     public class SecondGuestViewModel : ViewModelBase
     {
+       
         public Tour SelectedTour { get; set; }
         public GuestVoucher SelectedVoucher { get; set; }
         public NewTourNotification SelectedNotification { get; set; }
@@ -163,6 +164,7 @@ namespace TravelService.WPF.ViewModel
 
         public SecondGuestViewModel(Guest2 guest2) 
         {
+       
             this.Guest2 = guest2;
             TrackCommand = new RelayCommand(Execute_TrackCommand, CanExecute_Command);
             StatisticsCommand = new RelayCommand(Execute_StatisticsCommand, CanExecute_Command);

@@ -31,7 +31,7 @@
                     <GradientStop Color="Violet" Offset="1" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
-            
+
             <DataGrid Grid.Row="1" x:Name="allTours"
               ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}"
               SelectedItem="{Binding SelectedTourRequest}"
@@ -51,7 +51,7 @@
         </Border>
 
 
-        <Button Content="Accept" Command="{Binding Accept}" HorizontalAlignment="Left" Height="36"  Grid.Row="2"  Width="145" Margin="90,254,0,-90"/>
+        <Button Content="Accept" Command="{Binding Accept}" HorizontalAlignment="Left" Height="36"  Grid.Row="2"  Width="145" Margin="195,255,0,-91"/>
         <StackPanel HorizontalAlignment="Left" Height="170" Margin="0 20 0 0" Grid.Row="2" VerticalAlignment="Top" Width="295">
             <StackPanel Height="170" Width="300">
                 <StackPanel Orientation="Horizontal" Height="35" Width="235">
@@ -70,21 +70,21 @@
             </StackPanel>
         </StackPanel>
 
-      
+
 
         <StackPanel HorizontalAlignment="Left" Height="170" Margin="290,20,0,0" Grid.Row="2" VerticalAlignment="Top" Width="240">
-                <StackPanel Width="214" Height="170">
-                    <StackPanel Orientation="Horizontal" Height="30" Width="232" Margin=" 0 10 0 0">
-                        <TextBlock Text="Tour Start Date:" Height="35" Width="105" HorizontalAlignment="Left" />
-                        <DatePicker x:Name="TourStartDatePicker" SelectedDate="{Binding StartDate}" Height="35" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Height="30" Width="232" Margin="0 20 0 0">
-                        <TextBlock Text="Tour End Date:" Height="35" Width="105" />
-                        <DatePicker x:Name="TourEndDatePicker" SelectedDate="{Binding EndDate}" Height="35" Width="110" VerticalAlignment="Center" />
-                    </StackPanel>
-                    <Button Content="Search" Command="{Binding SearchDates}" Height="35" Width="124" Margin="0 29 0 0"/>
+            <StackPanel Width="214" Height="170">
+                <StackPanel Orientation="Horizontal" Height="30" Width="232" Margin=" 0 10 0 0">
+                    <TextBlock Text="Tour Start Date:" Height="35" Width="105" HorizontalAlignment="Left" />
+                    <DatePicker x:Name="TourStartDatePicker" SelectedDate="{Binding StartDate}" Height="35" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="30" Width="232" Margin="0 20 0 0">
+                    <TextBlock Text="Tour End Date:" Height="35" Width="105" />
+                    <DatePicker x:Name="TourEndDatePicker" SelectedDate="{Binding EndDate}" Height="35" Width="110" VerticalAlignment="Center" />
+                </StackPanel>
+                <Button Content="Search" Command="{Binding SearchDates}" Height="35" Width="124" Margin="0 29 0 0"/>
             </StackPanel>
+        </StackPanel>
 
         <StackPanel>
 

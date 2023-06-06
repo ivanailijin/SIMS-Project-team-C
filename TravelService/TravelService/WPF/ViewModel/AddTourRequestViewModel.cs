@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -14,7 +14,7 @@ using TravelService.WPF.View;
 namespace TravelService.WPF.ViewModel
 {
     public class AddTourRequestViewModel : ViewModelBase
-    {
+    { 
         private readonly TourRequestService _tourRequestService; 
         private readonly LocationService _locationService;
         private readonly LanguageService _languageService;
@@ -167,6 +167,7 @@ namespace TravelService.WPF.ViewModel
 
         public AddTourRequestViewModel(Guest2 guest2)
         {
+        
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());

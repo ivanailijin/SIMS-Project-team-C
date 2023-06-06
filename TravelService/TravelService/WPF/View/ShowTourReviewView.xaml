@@ -5,67 +5,171 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:TravelService.WPF.View"
     mc:Ignorable="d"
-    Title="ShowTourReviewView" Height="450" Width="900" >
-    <Grid Margin="-5,0,0,-15" RenderTransformOrigin="0.5,0.5">
+    Title="ShowTourReviewView"      d:DesignHeight="600" d:DesignWidth="544"
+       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/Icons/daniela-cuevas-t7YycgAoVSw-unsplash.jpg"/>
-        </Grid.Background>
-        <DataGrid  MaxColumnWidth=" 100"
-                  MaxWidth="500"     AlternatingRowBackground="LightYellow"
-    HorizontalGridLinesBrush="#E0E0E0"  RowBackground="LightBlue" Background="LightYellow"
-    VerticalGridLinesBrush="#E0E0E0" ItemsSource="{Binding Reviews,  UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedTourReview}" AutoGenerateColumns="False" IsReadOnly="True" Margin="170,80,200,170"  >
-            <DataGrid.Columns>
-                <DataGridTextColumn  Header=" Knowledge" Binding="{Binding GuideKnowledge, UpdateSourceTrigger=PropertyChanged}" Width="*"  />
-                <DataGridTextColumn Header="Language" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                <DataGridTextColumn Header="Entertainment" Binding="{Binding TourEntertainment, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                <DataGridTextColumn Header="Valid" Binding="{Binding Valid, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-
-
-            </DataGrid.Columns>
-
-
-
-        </DataGrid>
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="280,319,0,45" Width="305">
-            <Button Content="Report" Background="#FFB0DAEB" Foreground="#FF132D57" Command="{Binding showReportCommand}" Width=" 140" Height="50" Margin=" 0 0 10 0">
-                <Button.Template>
+    <Page.Resources>
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="rect" Property="Fill" Value="#FFFF6400" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="Pink" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
                     </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Command="{Binding CancelCommand}" Content="Go back" Foreground="#FFB0DAEB" Background="#FF132D57" Height="50" Width="140">
-                <Button.Template>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Rounded1Button" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="#FF82F082" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
                     </ControlTemplate>
-                </Button.Template>
-            </Button>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Margin="0,0,0,13">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Width="176" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"  >
+            <Label  Width="176" FontSize="30" Height="86" Content="Reviews"/>
         </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,0,0,41" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border  BorderThickness="5" Margin="45,0,39,26">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="Red" Offset="0"/>
+                        <GradientStop Color="Orange" Offset="0.17"/>
+                        <GradientStop Color="Yellow" Offset="0.33"/>
+                        <GradientStop Color="Green" Offset="0.5"/>
+                        <GradientStop Color="Blue" Offset="0.67"/>
+                        <GradientStop Color="Indigo" Offset="0.83"/>
+                        <GradientStop Color="Violet" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <DataGrid DockPanel.Dock="Bottom" Name="GuestDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Height="300" 
+           Background="Transparent"
+           SelectedItem="{Binding Path=SelectedGuest, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"
+           RenderTransformOrigin="0.5,0.5">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="BorderBrush" Value="LightGray" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="RowHeaderWidth" Value="0" />
+                            <Setter Property="RowHeight" Value="30" />
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="AlternatingRowBackground" Value="#EFEFEF" />
+                            <Setter Property="CanUserResizeColumns" Value="False" />
+                            <Setter Property="CanUserSortColumns" Value="False" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGrid">
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" CornerRadius="10">
+                                            <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
+                                                <ScrollViewer.Template>
+                                                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Button Command="{x:Static DataGrid.SelectAllCommand}" Width="{Binding Path=RowHeaderWidth, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                    Focusable="false" OverridesDefaultStyle="True" Grid.Column="0" Grid.Row="0" Style="{DynamicResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}}"
+                                                    Visibility="{Binding Path=HeadersVisibility, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, ConverterParameter={x:Static DataGridHeadersVisibility.All}}"/>
+                                                            <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Column="1" Grid.Row="0" Visibility="{Binding Path=HeadersVisibility, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, ConverterParameter={x:Static DataGridHeadersVisibility.Column}}"/>
+                                                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" Grid.Column="1" Grid.Row="1"/>
+                                                            <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="2" Grid.Row="1" Orientation="Vertical" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding Path=VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                       Maximum="{Binding Path=ScrollableHeight, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                            <Grid Grid.Column="1" Grid.Row="2">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="{Binding Path=NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Column="1" Orientation="Horizontal" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                                           Value="{Binding Path=HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                           Maximum="{Binding Path=ScrollableWidth, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </ScrollViewer.Template>
+                                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            </ScrollViewer>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#F5F5F5" />
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="Height" Value="30" />
+                            <Setter Property="BorderThickness" Value="0,0,0,1" />
+                            <Setter Property="BorderBrush" Value="LightGray" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="-0.126"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-0.998"/>
+                        </TransformGroup>
+                    </DataGrid.RenderTransform>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Header=" Knowledge" Binding="{Binding GuideKnowledge, UpdateSourceTrigger=PropertyChanged}" Width="*"  />
+                        <DataGridTextColumn Header="Language" Binding="{Binding GuideLanguage, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                        <DataGridTextColumn Header="Entertainment" Binding="{Binding TourEntertainment, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                        <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                        <DataGridTextColumn Header="Valid" Binding="{Binding Valid, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
+            </Border>
+        </Grid>
+
+
+
+        <WrapPanel FlowDirection="LeftToRight"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="2">
+
+            <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara"  FontSize="14"  Command="{Binding CancelCommand}"  Content="Cancel" IsDefault="True"  BorderThickness="1" Foreground="Red" FontWeight="SemiBold"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="103" Height="27" Margin="20, 5, 20, 5" 
+                    />
+            <Button Style="{StaticResource ResourceKey=Rounded1Button}" FontFamily="Candara" FontSize="14" Command="{Binding showReportCommand}"  HorizontalAlignment="Center"  BorderThickness="1" Foreground="#FF076107" FontWeight="SemiBold" VerticalAlignment="Center" Width="103" Height="27"
+                    Content="Show Report"/>
+
+        </WrapPanel>
+
+
     </Grid>
+
 </Page>

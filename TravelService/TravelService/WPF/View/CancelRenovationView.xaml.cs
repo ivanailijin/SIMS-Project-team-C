@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TravelService.Application.UseCases;
+using TravelService.Applications.UseCases;
 using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
 

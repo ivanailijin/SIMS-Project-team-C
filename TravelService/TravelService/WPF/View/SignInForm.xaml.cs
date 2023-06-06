@@ -5,8 +5,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using TravelService.Domain.Model;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
 
@@ -17,6 +17,7 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class SignInForm : Window
     {
+        public Guide Guide { get; set; }
         private readonly UserService _userService;
 
         private readonly GuideRepository _guideRepository;

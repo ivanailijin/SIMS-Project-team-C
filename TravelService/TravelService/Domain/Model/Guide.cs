@@ -10,7 +10,7 @@ namespace TravelService.Domain.Model
 {
     public class Guide : User, ISerializable
     {
-
+        public bool SuperGuide { get; set; }
         public List<Tour> Tours { get; set; }
         public Guide()
         {

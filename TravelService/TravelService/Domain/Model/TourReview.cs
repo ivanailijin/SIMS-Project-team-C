@@ -13,6 +13,7 @@ namespace TravelService.Domain.Model
 {
     public class TourReview : ISerializable
     {
+
         public int Id { get; set; }
         public int GuideKnowledge { get; set; }
         public int GuideLanguage { get; set; }
@@ -22,7 +23,7 @@ namespace TravelService.Domain.Model
         public int GuideId { get; set; }
         public int GuestId { get; set; }
         public bool Valid { get; set; }
-
+        public Tour Tour { get; set; }
         public TourReview()
         {
             Pictures = new List<Uri>();
