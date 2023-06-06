@@ -4,10 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:val="clr-namespace:TravelService.Validation"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         Title="RenovationSchedulingView" Background="#ebf2f2" Height="768" Width="1024">
     <Page.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox">
+                    <Border BorderBrush="Red"
+                            BorderThickness="1"/>
+                </AdornedElementPlaceholder>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
         <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -46,7 +56,7 @@
         </Style>
         <Style x:Key="LabelDataStyle" TargetType="{x:Type Label}">
             <Setter Property="FontFamily" Value="Candara"/>
-            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontWeight" Value="Normal"/>
         </Style>
@@ -59,8 +69,8 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Height="45">
-                <Button Style="{StaticResource ResourceKey=SilverRoundedButton}" Height="22" Width="120" Margin="47 15 0 0" HorizontalAlignment="Left" Command="{Binding CancelCommand}">Zatvori</Button>
-                <Button Grid.Row="0" IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" Command="{Binding HomeCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="750 13 0 0" 
+                <Button Style="{StaticResource ResourceKey=SilverRoundedButton}" Height="22" Width="120" Margin="57 15 0 0" HorizontalAlignment="Left" Command="{Binding CancelCommand}">Zatvori</Button>
+                <Button Grid.Row="0" IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" Command="{Binding HomeCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="730 13 0 0" 
                     >
                     <Button.Background>
                         <ImageBrush ImageSource="/TravelService;component/Resources/Images/home-icon.png" />
@@ -68,25 +78,49 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="0 30 0 0">
-                <TextBlock FontWeight="Normal" FontFamily="Candara" FontSize="24" Foreground="#383838" HorizontalAlignment="Center" Text="Zakazivanje termina za renoviranje"></TextBlock>
+                <TextBlock FontWeight="Normal" FontFamily="Candara" FontSize="27" Foreground="#383838" HorizontalAlignment="Center" Text="Zakazivanje termina za renoviranje"></TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
                     <TextBlock FontWeight="Normal" FontFamily="Candara" Foreground="#828282" FontSize="24" Text="Smestaj:" ></TextBlock>
                     <TextBlock FontWeight="Normal" FontFamily="Candara" Foreground="#828282" FontSize="24" Margin="10 0 0 0" Text="{Binding SelectedAccommodation.Name}"></TextBlock>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="340" Margin="-20 0 0 0 ">
-                <StackPanel Orientation="Vertical" Margin="170 45 40 10" Width="200">
+                <StackPanel Orientation="Vertical" Margin="155 45 40 10" Width="250">
                     <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="-6 0 0 5">Pocetni datum</Label>
                     <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding StartDate,Mode=OneWayToSource}" ></DatePicker>
                     <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="-6 13 0 0"  >Krajnji datum</Label>
                     <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding EndDate, Mode=OneWayToSource}"></DatePicker>
                     <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="-6 15 0 2">Trajanje renoviranja</Label>
-                    <TextBox Height="25" BorderBrush="#323333" BorderThickness="1" Text="{Binding RenovationDuration}"></TextBox>
+                    <TextBox Height="25" BorderBrush="#323333" BorderThickness="1">
+                        <TextBox.Text>
+                            <Binding Path="RenovationDuration" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <val:NumberValidation ValidationStep="RawProposedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
                     <Button Style="{StaticResource ResourceKey=SilverRoundedButton}" Margin="0 55 0 0" Height="28" Command="{Binding ShowAvailableDatesCommand}">Prikazi</Button>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="60 0 0 0" Width="450">
                     <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="0 38 0 0" HorizontalAlignment="Center">Slobodni termini:</Label>
-                    <DataGrid ItemsSource="{Binding AvailableDatesPair}" SelectedItem="{Binding SelectedAvailableDatePair}" Margin="0 10 0 0" AutoGenerateColumns="False" Width="350" Height="250"
+                    <DataGrid ItemsSource="{Binding AvailableDatesPair}" SelectedItem="{Binding SelectedAvailableDatePair}" Margin="0 10 0 0" AutoGenerateColumns="False" Width="370" Height="250"
                               RowBackground="#f5f7f7" AlternatingRowBackground="#dbdbdb" Foreground="Black"
                               HeadersVisibility="Column"
                                 FontSize="14" FontFamily="Calibri">
@@ -98,11 +132,11 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="100 33 0 0" Height="235">
-                <StackPanel Orientation="Vertical" Width="280" Margin="47 15 0 0">
+                <StackPanel Orientation="Vertical" Width="310" Margin="30 0 0 0">
                     <Label Style="{StaticResource ResourceKey=LabelDataStyle}" Margin="10 0 0 0">Opis renoviranja</Label>
-                    <TextBox Height="80" Width="280" BorderBrush="#323333" BorderThickness="2" Margin="0 5 0 0" Text="{Binding RenovationDescription}"></TextBox>
+                    <TextBox Height="110" Width="310" BorderBrush="#323333" BorderThickness="2" Margin="0 5 0 0" Text="{Binding RenovationDescription}"></TextBox>
                 </StackPanel>
-                <Button Style="{StaticResource ResourceKey=RoundedButton}" Foreground="White" FontWeight="SemiBold" Height="65" Width="170" Margin="190 20 0 80" Command="{Binding ScheduleRenovationCommand}">Zakazi</Button>
+                <Button Style="{StaticResource ResourceKey=RoundedButton}" Foreground="White" FontWeight="SemiBold" Height="65" Width="170" Margin="210 27 0 80" Command="{Binding ScheduleRenovationCommand}">Zakazi</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

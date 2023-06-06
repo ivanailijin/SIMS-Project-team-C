@@ -47,11 +47,11 @@
 
         <Grid Grid.Row="2" >
             <ListBox DockPanel.Dock="Bottom" Background="#f5f5f5" ItemsSource="{Binding Forums, UpdateSourceTrigger=PropertyChanged}"
-                     SelectedItem="{Binding SelectedForum, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     Width="930" Height="510">
+                     SelectedItem="{Binding SelectedForum, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     Width="922" Height="510">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="#a8a8a8" Margin="1" BorderThickness="3" Background="#dce3e3" Width="893" Height="115">
+                        <Border BorderBrush="#a8a8a8" Margin="1" BorderThickness="3" Background="#dce3e3" Width="903" Height="115">
                             <StackPanel Background="White" Orientation="Horizontal" Margin="0,0,0,0" Height="110">
                                 <Image Width="58" Height="58" Margin="25, 0, 0, 0" Source="/TravelService;component/Resources/Images/chat.png"></Image>
                                 <StackPanel Orientation="Vertical" Width="270" Margin="40 25 0 0">
@@ -93,7 +93,7 @@
         </WrapPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Button Grid.Row="0" IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="20 05 0 0" 
+            <Button Grid.Row="0" IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="50 5 0 0" 
                     Command="{Binding BackCommand}">
                 <Button.Background>
                     <ImageBrush ImageSource="/TravelService;component/Resources/Images/home-icon.png" />

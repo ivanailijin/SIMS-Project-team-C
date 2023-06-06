@@ -32,8 +32,6 @@ namespace TravelService.WPF.View
             InitializeComponent();
             AccommodationReviewViewModel accommodationReviewViewModel = new AccommodationReviewViewModel(selectedAccommodation, owner, this);
             DataContext = accommodationReviewViewModel;
-            //if (accommodationReviewViewModel.CloseAction == null)
-               // accommodationReviewViewModel.CloseAction = new Action(this.Close);
         }
         public void GoBack()
         {

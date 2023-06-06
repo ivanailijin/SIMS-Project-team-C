@@ -45,7 +45,7 @@ namespace TravelService.Application.UseCases
         {
             foreach(Forum forum in forums)
             {
-                if(GetNumberOfOwnerComments(forum) >= 10 && GetNumberOfGuestComments(forum) >= 20)
+                if(GetNumberOfOwnerComments(forum) >= 10 && GetNumberOfPresentGuestComments(forum) >= 20)
                 {
                     forum.Helpful = true;
                 }
@@ -69,7 +69,18 @@ namespace TravelService.Application.UseCases
             }
             return false;
         }
-
+        public int GetNumberOfPresentGuestComments(Forum forum)
+        {
+            int count = 0;
+            foreach (Comment comment in forum.Comments)
+            {
+                if (comment.User.UserType == "Guest1" && _userService.CheckGuestsPresence(comment.User.Id, forum.Location))
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
         public int GetNumberOfOwnerComments(Forum forum)
         {
             int count = 0;
@@ -94,7 +105,6 @@ namespace TravelService.Application.UseCases
             }
             return count;
         }
-        
 
         public List<Forum> GetNumberOfComments(List<Forum> forums)
         {

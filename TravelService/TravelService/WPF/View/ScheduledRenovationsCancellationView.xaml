@@ -58,7 +58,7 @@
     <Grid>
 
         <StackPanel Orientation="Vertical" Margin="0 15 50 30" Width="900" Height="710">
-            <Button IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="0" 
+            <Button IsDefault="True" BorderBrush="#476a6b" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Margin="20 0 0 0" 
                     Command="{Binding CancelCommand}">
                 <Button.Background>
                     <ImageBrush ImageSource="/TravelService;component/Resources/Images/home-icon.png" />
