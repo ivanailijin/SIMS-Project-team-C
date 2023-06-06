@@ -17,6 +17,7 @@ namespace TravelService.Application.UseCases
         private readonly CommentService _commentService;
         private readonly UserService _userService;
         private readonly AccommodationService _accommodationService;
+        private readonly GuestService _guestService;
 
         public ForumService(IForumRepository forumRepository)
         {
@@ -25,6 +26,7 @@ namespace TravelService.Application.UseCases
             _commentService = new CommentService(Injector.CreateInstance<ICommentRepository>());
             _userService = new UserService(Injector.CreateInstance<IUserRepository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
+            _guestService = new GuestService(Injector.CreateInstance<IGuestRepository>());
         }
         public void Delete(Forum forum)
         {
@@ -74,7 +76,8 @@ namespace TravelService.Application.UseCases
             int count = 0;
             foreach (Comment comment in forum.Comments)
             {
-                if (comment.User.UserType == "Guest1" && _userService.CheckGuestsPresence(comment.User.Id, forum.Location))
+                if ((comment.User.UserType == "Guest1" && _userService.CheckGuestsPresence(comment.User.Id, forum.Location)) ||
+                    (comment.User.UserType == "Guest2" && _guestService.CheckGuestsPresence(comment.User.Username, forum.Location)))
                 {
                     count++;
                 }

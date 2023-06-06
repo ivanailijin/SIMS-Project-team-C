@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
-
+using TravelService.Application.Utils;
 
 namespace TravelService.Application.UseCases
 {
@@ -14,10 +14,12 @@ namespace TravelService.Application.UseCases
     {
 
         private readonly IGuestRepository _guestRepository;
+        private readonly TourService _tourService;
 
         public GuestService(IGuestRepository guestRepository)
         {
             _guestRepository = guestRepository;
+            _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
         }
         public void Delete(Guest guest)
         {
@@ -107,6 +109,30 @@ namespace TravelService.Application.UseCases
             return guestsByTourId;
         }
 
+        public List<Guest> GetTourData(List<Guest> guestAttendences)
+        {
+            List<Tour> tours = _tourService.GetAll();
+            foreach (Guest guest in guestAttendences)
+            {
+                guest.Tour = tours.Find(t => t.Id == guest.TourId);
+            }
+            return guestAttendences;
+        }
+
+        public bool CheckGuestsPresence(string username, Location location)
+        {
+            List<Guest> guestAttendences = GetAll();
+            guestAttendences = GetTourData(guestAttendences);
+
+            foreach (Guest guest in guestAttendences)
+            {
+                if (guest.Username == username && guest.Tour.LocationId == location.Id && guest.Attendence == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
 

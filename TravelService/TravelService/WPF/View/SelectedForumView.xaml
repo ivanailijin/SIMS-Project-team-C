@@ -82,14 +82,16 @@
                 <ColumnDefinition Width="290"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Margin="18,0,0,0">
+            <StackPanel Grid.Column="0" Margin="10,0,0,0">
                 <Label Content="{Binding SelectedForum.Name}" FontSize="20" FontWeight="DemiBold"></Label>
                 <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
-                    <TextBlock Text="Zapoceo: " FontSize="14"></TextBlock>
-                    <TextBlock Text="{Binding SelectedForum.User.Username}" FontSize="14"></TextBlock>
+                    <TextBlock Text="Zapoceo: " FontSize="13"></TextBlock>
+                    <TextBlock Text="{Binding SelectedForum.User.Username}" FontSize="13"></TextBlock>
+                    <TextBlock Text=", " FontSize="13"></TextBlock>
+                    <TextBlock Text="{Binding SelectedForum.DateCreated.Date}"></TextBlock>
                 </StackPanel>
                 <StackPanel Margin="8,5,0,0" Orientation="Horizontal">
-                    <TextBlock FontSize="15">
+                    <TextBlock FontSize="14" FontWeight="SemiBold">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Text" Value="" />
@@ -101,7 +103,7 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Image Width="20" Height="20" Margin="5,5,0,0" Source="/TravelService;component/Resources/Images/thumbs-up.png" Visibility="{Binding SelectedForum.Helpful, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <Image Width="15" Height="15" Margin="5,5,0,0" Source="/TravelService;component/Resources/Images/thumbs-up.png" Visibility="{Binding SelectedForum.Helpful, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="10,30,0,0">

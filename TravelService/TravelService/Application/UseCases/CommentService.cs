@@ -11,6 +11,7 @@ namespace TravelService.Application.UseCases
         private readonly IForumRepository _forumRepository;
         private readonly UserService _userService;
         private readonly AccommodationService _accommodationService;
+        private readonly GuestService _guestService;
 
         public CommentService(ICommentRepository commentRepository)
         {
@@ -18,6 +19,7 @@ namespace TravelService.Application.UseCases
             _forumRepository = Injector.CreateInstance<IForumRepository>();
             _userService = new UserService(Injector.CreateInstance<IUserRepository>());
             _accommodationService = new AccommodationService(Injector.CreateInstance<IAccommodationRepository>());
+            _guestService = new GuestService(Injector.CreateInstance<IGuestRepository>());
         }
         public void Delete(Comment comment)
         {
@@ -58,6 +60,7 @@ namespace TravelService.Application.UseCases
             comments = GetForumData(comments);
             comments = GetUserData(comments);
             comments = GetOwnerData(comments);
+            comments = GetMarkedCommentData(comments);
             List<Comment> foundedComments = new List<Comment>();
             foreach (Comment comment in comments)
             {
@@ -90,6 +93,23 @@ namespace TravelService.Application.UseCases
                 else
                 {
                     comment.IsOwnersAccommodationOnLocation = false;
+                }
+            }
+            return comments;
+        }
+
+        public List<Comment> GetMarkedCommentData(List<Comment> comments)
+        {
+            foreach (Comment comment in comments)
+            {
+                if ((comment.User.UserType == "Guest1" && _userService.CheckGuestsPresence(comment.User.Id, comment.Forum.Location)) ||
+                    (comment.User.UserType == "Guest2" && _guestService.CheckGuestsPresence(comment.User.Username, comment.Forum.Location)))
+                {
+                    comment.IsMarkedComment = true;
+                }
+                else
+                {
+                    comment.IsMarkedComment = false;
                 }
             }
             return comments;

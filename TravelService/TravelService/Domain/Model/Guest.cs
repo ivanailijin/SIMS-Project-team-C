@@ -16,6 +16,7 @@ namespace TravelService.Domain.Model
       public string CheckPointName { get; set; }
         public string TourName { get; set; }    
         public int TourId { get; set; }
+        public Tour Tour { get; set; }
         public bool Attendence { get; set; }
         public int Age { get; set; }
         public List<GuestVoucher> VoucherList { get; set; }
