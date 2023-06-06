@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\more.png" />
     <None Remove="Resources\Images\add-accommodation-icon.png" />
     <None Remove="Resources\Images\airplane.png" />
     <None Remove="Resources\Images\arrow-left.png" />
@@ -95,6 +96,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\more.png" />
     <Resource Include="Resources\Images\arrow-left.png" />
     <Resource Include="Resources\Images\back.png" />
     <Resource Include="Resources\Images\chat.png" />

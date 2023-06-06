@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TravelService.Application.UseCases;
+using TravelService.Applications.UseCases;
 using TravelService.Domain.Model;
 using TravelService.Commands;
 using TravelService.Domain.RepositoryInterface;
-using TravelService.Application.Utils;
+using TravelService.Applications.Utils;
 using TravelService.WPF.View;
 using System.Windows.Navigation;
 

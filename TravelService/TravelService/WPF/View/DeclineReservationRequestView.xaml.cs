@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.WPF.ViewModel;
-using TravelService.Application.UseCases;
+using TravelService.Applications.UseCases;
 using System.Collections.ObjectModel;
 
 namespace TravelService.WPF.View

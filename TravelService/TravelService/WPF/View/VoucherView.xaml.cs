@@ -57,7 +57,7 @@ namespace TravelService.WPF.View
             if (_guestVoucherRepository.IsVoucherUsable(SelectedVoucher, SelectedTour))
             {
                 MessageBox.Show("You selected a valid voucher!");
-                _tourReservationView.SetSelectedVoucher(SelectedVoucher);
+                //_tourReservationView.SetSelectedVoucher(SelectedVoucher);
                 this.Close();
             }
             else

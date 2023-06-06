@@ -217,10 +217,9 @@ namespace TravelService.Repository
         public bool FullyBookedTour(Tour selectedTour, List<Tour> OtherTours, TourReservationView tourReservationView)
         {
             MessageBox.Show("Selected tour is fully booked. Try other tours on this location! ");
-            tourReservationView.FindOtherTours(selectedTour);
+           
             return true;
         }
-
         private void SaveSameReservation(Tour selectedTour, TourReservation reservation, string numberOfGuests, List<TourReservation> TourReservations, Guest2 guest2)
         {
             if (guest2.Id == reservation.GuestId)

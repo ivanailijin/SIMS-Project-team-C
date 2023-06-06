@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TravelService.Application.UseCases;
+using TravelService.Applications.UseCases;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 

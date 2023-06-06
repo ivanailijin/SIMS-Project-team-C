@@ -199,7 +199,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_ReservationCommand(object sender)
         {
-            TourReservationView tourReservationView = new TourReservationView(SelectedTour, SelectedVoucher, Guest2);
+            TourReservationView tourReservationView = new TourReservationView(SelectedTour, Guest2);
             tourReservationView.Show();
             CloseAction();
         }
