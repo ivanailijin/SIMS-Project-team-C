@@ -130,13 +130,25 @@
                                             <Setter Property="Text" Value="" />
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsMarkedComment}" Value="True">
-                                                    <Setter Property="Text" Value="• Posetio lokaciju" />
+                                                    <Setter Property="Text" Value="Posetio lokaciju" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>
-                                
+
+                                <TextBlock FontSize="14">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsOwnersAccommodationOnLocation}" Value="True">
+                                                    <Setter Property="Text" Value="Vlasnik smestaja" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Grid.Column="1" Text="{Binding Content}" Padding="5" TextWrapping="Wrap" TextAlignment="Justify"></TextBlock>

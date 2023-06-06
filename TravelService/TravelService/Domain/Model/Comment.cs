@@ -16,6 +16,7 @@ namespace TravelService.Domain.Model
         public string Content { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsMarkedComment { get; set; }
+        public bool IsOwnersAccommodationOnLocation { get; set; }
 
         public Comment(User user, Forum forum, string content, DateTime dateCreated, bool isMarkedComment)
         {

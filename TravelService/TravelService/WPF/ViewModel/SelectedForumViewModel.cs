@@ -48,6 +48,17 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private bool _isOwnerAccommodationOnLocation;
+        public bool IsOwnerAccommodationOnLocation
+        {
+            get { return _isOwnerAccommodationOnLocation; }
+            set
+            {
+                _isOwnerAccommodationOnLocation = value;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<Comment> _comments;
         public ObservableCollection<Comment> Comments
         {
