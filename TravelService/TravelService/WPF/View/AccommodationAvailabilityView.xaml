@@ -6,12 +6,37 @@
         xmlns:local="clr-namespace:TravelService.WPF.View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="AccommodationAvailabilityView" Height="720" Width="420">
+        Title="Raspolozivost" Height="720" Width="420" Background="#cce6ff">
+    <Page.Resources>
+        <Style x:Key="searchButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Content" Value="Pretrazi"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="400"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="380"></RowDefinition>
+            <RowDefinition Height="160"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -20,16 +45,16 @@
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" HorizontalAlignment="Left" Width="30" Height="30" BorderBrush="Transparent" Command="{Binding PreviousPageCommand}">
+            <Button Grid.Row="0" HorizontalAlignment="Left" Margin="5,0,0,0" Width="30" Height="30" BorderBrush="Transparent" Command="{Binding PreviousPageCommand}">
                 <Button.Background>
                     <ImageBrush ImageSource="/TravelService;component/Resources/Images/arrow-left.png"></ImageBrush>
                 </Button.Background>
             </Button>
-            <Label Grid.Row="1" Content="Raspolozivost" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></Label>
-            <Label Grid.Row="2" Content="Pronadji slobodne datume" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="15"></Label>
+            <Label Grid.Row="1" Content="Raspolozivost" Margin="0,0,40,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></Label>
+            <Label Grid.Row="2" Content="Pronadji slobodne datume" Margin="0,0,40,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="15"></Label>
         </Grid>
         
-        <Grid Grid.Row="1" Width="250" Height="350">
+        <Grid Grid.Row="1" Width="250" Height="350" Margin="0,0,25,0">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -47,7 +72,7 @@
         </Grid>
 
         <Grid Grid.Row="2">
-            <Button Width="320" Height="65" Content="Trazi" FontSize="20" Command="{Binding SearchAvailableDatesCommand}"></Button>
+            <Button Width="320" Height="65" Content="Trazi" FontSize="20" Margin="0,0,12,0" Style="{StaticResource searchButtonStyle}" Command="{Binding SearchAvailableDatesCommand}"></Button>
         </Grid>
 
     </Grid>

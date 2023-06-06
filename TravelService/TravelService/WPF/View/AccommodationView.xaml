@@ -85,7 +85,7 @@
             <Grid Grid.Column="0">
                 <StackPanel>
                     <TextBlock Text="Bilo gde, bilo kada" FontSize="15" Margin="18,7,0,4"></TextBlock>
-                    <Button Margin="20,0,0,0" FontSize="15" Style="{StaticResource reserveButtonStyle}">
+                    <Button Margin="20,0,0,0" FontSize="15" Style="{StaticResource reserveButtonStyle}" Command="{Binding FindAccommodationsWindowCommand}">
                     </Button>
                 </StackPanel>
             </Grid>
