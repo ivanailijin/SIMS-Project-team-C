@@ -126,7 +126,7 @@ namespace TravelService.Repository
 
         public bool IsVoucherUsable(GuestVoucher selectedVoucher, Tour selectedTour)
         {
-            if (selectedTour.Id == selectedVoucher.TourId)
+            if (selectedTour.Id == selectedVoucher.TourId || selectedVoucher.TourId == 0)
             {
                 return true;
             }
