@@ -23,6 +23,7 @@ namespace TravelService.WPF.ViewModel
         private readonly NewTourNotificationService _notificationService;
         private readonly TourService _tourService;
         public ObservableCollection<GuestVoucher> Vouchers { get; set; }
+        public List<GuestVoucher> FilteredVouchers { get; set; }
         public ObservableCollection<GuestVoucher> GuestsVouchers { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
 
@@ -99,13 +100,16 @@ namespace TravelService.WPF.ViewModel
             _voucherService = new VoucherService(Injector.CreateInstance<IVoucherRepository>());
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
             _notificationService = new NewTourNotificationService(Injector.CreateInstance<INewTourNotificationRepository>());
-            List<GuestVoucher> vouchers = new List<GuestVoucher>(_voucherService.GetAll());
-            Vouchers = new ObservableCollection<GuestVoucher>(vouchers);
-            List<GuestVoucher> guestsVouchers = new List<GuestVoucher>(_voucherService.showVoucherList(Vouchers.ToList(),guest2));
-            GuestsVouchers = new ObservableCollection<GuestVoucher>(guestsVouchers);
 
             List<Tour> tours = new List<Tour>(_tourService.GetAll());
             Tours = new ObservableCollection<Tour>(tours);
+            List<GuestVoucher> vouchers = new List<GuestVoucher>(_voucherService.GetAll());
+            //svi vauceri
+            Vouchers = new ObservableCollection<GuestVoucher>(vouchers);
+            //provera
+            FilteredVouchers = new List<GuestVoucher>(_voucherService.CheckAllVouchers(vouchers,Guest2,tours));
+            List<GuestVoucher> guestsVouchers = new List<GuestVoucher>(_voucherService.showVoucherList(FilteredVouchers, guest2));
+            GuestsVouchers = new ObservableCollection<GuestVoucher>(guestsVouchers);
 
             HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
             VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
