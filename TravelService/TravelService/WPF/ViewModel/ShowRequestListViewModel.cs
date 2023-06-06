@@ -44,7 +44,9 @@ namespace TravelService.WPF.ViewModel
             Guest2 = guest2;
             SelectedComplexRequest = selectedComplexRequest;
             List<TourRequest> allTourRequests= new List<TourRequest>(_tourRequestService.GetAll());
-            List<TourRequest> tourRequests= new List<TourRequest>(_complexTourRequestService.FindTourRequests(SelectedComplexRequest,Guest2.Id,allTourRequests));
+            List<ComplexTourRequest> complexRequests = new List<ComplexTourRequest>(_complexTourRequestService.GetAll());
+            List<ComplexTourRequest> guestsComplexRequests = new List<ComplexTourRequest>(_complexTourRequestService.FindValidComplexRequests(Guest2.Id, complexRequests));
+            List<TourRequest> tourRequests= new List<TourRequest>(_complexTourRequestService.FindTourRequests(SelectedComplexRequest, guestsComplexRequests));
             TourRequests = new ObservableCollection<TourRequest>(tourRequests);
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
 

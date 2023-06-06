@@ -82,16 +82,14 @@ namespace TravelService.Application.UseCases
             return guestsComplexRequests;
         }
 
-        public List<TourRequest> FindTourRequests(ComplexTourRequest selectedComplexRequest, int guestId, List<TourRequest> tourRequests)
+        public List<TourRequest> FindTourRequests(ComplexTourRequest selectedComplexRequest, List<ComplexTourRequest> complexTourRequests)
         {
             List<TourRequest> requests = new List<TourRequest>();
-            List<ComplexTourRequest> complexRequests = new List<ComplexTourRequest>(GetAll());
-            List<ComplexTourRequest> guestsComplexRequests = new List<ComplexTourRequest>(GetGuestsComplexRequests(guestId, complexRequests));
-            foreach (ComplexTourRequest complexTourRequest in guestsComplexRequests)
+            foreach (ComplexTourRequest complexTourRequest in complexTourRequests)
             {
                 if (selectedComplexRequest.Id == complexTourRequest.Id)
                 {
-                    foreach (TourRequest tourRequest in tourRequests)
+                    foreach (TourRequest tourRequest in complexTourRequest.TourRequests)
                     {
                         if (complexTourRequest.TourRequests.Contains(tourRequest))
                         {
