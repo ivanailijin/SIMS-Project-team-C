@@ -557,6 +557,9 @@ namespace TravelService.Application.UseCases
         public List<Accommodation> FilterAvailableAccommodations(DateTime checkInDate, DateTime checkOutDate, int numDays, int guestNumber)
         {
             List<Accommodation> accommodations = _accommodationService.GetAll();
+            accommodations = _accommodationService.GetLocationData(accommodations);
+            accommodations = _accommodationService.GetOwnerData(accommodations);
+            accommodations = _accommodationService.SortBySuperowner(accommodations);
             List<Accommodation> availableAccommodations = new List<Accommodation>();
 
             foreach (Accommodation accommodation in accommodations)

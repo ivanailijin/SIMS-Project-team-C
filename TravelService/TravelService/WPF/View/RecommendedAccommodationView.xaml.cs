@@ -24,10 +24,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class RecommendedAccommodationView : Page, INavigationInterface
     {
-        public RecommendedAccommodationView(Guest1 guest, List<Accommodation> accommodations, int guestNumber, int lengthOfStay)
+        public RecommendedAccommodationView(Guest1 guest, List<Accommodation> accommodations,DateTime? checkInDate, DateTime? checkOutDate, int guestNumber, int lengthOfStay)
         {
             InitializeComponent();
-            RecommendedAccommodationViewModel recommendedAccommodationViewModel = new RecommendedAccommodationViewModel(this, accommodations, guest, guestNumber, lengthOfStay);
+            RecommendedAccommodationViewModel recommendedAccommodationViewModel = new RecommendedAccommodationViewModel(this, accommodations, guest, checkInDate, checkOutDate, guestNumber, lengthOfStay);
             DataContext = recommendedAccommodationViewModel;
         }
 

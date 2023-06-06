@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Documents;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -88,6 +87,62 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private RelayCommand _decreaseGuestNumberCommand;
+        public RelayCommand DecreaseGuestNumberCommand
+        {
+            get => _decreaseGuestNumberCommand;
+            set
+            {
+                if (value != _decreaseGuestNumberCommand)
+                {
+                    _decreaseGuestNumberCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _increaseGuestNumberCommand;
+        public RelayCommand IncreaseGuestNumberCommand
+        {
+            get => _increaseGuestNumberCommand;
+            set
+            {
+                if (value != _increaseGuestNumberCommand)
+                {
+                    _increaseGuestNumberCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _decreaseLengthOfStayCommand;
+        public RelayCommand DecreaseLengthOfStayCommand
+        {
+            get => _decreaseLengthOfStayCommand;
+            set
+            {
+                if (value != _decreaseLengthOfStayCommand)
+                {
+                    _decreaseLengthOfStayCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _increaseLengthOfStayCommand;
+        public RelayCommand IncreaseLengthOfStayCommand
+        {
+            get => _increaseLengthOfStayCommand;
+            set
+            {
+                if (value != _increaseLengthOfStayCommand)
+                {
+                    _increaseLengthOfStayCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private RelayCommand _previousPageCommand;
         public RelayCommand PreviousPageCommand
         {
@@ -109,6 +164,10 @@ namespace TravelService.WPF.ViewModel
             FindAvailableAccommodationsView = findAvailableAccommodationsView;
 
             SearchAvailableAccommodationsCommand = new RelayCommand(Execute_SearchAvailableAccommodations, CanExecute_Command);
+            DecreaseGuestNumberCommand = new RelayCommand(Execute_DecreaseGuestNumber, CanExecute_Command);
+            IncreaseGuestNumberCommand = new RelayCommand(Execute_IncreaseGuestNumber, CanExecute_Command);
+            DecreaseLengthOfStayCommand = new RelayCommand(Execute_DecreaseLengthOfStay, CanExecute_Command);
+            IncreaseLengthOfStayCommand = new RelayCommand(Execute_IncreaseLengthOfStay, CanExecute_Command);
             PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
         }
 
@@ -120,6 +179,34 @@ namespace TravelService.WPF.ViewModel
         private bool CanExecute_Command(object parameter)
         {
             return true;
+        }
+
+        private void Execute_DecreaseGuestNumber(object sender)
+        {
+            if (GuestNumber > 0)
+            {
+                GuestNumber--;
+
+            }
+        }
+
+        private void Execute_IncreaseGuestNumber(object sender)
+        {
+            GuestNumber++;
+        }
+
+        private void Execute_DecreaseLengthOfStay(object sender)
+        {
+            if (LengthOfStay > 0)
+            {
+                LengthOfStay--;
+
+            }
+        }
+
+        private void Execute_IncreaseLengthOfStay(object sender)
+        {
+            LengthOfStay++;
         }
 
         private void Execute_SearchAvailableAccommodations(object sender)
@@ -138,7 +225,7 @@ namespace TravelService.WPF.ViewModel
                 accommodations = _reservationService.FilterAvailableAccommodations(checkInDate, checkOutDate, LengthOfStay, GuestNumber);
             }
             FirstGuestView firstGuestView = new FirstGuestView(Guest1);
-            firstGuestView.frame.Navigate(new RecommendedAccommodationView(Guest1, accommodations, GuestNumber, LengthOfStay));
+            firstGuestView.frame.Navigate(new RecommendedAccommodationView(Guest1, accommodations, CheckInDate, CheckOutDate, GuestNumber, LengthOfStay));
             FirstGuestWindow firstGuestWindow = Window.GetWindow(FindAvailableAccommodationsView) as FirstGuestWindow ?? new(Guest1);
             firstGuestWindow?.SwitchToPage(firstGuestView);
         }

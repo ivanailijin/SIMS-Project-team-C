@@ -7,7 +7,7 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:Height="655" d:Width="420"
-      Title="Nase ponude" Background="#cce6ff">
+      Title="Nase ponude">
 
     <Page.Resources>
         <local:BooleanToTextConverter x:Key="BooleanToTextConverter" />
@@ -17,7 +17,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderThickness="0">
@@ -25,7 +25,7 @@
                 <ImageBrush ImageSource="/TravelService;component/Resources/Images/arrow-left.png"></ImageBrush>
             </Button.Background>
         </Button>
-        <Label Grid.Row="1" Content="Nase ponude" FontSize="27" HorizontalAlignment="Center"></Label>
+        <Label Grid.Row="1" Content="Nase ponude" FontSize="26" Margin="0,0,25,0" HorizontalAlignment="Center"></Label>
         <ListBox Grid.Row="2" ItemsSource="{Binding Accommodations}" SelectedItem="{Binding SelectedAccommodation}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="530" Background="#cce6ff">
             <ListBox.ItemTemplate>
                 <DataTemplate>

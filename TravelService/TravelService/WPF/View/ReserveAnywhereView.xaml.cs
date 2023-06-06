@@ -23,10 +23,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class ReserveAnywhereView : Page, INavigationInterface
     {
-        public ReserveAnywhereView(Accommodation selectedAccommodation, Guest1 guest)
+        public ReserveAnywhereView(Accommodation selectedAccommodation, Guest1 guest, List<Tuple<DateTime, DateTime>> availableDates, DateTime? checkInDate, DateTime? checkOutDate, int guestNumber, int lengthOfStay)
         {
             InitializeComponent();
-            ReserveAnywhereViewModel reserveAnywhereViewModel = new ReserveAnywhereViewModel(this, selectedAccommodation, guest);
+            ReserveAnywhereViewModel reserveAnywhereViewModel = new ReserveAnywhereViewModel(this, selectedAccommodation, guest, availableDates, checkInDate, checkOutDate, guestNumber, lengthOfStay);
             DataContext = reserveAnywhereViewModel;
         }
 

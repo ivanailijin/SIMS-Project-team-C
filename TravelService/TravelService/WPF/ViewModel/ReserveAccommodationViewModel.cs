@@ -82,6 +82,48 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private RelayCommand _searchAvailableAccommodations;
+        public RelayCommand SearchAvailableAccommodationsCommand
+        {
+            get => _searchAvailableAccommodations;
+            set
+            {
+                if (value != _searchAvailableAccommodations)
+                {
+                    _searchAvailableAccommodations = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _increaseGuestNumberCommand;
+        public RelayCommand IncreaseGuestNumberCommand
+        {
+            get => _increaseGuestNumberCommand;
+            set
+            {
+                if (value != _increaseGuestNumberCommand)
+                {
+                    _increaseGuestNumberCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _decreaseGuestNumberCommand;
+        public RelayCommand DecreaseGuestNumberCommand
+        {
+            get => _decreaseGuestNumberCommand;
+            set
+            {
+                if (value != _decreaseGuestNumberCommand)
+                {
+                    _decreaseGuestNumberCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private RelayCommand _reserveAccommodationCommand;
         public RelayCommand ReserveAccommodationCommand
         {
@@ -129,6 +171,8 @@ namespace TravelService.WPF.ViewModel
             LengthOfStay = lengthOfStay;
 
             ReserveAccommodationCommand = new RelayCommand(Execute_ReserveAccommodation, CanExecute_Command);
+            DecreaseGuestNumberCommand = new RelayCommand(Execute_DecreaseGuestNumber, CanExecute_Command);
+            IncreaseGuestNumberCommand = new RelayCommand(Execute_IncreaseGuestNumber, CanExecute_Command);
             PreviousPageCommand = new RelayCommand(Execute_PreviousPage, CanExecute_Command);
         }
 
@@ -139,11 +183,16 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_ReserveAccommodation(object sender)
         {
-            if (SelectedAvailableDatePair != null)
+            if (SelectedAvailableDatePair == null ||
+                string.IsNullOrWhiteSpace(GuestNumber.ToString()))
+            {
+                MessageBox.Show("Niste uneli sva polja!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
             {
                 if (GuestNumber > SelectedAccommodation.MaxGuestNumber)
                 {
-                    MessageBox.Show($"Maximum number of guests for {SelectedAccommodation.Name} accommodation is {SelectedAccommodation.MaxGuestNumber}");
+                    MessageBox.Show($"Maksimalan broj gostiju za {SelectedAccommodation.Name} smestaj je {SelectedAccommodation.MaxGuestNumber}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -151,7 +200,7 @@ namespace TravelService.WPF.ViewModel
                 DateTime checkOutDate = SelectedAvailableDatePair.Item2;
                 AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, Guest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, checkInDate, checkOutDate, LengthOfStay, GuestNumber);
                 _accommodationReservationService.Save(reservation);
-                if(Guest1.BonusPoints > 0)
+                if (Guest1.BonusPoints > 0)
                 {
                     Guest1.BonusPoints--;
                 }
@@ -160,9 +209,22 @@ namespace TravelService.WPF.ViewModel
                 FirstGuestWindow firstGuestWindow = Window.GetWindow(ReserveAccommodationView) as FirstGuestWindow;
                 firstGuestWindow?.SwitchToPage(selectedAccommodationView);
             }
-            else
+        }
+
+        private void Execute_DecreaseGuestNumber(object sender)
+        {
+            if (GuestNumber > 0)
             {
-                MessageBox.Show("Please choose date range for your reservation.");
+                GuestNumber--;
+
+            }
+        }
+
+        private void Execute_IncreaseGuestNumber(object sender)
+        {
+            if (GuestNumber < SelectedAccommodation.MaxGuestNumber)
+            {
+                GuestNumber++;
             }
         }
 

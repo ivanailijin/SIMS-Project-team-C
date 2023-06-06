@@ -12,14 +12,21 @@ using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.WPF.View;
+using System.Collections.ObjectModel;
 
 namespace TravelService.WPF.ViewModel
 {
     public class ReserveAnywhereViewModel : ViewModelBase
     {
         private AccommodationReservationService _reservationService;
+        private Guest1Service _guestService;
         public Guest1 Guest1 { get; set; }
         public ReserveAnywhereView ReserveAnywhereView { get; set; }
+        public DateTime? CheckInDate { get; set; }
+        public DateTime? CheckOutDate { get; set; }
+        public int GuestNumber { get; set; }
+        public int LengthOfStay { get; set; }
+        public Tuple<DateTime, DateTime> SelectedAvailableDatePair { get; set; }
 
         private int _currentIndex;
         public int CurrentIndex
@@ -60,6 +67,20 @@ namespace TravelService.WPF.ViewModel
                 if (value != _selectedAccommodation)
                 {
                     _selectedAccommodation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private ObservableCollection<Tuple<DateTime, DateTime>> _availableDatesPair;
+        public ObservableCollection<Tuple<DateTime, DateTime>> AvailableDatesPair
+        {
+            get => _availableDatesPair;
+            set
+            {
+                if (value != _availableDatesPair)
+                {
+                    _availableDatesPair = value;
                     OnPropertyChanged();
                 }
             }
@@ -121,10 +142,16 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        public ReserveAnywhereViewModel(ReserveAnywhereView reserveAnywhereView, Accommodation selectedAccommodation, Guest1 guest1)
+        public ReserveAnywhereViewModel(ReserveAnywhereView reserveAnywhereView, Accommodation selectedAccommodation, Guest1 guest1, List<Tuple<DateTime, DateTime>> availableDates, DateTime? checkInDate, DateTime? checkOutDate, int guestNumber, int lengthOfStay)
         {
             _reservationService = new AccommodationReservationService(Injector.CreateInstance<IAccommodationReservationRepository>());
+            _guestService = new Guest1Service(Injector.CreateInstance<IGuest1Repository>());
             ReserveAnywhereView = reserveAnywhereView;
+            GuestNumber = guestNumber;
+            LengthOfStay = lengthOfStay;
+            CheckInDate = checkInDate;
+            CheckOutDate = checkOutDate;
+            AvailableDatesPair = new ObservableCollection<Tuple<DateTime, DateTime>>(availableDates);
 
             SelectedAccommodation = selectedAccommodation;
             Guest1 = guest1;
@@ -172,7 +199,24 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_ReserveCommand(object sender)
         {
-            //message box za uspesno rezervisanje
+            if (SelectedAvailableDatePair != null)
+            {
+                DateTime checkInDate = SelectedAvailableDatePair.Item1;
+                DateTime checkOutDate = SelectedAvailableDatePair.Item2;
+                AccommodationReservation reservation = new AccommodationReservation(SelectedAccommodation.Id, Guest1.Id, SelectedAccommodation.OwnerId, SelectedAccommodation.LocationId, checkInDate, checkOutDate, LengthOfStay, GuestNumber);
+                _reservationService.Save(reservation);
+                if (Guest1.BonusPoints > 0)
+                {
+                    Guest1.BonusPoints--;
+                }
+                _guestService.Update(Guest1);
+                AvailableDatesPair.Remove(SelectedAvailableDatePair);
+                MessageBox.Show("Uspešno ste izvršili rezervaciju!", "Rezervacija", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Odaberite opseg datuma za rezervaciju.");
+            }
         }
     }
 }

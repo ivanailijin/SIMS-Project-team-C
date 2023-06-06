@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:val="clr-namespace:TravelService.Validation"
         mc:Ignorable="d"
         Title="Raspolozivost" Height="720" Width="420" Background="#cce6ff">
     <Page.Resources>
+        <local:IntToBooleanConverter x:Key="IntToBooleanConverter" />
         <Style x:Key="searchButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Teal"/>
             <Setter Property="BorderBrush" Value="DimGray"/>
@@ -50,7 +52,7 @@
                     <ImageBrush ImageSource="/TravelService;component/Resources/Images/arrow-left.png"></ImageBrush>
                 </Button.Background>
             </Button>
-            <Label Grid.Row="1" Content="Raspolozivost" Margin="0,0,40,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></Label>
+            <Label Grid.Row="1" Content="Raspolozivost" Margin="0,0,40,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26"></Label>
             <Label Grid.Row="2" Content="Pronadji slobodne datume" Margin="0,0,40,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="15"></Label>
         </Grid>
         
@@ -64,11 +66,48 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Pocetni datum" FontSize="17" VerticalAlignment="Bottom"></Label>
-            <DatePicker x:Name="startDatePicker" Text="Odaberi datum" FontSize="17" Grid.Row="1" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding CheckInDate, Mode=OneWayToSource}"></DatePicker>
+            <DatePicker x:Name="startDatePicker" Text="Odaberi datum" FontSize="17" Grid.Row="1" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding CheckInDate, Mode=OneWayToSource}">
+            </DatePicker>
             <Label Grid.Row="2" Content="Krajnji datum" FontSize="17" VerticalAlignment="Bottom"></Label>
             <DatePicker x:Name="endDatePicker" FontSize="17" Text="Odaberi datum" Grid.Row="3" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding CheckOutDate, Mode=OneWayToSource}"></DatePicker>
             <Label Grid.Row="4" Content="Broj dana" VerticalAlignment="Bottom" FontSize="17"></Label>
-            <TextBox x:Name="guestNumberBox" Grid.Row="5" Text="{Binding LengthOfStay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
+            <StackPanel Grid.Row="5" Orientation="Horizontal">
+                <TextBox Grid.Row="7" Width="150" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <TextBox.Text>
+                        <Binding Path="LengthOfStay" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:NumberValidation ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <Border Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="10,0,0,0" VerticalAlignment="Top">
+                    <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding DecreaseLengthOfStayCommand}" IsEnabled="{Binding LengthOfStay, Converter={StaticResource IntToBooleanConverter}}">
+                        <Image Source="/TravelService;component/Resources/Images/minus.ico" Height="20" Width="20"></Image>
+                    </Button>
+                </Border>
+                <Border Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="10,0,0,0" VerticalAlignment="Top">
+                    <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding IncreaseLengthOfStayCommand}">
+                        <Image Source="/TravelService;component/Resources/Images/plus.ico" Height="20" Width="20"></Image>
+                    </Button>
+                </Border>
+            </StackPanel>
         </Grid>
 
         <Grid Grid.Row="2">

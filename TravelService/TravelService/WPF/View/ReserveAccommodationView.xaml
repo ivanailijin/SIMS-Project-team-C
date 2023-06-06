@@ -4,32 +4,99 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
+        xmlns:val="clr-namespace:TravelService.Validation"
         mc:Ignorable="d"
-        Title="ReserveAccommodationView" Height="720" Width="420">
+        Title="ReserveAccommodationView" Height="720" Width="420" Background="#cce6ff">
+    <Page.Resources>
+        <local:IntToBooleanConverter x:Key="IntToBooleanConverter" />
+        <Style x:Key="reserveButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Content" Value="Pretrazi"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="#d9ffcc" />
+            <Setter Property="BorderBrush" Value="teal" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="RowBackground" Value="#b3ccff"/>
+            <Setter Property="GridLinesVisibility" Value="All" />
+            <Setter Property="HorizontalGridLinesBrush" Value="teal"/>
+            <Setter Property="VerticalGridLinesBrush" Value="teal"/>
+            <Setter Property="CanUserResizeColumns" Value="False" />
+            <Setter Property="CanUserResizeRows" Value="False" />
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="AutoGenerateColumns" Value="False" />
+            <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="ColumnHeaderHeight" Value="30" />
+            <Setter Property="RowHeight" Value="30" />
+            <Setter Property="RowBackground" Value="LightGray"/>
+            <Setter Property="Margin" Value="0,0,15,0" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="teal"/>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="gray"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="gray"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="370"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="350"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" HorizontalAlignment="Left" Width="30" Height="30" BorderBrush="White" Command="{Binding PreviousPageCommand}">
+        <Button Grid.Row="0" HorizontalAlignment="Left" Width="30" Height="30" BorderBrush="Transparent" Margin="5,0,0,0" Command="{Binding PreviousPageCommand}">
             <Button.Background>
                 <ImageBrush ImageSource="/TravelService;component/Resources/Images/arrow-left.png"></ImageBrush>
             </Button.Background>
         </Button>
 
-        <Grid Grid.Row="1" Height="320" Width="300">
+        <Grid Grid.Row="1" Height="320" Width="350">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="32"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Odaberite opseg datuma" FontSize="17" VerticalAlignment="Bottom"></Label>
-            <TextBlock Grid.Row="1" Text="{Binding Notification}" TextWrapping="Wrap" FontSize="12" Foreground="Red"></TextBlock>
+            <Label Grid.Row="0" Content="Odaberite opseg datuma" FontWeight="DemiBold" FontSize="18" VerticalAlignment="Bottom"></Label>
+            <TextBlock Grid.Row="1" Text="{Binding Notification}" TextWrapping="Wrap" FontSize="12" Foreground="Red" Margin="5,0,0,0"></TextBlock>
             <DataGrid Grid.Row="2" ItemsSource="{Binding AvailableDatesPair}" SelectedItem="{Binding SelectedAvailableDatePair}"  AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Dolazak" Binding="{Binding Item1, StringFormat='{}{0:d}'}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Dolazak" Binding="{Binding Item1, StringFormat='{}{0:d}'}" Width="*">
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Odlazak" Binding="{Binding Item2, StringFormat='{}{0:d}'}"  Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
@@ -41,11 +108,47 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Broj gostiju" FontSize="17" VerticalAlignment="Bottom"></Label>
-            <TextBox x:Name="guestNumberBox" Grid.Row="1" Text="{Binding GuestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBox Width="150" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <TextBox.Text>
+                        <Binding Path="GuestNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:NumberValidation ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <AdornedElementPlaceholder Grid.Column="1" Grid.Row="0" x:Name="textBox"/>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <Border Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="10,0,0,0" VerticalAlignment="Top">
+                    <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding DecreaseGuestNumberCommand}" IsEnabled="{Binding GuestNumber, Converter={StaticResource IntToBooleanConverter}}">
+                        <Image Source="/TravelService;component/Resources/Images/minus.ico" Height="20" Width="20"></Image>
+                    </Button>
+                </Border>
+                <Border Background="Teal" BorderBrush="DimGray" BorderThickness="2" CornerRadius="9" Width="40" Height="40" Margin="10,0,0,0" VerticalAlignment="Top">
+                    <Button BorderBrush="Transparent" Background="Transparent" Command="{Binding IncreaseGuestNumberCommand}">
+                        <Image Source="/TravelService;component/Resources/Images/plus.ico" Height="20" Width="20"></Image>
+                    </Button>
+                </Border>
+            </StackPanel>
         </Grid>
 
         <Grid Grid.Row="3">
-            <Button Width="320" Height="65" Content="Rezervisi" FontSize="20" Command="{Binding ReserveAccommodationCommand}"></Button>
+            <Button Width="320" Height="65" Content="Rezervisi" FontSize="20" Margin="0,0,14,26" Command="{Binding ReserveAccommodationCommand}" Style="{StaticResource reserveButtonStyle}"></Button>
         </Grid>
     </Grid>
 </Page>
