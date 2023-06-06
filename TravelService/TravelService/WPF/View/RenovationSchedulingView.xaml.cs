@@ -28,8 +28,6 @@ namespace TravelService.WPF.View
             InitializeComponent();
             RenovationSchedulingViewModel renovationSchedulingViewModel = new RenovationSchedulingViewModel(owner, selectedAccommodation, this);
             DataContext = renovationSchedulingViewModel;
-            //if (renovationSchedulingViewModel.CloseAction == null)
-              //  renovationSchedulingViewModel.CloseAction = new Action(this.Close);
         }
 
         public void GoBack()

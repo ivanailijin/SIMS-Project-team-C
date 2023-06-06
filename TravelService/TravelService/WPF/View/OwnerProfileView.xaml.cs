@@ -28,8 +28,6 @@ namespace TravelService.WPF.View
             InitializeComponent();
             OwnerProfileViewModel ownerProfileViewModel = new OwnerProfileViewModel(owner, this);
             DataContext = ownerProfileViewModel;
-            //if (ownerProfileViewModel.CloseAction == null)
-               // ownerProfileViewModel.CloseAction = new Action(this.Close);
         }
         public void GoBack()
         {

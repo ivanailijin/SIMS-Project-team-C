@@ -30,8 +30,6 @@ namespace TravelService.WPF.View
             InitializeComponent();
             ReviewsSelectionViewModel reviewsSelectionViewModel = new ReviewsSelectionViewModel(owner, this);
             DataContext = reviewsSelectionViewModel;
-            //if (reviewsSelectionViewModel.CloseAction == null)
-               // reviewsSelectionViewModel.CloseAction = new Action(this.Close);
         }
         public void GoBack()
         {

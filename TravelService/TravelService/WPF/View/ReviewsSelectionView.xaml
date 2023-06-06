@@ -22,6 +22,19 @@
             <Setter Property="FontFamily" Value="Candara" ></Setter>
             <Setter Property="FontSize" Value="18"></Setter>
         </Style>
+        <Style x:Key="RoundedGrayButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#4d4d4d" Background="#d2d6d6" BorderThickness="1.5" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontFamily" Value="Candara" ></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
         <Style x:Key="LabelDataStyle" TargetType="{x:Type Label}">
             <Setter Property="FontFamily" Value="Candara"/>
             <Setter Property="FontSize" Value="14"/>
@@ -83,7 +96,7 @@
         </Grid>
 
         <WrapPanel Grid.Row="3" FlowDirection="LeftToRight">
-            <Button Width="270" Height="30" Content="Izvestaj o prosecnim ocenama" FontFamily="Candara" FontSize="17" Margin="67 0 0 0"></Button>
+            <Button Style="{StaticResource ResourceKey=RoundedGrayButton}" Width="270" Height="30" Content="Izvestaj o prosecnim ocenama" FontFamily="Candara" FontSize="17" Margin="67 0 0 0"></Button>
             <Separator Background="#ebf2f2" Width="100"></Separator>
             <Button Style="{StaticResource ResourceKey=RoundedButton}" Foreground="White" FontWeight="SemiBold" Content="Prikazi recenzije" IsDefault="True" HorizontalAlignment="Left" Width="185" Height="43" VerticalAlignment="Top" Margin="333, 0, 20, 5" 
                     Command="{Binding ShowReviewCommand}"/>

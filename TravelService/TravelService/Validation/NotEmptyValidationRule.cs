@@ -17,7 +17,7 @@ namespace TravelService.Validation
         {
             if (string.IsNullOrEmpty(value?.ToString()))
             {
-                return new ValidationResult(false, "Polje je obavezno!!");
+                return new ValidationResult(false, "Polje je obavezno!");
             }
 
             return ValidationResult.ValidResult;

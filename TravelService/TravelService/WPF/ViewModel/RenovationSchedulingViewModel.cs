@@ -133,7 +133,7 @@ namespace TravelService.WPF.ViewModel
             {
                 AccommodationRenovation accommodationRenovation = new AccommodationRenovation(SelectedAccommodation.Id, Owner.Id, SelectedAvailableDatePair.Item1, SelectedAvailableDatePair.Item2, RenovationDescription);
                 _renovationService.Save(accommodationRenovation);
-                CloseAction();
+                RenovationSchedulingView.GoBack();
             }
             else
             {

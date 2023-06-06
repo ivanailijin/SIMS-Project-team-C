@@ -28,8 +28,6 @@ namespace TravelService.WPF.View
             InitializeComponent();
             ScheduledRenovationsCancellationViewModel scheduledRenovationsCancellationViewModel = new ScheduledRenovationsCancellationViewModel(owner, this);
             DataContext = scheduledRenovationsCancellationViewModel;
-            //if (scheduledRenovationsCancellationViewModel.CloseAction == null)
-             //   scheduledRenovationsCancellationViewModel.CloseAction = new Action(this.Close);
         }
 
         public void GoBack()

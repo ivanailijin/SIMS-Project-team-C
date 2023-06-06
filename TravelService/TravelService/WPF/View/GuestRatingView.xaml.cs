@@ -32,8 +32,6 @@ namespace TravelService.WPF.View
             InitializeComponent();
             GuestRatingViewModel guestRatingViewModel = new GuestRatingViewModel(selectedReservation, owner, this, unratedReservations);
             DataContext = guestRatingViewModel;
-            //if (guestRatingViewModel.CloseAction == null)
-              //  guestRatingViewModel.CloseAction = new Action(this.Close);
         }
         public void GoBack()
         {

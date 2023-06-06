@@ -88,12 +88,12 @@ namespace TravelService.WPF.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Otkazivanje nije moguce!\n Do pocetka renoviranja ima manje od 5 dana.");
+                    MessageBoxResult result = MessageBox.Show("Otkazivanje nije moguce!\n Do pocetka renoviranja ima manje od 5 dana.", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Morate izabrati renoviranje koje zelite da otkazete!");
+                MessageBoxResult result = MessageBox.Show("Morate izabrati renoviranje koje zelite da otkazete!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private void Execute_CancelCommand(object obj)
