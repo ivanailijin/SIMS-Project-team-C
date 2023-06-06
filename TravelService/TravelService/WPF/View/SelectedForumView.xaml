@@ -68,8 +68,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="90"></RowDefinition>
-            <RowDefinition Height="460"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="470"></RowDefinition>
             <RowDefinition Height="140"></RowDefinition>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Command="{Binding PreviousPageCommand}" HorizontalAlignment="Left" Width="30" Height="30" Margin="5,0,0,0" BorderThickness="0">
@@ -79,10 +79,10 @@
         </Button>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="270"></ColumnDefinition>
+                <ColumnDefinition Width="290"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Margin="40,0,0,0">
+            <StackPanel Grid.Column="0" Margin="18,0,0,0">
                 <Label Content="{Binding SelectedForum.Name}" FontSize="20" FontWeight="DemiBold"></Label>
                 <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
                     <TextBlock Text="Zapoceo: " FontSize="14"></TextBlock>
@@ -109,7 +109,7 @@
                 <TextBlock Text="odgovora" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </StackPanel>
         </Grid>
-        <ListBox Grid.Row="2" ItemsSource="{Binding Comments}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="440" Background="#cce6ff">
+        <ListBox Grid.Row="2" ItemsSource="{Binding Comments}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="455" Background="#cce6ff">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -118,7 +118,7 @@
                             <ColumnDefinition Width="240"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <Image Source="{Binding User.Picture}" Width="100" Height="100" Margin="0,5,10,5"></Image>
+                            <Image Source="{Binding User.Picture}" Width="90" Height="90" Margin="0,5,10,5"></Image>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding User.Username}" FontSize="18" FontWeight="DemiBold" Margin="15,0,0,0"></TextBlock>
                                 <Image Width="17" Height="17" Margin="5,0,0,0" Source="/TravelService;component/Resources/Images/map-marker.png" Visibility="{Binding IsMarkedComment, Converter={StaticResource BooleanToVisibilityConverter}}" />

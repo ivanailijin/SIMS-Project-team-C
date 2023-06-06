@@ -52,11 +52,6 @@ namespace TravelService.WPF.ViewModel
                     _selectedAccommodation = value;
                     OnPropertyChanged();
                 }
-                else
-                {
-                    _selectedAccommodation = value;
-                    OnPropertyChanged();
-                }
             }
         }
 
@@ -74,43 +69,15 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private RelayCommand _reserveCommand;
-        public RelayCommand ReserveCommand
+        private RelayCommand _findAccommodationsWindowCommand;
+        public RelayCommand FindAccommodationsWindowCommand
         {
-            get => _reserveCommand;
+            get => _findAccommodationsWindowCommand;
             set
             {
-                if (value != _reserveCommand)
+                if (value != _findAccommodationsWindowCommand)
                 {
-                    _reserveCommand = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private RelayCommand _ratingWindowCommand;
-        public RelayCommand RatingWindowCommand
-        {
-            get => _ratingWindowCommand;
-            set
-            {
-                if (value != _ratingWindowCommand)
-                {
-                    _ratingWindowCommand = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private RelayCommand _reservationsWindowCommand;
-        public RelayCommand ReservationsWindowCommand
-        {
-            get => _reservationsWindowCommand;
-            set
-            {
-                if (value != _reservationsWindowCommand)
-                {
-                    _reservationsWindowCommand = value;
+                    _findAccommodationsWindowCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -143,6 +110,7 @@ namespace TravelService.WPF.ViewModel
             Accommodations = new ObservableCollection<Accommodation>(accommodations);
 
             SearchWindowCommand = new RelayCommand(Execute_SearchWindow, CanExecute_Command);
+            FindAccommodationsWindowCommand = new RelayCommand(Execute_FindAccommodationsWindow, CanExecute_Command);
             AccommodationSelectedCommand = new RelayCommand(Execute_OnItemSelected, CanExecute_Command);
         }
 
@@ -156,7 +124,13 @@ namespace TravelService.WPF.ViewModel
             SearchAccommodationView searchAccommodationView = new SearchAccommodationView(this);
             FirstGuestWindow firstGuestWindow = Window.GetWindow(AccommodationView) as FirstGuestWindow ?? new(Guest1);
             firstGuestWindow?.SwitchToPage(searchAccommodationView);
+        }
 
+        private void Execute_FindAccommodationsWindow(object sender)
+        {
+            FindAvailableAccommodationsView findAvailableAccommodationsView = new FindAvailableAccommodationsView(Guest1);
+            FirstGuestWindow firstGuestWindow = Window.GetWindow(AccommodationView) as FirstGuestWindow ?? new(Guest1);
+            firstGuestWindow?.SwitchToPage(findAvailableAccommodationsView);
         }
 
         private void Execute_OnItemSelected(object sender)

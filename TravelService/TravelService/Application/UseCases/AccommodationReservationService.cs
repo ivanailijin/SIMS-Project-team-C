@@ -529,5 +529,50 @@ namespace TravelService.Application.UseCases
             bool hasReservation = reservations.Exists(r => r.GuestId == guestId && r.LocationId == locationId && r.CheckOutDate < DateTime.Today && !r.IsCancelled);
             return hasReservation;
         }
+
+        public bool IsAccommodationAvailable(Accommodation selectedAccommodation, DateTime startDate, DateTime endDate, int daysOfStaying)
+        {
+            List<DateTime> reservedDates = FindReservedDates(selectedAccommodation);
+            int daysCount = 0;
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                if (!reservedDates.Contains(date))
+                {
+                    daysCount++;
+                }
+                else
+                {
+                    daysCount = 0;
+                }
+
+                if (daysCount >= daysOfStaying)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public List<Accommodation> FilterAvailableAccommodations(DateTime checkInDate, DateTime checkOutDate, int numDays, int guestNumber)
+        {
+            List<Accommodation> accommodations = _accommodationService.GetAll();
+            accommodations = _accommodationService.GetLocationData(accommodations);
+            accommodations = _accommodationService.GetOwnerData(accommodations);
+            accommodations = _accommodationService.SortBySuperowner(accommodations);
+            List<Accommodation> availableAccommodations = new List<Accommodation>();
+
+            foreach (Accommodation accommodation in accommodations)
+            {
+                if (accommodation.MaxGuestNumber >= guestNumber)
+                {
+                    if (IsAccommodationAvailable(accommodation, checkInDate, checkOutDate, numDays))
+                    {
+                        availableAccommodations.Add(accommodation);
+                    }
+                }
+            }
+            return availableAccommodations;
+        }
     }
 }

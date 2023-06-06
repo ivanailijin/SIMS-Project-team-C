@@ -58,6 +58,9 @@
     <Compile Update="WPF\View\ChooseRequestTypeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\FindAvailableAccommodationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\FirstGuestProfileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -124,6 +127,9 @@
     <Compile Update="WPF\View\OwnerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\RecommendedAccommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\RenovationRecommendationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -137,6 +143,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ReserveAccommodationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ReserveAnywhereView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ReviewsSelectionView.xaml.cs">
@@ -285,6 +294,9 @@
     <Page Update="WPF\View\CheckPointView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\FindAvailableAccommodationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\FirstGuestProfileView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -348,6 +360,9 @@
     <Page Update="WPF\View\OwnerView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\RecommendedAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\RenovationRecommendationView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -361,6 +376,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ReserveAccommodationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ReserveAnywhereView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ReviewsSelectionView.xaml">
