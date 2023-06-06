@@ -36,6 +36,7 @@ namespace TravelService.WPF.ViewModel
         public List<Language> Languages { get; set; }
         public List<CheckPoint> CheckPoints { get; set; }
         public ObservableCollection<TourReservation> TourReservations { get; set; }
+
         private RelayCommand _cancelCommand;
         public RelayCommand CancelCommand
         {
@@ -80,10 +81,6 @@ namespace TravelService.WPF.ViewModel
             ActiveTours = new ObservableCollection<Tour>(_tourReservationService.showAllActiveToursNew(Tours.ToList(), Locations, Languages, CheckPoints));
 
             /*
-            _guestVoucherRepository = new GuestVoucherRepository();
-
-            TourReservations = new ObservableCollection<TourReservation>(_tourReservationRepository.GetAll());
-            Vouchers = new ObservableCollection<GuestVoucher>(_guestVoucherRepository.GetAll());
             
             ReservationsByTour = new List<TourReservation>();
             ValidVouchers = new List<GuestVoucher>();
@@ -136,9 +133,6 @@ namespace TravelService.WPF.ViewModel
 
         private void UseVoucherButton_Click(object sender, RoutedEventArgs e)
         {
-            VoucherView voucherView = new VoucherView(this,SelectedVoucher,SelectedTour,Guest2);
-            voucherView.ResetItemSource(ValidVouchers);
-            voucherView.Show();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

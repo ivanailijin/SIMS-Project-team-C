@@ -22,10 +22,11 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class ShowTourInfoView : Window, INotifyPropertyChanged
     {
+        GuestVoucher selectedVoucher { get; set; }
         public ShowTourInfoView(Guest2 guest2, Tour selectedTour)
         {
             InitializeComponent();
-            ShowTourInfoViewModel showTourInfoViewModel = new ShowTourInfoViewModel(guest2, selectedTour);
+            ShowTourInfoViewModel showTourInfoViewModel = new ShowTourInfoViewModel(guest2, selectedTour, selectedVoucher);
             DataContext = showTourInfoViewModel;
             if (showTourInfoViewModel.CloseAction == null)
             {

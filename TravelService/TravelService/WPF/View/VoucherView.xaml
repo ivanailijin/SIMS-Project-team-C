@@ -6,23 +6,203 @@
          xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="VoucherView" Height="450" Width="500">
+        Title="VoucherView" Height="460" Width="960">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="90"/>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" x:Name="allVouchers" Width="200" Margin="0,20,0,20"
-                  ItemsSource="{Binding Path=GuestVouchers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedVoucher, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Type" Binding="{Binding VoucherType}" Width="75"></DataGridTextColumn>
-                <DataGridTextColumn Header="Expiration Date" Binding="{Binding ExpirationDate}" Width="125"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button  VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Height="30" FontSize="18" Click="UseButton_Click" Margin="0,0,30,0">Use</Button>
-            <Button  VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="30" FontSize="18" Click="CloseButton_Click">Close</Button>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.62*"></ColumnDefinition>
+            <ColumnDefinition Width="5.79*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="#435D75">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="4.5*"></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Height="50" Width="147" BorderThickness="1" CornerRadius="25,0,25,0" Background="#BECCDA"  HorizontalAlignment="Left" Margin="10,14,0,0"></Border>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,14,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Icons/play-circle.png" Height="30" Width="37" HorizontalAlignment="Left" Margin="15,3,10,0"/>
+                    <Button Content="DEMO" Height="50" Width="150" Margin="-52,0,-15,0" FontSize="25" Background="Transparent" Foreground="#D36582" BorderBrush="Transparent" HorizontalAlignment="Center" FontWeight="DemiBold">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"></Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+                <Button  Width="22" Height="22" Content="?" FontSize="20" Foreground="#BECCDA" ToolTip="Shows you how the application works.">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Stroke="#BECCDA" StrokeThickness="2"/>
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <!--Rectangle Grid.Column="0" VerticalAlignment="Bottom" Fill="Black" Height="3" ></Rectangle-->
+            <StackPanel Grid.Row="1" Margin="15,0,0,0" VerticalAlignment="Center">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding HomePageCommand}">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/home.png" Height="22" Width="33" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Home page" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="197" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="250" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/keyboard.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Page navigation" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding VoucherViewCommand}">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/ticket.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Vouchers" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/document.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Requests" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/stats.png" Height="22" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Statistics" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/calendar.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Reservations" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/help.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="Help" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
+                        <Image Source="/Resources/Icons/file.png" Height="25" Width="33" HorizontalAlignment="Left" />
+                        <TextBlock Text="The report" FontSize="17" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Border Grid.Row="2" Height="88" Width="200" BorderThickness="5" CornerRadius="40,0,40,0" Background="#D36582" HorizontalAlignment="Left" Margin="3,2,1,14"></Border>
+            <StackPanel Grid.Row="2" Margin="19,0,0,7" Orientation="Horizontal">
+                <Image Source="/Resources/Icons/user.png" Height="60" Width="60" HorizontalAlignment="Left" />
+                <StackPanel VerticalAlignment="Center" Margin="7">
+                    <TextBlock Text="{Binding Username}" FontSize="20" Foreground="White"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="11*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,0,0,0" Width="50" HorizontalAlignment="Left">
+                <Button Width="30" Height="40" Background="Transparent" BorderBrush="Transparent">
+                    <Image Source="/Resources/Icons/bell.png" Width="27" Height="29"></Image>
+                </Button>
+                <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="Black" ToolTip="Shows all of your notifications.">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Stroke="Black" StrokeThickness="2"/>
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <Button Height="40" Width="80" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0,0,5,0">
+                <StackPanel Height="33" Width="80" Orientation="Horizontal">
+                    <TextBlock Text="Help" FontSize="17" VerticalAlignment="Center" />
+                    <Image Source="/Resources/Icons/help2.png" Height="25" Width="33" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                </StackPanel>
+            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0">
+                <TextBlock FontSize="30" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" Margin="0,0,0,0">Reserve the tour!</TextBlock>
+                <Button  Width="18" Height="18" Content="?" Margin="5,5,0,0" FontSize="12" Foreground="#D36582" VerticalAlignment="Top" ToolTip="Take a look at the tour and reserve it.">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Stroke="#D36582" StrokeThickness="2"/>
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <Grid Grid.Row="1" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="allVouchers" Grid.Row="0" Grid.Column="0" Background="Transparent"
+                     BorderThickness="3"
+                     ItemsSource="{Binding Path=GuestVouchers, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding Path=SelectedVoucher, UpdateSourceTrigger=PropertyChanged}" Width="350"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="#435D75" Background="#435D75" Padding="5" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <!-- Picture column -->
+                                        <ColumnDefinition Width="*" />
+                                        <!-- Text column -->
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding VoucherType}"  FontSize="18" Foreground="White" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding ExpirationDate}"  FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,30" Height="40">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                    <Button HorizontalAlignment="Center" Height="42" Margin="22,0,0,0" Command="{Binding UseCommand}" Background="#D36582" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" VerticalAlignment="Bottom">Use voucher</Button>
+
+                    <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="#D36582" VerticalAlignment="Center"  Margin="0,0,22,0"  ToolTip="Press to open the complex request, it will show you all the requests inside it.">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Ellipse Stroke="#D36582" StrokeThickness="2"/>
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+                <Button Content="Cancel" Command="{Binding CancelCommand}" Background="#BECCDA" BorderBrush="Transparent" FontSize="15" Foreground="#D36582" FontWeight="DemiBold" VerticalAlignment="Center" Height="27" Width="80" Margin="0,0,0,0"/>
+
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

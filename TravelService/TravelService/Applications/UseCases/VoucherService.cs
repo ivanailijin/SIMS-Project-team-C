@@ -102,5 +102,27 @@ namespace TravelService.Applications.UseCases
             }
             return years.Count();
         }
+        public List<GuestVoucher> showValidVouchers(List<GuestVoucher> Vouchers, Guest2 guest2)
+        {
+            List<GuestVoucher> validVouchers = new List<GuestVoucher>();
+            bool isVoucherValid = false;
+            List<GuestVoucher> guestsVouchers = showVoucherList(Vouchers, guest2);
+            foreach (GuestVoucher voucher in guestsVouchers)
+            {
+                isVoucherValid = checkVoucherExpirationDate(voucher, validVouchers);
+                //deleteIfNotValid(isVoucherValid, voucher);
+            }
+            return validVouchers;
+        }
+        private bool checkVoucherExpirationDate(GuestVoucher voucher, List<GuestVoucher> validVouchers)
+        {
+            DateTime currentDate = DateTime.Now.Date.AddYears(1);
+            if (voucher.ExpirationDate.Date >= currentDate)
+            {
+                validVouchers.Add(voucher);
+                return true;
+            }
+            else return false;
+        }
     }
 }
