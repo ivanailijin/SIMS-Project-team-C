@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
@@ -25,6 +27,7 @@ namespace TravelService.WPF.ViewModel
         public Owner Owner { get; set; }
 
         public NavigationService _navigationService;
+        public MediaElement MediaElement { get; set; }
 
         public ForumService _forumService;
         public Action CloseAction { get; set; }
@@ -40,6 +43,8 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand ShowRenovationsCommand { get; set; }    
         public RelayCommand ShowStatisticsCommand { get; set; }
         public RelayCommand ShowForumsCommand { get; set; }
+        public RelayCommand OpenVideoCommand { get; set; }
+        public RelayCommand ShowNotificationsCommand { get; set; }
 
 
         private object _currentViewModel;
@@ -100,6 +105,14 @@ namespace TravelService.WPF.ViewModel
             ShowRenovationsCommand = new RelayCommand(Execute_ShowRenovationsCommand, CanExecute_Command);
             ShowStatisticsCommand = new RelayCommand(Execute_ShowStatisticsCommand, CanExecute_Command);
             ShowForumsCommand = new RelayCommand(Execute_ShowForumsCommand, CanExecute_Command);
+            OpenVideoCommand = new RelayCommand(Execute_OpenVideoCommand, CanExecute_Command);
+            ShowNotificationsCommand = new RelayCommand(Execute_ShowNotificationsCommand, CanExecute_Command);
+        }
+        private void Execute_ShowNotificationsCommand(object obj)
+        {
+            NotificationView notificationView = new NotificationView(Owner);
+            OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
+            ownerWindow?.SwitchToPage(notificationView);
         }
         private void Execute_ShowStatisticsCommand(object obj)
         {
@@ -124,6 +137,16 @@ namespace TravelService.WPF.ViewModel
             RenovationSelectionView renovationSelectionView = new RenovationSelectionView(Owner);
             OwnerWindow ownerWindow = Window.GetWindow(OwnerView) as OwnerWindow ?? new(Owner);
             ownerWindow?.SwitchToPage(renovationSelectionView);
+        }
+        private void Execute_OpenVideoCommand(object obj)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Video Files (*.mp4;*.mkv;*.avi)|*.mp4;*.mkv;*.avi|All Files (*.*)|*.*";
+
+            String filePath = "file:///C:/Users/hp/Desktop/slikeTutorijal/mojTutorijal.mkv";
+
+            VideoWindow videoWindow = new VideoWindow(filePath);
+            videoWindow.ShowDialog();
         }
         private void Execute_ShowProfileCommand(object obj)
         {

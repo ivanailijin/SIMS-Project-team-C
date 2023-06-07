@@ -96,7 +96,7 @@
         </Grid>
 
         <WrapPanel Grid.Row="3" FlowDirection="LeftToRight">
-            <Button Style="{StaticResource ResourceKey=RoundedGrayButton}" Width="270" Height="30" Content="Izvestaj o prosecnim ocenama" FontFamily="Candara" FontSize="17" Margin="67 0 0 0"></Button>
+            <Button Style="{StaticResource ResourceKey=RoundedGrayButton}" Width="270" Height="30" Content="Izvestaj o prosecnim ocenama" Command="{Binding GenerateReportCommand}" FontFamily="Candara" FontSize="17" Margin="67 0 0 0"></Button>
             <Separator Background="#ebf2f2" Width="100"></Separator>
             <Button Style="{StaticResource ResourceKey=RoundedButton}" Foreground="White" FontWeight="SemiBold" Content="Prikazi recenzije" IsDefault="True" HorizontalAlignment="Left" Width="185" Height="43" VerticalAlignment="Top" Margin="333, 0, 20, 5" 
                     Command="{Binding ShowReviewCommand}"/>

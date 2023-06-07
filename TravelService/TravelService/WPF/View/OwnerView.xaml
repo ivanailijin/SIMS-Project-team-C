@@ -54,7 +54,6 @@
         </Style>
     </Page.Resources>
     <Grid >
-
         <StackPanel Orientation="Horizontal">
             <Border BorderBrush="#7a5167" Background="#fae8f1"  BorderThickness="3" Margin="5 5 5 27">
                 <StackPanel Orientation="Vertical" Width="300">
@@ -90,14 +89,14 @@
                         </StackPanel>
                     </Border>
                     <Button Style="{StaticResource ResourceKey=TextButton}" Margin="90 12" Height="25" FontSize="16" Background="#b4d5d6" Content="Recenzije" Command="{Binding ReviewSelectionCommand}"></Button>
-                    <Button  Height="32" Width="32" Margin="0, 123, 0, 0" Background="White" BorderBrush="#adadac" BorderThickness="2" HorizontalAlignment="Center">
+                    <Button  Height="32" Width="32" Margin="0, 123, 0, 0" Background="White" BorderBrush="#adadac" BorderThickness="2" Command="{Binding ShowNotificationsCommand}" HorizontalAlignment="Center">
                         <Button.Content>
                             <Viewbox Height="25" Width="25">
                                 <Image Source="/TravelService;component/Resources/Images/notification-icon.png"/>
                             </Viewbox>
                         </Button.Content>
                     </Button>
-                    <Button Style="{StaticResource ResourceKey=WhiteTextButton}" Height="24" Width="90" Margin="0 17 0 0" Content="Tutorijal" HorizontalAlignment="Center"></Button>
+                    <Button Style="{StaticResource ResourceKey=WhiteTextButton}" Height="24" Width="90" Margin="0 17 0 0" Content="Tutorijal" Command="{Binding OpenVideoCommand}" HorizontalAlignment="Center"></Button>
                     <Button Style="{StaticResource ResourceKey=WhiteTextButton}" Width="90" Height="20" Margin="0 10 0 0" Content="Odjavi se" Command="{Binding LogOutCommand}"></Button>
                 </StackPanel>
             </Border>

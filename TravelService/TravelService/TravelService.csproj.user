@@ -103,6 +103,9 @@
     <Compile Update="WPF\View\MyTours.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\NotificationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\OwnerProfileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -212,6 +215,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\UpdateOwnerProfileView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\VideoWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\VoucherView.xaml.cs">
@@ -328,6 +334,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\MyTours.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\NotificationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\OwnerProfileView.xaml">
@@ -454,6 +463,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\UpdateOwnerProfileView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\VideoWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\VoucherView.xaml">
