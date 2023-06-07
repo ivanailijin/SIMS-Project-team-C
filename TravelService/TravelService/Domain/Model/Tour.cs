@@ -9,6 +9,7 @@ namespace TravelService.Domain.Model
 {
     public class Tour : ISerializable
     {
+        public Guide Guide {get;set;}
         public int Id { get; set; }
         public int GuideId { get; set; }
         public string Name { get; set; }

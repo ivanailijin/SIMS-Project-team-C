@@ -111,6 +111,7 @@ namespace TravelService.Applications.UseCases
 
         public bool AvailabilityDate(List<Tour> existingTours, DateTime selectedDate)
         {
+            
             foreach (var tour in existingTours)
             {
                 if (tour.TourStart.Date == selectedDate.Date)
@@ -120,7 +121,20 @@ namespace TravelService.Applications.UseCases
             }
             return true;
         }
-
+        public bool Availability(List<Tour> existingTours, DateTime tourStart, DateTime tourEnd)
+        {
+            for (DateTime date = tourStart.Date; date <= tourEnd.Date; date = date.AddDays(1))
+            {
+                foreach (var tour in existingTours)
+                {
+                    if (tour.TourStart.Date <= date && tour.TourEnd.Date >= date)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         public List<TourRequest> GetLocationData(List<TourRequest> tourRequests)
         {
             List<Location> locations = _locationService.GetAll();

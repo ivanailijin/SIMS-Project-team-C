@@ -11,6 +11,7 @@ using TravelService.Domain.RepositoryInterface;
 using TravelService.WPF.View;
 using System.IO;
 using TravelService.Repository;
+using TravelService.Applications.Utils;
 
 namespace TravelService.Applications.UseCases
 {
@@ -20,11 +21,12 @@ namespace TravelService.Applications.UseCases
         private readonly ITourRepository _tourRepository;
         private readonly IGuestRepository _guestRepository;
         private readonly IGuestVoucherRepository _guestVoucherRepository;
-
+        private readonly GuideService guideService;
 
         public TourService(ITourRepository tourRepository)
         {
             _tourRepository = tourRepository;
+            guideService = new GuideService(Injector.CreateInstance<IGuideRepository>());
         }
         public void Delete(Tour tour)
         {
@@ -46,7 +48,15 @@ namespace TravelService.Applications.UseCases
         {
             _tourRepository.Update(tour);
         }
-
+        public List<Tour> GetGuideData(List<Tour> tours)
+        {
+            List<Guide> guides = guideService.GetAll();
+            foreach (Tour tour in tours)
+            {
+                tour.Guide = guides.Find(g => g.Id == tour.GuideId);
+            }
+            return tours;
+        }
 
         public List<Tour> ShowPastTourList(List<Tour> Tours, List<Location> Locations, List<Language> Languages, List<CheckPoint> CheckPoints, List<Guest> Guests, Guest2 guest2)
         {
@@ -65,6 +75,12 @@ namespace TravelService.Applications.UseCases
             }
             return PastTours;
         }
+        public List<Tour> SortBySuperGuide(List<Tour> tours)
+        {
+            return tours.OrderByDescending(a => a.Guide.SuperGuide).ToList();
+        }
+
+       
 
         public List<CheckPoint> ShowCheckPointList(int TourId, List<Tour> Tours, List<CheckPoint> CheckPoints)
         {
@@ -304,14 +320,12 @@ namespace TravelService.Applications.UseCases
 
         public void SendVouchers(Tour tour)
         {
-
             List<Guest> guests = _guestRepository.FindByTourId(tour.Id);
 
             foreach (Guest guest in guests)
             {
-
                 GuestVoucher newVoucher = new GuestVoucher("Vaucer", VOUCHERTYPE.CANCELLATION, 200, "17f", false, guest.Id, tour.Id, DateTime.Now.AddYears(1));
-                _guestVoucherRepository.Save(newVoucher);
+
                 if (guest.VoucherList == null)
                 {
                     guest.VoucherList = new List<GuestVoucher> { newVoucher };
@@ -321,12 +335,10 @@ namespace TravelService.Applications.UseCases
                     guest.VoucherList.Add(newVoucher);
                 }
 
-                _guestRepository.Save(guest);
                 _guestRepository.Update(guest);
-
             }
-
         }
+
 
         public List<CheckPoint> ShowListCheckPointList(int TourId, List<Tour> Tours, List<CheckPoint> CheckPoints)
         {
@@ -480,17 +492,8 @@ namespace TravelService.Applications.UseCases
         public void PoslatiVaucer(Tour tour, Guest guest)
         {
             GuestVoucher newVoucher = new GuestVoucher("Vaucer zbog otkaza", VOUCHERTYPE.QUIT, 200, "17f", false, guest.Id, -1, DateTime.Now.AddYears(2));
-            _guestVoucherRepository.Save(newVoucher);
-
-            if (guest.VoucherList == null)
-            {
-                guest.VoucherList = new List<GuestVoucher> { newVoucher };
-            }
-            else
-            {
-                guest.VoucherList.Add(newVoucher);
-            }
-
+            // Samo dodajte novi vaučer u listu
+            guest.VoucherList.Add(newVoucher);
             _guestRepository.Update(guest);
         }
 
@@ -508,11 +511,11 @@ namespace TravelService.Applications.UseCases
                         _guestVoucherRepository.Update(voucher);
                     }
 
-                    _guestRepository.Save(guest);
                     _guestRepository.Update(guest);
                 }
             }
         }
+
 
 
 

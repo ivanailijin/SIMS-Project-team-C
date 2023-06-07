@@ -117,7 +117,178 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Prihvati</value>
+  </data>
+  <data name="Attendance" xml:space="preserve">
+    <value>Prisustvo</value>
+  </data>
+  <data name="Best Tours" xml:space="preserve">
+    <value>Najbolje Ture</value>
+  </data>
+  <data name="Between 18 and 50" xml:space="preserve">
+    <value>Izmedju 18 i 50</value>
+  </data>
+  <data name="Cancel Tour" xml:space="preserve">
+    <value>Otkazi Turu</value>
+  </data>
+  <data name="CheckPoint Name" xml:space="preserve">
+    <value>Ime Kljucne Tacke</value>
+  </data>
+  <data name="City and country" xml:space="preserve">
+    <value>Grad i drzava</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="Complex Tours" xml:space="preserve">
+    <value>Kompleksne Ture</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Napravi </value>
+  </data>
+  <data name="Create Tour" xml:space="preserve">
+    <value>Dodaj Turu</value>
+  </data>
+  <data name="Create Tour for Language" xml:space="preserve">
+    <value>Kreiraj turu za Jezik</value>
+  </data>
+  <data name="Create Tour for Location" xml:space="preserve">
+    <value>Kreiraj Turu za Lokaciju</value>
+  </data>
+  <data name="Current Checkpoint" xml:space="preserve">
+    <value>Trenutna Kljucna tacka</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="Dissmisal" xml:space="preserve">
+    <value>Otkaz</value>
+  </data>
+  <data name="End Tour" xml:space="preserve">
+    <value>Zavrsi Turu</value>
+  </data>
+  <data name="Future Tours" xml:space="preserve">
+    <value>Buduce Ture</value>
+  </data>
+  <data name="Go back" xml:space="preserve">
+    <value>Vrati se nazad</value>
+  </data>
+  <data name="GUEST LIST" xml:space="preserve">
+    <value>Lista Gostiju</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Pocetak</value>
+  </data>
+  <data name="Invalid location selected" xml:space="preserve">
+    <value>Pogresna lokacija selektovana</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Jezik</value>
+  </data>
+  <data name="List of  Complex Tours" xml:space="preserve">
+    <value>Lista Kompleksnih Tura</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Lokacija</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Izloguj se</value>
+  </data>
+  <data name="Mark" xml:space="preserve">
+    <value>Oznaci</value>
+  </data>
+  <data name="Most Requested Language" xml:space="preserve">
+    <value>Najtrazeniji Jezik</value>
+  </data>
+  <data name="Most Requested Location" xml:space="preserve">
+    <value>Najtrazenija Lokacija</value>
+  </data>
+  <data name="Most Visited Tours" xml:space="preserve">
+    <value>Najposecenije Ture</value>
+  </data>
+  <data name="Most Visited Tours in Selected Year" xml:space="preserve">
+    <value>Najposecenije u izabranaj godini</value>
+  </data>
+  <data name="Number of guests" xml:space="preserve">
+    <value>Broj gostiju</value>
+  </data>
+  <data name="Number of tour requests for" xml:space="preserve">
+    <value>Broj zahteva za ture za</value>
+  </data>
+  <data name="Over 50" xml:space="preserve">
+    <value>Vise od 50</value>
+  </data>
+  <data name="Past Tours" xml:space="preserve">
+    <value>Prosle Ture</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Request Approved" xml:space="preserve">
+    <value>Zahtev prihvacen</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Zahtevi</value>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Ocene</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pretrazi</value>
+  </data>
+  <data name="Select Year" xml:space="preserve">
+    <value>Izaberi Godinu</value>
+  </data>
+  <data name="Show Languge Statistics" xml:space="preserve">
+    <value>Prikazi statistiku za jezik</value>
+  </data>
+  <data name="Show Location Statistics" xml:space="preserve">
+    <value>Prikazi statistiku za lokacije</value>
+  </data>
+  <data name="Show Reviews" xml:space="preserve">
+    <value>Prikazi ocene</value>
+  </data>
+  <data name="Start Tour" xml:space="preserve">
+    <value>Zapocni</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistike</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>Statistika</value>
+  </data>
+  <data name="Suggestions" xml:space="preserve">
+    <value>Predlozi</value>
+  </data>
+  <data name="Tour Name" xml:space="preserve">
+    <value>Ime Ture</value>
+  </data>
+  <data name="Tour Start Date" xml:space="preserve">
+    <value>Datum pocetka</value>
+  </data>
+  <data name="Tour Start End" xml:space="preserve">
+    <value>Datum kraja</value>
+  </data>
+  <data name="Tours that are active today" xml:space="preserve">
+    <value>Ture aktivne danas</value>
+  </data>
+  <data name="TourStart" xml:space="preserve">
+    <value>Pocetak</value>
+  </data>
+  <data name="Under 18" xml:space="preserve">
+    <value>Ispod 18</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Korisnicko Ime</value>
+  </data>
+  <data name="With Voucher %" xml:space="preserve">
+    <value>SA Vaucerima %</value>
+  </data>
+  <data name="Without Voucher %" xml:space="preserve">
+    <value>Bez Vaucera %</value>
+  </data>
+  <data name="You must select a date within the valid tour range" xml:space="preserve">
+    <value>Moras da izaberes datum koji je u okviru kraja i pocetka ture</value>
   </data>
 </root>

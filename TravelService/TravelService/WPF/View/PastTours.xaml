@@ -47,10 +47,46 @@
                                     <Image Source="{Binding Pictures[0]}" Width="400" Height="250" Stretch="UniformToFill"/>
 
                                     <StackPanel Grid.Row="1" Margin="5">
-                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
-                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
-                                        <Button Command="{Binding ReviewsCommand}" Content="Reviews"   Height="50" Width="140"/>
-                                        <Button Command="{Binding StatsCommand}" Content="Statistics" Height="50" Width="140"/>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="20"/>
+                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                        <StackPanel Orientation="Horizontal" Margin=" 50 0 0 10">
+                                            <Button  Background="MediumPurple" Command="{Binding DataContext.ReviewsCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Reviews"   Height="50" Width="140">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Grid>
+                                                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                            <Button   Background="#FF5DC9BD" Command="{Binding DataContext.StatsCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Content="Statistics" Height="50" Width="140">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Grid>
+                                                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                        </StackPanel>
                                     </StackPanel>
 
                                     <Frame x:Name="MyPopupFrame" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="Collapsed" Height="0" Width="0"/>

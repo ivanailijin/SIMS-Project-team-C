@@ -143,8 +143,24 @@ namespace TravelService.WPF.ViewModel
         public List<Location> Locations { get; set; }
         public List<Language> Languages { get; set; }
         public List<CheckPoint> CheckPoints { get; set; }
-      
-   
+
+        private ObservableCollection<Tour> _tour;
+        public ObservableCollection<Tour> TouR
+        {
+            get => _tour;
+            set
+            {
+                if (value != _tour)
+                {
+                    _tour = value;
+                    OnPropertyChanged();
+                    List<Tour> tours = _tour.ToList();
+                    tours = _tourService.GetGuideData(tours);
+                    tours = _tourService.SortBySuperGuide(tours);
+                }
+            }
+        }
+
 
         public TourViewViewModel(Guest2 guest2)
         {
@@ -157,7 +173,12 @@ namespace TravelService.WPF.ViewModel
             _tourRepository = new TourRepository();
 
             List<Tour> tours = new List<Tour>(_tourService.GetAll());
+
+
+            tours = _tourService.GetGuideData(tours);
+            tours = _tourService.SortBySuperGuide(tours);
             Tours = new ObservableCollection<Tour>(tours);
+
             FilteredTours = new ObservableCollection<Tour>();
             LocationsComboBox = new ObservableCollection<string>();
             LanguageComboBox = new ObservableCollection<Language>();

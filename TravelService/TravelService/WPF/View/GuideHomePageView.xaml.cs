@@ -27,8 +27,7 @@ namespace TravelService.WPF.View
     public partial class GuideHomePageView : Window,INotifyPropertyChanged
     {
 
-        double panelWidth;
-        bool hidden;
+     
 
         public GuideHomePageView(Guide guide)
         {

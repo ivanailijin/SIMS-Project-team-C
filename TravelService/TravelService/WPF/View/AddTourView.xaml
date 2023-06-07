@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:TravelService.WPF.View"
        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
        xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+              xmlns:ns="clr-namespace:TravelService.Localization"
         mc:Ignorable="d"
         Title="AddTour"   d:DesignHeight="600" d:DesignWidth="544"
        DataContext="{Binding RelativeSource={RelativeSource Self}}">
@@ -123,7 +124,7 @@
                 <TextBox.Text>
                     <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <val:LocationValidation ValidationStep="RawProposedValue"/>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -172,11 +173,11 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-            <DatePicker Grid.Row="4" HorizontalAlignment="Left"   Margin="21,2,2,4"  Grid.Column="1" Width="160">
+            <DatePicker Grid.Row="4" HorizontalAlignment="Left" Margin="21,2,2,4" Grid.Column="1" Width="160">
                 <DatePicker.SelectedDate>
                     <Binding Path="TourStart" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue"/>
+                            <val:DateTimeValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </DatePicker.SelectedDate>
@@ -196,8 +197,8 @@
                         </Grid>
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
-
             </DatePicker>
+
 
             <TextBox BorderThickness="1.5" BorderBrush="Black" x:Name="CancelDaysBox"  Grid.Row="5" Grid.Column="1"  Margin="21,2,2,4">
                 <TextBox.Text >
@@ -229,7 +230,7 @@
                 <TextBox.Text >
                     <Binding Path="Location" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
-                            <val:NumberValidation ValidationStep="RawProposedValue"/>
+                            <val:LocationValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -254,7 +255,7 @@
                 <TextBox.Text >
                     <Binding Path="Language" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
-                            <val:NumberValidation ValidationStep="RawProposedValue"/>
+                            <val:LetterValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -283,11 +284,45 @@
                     Command="{Binding AddCheckPointCommand}"/>
             <WrapPanel FlowDirection="LeftToRight"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,25,0,0" Grid.Row="10" Grid.ColumnSpan="2">
 
-                <Button Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara"  FontSize="14" Content="Odustani" IsDefault="True"  BorderThickness="1" Foreground="Red" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5" 
-                    Command="{Binding CancelCommand}"/>
+                <Button FontFamily="Candara"  FontSize="14" Content="Odustani" IsDefault="True"  BorderThickness="1" Foreground="Red" FontWeight="SemiBold"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5" 
+                    Command="{Binding CancelCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
-                <Button Style="{StaticResource ResourceKey=Rounded1Button}" FontFamily="Candara" FontSize="14" Content="Potvrdi"  HorizontalAlignment="Left"  BorderThickness="1" Foreground="#FF076107" FontWeight="SemiBold" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5"
-                    Command="{Binding AddAccommodationCommand}"/>
+                <Button  FontFamily="Candara" FontSize="14" Content="Potvrdi"  HorizontalAlignment="Left"  BorderThickness="1" Foreground="#FF076107" FontWeight="SemiBold" VerticalAlignment="Top" Width="103" Height="27" Margin="20, 5, 20, 5"
+                    Command="{Binding AddTourCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
             </WrapPanel>
 

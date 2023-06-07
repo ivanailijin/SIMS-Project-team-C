@@ -44,6 +44,10 @@ namespace TravelService.WPF.ViewModel
         public ObservableCollection<TourRequest> FilteredRequests { get; set; }
         public List<Location> Locations { get; set; }
         public List<Language> Languages { get; set; }
+        private App app;
+        private const string SRB = "sr-Latn-RS";
+        private const string ENG = "en-US";
+
 
         private int _guideId;
         public int GuideId
@@ -198,6 +202,9 @@ namespace TravelService.WPF.ViewModel
             Accept = new RelayCommand(Execute_Accept, CanExecute_Command);
             Stats = new RelayCommand(Execute_StatsCommand, CanExecute_Command);
             AcceptingTourRequestView = acceptingTourRequestView;
+
+            app = (App)Application.Current;
+            app.ChangeLanguage(SRB);
         }
 
         private void Execute_SearchAvailableDates(object sender)

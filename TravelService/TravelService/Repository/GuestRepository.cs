@@ -111,10 +111,7 @@ namespace TravelService.Repository
         {
             List<Guest> guests = GetAllGuestsWithVouchers();
             List<Guest> selectedTourGuests = guests.Where(g => g.TourId == tour.Id).ToList();
-            if (!tour.Done)
-            {
-                throw new ArgumentException("The selected tour is not done.");
-            }
+          
 
             int under18Count = selectedTourGuests.Count(g => g.Age < 18);
             int between18And50Count = selectedTourGuests.Count(g => g.Age >= 18 && g.Age <= 50);

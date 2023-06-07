@@ -115,7 +115,7 @@ namespace TravelService.WPF.ViewModel
 
 
 
-        private DateTime _tourStart;
+        private DateTime _tourStart=DateTime.Now;
 
         public DateTime TourStart
         {
@@ -217,21 +217,25 @@ namespace TravelService.WPF.ViewModel
             _checkPointService = new CheckPointService(Injector.CreateInstance<ICheckPointRepository>());
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());
             types = new ObservableCollection<string>();
-         
 
+            SetInitialDateTime();
             FindPicturesCommand = new RelayCommand(Execute_FindPicturesCommand, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
             IncrementCommand = new RelayCommand(Execute_GuestsIncrement, CanExecute_Command);
             DecrementCommand = new RelayCommand(Execute_GuestsDecrement, CanExecute_Command);
          
             AddCheckPointCommand = new RelayCommand(Execute_AddCheckPoint, CanExecute_Command);
-            
+
             
             AddTourCommand = new RelayCommand(Execute_AddTourCommand,CanExecute_Command);
 
             PopupFrame = addTourView.MyPopupFrame;
         }
 
+        private void SetInitialDateTime()
+        {
+            TourStart = DateTime.Now;
+        }
 
         private void Execute_GuestsIncrement(object obj)
         {
@@ -277,7 +281,7 @@ namespace TravelService.WPF.ViewModel
                 Language language = new Language(Language);
                 savedLanguage = _languageService.Save(language);
             }
-
+            
             List<string> formattedPictures = new List<string>();
 
             string[] delimitedPictures = Pictures.Split(new char[] { '|' });
@@ -340,8 +344,14 @@ namespace TravelService.WPF.ViewModel
 
        private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
-        } 
+            // Check if the NavigationService is available
+            if (NavigationService != null && NavigationService.CanGoBack)
+            {
+                // Navigate back to the previous page
+                NavigationService.GoBack();
+            }
+
+        }
 
         private bool CanExecute_Command(object arg)
         {

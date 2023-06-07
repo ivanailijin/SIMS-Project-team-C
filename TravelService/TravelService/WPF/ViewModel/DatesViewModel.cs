@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -18,7 +19,8 @@ namespace TravelService.WPF.ViewModel
     {
 
         public Frame PopupFrame { get; set; }
-        public string ErrorMessage { get; set; }
+
+     
         public Dates Dates { get; set; }    
         public NavigationService NavigationService;
         public TourRequest SelectedTourRequest { get; set; }
@@ -32,7 +34,7 @@ namespace TravelService.WPF.ViewModel
        
         public ComplexTourRequest SelectedComplex { get; set; }
         
-        public ObservableCollection<DateTime> AvailableDates { get; set; }
+        public List<DateTime> AvailableDates { get; set; }
         private DateTime _selectedDate;
         public DateTime SelectedDate
         {
@@ -44,9 +46,29 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private string _confirmationMessage;
+        public string ConfirmationMessage
+        {
+            get { return _confirmationMessage; }
+            set
+            {
+                _confirmationMessage = value;
+                OnPropertyChanged(nameof(ConfirmationMessage));
+            }
+        }
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
 
-        public DatesViewModel(TourRequest selectedTourRequest, ComplexTourRequest selectedComplex, NavigationService navigationService, Dates dates,Guide guide)
+        public DatesViewModel(TourRequest selectedTourRequest, ComplexTourRequest selectedComplex, NavigationService navigationService, Dates dates, Guide guide)
         {
             SelectedComplex = selectedComplex;
             Guide = guide;
@@ -59,36 +81,57 @@ namespace TravelService.WPF.ViewModel
             ExistingTours = new List<Tour>();
             ExistingTours.AddRange(_tourService.GetAll());
 
-            IsDateAvailable = _tourRequestService.AvailabilityDate(ExistingTours, SelectedDate);
-            ScheduleCommand = new RelayCommand(ScheduleTour, CanScheduleTour);
-            AvailableDates = new ObservableCollection<DateTime>();
+            AvailableDates = new List<DateTime>();
+
+            foreach (var tourRequest in SelectedComplex.TourRequests)
+                foreach(Tour tour in ExistingTours)
+                {
+                    {
+                        List<DateTime> availableDates = GetAvailableDates( tour);
+                        foreach (var date in availableDates)
+                        {
+                            if(AvailableDates.Contains(date))
+                            {
+                                continue;
+                            }
+                            AvailableDates.Add(date);
+                        }
+                    }
+            }
+
             SelectedDate = DateTime.MinValue;
-            GetAvailableDates();
+            ScheduleCommand = new RelayCommand(ScheduleTour, CanScheduleTour);
 
             PopupFrame = dates.MyPopupFrame;
 
+            OnPropertyChanged(nameof(AvailableDates));
         }
 
-        private List<DateTime> GetAvailableDates()
+
+        private List<DateTime> GetAvailableDates(Tour tour)
         {
             List<DateTime> availableDates = new List<DateTime>();
 
-            // Dohvatite listu postojećih tura vodiča
-            List<Tour> existingTours = _tourService.FindGuidesTours(Guide.Id);
+            // Retrieve the list of existing tours for the guide
+            List<Tour> guideTours = _tourService.FindGuidesTours(Guide.Id);
 
-            // Prođite kroz termine delova ture i provjerite dostupnost
-            foreach (var tourRequest in SelectedComplex.TourRequests)
+            // Retrieve the existing tour parts for the current complex tour
+            List<TourRequest> existingTourParts = SelectedComplex.TourRequests.ToList();
+
+            // Retrieve the start and end dates for the current tour part
+            DateTime tourPartStart = SelectedTourRequest.TourStart;
+            DateTime tourPartEnd = SelectedTourRequest.TourEnd;
+
+            // Iterate over the dates within the tour part range
+            for (DateTime date = tourPartStart.Date; date <= tourPartEnd.Date; date = date.AddDays(1))
             {
-                DateTime tourStart = tourRequest.TourStart;
-                DateTime tourEnd = tourRequest.TourEnd;
+                bool isNoConflict = guideTours
+                    .Where(t => t != tour)
+                    .All(t => date < t.TourStart.Date || date > t.TourEnd.Date);
 
-                // Provjerite dostupnost za svaki dan unutar opsega datuma delova ture
-                for (DateTime date = tourStart.Date; date <= tourEnd.Date; date = date.AddDays(1))
+                if (isNoConflict && !guideTours.Any(tp => tp.TourStart.Date == date) && !availableDates.Contains(date))
                 {
-                    if (_tourRequestService.AvailabilityDate(existingTours, date))
-                    {
-                        availableDates.Add(date);
-                    }
+                    availableDates.Add(date);
                 }
             }
 
@@ -97,32 +140,52 @@ namespace TravelService.WPF.ViewModel
 
 
 
+
         // Schedule the tour for the selected date
         private void ScheduleTour(object obj)
         {
             if (SelectedDate != null)
             {
-                List<DateTime> availableDates = GetAvailableDates();
-                AvailableDates = new ObservableCollection<DateTime>(availableDates);
+                bool isDateAvailable = CheckIfDateIsAvailable(SelectedDate);
 
-                if (!AvailableDates.Contains(SelectedDate))
+                if (isDateAvailable)
+                {
+                    // Update the tour date and mark it as accepted
+                    SelectedTourRequest.TourStart = SelectedDate;
+                    SelectedTourRequest.RequestApproved = APPROVAL.ACCEPTED;
+                    _tourRequestService.Update(SelectedTourRequest);
+                    ConfirmationMessage = "Tour scheduled successfully!";
+                    ErrorMessage = ""; // Clear any previous error message
+                }
+                else
                 {
                     ErrorMessage = "Selected date is not available. Please choose another date.";
-                    return;
+                    ConfirmationMessage = ""; // Clear any previous confirmation message
                 }
-
-                // Ažurirajte datum ture i označite je kao prihvaćenu
-                SelectedTourRequest.TourStart = SelectedDate;
-                SelectedTourRequest.RequestApproved = APPROVAL.ACCEPTED;
-                _tourRequestService.Update(SelectedTourRequest);
-
-                NavigationService.Navigate(new AcceptingTourRequestView(Guide, SelectedTourRequest, NavigationService));
             }
             else
             {
                 ErrorMessage = "Please select a date.";
+                ConfirmationMessage = ""; // Clear any previous confirmation message
             }
         }
+
+        // Check if the selected date is available
+        private bool CheckIfDateIsAvailable(DateTime selectedDate)
+        {
+            foreach (Tour tour in ExistingTours)
+            {
+                List<DateTime> availableDates = GetAvailableDates(tour);
+
+                if (!availableDates.Contains(selectedDate))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
 
 
 

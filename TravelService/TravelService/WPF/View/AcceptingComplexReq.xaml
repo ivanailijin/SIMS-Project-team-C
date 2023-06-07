@@ -3,14 +3,70 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:TravelService.WPF.View"
+      xmlns:resx="clr-namespace:TravelService.Localization"
+
+ 
+      xmlns:local="clr-namespace:TravelService.Localization"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AcceptingComplexReq" DataContext="{Binding RelativeSource={RelativeSource Self}}"
 >
+    
+    <Page.Resources>
+      
 
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox">
+                    <Border BorderBrush="Red"
+                            BorderThickness="1"/>
+                </AdornedElementPlaceholder>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="Pink" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Rounded1Button" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="#FF82F082" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RoundedLightButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#166470" Background="MediumPurple" BorderThickness="2" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LabelText" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontFamily" Value="Candara"></Setter>
+            <Setter Property="FontWeight" Value="Normal"></Setter>
+        </Style>
+        
+    </Page.Resources>
 
     <Grid Background="White">
+        
         <ContentControl x:Name="PopupContent" />
         <Grid>
             <Grid.RowDefinitions>
@@ -18,7 +74,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Text="Tours that are active today" Margin="0,10,39,485" Grid.RowSpan="3" FontFamily="Arial" FontSize="36" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock  Margin="0,10,39,485" Grid.RowSpan="3" FontFamily="Arial" FontSize="36" FontWeight="Bold" TextAlignment="Center"/>
             <ListBox Grid.Row="2" ItemsSource="{Binding   ComplexTourRequests}" SelectedItem="{Binding SelectedComplex}" VerticalAlignment="Center" HorizontalContentAlignment="Center">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -27,7 +83,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border BorderThickness="3" Margin="5" Padding="5" Width="400" Height="400">
+                            <Border BorderThickness="3" Margin="5" Padding="5" Width="350" Height="100">
                                 <Border.BorderBrush>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="Red" Offset="0"/>
@@ -45,14 +101,31 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Source="{Binding Pictures[0]}" Width="400" Height="250" Stretch="UniformToFill"/>
+                                  
 
                                     <StackPanel Grid.Row="1" Margin="5">
                                         <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
                                         <TextBlock Text="{Binding APPROVAL}" TextWrapping="Wrap"/>
 
 
-                                        <Button Grid.Column="1" Height="30" Content="Accept" VerticalAlignment="Bottom"  Command="{Binding DataContext.Accept , RelativeSource={RelativeSource AncestorType=ListBox}}"  Margin=" 0,0,0,50"  CommandParameter="{Binding}"/>
+                                        <Button Grid.Column="1" Height="30" Content="Accept" VerticalAlignment="Bottom" Style ="{StaticResource ResourceKey=RoundedLightButton}" Background="MediumPurple" Command="{Binding DataContext.Accept , RelativeSource={RelativeSource AncestorType=ListBox}}"  Margin=" 0,0,0,50"  CommandParameter="{Binding}">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Grid>
+                                                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
                                     </StackPanel>
                                 </Grid>
                             </Border>

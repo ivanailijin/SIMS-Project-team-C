@@ -8,35 +8,120 @@
         mc:Ignorable="d"
        d:DesignHeight="600" d:DesignWidth="544"
         Title="AccommodationAvailabilityView" >
-    <Grid Background="White" >
+ 
+<Grid Margin="0,0,0,13">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="100"/>
+        <RowDefinition Height="400"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <StackPanel Grid.Row="0" Width="176" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"  >
+        <Label Margin=" 0 30 0 30" Width="176" FontSize="30" Height="86" Content="GUEST LIST"/>
+    </StackPanel>
+
+    <Grid Grid.Row="1" Margin="0,0,0,0" Grid.RowSpan="2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="250"/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-
-        <Border Grid.Row="1" BorderThickness="1" Margin="10,0,9,0">
+        <Border  BorderThickness="5">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="Red" Offset="0" />
-                    <GradientStop Color="Orange" Offset="0.17" />
-                    <GradientStop Color="Yellow" Offset="0.33" />
-                    <GradientStop Color="Green" Offset="0.5" />
-                    <GradientStop Color="Blue" Offset="0.67" />
-                    <GradientStop Color="Indigo" Offset="0.83" />
-                    <GradientStop Color="Violet" Offset="1" />
+                    <GradientStop Color="Red" Offset="0"/>
+                    <GradientStop Color="Orange" Offset="0.17"/>
+                    <GradientStop Color="Yellow" Offset="0.33"/>
+                    <GradientStop Color="Green" Offset="0.5"/>
+                    <GradientStop Color="Blue" Offset="0.67"/>
+                    <GradientStop Color="Indigo" Offset="0.83"/>
+                    <GradientStop Color="Violet" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
-
-            <DataGrid Grid.Row="1" x:Name="allTours"
-              ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}"
-              SelectedItem="{Binding SelectedTourRequest}"
-              AutoGenerateColumns="False" IsReadOnly="True" Margin="-1,9,-1,14" >
-
+            <DataGrid Name="GuestDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Height="350" 
+           Background="Transparent"
+            ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}"
+              SelectedItem="{Binding SelectedTourRequest}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 20 0 0"
+           RenderTransformOrigin="0.5,0.5">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGrid">
+                        <Setter Property="BorderBrush" Value="LightGray" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="RowHeaderWidth" Value="0" />
+                        <Setter Property="RowHeight" Value="30" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="AlternatingRowBackground" Value="#EFEFEF" />
+                        <Setter Property="CanUserResizeColumns" Value="False" />
+                        <Setter Property="CanUserSortColumns" Value="False" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGrid">
+                                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" CornerRadius="10">
+                                        <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
+                                            <ScrollViewer.Template>
+                                                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Button Command="{x:Static DataGrid.SelectAllCommand}" Width="{Binding Path=RowHeaderWidth, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                    Focusable="false" OverridesDefaultStyle="True" Grid.Column="0" Grid.Row="0" Style="{DynamicResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}}"
+                                                    Visibility="{Binding Path=HeadersVisibility, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, ConverterParameter={x:Static DataGridHeadersVisibility.All}}"/>
+                                                        <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Column="1" Grid.Row="0" Visibility="{Binding Path=HeadersVisibility, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, ConverterParameter={x:Static DataGridHeadersVisibility.Column}}"/>
+                                                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" Grid.Column="1" Grid.Row="1"/>
+                                                        <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="2" Grid.Row="1" Orientation="Vertical" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding Path=VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                       Maximum="{Binding Path=ScrollableHeight, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                        <Grid Grid.Column="1" Grid.Row="2">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="{Binding Path=NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Column="1" Orientation="Horizontal" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                                           Value="{Binding Path=HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                           Maximum="{Binding Path=ScrollableWidth, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </ScrollViewer.Template>
+                                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#F5F5F5" />
+                        <Setter Property="Foreground" Value="Black" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="BorderThickness" Value="0,0,0,1" />
+                        <Setter Property="BorderBrush" Value="LightGray" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.126"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-0.998"/>
+                    </TransformGroup>
+                </DataGrid.RenderTransform>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
                     <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>
@@ -46,80 +131,123 @@
                     <DataGridTextColumn Header="TourStart" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
                     <DataGridTextColumn Header="Request Approved" Binding="{Binding RequestApproved}" Width="auto"></DataGridTextColumn>
                 </DataGrid.Columns>
-
             </DataGrid>
+
+
         </Border>
-
-
-        <Button Content="Accept" Command="{Binding Accept}" HorizontalAlignment="Left" Height="36"  Grid.Row="2"  Width="145" Margin="195,255,0,-91"/>
-        <StackPanel HorizontalAlignment="Left" Height="170" Margin="0 20 0 0" Grid.Row="2" VerticalAlignment="Top" Width="295">
-            <StackPanel Height="170" Width="300">
-                <StackPanel Orientation="Horizontal" Height="35" Width="235">
-                    <Label Width="105" Content="City and country:"/>
-                    <ComboBox x:Name="locationComboBox" ItemsSource="{Binding LocationsComboBox}" Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0" Height="29" Width="120"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="35" Width="235">
-                    <Label Width="105" Content="Language:"/>
-                    <ComboBox x:Name="languageComboBox" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" DisplayMemberPath="Name" Visibility="Visible" BorderBrush="Black" Height="29" Width="120"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="35" Width="235">
-                    <Label Width="105" Content="Number of guests:"/>
-                    <TextBox x:Name="guestsTextBox" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" Visibility="Visible" BorderBrush="Black" Height="29" Width="120"/>
-                </StackPanel>
-                <Button Command="{Binding Search}" Content="Search" Height="35" Width="124" Margin="0 14 0 0 "/>
-            </StackPanel>
-        </StackPanel>
-
-
-
-        <StackPanel HorizontalAlignment="Left" Height="170" Margin="290,20,0,0" Grid.Row="2" VerticalAlignment="Top" Width="240">
-            <StackPanel Width="214" Height="170">
-                <StackPanel Orientation="Horizontal" Height="30" Width="232" Margin=" 0 10 0 0">
-                    <TextBlock Text="Tour Start Date:" Height="35" Width="105" HorizontalAlignment="Left" />
-                    <DatePicker x:Name="TourStartDatePicker" SelectedDate="{Binding StartDate}" Height="35" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="30" Width="232" Margin="0 20 0 0">
-                    <TextBlock Text="Tour End Date:" Height="35" Width="105" />
-                    <DatePicker x:Name="TourEndDatePicker" SelectedDate="{Binding EndDate}" Height="35" Width="110" VerticalAlignment="Center" />
-                </StackPanel>
-                <Button Content="Search" Command="{Binding SearchDates}" Height="35" Width="124" Margin="0 29 0 0"/>
-            </StackPanel>
-        </StackPanel>
-
-        <StackPanel>
-
-            <Button Command="{Binding }" Margin="296,250,94,-90" Grid.Row="2">Cancel</Button>
-            <Border BorderThickness="3" Margin="300 0 0 0 " Padding="5" Width="225" Height="170"  Grid.Row="2" HorizontalAlignment="Left">
-                <Border.BorderBrush>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="Red" Offset="0" />
-                        <GradientStop Color="Orange" Offset="0.17" />
-                        <GradientStop Color="Yellow" Offset="0.33" />
-                        <GradientStop Color="Green" Offset="0.5" />
-                        <GradientStop Color="Blue" Offset="0.67" />
-                        <GradientStop Color="Indigo" Offset="0.83" />
-                        <GradientStop Color="Violet" Offset="1" />
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-            </Border>
-
-            <Border BorderThickness="3" Margin="10 0 0 0 " Padding="5" Width="275" Height="170"  Grid.Row="2" HorizontalAlignment="Left">
-                <Border.BorderBrush>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="Red" Offset="0" />
-                        <GradientStop Color="Orange" Offset="0.17" />
-                        <GradientStop Color="Yellow" Offset="0.33" />
-                        <GradientStop Color="Green" Offset="0.5" />
-                        <GradientStop Color="Blue" Offset="0.67" />
-                        <GradientStop Color="Indigo" Offset="0.83" />
-                        <GradientStop Color="Violet" Offset="1" />
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-            </Border>
-
-        </StackPanel>
-
-
-
     </Grid>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2"  HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom">
+
+            <Button Content="Accept" Command="{Binding Accept}" Margin="0 0 0 30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50"  Grid.Row="2"  Width="200" Background="MediumPurple">
+        <Button.Template>
+            <ControlTemplate TargetType="{x:Type Button}">
+                <Grid>
+                    <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Button.Template>
+    </Button>
+            <Button Content="Stats" Command="{Binding Stats}" Margin="0 0 0 30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50"  Grid.Row="2"  Width="200"  Background="MediumPurple">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="170" Grid.Row="2" VerticalAlignment="Top" Width="400" Margin="70 0 0 0">
+        <StackPanel Height="170" Width="305">
+            <StackPanel Orientation="Horizontal" Height="35" Width="235">
+                <Label Width="115" Content="City and country:" FontWeight="Bold"/>
+                <ComboBox x:Name="locationComboBox" ItemsSource="{Binding LocationsComboBox}" Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" BorderThickness="0" Height="29" Width="120"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" Width="235">
+                <Label Width="115" Content="Language:" FontWeight="Bold"/>
+                <ComboBox x:Name="languageComboBox" ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" DisplayMemberPath="Name" Visibility="Visible" BorderBrush="Black" Height="29" Width="120"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" Width="235">
+                <Label Width="115" Content="Number of guests:" VerticalAlignment="Center" FontWeight="Bold"/>
+                <TextBox x:Name="guestsTextBox" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" Visibility="Visible" BorderBrush="Black" Height="29" Width="120"/>
+            </StackPanel>
+                <Button Command="{Binding Search}" Content="Search" Height="35" Width="124" Margin="0 14 0 0 " Background="MediumPurple">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+
+
+
+    <StackPanel HorizontalAlignment="Right" Height="170" Grid.Row="2" VerticalAlignment="Top" Width="400" Margin=" 40  0 0 0">
+        <StackPanel Width="305" Height="170">
+            <StackPanel Orientation="Horizontal" Width="235" >
+                <TextBlock Text="Tour Start Date:" Height="35" Width="115" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" />
+                <DatePicker x:Name="TourStartDatePicker" SelectedDate="{Binding StartDate}" Height="35" Width="110" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="30" Width="232" Margin="0 20 0 0">
+                <TextBlock Text="Tour End Date:" Height="35" Width="105" FontWeight="Bold" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center" />
+                <DatePicker x:Name="TourEndDatePicker" SelectedDate="{Binding EndDate}" Height="35" Width="110" VerticalAlignment="Center" />
+            </StackPanel>
+                <Button Content="Search" Command="{Binding SearchDates}" Height="35" Width="124" Margin="0 34 0 0" Background="MediumPurple">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+
+
+    <Frame x:Name="MyPopupFrame" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="Collapsed" Height="0" Width="0"/>
+</Grid>
+
 </Page>

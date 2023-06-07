@@ -79,8 +79,8 @@ namespace TravelService.WPF.ViewModel
 
             if (SelectedTour != null)
             {
-                var stats = new TourStats(SelectedTour, NavigationService);
-                OpenPopupPageStats(stats);
+               NavigationService.Navigate( new TourStats(SelectedTour, NavigationService));
+                
             }
 
             
@@ -98,8 +98,8 @@ namespace TravelService.WPF.ViewModel
         {
             if (SelectedTour != null)
             {
-                var showGuests = new ShowGuestsView(SelectedTour, SelectedGuest, NavigationService);
-                OpenPopupPageGuests(showGuests);
+                NavigationService.Navigate(new ShowGuestsView(SelectedTour, SelectedGuest, NavigationService));
+               
             }
             
         }

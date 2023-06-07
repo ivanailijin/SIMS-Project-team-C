@@ -88,7 +88,7 @@ namespace TravelService.WPF.ViewModel
         private void Execute_CancelCommand(object obj)
         {
 
-            CloseAction();
+            NavigationService.GoBack();
         }
     }
     }

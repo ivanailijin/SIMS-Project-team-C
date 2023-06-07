@@ -60,8 +60,10 @@
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
     </Page.Resources>
 
-    <Grid Background="White">
-        <Border BorderThickness="5" Height="245" Margin="245,75,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300">
+    <Grid Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="{Binding ErrorMessage}" Grid.Row="1"  FontSize="20"/>
+        <TextBlock Text="{Binding ConfirmationMessage}" Grid.Row="1" FontSize="20"/>
+        <Border BorderThickness="5" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400">
 
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -75,20 +77,88 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <StackPanel>
-                <Border Width="125" Height="130"  BorderThickness="5" BorderBrush="Pink">
-                    <StackPanel Margin="-3,0,-2,0">
-                        <StackPanel Orientation="Horizontal" Width="76" Height="40" >
-                            <TextBlock Text="{Binding IsSuperGuide}" Width="100" />
+                <Border Width="125" Margin=" 0 60 0 50" Height="130"  BorderThickness="5" BorderBrush="Pink" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel>
+                        <Image Source="/WPF/View/Icons/woman (2).png"  Height="50 "/>
+
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Width="80" Height="40"  Margin="20 0 0 0">
+                            <TextBlock HorizontalAlignment="Center" Width="100" VerticalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSuperGuide}" Value="True">
+                                                <Setter Property="Text" Value="superGuide" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
 
                         </StackPanel>
+                        <TextBlock Text="{Binding Guide.Username}" Height="20" Width="80" Foreground="#FF184C75" Background="Transparent" FontWeight="Bold" />
 
                     </StackPanel>
 
                 </Border>
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10 40 10 0">
-                    <Button Content="Otkaz" Click="OtkazTour_Click" Width="70" Height="30" Margin=" 0 0 100 0 " HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Candara" FontSize="14" Style="{StaticResource ResourceKey=RoundedButton}"/>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="10 40 10 0" Width="300">
+                    <Button Content="Dissmisal" Click="OtkazTour_Click" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" Background="MediumPurple" FontFamily="Candara" FontSize="14" Style="{StaticResource ResourceKey=RoundedButton}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-                    <Button Content="LogOut" HorizontalAlignment="Right" Command="{Binding LogOut}" VerticalAlignment="Center" Width="70" Height="30"  FontFamily="Candara" FontSize="14" Style="{StaticResource ResourceKey=Rounded1Button}"/>
+                    <Button Content="LogOut" Background="MediumPurple" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="100" Height="40"  FontFamily="Candara" FontSize="14" Style="{StaticResource ResourceKey=Rounded1Button}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Background="MediumPurple" Content="Generate Statistics" Click="GenerateStatistics_Click" Width="100" Height="40" Margin=" 0 0 100 0 " HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Candara" FontSize="14" Style="{StaticResource ResourceKey=RoundedButton}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
             </StackPanel>
         </Border>

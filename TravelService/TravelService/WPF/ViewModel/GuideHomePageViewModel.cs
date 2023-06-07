@@ -45,6 +45,7 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand LanguageCommand { get; set; }
         public RelayCommand FutureToursCommand { get; set; }
         public RelayCommand Profile { get; set; }
+        public RelayCommand Home { get; set; }
 
         public RelayCommand Suggestion { get; set; }
         public Brush Background { get; set; }
@@ -66,7 +67,7 @@ namespace TravelService.WPF.ViewModel
 
 
             LogOutCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
-            FutureToursCommand = new RelayCommand(Execute_Future, CanExecute_Command);
+        //    FutureToursCommand = new RelayCommand(Execute_Future, CanExecute_Command);
             AddTourCommand = new RelayCommand(Execute_AddTourCommand, CanExecute_Command);
             CancelTourCommand = new RelayCommand(Execute_CAncelTourCommand, CanExecute_Command);
             PastToursCommand = new RelayCommand(Execute_PastToursCommand, CanExecute_Command);
@@ -75,7 +76,7 @@ namespace TravelService.WPF.ViewModel
             BestTourCommand = new RelayCommand(Execute_BestTourCommand, CanExecute_Command);
             // AboutMeCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
             Profile = new RelayCommand(Execute_Profile, CanExecute_Command);
-
+            Home = new RelayCommand(Execute_Home, CanExecute_Command);
             LanguageCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
             Suggestion = new RelayCommand(Execute_SuggestionCommand,CanExecute_Command);
 
@@ -100,14 +101,15 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private void Execute_Home(object obk)
+        {
+            NavigationService.Navigate(new ActiveToursView(SelectedTour, NavigationService));
+        }
         private void Execute_Profile(object obk)
         {
-            NavigationService.Navigate(new ProfileView(Guide,NavigationService));
+            NavigationService.Navigate(new ProfileView(Guide,NavigationService,GuideHomePageView));
         }
-        private void Execute_Future(object obk)
-        {
-            NavigationService.Navigate(new MyTours(SelectedTour, Guide, NavigationService));
-        }
+       
         private void Execute_SuggestionCommand(object obj)
         {
             NavigationService.Navigate (new SuggestionForGuideView(Guide, NavigationService));

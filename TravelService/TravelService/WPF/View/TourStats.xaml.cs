@@ -45,8 +45,9 @@ namespace TravelService.WPF.View
             Over50Count = _guestRepository.Over50Count;
             WithVoucherPercentage = _guestRepository.WithVoucherPercentage;
             WithoutVoucherPercentage = _guestRepository.WithoutVoucherPercentage;
-
             Stats.ItemsSource = TourStatisticsList;
+
+
         }
 
 
@@ -109,6 +110,11 @@ namespace TravelService.WPF.View
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+           
+            NavigationService.GoBack(); 
         }
     }
 }

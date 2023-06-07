@@ -118,6 +118,28 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
+        private string _confirmationMessage;
+        public string ConfirmationMessage
+        {
+            get { return _confirmationMessage; }
+            set
+            {
+                _confirmationMessage = value;
+                OnPropertyChanged(nameof(ConfirmationMessage));
+            }
+        }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
 
         public RequestsStatsViewModel(RequestsStatsView requestsStatsView,NavigationService navigationService)
         {
@@ -163,11 +185,13 @@ namespace TravelService.WPF.ViewModel
                 if (!string.IsNullOrEmpty(location))
                 {
                     int numRequestsByLocation = _tourRequestService.GetRequestCountForLocation(location, TourRequests, SelectedYear, SelectedMonth);
-                    MessageBox.Show($"Number of tour requests for {SelectedLocation}: {numRequestsByLocation}");
+                   ConfirmationMessage=$"Number of tour requests for {SelectedLocation}: {numRequestsByLocation}";
+                    ErrorMessage = "";
                 }
                 else
                 {
-                    MessageBox.Show("Invalid location selected.");
+                    ErrorMessage="Invalid location selected.";
+                    ConfirmationMessage = "";
                 }
             }
         }
@@ -183,7 +207,8 @@ namespace TravelService.WPF.ViewModel
             if (SelectedLanguage != null)
             {
                 int numRequestsByLanguage = _tourRequestService.GetRequestCountForLanguage(SelectedLanguage, TourRequests, SelectedYear, SelectedMonth);
-                MessageBox.Show($"Number of tour requests for {SelectedLanguage.Name}: {numRequestsByLanguage}");
+                ConfirmationMessage = $"Number of tour requests for {SelectedLanguage.Name}: {numRequestsByLanguage}";
+                ErrorMessage = "";
             }
         }
         private bool CanExecute_Command(object arg)

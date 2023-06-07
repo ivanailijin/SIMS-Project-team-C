@@ -16,6 +16,7 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class MyTours : Page
     {
+
         public NavigationService NavigationService;
         public readonly TourRepository _tourRepository;
         public readonly LocationRepository _locationRepository;
@@ -34,6 +35,29 @@ namespace TravelService.WPF.View
 
         public Tour SelectedTour { get; set; }
         public Guide Guide { get; set; }
+
+        private string _confirmationMessage;
+        public string ConfirmationMessage
+        {
+            get { return _confirmationMessage; }
+            set
+            {
+                _confirmationMessage = value;
+                OnPropertyChanged(nameof(ConfirmationMessage));
+            }
+        }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
 
         public MyTours(Tour selectedTour,Guide guide,NavigationService navigationService)
         {
@@ -86,16 +110,15 @@ namespace TravelService.WPF.View
                     Tours.Remove(SelectedTour);
 
                     // Display message box with option to send vouchers
-                    var result = MessageBox.Show("Tour cancelled successfully! Do you want to send vouchers to guests?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
-                    {
+                   ConfirmationMessage="Tour cancelled successfully! Vouchers Sent!" ;
+                    
                         
                         _tourRepository.SendVouchers(SelectedTour);
-                    }
+                    
                 }
                 else
                 {
-                    MessageBox.Show("You cannot cancel this tour as it starts within 48 hours.");
+                    ErrorMessage = "You cannot cancel this tour as it starts within 48 hours.";
                 }
             }
         }

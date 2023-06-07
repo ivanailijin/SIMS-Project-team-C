@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
        d:DesignHeight="600" d:DesignWidth="544"    DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Title="ComplexRequests">
- 
+
 
     <Page.Resources>
         <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
@@ -45,7 +45,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Width="176" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"  >
-            <Label Margin=" 0 00 0 -50" Width="176" FontSize="30" Height="86" Content="GUEST LIST"/>
+            <Label Margin=" 0 00 0 -50" Width="176" FontSize="30" Height="86" Content="Requests"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,0,0,41" Grid.RowSpan="2">
@@ -55,7 +55,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Border  BorderThickness="5" Margin="45,0,39,26">
+            <Border  BorderThickness="5" Margin="45,0,44,56">
                 <Border.BorderBrush>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Color="Red" Offset="0"/>
@@ -67,7 +67,7 @@
                         <GradientStop Color="Violet" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.BorderBrush>
-                <DataGrid DockPanel.Dock="Bottom" Name="GuestDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Height="300" 
+                <DataGrid DockPanel.Dock="Bottom" Name="GuestDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Height="300" Width="420"
            Background="Transparent"
            ItemsSource="{Binding Path=TourRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem ="{Binding SelectedTour}" VerticalAlignment="Center" HorizontalAlignment="Center">
 
@@ -146,12 +146,12 @@
                         </TransformGroup>
                     </DataGrid.RenderTransform>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Location" Binding="{Binding  Id}" Width="75"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="75"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="75"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Start" Binding="{Binding TourStart}" Width="125"></DataGridTextColumn>
-                        <DataGridTextColumn Header="End" Binding="{Binding TourEnd}" Width="125"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Type" Binding="{Binding RequestApproved}" Width="125"></DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="100" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="100" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Start" Binding="{Binding TourStart}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="End" Binding="{Binding TourEnd}" Width="*" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Type" Binding="{Binding RequestApproved}" Width="*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -162,9 +162,24 @@
 
 
         <WrapPanel FlowDirection="LeftToRight"  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="2">
-
-            <Button x:Name="AcceptButton" Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara"  FontSize="14" Command="{Binding Accept}" Content="Accept" IsDefault="True"  BorderThickness="1" Foreground="Red" FontWeight="SemiBold"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="103" Height="27" Margin="20, 5, 20, 5" />
-
+            <Button x:Name="AcceptButton" Style="{StaticResource ResourceKey=RoundedButton}" FontFamily="Candara"  FontSize="14" Command="{Binding Accept}" Content="Accept" IsDefault="True"  BorderThickness="1" Background="MediumPurple" FontWeight="SemiBold"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="103" Height="47" >
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
         </WrapPanel>
 
