@@ -5,48 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
-        Height="655" Width="420">
+        d:Height="655" d:Width="420">
     <Page.Resources>
         <local:EnumToStringConverter x:Key="EnumConverter" />
-        <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="#d9ffcc" />
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="RowBackground" Value="#b3ccff"/>
-            <Setter Property="GridLinesVisibility" Value="All" />
-            <Setter Property="HorizontalGridLinesBrush" Value="Gray"/>
-            <Setter Property="VerticalGridLinesBrush" Value="Gray"/>
-            <Setter Property="CanUserResizeColumns" Value="False" />
-            <Setter Property="CanUserResizeRows" Value="False" />
-            <Setter Property="CanUserReorderColumns" Value="False"/>
-            <Setter Property="SelectionMode" Value="Single" />
-            <Setter Property="AutoGenerateColumns" Value="False" />
-            <Setter Property="HeadersVisibility" Value="Column" />
-            <Setter Property="ColumnHeaderHeight" Value="30" />
-            <Setter Property="RowHeight" Value="30" />
-            <Setter Property="RowBackground" Value="#ccffcc"/>
-            <Setter Property="Margin" Value="0,0,15,0" />
-            <Setter Property="FontFamily" Value="Segoe UI" />
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
-            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
-        </Style>
-
-        <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#d9ffcc"/>
-            <Setter Property="FontSize" Value="14"></Setter>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="Gray"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-
-        <Style TargetType="DataGridCell">
-            <Setter Property="BorderThickness" Value="0.5"/>
-            <Setter Property="BorderBrush" Value="gray"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -157,20 +118,37 @@
             <TabItem x:Name="ActiveReservations" Header="Aktivne rezervacije" FontSize="14">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="430"></RowDefinition>
-                        <RowDefinition Height="150"></RowDefinition>
+                        <RowDefinition Height="480"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <DataGrid x:Name="dataGridActiveReservations" Grid.Row="0"
-                  ItemsSource="{Binding Path=ActiveReservations, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path = SelectedActiveReservation, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"
-                  Width="390" Height="410">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="115"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Location" Binding="{Binding Accommodation.Location.CityAndCountry}" Width="120"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Check-in" Binding="{Binding CheckInDate, StringFormat='{}{0:d}'}" Width="75"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Checkout" Binding="{Binding CheckOutDate, StringFormat='{}{0:d}'}" Width="*"></DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <ListBox Grid.Row="0" ItemsSource="{Binding ActiveReservations}" SelectedItem="{Binding Path = SelectedActiveReservation, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="465" Background="#cce6ff">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding Accommodation.Pictures[0]}" Width="170" Height="120" Margin="10,5,10,5"></Image>
+                                    <StackPanel Grid.Column="1" Margin="5,5,0,0">
+                                        <TextBlock Text="{Binding Accommodation.Name}" FontSize="18" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,0">
+                                            <TextBlock Text="• " FontSize="14"></TextBlock>
+                                            <TextBlock Text="{Binding Accommodation.Location.CityAndCountry}" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                            <TextBlock Text="• Dolazak - " FontSize="13"></TextBlock>
+                                            <TextBlock Text="{Binding CheckInDate, StringFormat='{}{0:d}'}" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                            <TextBlock Text="• Odlazak - " FontSize="13"></TextBlock>
+                                            <TextBlock Text="{Binding CheckOutDate, StringFormat='{}{0:d}'}" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
                         <Separator Width="25" Background="Transparent"></Separator>
@@ -192,27 +170,31 @@
                                 <StackPanel Margin="0,10,0,0">
                                     <TextBlock Text="{Binding Reservation.Accommodation.Name}" FontSize="18" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
                                     <StackPanel Orientation="Horizontal" Margin="5,5,10,0">
+                                        <TextBlock Text="• " FontSize="14"></TextBlock>
                                         <TextBlock Text="Lokacija: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding Reservation.Location.CityAndCountry}" FontSize="14"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                        <TextBlock Text="• " FontSize="14"></TextBlock>
                                         <TextBlock Text="Stari datumi: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding Reservation.CheckInDate, StringFormat='{}{0:d}'}" FontSize="14"></TextBlock>
                                         <TextBlock Text=" - " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding Reservation.CheckOutDate, StringFormat='{}{0:d}'}" FontSize="14"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                        <TextBlock Text="• " FontSize="14"></TextBlock>
                                         <TextBlock Text="Novi datumi: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding NewStartDate, StringFormat='{}{0:d}'}" FontSize="14"></TextBlock>
                                         <TextBlock Text=" - " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding NewEndDate, StringFormat='{}{0:d}'}" FontSize="14"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                        <TextBlock Text="• " FontSize="14"></TextBlock>
                                         <TextBlock Text="Status: " FontSize="14"></TextBlock>
                                         <TextBlock Text="{Binding Status, Converter={StaticResource EnumConverter}}" FontSize="14"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="5,2,0,10">
-                                        <TextBlock Text="Komentar: " FontSize="14" Style="{StaticResource commentTextBlockStyle}"></TextBlock>
+                                        <TextBlock Text="• Komentar: " FontSize="14" Style="{StaticResource commentTextBlockStyle}"></TextBlock>
                                         <TextBlock Text="{Binding Comment}" FontSize="14"></TextBlock>
                                     </StackPanel>
                                     <Separator Style="{StaticResource SeparatorStyle}"></Separator>

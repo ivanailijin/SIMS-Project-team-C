@@ -9,10 +9,14 @@
         mc:Ignorable="d"
         Title="Bilo gde, bilo kada" Height="720" Width="420" Background="#cce6ff">
     <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="2,2,2,2"></Setter>
+            <Setter Property="BorderBrush" Value="Gray"></Setter>
+        </Style>
         <local:IntToBooleanConverter x:Key="IntToBooleanConverter" />
         <Style x:Key="searchButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Teal"/>
-            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="Foreground" Value="white"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Height" Value="55"/>
@@ -67,7 +71,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Broj gostiju" FontSize="17" VerticalAlignment="Bottom"></Label>
+            <Label Grid.Row="0" Content="Broj gostiju" FontSize="16" VerticalAlignment="Bottom"></Label>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <TextBox Grid.Row="7" Width="150" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left">
                     <TextBox.Text>
@@ -105,12 +109,12 @@
                     </Button>
                 </Border>
             </StackPanel>
-            <Label Grid.Row="2" Content="Pocetni datum" FontSize="17" VerticalAlignment="Bottom"></Label>
-            <DatePicker x:Name="startDatePicker" Text="Odaberi datum" FontSize="17" Grid.Row="3" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding CheckInDate, Mode=OneWayToSource}">
+            <Label Grid.Row="2" Content="Pocetni datum" FontSize="16" VerticalAlignment="Bottom"></Label>
+            <DatePicker x:Name="startDatePicker" Text="Odaberi datum" FontSize="16" Grid.Row="3" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding CheckInDate, Mode=OneWayToSource}">
             </DatePicker>
-            <Label Grid.Row="4" Content="Krajnji datum" FontSize="17" VerticalAlignment="Bottom"></Label>
-            <DatePicker x:Name="endDatePicker" FontSize="17" Text="Odaberi datum" Grid.Row="5" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding CheckOutDate, Mode=OneWayToSource}"></DatePicker>
-            <Label Grid.Row="6" Content="Broj dana" VerticalAlignment="Bottom" FontSize="17"></Label>
+            <Label Grid.Row="4" Content="Krajnji datum" FontSize="16" VerticalAlignment="Bottom"></Label>
+            <DatePicker x:Name="endDatePicker" FontSize="16" Text="Odaberi datum" Grid.Row="5" VerticalAlignment="Center" Height="35" DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding CheckOutDate, Mode=OneWayToSource}"></DatePicker>
+            <Label Grid.Row="6" Content="Broj dana" VerticalAlignment="Bottom" FontSize="16"></Label>
             <StackPanel Grid.Row="7" Orientation="Horizontal">
                 <TextBox Grid.Row="7" Width="150" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left">
                     <TextBox.Text>

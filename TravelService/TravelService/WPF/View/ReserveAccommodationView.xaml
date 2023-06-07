@@ -9,6 +9,10 @@
         Title="ReserveAccommodationView" Height="720" Width="420" Background="#cce6ff">
     <Page.Resources>
         <local:IntToBooleanConverter x:Key="IntToBooleanConverter" />
+        <Style TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="2,2,2,2"></Setter>
+            <Setter Property="BorderBrush" Value="DimGray"></Setter>
+        </Style>
         <Style x:Key="reserveButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Teal"/>
             <Setter Property="BorderBrush" Value="DimGray"/>

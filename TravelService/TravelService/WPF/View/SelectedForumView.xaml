@@ -120,7 +120,7 @@
                             <ColumnDefinition Width="240"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <Image Source="{Binding User.Picture}" Width="90" Height="90" Margin="0,5,10,5"></Image>
+                            <Image Source="{Binding User.Picture}" Width="70" Height="70" Margin="0,5,10,5"></Image>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding User.Username}" FontSize="18" FontWeight="DemiBold" Margin="15,0,0,0"></TextBlock>
                                 <Image Width="17" Height="17" Margin="5,0,0,0" Source="/TravelService;component/Resources/Images/map-marker.png" Visibility="{Binding IsMarkedComment, Converter={StaticResource BooleanToVisibilityConverter}}" />

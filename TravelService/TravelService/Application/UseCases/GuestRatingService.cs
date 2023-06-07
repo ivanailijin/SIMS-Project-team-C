@@ -1,12 +1,18 @@
-﻿using System;
+﻿using iTextSharp.text.pdf;
+using iTextSharp.text;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelService.Application.Utils;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.Repository;
+using iTextSharp.text.io;
 
 namespace TravelService.Application.UseCases
 {
@@ -142,6 +148,71 @@ namespace TravelService.Application.UseCases
         public GuestRating Update(GuestRating guestRating)
         {
             return _repository.Update(guestRating);
+        }
+
+        public double GetAverageCleannes(Guest1 guest)
+        {
+            double sum = 0;
+            double count = 0;
+            List<GuestRating> guestRatings = FindRatingsByGuestId(guest.Id);
+            foreach(GuestRating guestRating in guestRatings)
+            {
+                sum += guestRating.Cleanness;
+                count++;
+            }
+            return sum / count;
+        }
+
+        public double GetAverageRulesFollowing(Guest1 guest)
+        {
+            double sum = 0;
+            double count = 0;
+            List<GuestRating> guestRatings = FindRatingsByGuestId(guest.Id);
+            foreach (GuestRating guestRating in guestRatings)
+            {
+                sum += guestRating.RulesFollowing;
+                count++;
+            }
+            return sum / count;
+        }
+
+        public double GetAverageCommunication(Guest1 guest)
+        {
+            double sum = 0;
+            double count = 0;
+            List<GuestRating> guestRatings = FindRatingsByGuestId(guest.Id);
+            foreach (GuestRating guestRating in guestRatings)
+            {
+                sum += guestRating.Communication;
+                count++;
+            }
+            return sum / count;
+        }
+
+        public double GetAverageNoiseLevel(Guest1 guest)
+        {
+            double sum = 0;
+            double count = 0;
+            List<GuestRating> guestRatings = FindRatingsByGuestId(guest.Id);
+            foreach (GuestRating guestRating in guestRatings)
+            {
+                sum += guestRating.NoiseLevel;
+                count++;
+            }
+            return sum / count;
+        }
+
+        public double GetAveragePropertyRespect(Guest1 guest)
+        {
+            double sum = 0;
+            double count = 0;
+            List<GuestRating> guestRatings = FindRatingsByGuestId(guest.Id);
+            foreach (GuestRating guestRating in guestRatings)
+            {
+                sum += guestRating.PropertyRespect;
+                count++;
+            }
+            return sum / count;
         }
     }
 }

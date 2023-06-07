@@ -143,7 +143,7 @@
                     <RowDefinition Height="230"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <lvc:CartesianChart Grid.Row="0" Series="{Binding ReservationSeries}" LegendLocation="None" Width="360" Height="250">
+                <lvc:CartesianChart Grid.Row="0" Series="{Binding ReservationSeries}" LegendLocation="None" Width="370" Height="250">
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Mesec" Labels="{Binding MonthLabels}" Foreground="Black" FontWeight="Bold" FontSize="12"/>
                         </lvc:CartesianChart.AxisX>
@@ -151,7 +151,7 @@
                             <lvc:Axis Title="Broj rezervacija" MinValue="0" Foreground="Black" FontWeight="Bold" FontSize="12"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
-                <Label Grid.Row="1" Content="Zauzetost smestaja po mesecima" HorizontalContentAlignment="Center" FontSize="14" FontWeight="SemiBold"></Label>
+                <Label Grid.Row="1" Content="Zauzetost smestaja po mesecima" HorizontalContentAlignment="Center" FontSize="14" FontWeight="SemiBold" Margin="0,10,0,0"></Label>
             </Grid>
             <Grid Grid.Row="4">
                 <Button Width="320" Height="65" Content="Proveri zauzetost" FontSize="17" Style="{StaticResource reserveButtonStyle}" Command="{Binding AccommodationAvailabilityWindowCommand}"></Button>

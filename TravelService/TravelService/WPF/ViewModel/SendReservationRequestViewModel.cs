@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TravelService.Application.UseCases;
-using TravelService.Domain.Model;
-using TravelService.Application.Utils;
-using TravelService.Domain.RepositoryInterface;
-using TravelService.Commands;
 using System.Collections.ObjectModel;
 using System.Windows;
+using TravelService.Application.UseCases;
+using TravelService.Application.Utils;
+using TravelService.Commands;
+using TravelService.Domain.Model;
+using TravelService.Domain.RepositoryInterface;
 
 namespace TravelService.WPF.ViewModel
 {
@@ -22,8 +19,8 @@ namespace TravelService.WPF.ViewModel
         public Guest1 Guest1 { get; set; }
         public Action CloseAction { get; set; }
 
-        private DateTime _newCheckInDate;
-        public DateTime NewCheckInDate
+        private DateTime? _newCheckInDate;
+        public DateTime? NewCheckInDate
         {
             get => _newCheckInDate;
             set
@@ -36,8 +33,8 @@ namespace TravelService.WPF.ViewModel
             }
         }
 
-        private DateTime _newCheckoOutDate;
-        public DateTime NewCheckOutDate
+        private DateTime? _newCheckoOutDate;
+        public DateTime? NewCheckOutDate
         {
             get => _newCheckoOutDate;
             set
@@ -61,7 +58,6 @@ namespace TravelService.WPF.ViewModel
                     sendCommand = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -76,7 +72,6 @@ namespace TravelService.WPF.ViewModel
                     cancelCommand = value;
                     OnPropertyChanged();
                 }
-
             }
         }
 
@@ -87,8 +82,6 @@ namespace TravelService.WPF.ViewModel
             RequestsForDelaying = requestsForDelaying;
 
             _reservationRequestService = new ReservationRequestService(Injector.CreateInstance<IReservationRequestRepository>());
-          //  _newCheckInDate = DateTime.Today;
-          //  _newCheckoOutDate = DateTime.Today;
 
             SendCommand = new RelayCommand(Execute_SendCommand, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
@@ -101,16 +94,31 @@ namespace TravelService.WPF.ViewModel
 
         private void Execute_SendCommand(object sender)
         {
-            if (string.IsNullOrWhiteSpace(NewCheckInDate.ToString()) ||
-                string.IsNullOrWhiteSpace(NewCheckOutDate.ToString()))
+            if (NewCheckInDate != null && NewCheckOutDate != null)
             {
-                MessageBox.Show("Niste popunili sva polja za pomeranje rezervacije", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else {
-                ReservationRequest reservationRequest = new ReservationRequest(Guest1.Id, SelectedReservation.Id, NewCheckInDate, NewCheckOutDate);
+                DateTime newCheckInDate = NewCheckInDate.Value;
+                DateTime newCheckOutDate = NewCheckOutDate.Value;
+                ReservationRequest reservationRequest = new ReservationRequest(Guest1.Id, SelectedReservation.Id, newCheckInDate, newCheckOutDate);
                 _reservationRequestService.Save(reservationRequest);
-                RequestsForDelaying.Add(reservationRequest);
+                List<ReservationRequest> Requests = new List<ReservationRequest>(_reservationRequestService.FindRequestsByGuestId(Guest1.Id));
+                UpdateRequestData();
                 CloseAction();
+            }
+            else
+            {
+                MessageBox.Show("Niste popunili sva polja\n za pomeranje rezervacije", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void UpdateRequestData()
+        {
+            List<ReservationRequest> Requests = new List<ReservationRequest>(_reservationRequestService.FindRequestsByGuestId(Guest1.Id));
+            Requests = _reservationRequestService.GetReservationData(Requests);
+            Requests = _reservationRequestService.GetLocationData(Requests);
+            Requests = _reservationRequestService.GetAccommodationData(Requests);
+            foreach (ReservationRequest reservationRequest in Requests)
+            {
+                RequestsForDelaying.Add(reservationRequest);
             }
         }
 

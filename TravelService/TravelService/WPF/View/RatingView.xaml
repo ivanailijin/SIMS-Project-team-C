@@ -6,45 +6,8 @@
         xmlns:local="clr-namespace:TravelService.WPF.View"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RatingViewModel}"
         mc:Ignorable="d"
-        Height="655" Width="420">
+        d:Height="655" d:Width="420">
     <Page.Resources>
-        <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="#d9ffcc" />
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="RowBackground" Value="#c6ffb3" />
-            <Setter Property="HorizontalGridLinesBrush" Value="Gray"/>
-            <Setter Property="VerticalGridLinesBrush" Value="Gray"/>
-            <Setter Property="GridLinesVisibility" Value="All" />
-            <Setter Property="CanUserResizeColumns" Value="False" />
-            <Setter Property="CanUserResizeRows" Value="False" />
-            <Setter Property="CanUserReorderColumns" Value="False"/>
-            <Setter Property="SelectionMode" Value="Single" />
-            <Setter Property="AutoGenerateColumns" Value="False" />
-            <Setter Property="HeadersVisibility" Value="Column" />
-            <Setter Property="ColumnHeaderHeight" Value="30" />
-            <Setter Property="RowHeight" Value="40" />
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="FontFamily" Value="Segoe UI" />
-        </Style>
-
-        <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#d9ffcc"/>
-            <Setter Property="FontSize" Value="14"></Setter>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="BorderThickness" Value="1.5"/>
-            <Setter Property="BorderBrush" Value="Gray"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-
-        <Style TargetType="DataGridCell">
-            <Setter Property="BorderThickness" Value="0.5"/>
-            <Setter Property="BorderBrush" Value="gray"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-
         <Style TargetType="{x:Type TabItem}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -64,7 +27,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#c6ffb3" />
+                                <Setter TargetName="border" Property="Background" Value="#ccffe6" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
                                 <Setter TargetName="border" Property="Background" Value="White" />
@@ -130,85 +93,50 @@
         <TabItem Header="Ocenjivanje smestaja" FontSize="14">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="70"></RowDefinition>
-                    <RowDefinition Height="380"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="465"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Label Content="Protekle rezervacije smestaja" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="DemiBold"></Label>
+                    <Label Content="Protekle rezervacije smestaja" Margin="0,0,15,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="DemiBold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dataGridUnratedOwners"
-                  ItemsSource="{Binding Path=UnratedOwners, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path = SelectedUnratedOwner, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True"
-                  Width="390" Height="380" Margin="0,0,16,0">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Accommodation.Name}" Width="80">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping" Value="Wrap" />
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="Padding" Value="2"/>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                                <DataGridTextColumn.EditingElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping" Value="Wrap" />
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="Padding" Value="2"/>
-                                    </Style>
-                                </DataGridTextColumn.EditingElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Location" Binding="{Binding Accommodation.Location.CityAndCountry}" Width="80">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping" Value="Wrap" />
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="Padding" Value="2"/>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                                <DataGridTextColumn.EditingElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping" Value="Wrap" />
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="Padding" Value="2"/>
-                                    </Style>
-                                </DataGridTextColumn.EditingElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Owner" Binding="{Binding Owner.Username}" Width="80">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping" Value="Wrap" />
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="Padding" Value="2"/>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                                <DataGridTextColumn.EditingElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextWrapping" Value="Wrap" />
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                        <Setter Property="Padding" Value="2"/>
-                                    </Style>
-                                </DataGridTextColumn.EditingElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTemplateColumn Header="Dates" Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Padding="2" VerticalAlignment="Center">
-                                <Run Text="{Binding CheckInDate, StringFormat='{}{0:d}'}"/>
-                                <Run Text=" - "/>
-                                <Run Text="{Binding CheckOutDate, StringFormat='{}{0:d}'}"/>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <ListBox Grid.Row="0" ItemsSource="{Binding UnratedOwners}" SelectedItem="{Binding Path = SelectedUnratedOwner, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="5,5,22,10" VerticalAlignment="Top" Height="450" Background="LightGray">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding Accommodation.Pictures[0]}" Width="170" Height="120" Margin="10,5,10,5"></Image>
+                                    <StackPanel Grid.Column="1" Margin="5,5,0,0">
+                                        <TextBlock Text="{Binding Accommodation.Name}" FontSize="18" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,0">
+                                            <TextBlock Text="• " FontSize="14"></TextBlock>
+                                            <TextBlock Text="{Binding Accommodation.Location.CityAndCountry}" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                            <TextBlock Text="• Vlasnik - " FontSize="13"></TextBlock>
+                                            <TextBlock Text="{Binding Owner.Username}" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                            <TextBlock Text="• Dolazak: " FontSize="13"></TextBlock>
+                                            <TextBlock Text="{Binding CheckInDate, StringFormat='{}{0:d}'}" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,2,0,0">
+                                            <TextBlock Text="• Odlazak: " FontSize="13"></TextBlock>
+                                            <TextBlock Text="{Binding CheckOutDate, StringFormat='{}{0:d}'}" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
                 
                 <Grid Grid.Row="2">
-                    <Button x:Name="rateOwnerButton" Content="Oceni" Style="{StaticResource rateButtonStyle}" Command="{Binding OwnerRatingWindowCommand}" Margin="0,0,10,60"></Button>
+                    <Button x:Name="rateOwnerButton" Content="Oceni" Style="{StaticResource rateButtonStyle}" Command="{Binding OwnerRatingWindowCommand}" Margin="0,0,12,10"></Button>
                 </Grid>
                 
             </Grid>
@@ -219,60 +147,67 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button Style="{StaticResource reportButtonStyle}" Grid.Row="0" HorizontalAlignment="Right" Margin="0,5,15,0">
+                <Button Style="{StaticResource reportButtonStyle}" Grid.Row="0" HorizontalAlignment="Right" Margin="0,5,22,5" Command="{Binding GeneratePDFCommand}">
 
                 </Button>
-                <ListView Grid.Row="1" ItemsSource="{Binding GuestRatings}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView Grid.Row="1" ItemsSource="{Binding GuestRatings}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Width="390" Margin="0,0,17,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition ></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Margin="5,0,0,0">
-                                    <TextBlock Text="{Binding Owner.Username}" FontSize="20" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
-                                    <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
-                                        <TextBlock Text="• " FontSize="15"></TextBlock>
-                                        <TextBlock Text="{Binding Reservation.Accommodation.Name}" FontSize="15"></TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Margin="5,0,0,0">
+                                        <TextBlock Text="{Binding Owner.Username}" FontSize="20" FontWeight="DemiBold" Margin="5,5,0,0"></TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
+                                            <TextBlock Text="• " FontSize="15"></TextBlock>
+                                            <TextBlock Text="{Binding Reservation.Accommodation.Name}" FontSize="15"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                            <TextBlock Text="• " FontSize="15"></TextBlock>
+                                            <TextBlock Text="{Binding Reservation.Location.CityAndCountry}" FontSize="15"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                                            <Rectangle Width="12" Height="12" Fill="#ffc34d" Margin="0 0 4 0" />
+                                            <TextBlock Text="Komunikacija: " FontSize="14"></TextBlock>
+                                            <TextBlock Text="{Binding Communication}"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                            <Rectangle Width="12" Height="12" Fill="#e62e00" Margin="0 0 4 0" />
+                                            <TextBlock Text="Postovanje pravila: " FontSize="14"></TextBlock>
+                                            <TextBlock Text="{Binding RulesFollowing}"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                            <Rectangle Width="12" Height="12" Fill="#33bbff" Margin="0 0 4 0" />
+                                            <TextBlock Text="Postovanje imovine: " FontSize="14"></TextBlock>
+                                            <TextBlock Text="{Binding PropertyRespect}"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                            <Rectangle Width="12" Height="12" Fill="#1e8eb3" Margin="0 0 4 0" />
+                                            <TextBlock Text="Cistoca: " FontSize="14"></TextBlock>
+                                            <TextBlock Text="{Binding Cleanness}"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
+                                            <Rectangle Width="12" Height="12" Fill="#006680" Margin="0 0 4 0" />
+                                            <TextBlock Text="Nivo bucnosti: " FontSize="14"></TextBlock>
+                                            <TextBlock Text="{Binding NoiseLevel}"></TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
-                                        <TextBlock Text="• " FontSize="15"></TextBlock>
-                                        <TextBlock Text="{Binding Reservation.Location.CityAndCountry}" FontSize="15"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
-                                        <Rectangle Width="12" Height="12" Fill="#ffc34d" Margin="0 0 4 0" />
-                                        <TextBlock Text="Komunikacija: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding Communication}"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
-                                        <Rectangle Width="12" Height="12" Fill="#e62e00" Margin="0 0 4 0" />
-                                        <TextBlock Text="Postovanje pravila: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding RulesFollowing}"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
-                                        <Rectangle Width="12" Height="12" Fill="#33bbff" Margin="0 0 4 0" />
-                                        <TextBlock Text="Postovanje imovine: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding PropertyRespect}"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
-                                        <Rectangle Width="12" Height="12" Fill="#1e8eb3" Margin="0 0 4 0" />
-                                        <TextBlock Text="Cistoca: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding Cleanness}"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,2,0,0">
-                                        <Rectangle Width="12" Height="12" Fill="#006680" Margin="0 0 4 0" />
-                                        <TextBlock Text="Nivo bucnosti: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding NoiseLevel}"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10,7,0,0">
-                                        <TextBlock Text="Komentar: " FontSize="14"></TextBlock>
-                                        <TextBlock Text="{Binding Comment}"></TextBlock>
-                                    </StackPanel>
-                                </StackPanel>
 
-                                <lvc:PieChart Grid.Column="1" Series="{Binding RatingSeries}" Margin="30,0,0,0" LegendLocation="None" Width="180" Height="180">
-                                </lvc:PieChart>
+                                    <lvc:PieChart Grid.Column="1" Series="{Binding RatingSeries}" Margin="22,0,0,0" LegendLocation="None" Width="180" Height="180">
+                                    </lvc:PieChart>
+                                </Grid>
+
+                                <StackPanel Grid.Row="1">
+                                    <TextBlock Text="{Binding Comment}" TextWrapping="Wrap" Width="380" Padding="10"></TextBlock>
+                                    <Separator ></Separator>
+                                </StackPanel>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

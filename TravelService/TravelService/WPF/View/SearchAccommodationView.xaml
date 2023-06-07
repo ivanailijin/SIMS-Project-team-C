@@ -6,7 +6,7 @@
         xmlns:val="clr-namespace:TravelService.Validation"
         xmlns:local="clr-namespace:TravelService.WPF.View" xmlns:viewmodel="clr-namespace:TravelService.WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SearchAccommodationViewModel}"
         mc:Ignorable="d"
-        Title="SearchAccommodationView" Height="720" Width="420" Background="#cce6ff">
+        Title="SearchAccommodationView" d:Height="720" d:Width="420" Background="#cce6ff">
     <Page.Resources>
         <local:RadioButtonConverter x:Key="RadioButtonConverter" />
         <Style TargetType="TextBox">

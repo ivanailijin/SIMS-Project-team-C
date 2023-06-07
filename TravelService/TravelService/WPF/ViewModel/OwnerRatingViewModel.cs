@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using TravelService.Application.UseCases;
 using TravelService.Application.Utils;
 using TravelService.Commands;
@@ -255,7 +254,7 @@ namespace TravelService.WPF.ViewModel
                 string.IsNullOrWhiteSpace(Comfort.ToString()) ||
                 string.IsNullOrWhiteSpace(Contents.ToString()) ||
                 string.IsNullOrWhiteSpace(Comment) ||
-                string.IsNullOrWhiteSpace(Pictures))
+                string.IsNullOrEmpty(Pictures.ToString()))
             {
 
                 MessageBox.Show("Niste popunili sve parametre za ocenjivanje", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -272,7 +271,7 @@ namespace TravelService.WPF.ViewModel
                 }
 
 
-                 OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.Accommodation.Id, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
+                OwnerRating ownerRating = new OwnerRating(SelectedUnratedOwner.Id, SelectedUnratedOwner.Accommodation.Id, SelectedUnratedOwner.GuestId, SelectedUnratedOwner.OwnerId, Correctness, Cleanliness, Location, Comfort, Contents, Comment, formattedPictures);
                 _ownerRatingService.Save(ownerRating);
 
                 AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
@@ -341,8 +340,8 @@ namespace TravelService.WPF.ViewModel
 
 
             AccommodationReservation ratedOwner = _reservationService.FindById(SelectedUnratedOwner.Id);
-          //  ratedOwner.IsOwnerRated = true;
-          //  _reservationService.Update(ratedOwner);
+            ratedOwner.IsOwnerRated = true;
+            _reservationService.Update(ratedOwner);
             _ratingViewModel.UnratedOwners.Remove(ratedOwner);
         }
 

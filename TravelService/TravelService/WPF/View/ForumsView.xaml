@@ -58,11 +58,24 @@
                         <DataTemplate>
                             <StackPanel>
                                 <TextBlock Text="{Binding Location.CityAndCountry}" FontWeight="DemiBold" FontSize="20"/>
-                                <Border BorderBrush="Gray" BorderThickness="1" Height="70" Width="370" Margin="0,5,0,10">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Name}" Margin="10,25" FontSize="15"/>
-                                        
-                                    </StackPanel>
+                                <Border BorderBrush="Gray" BorderThickness="1" Height="70" Width="370" Margin="0,5,0,10" Background="#cce6ff">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="180"></ColumnDefinition>
+                                            <ColumnDefinition ></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="SemiBold" TextWrapping="Wrap"></TextBlock>
+                                        <StackPanel Grid.Column="1">
+                                            <StackPanel Orientation="Horizontal" Margin="80,10,0,0">
+                                                <TextBlock Text="{Binding NumberOfComments}"></TextBlock>
+                                                <TextBlock Text=" odgovora"></TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="80,10,0,0">
+                                                <TextBlock Text="{Binding User.Username}" Margin="0,0,5,0"></TextBlock>
+                                                <Image Height="18" Width="18" Source="/TravelService;component/Resources/Images/forumuser.png" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
                                 </Border>
                             </StackPanel>
                         </DataTemplate>
@@ -70,7 +83,7 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
                             <i:InvokeCommandAction Command="{Binding ForumSelectedCommand}"
-                                                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                             CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ListBox>
@@ -91,11 +104,24 @@
                             <DataTemplate>
                                 <StackPanel>
                                     <TextBlock Text="{Binding Location.CityAndCountry}" FontWeight="DemiBold" FontSize="20"/>
-                                    <Border BorderBrush="Gray" BorderThickness="1" Height="70" Width="370" Margin="0,5,0,10">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding Name}" Margin="10,25" FontSize="15"/>
-                                            <!-- Dodajte ostale prikazne elemente foruma -->
-                                        </StackPanel>
+                                    <Border BorderBrush="Gray" BorderThickness="1" Height="70" Width="370" Margin="0,5,0,10" Background="#cce6ff">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="180"></ColumnDefinition>
+                                                <ColumnDefinition ></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="SemiBold" TextWrapping="Wrap"></TextBlock>
+                                            <StackPanel Grid.Column="1">
+                                                <StackPanel Orientation="Horizontal" Margin="80,10,0,0">
+                                                    <TextBlock Text="{Binding NumberOfComments}"></TextBlock>
+                                                    <TextBlock Text=" odgovora"></TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="80,10,0,0">
+                                                    <TextBlock Text="{Binding User.Username}" Margin="0,0,5,0"></TextBlock>
+                                                    <Image Height="18" Width="18" Source="/TravelService;component/Resources/Images/forumuser.png" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
                                     </Border>
                                 </StackPanel>
                             </DataTemplate>
@@ -103,7 +129,7 @@
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
                                 <i:InvokeCommandAction Command="{Binding ForumSelectedCommand}"
-                                                                   CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                                CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ListBox>

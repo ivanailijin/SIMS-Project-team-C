@@ -54,6 +54,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Width="120" Height="120" Margin="5,0,0,0" Source="/TravelService;component/Resources/Images/portrait.png" />
             <StackPanel Grid.Column="1">
                 <Button Style="{StaticResource logOutButtonStyle}" Command="{Binding LogOutCommand}"></Button>
             </StackPanel>
