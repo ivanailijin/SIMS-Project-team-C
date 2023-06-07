@@ -69,13 +69,11 @@ namespace TravelService.WPF.ViewModel
             AddTourRequestView addTourRequestView = new AddTourRequestView(Guest2,IsForwarded,TourRequests);
             addTourRequestView.IsForwarded = false;
             addTourRequestView.Show();
-            CloseAction();
         }
         private void Execute_ComplexRequestCommand(object sender)
         {
             AddComplexTourRequestView addComplexTourRequestView = new AddComplexTourRequestView(Guest2, TourRequests);
             addComplexTourRequestView.Show();
-            CloseAction();
         }
     }
 }

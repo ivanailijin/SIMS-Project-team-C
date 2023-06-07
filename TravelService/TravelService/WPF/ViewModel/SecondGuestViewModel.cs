@@ -188,7 +188,7 @@ namespace TravelService.WPF.ViewModel
         }
         private void Execute_TourViewCommand(object sender)
         {
-            TourView tourView = new TourView(Guest2);
+            TourView tourView = new TourView(Guest2, SelectedTour);
             tourView.Show();
         }
         private void Execute_HomePageCommand(object sender)

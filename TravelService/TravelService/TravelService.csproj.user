@@ -202,10 +202,16 @@
     <Compile Update="WPF\View\ShowRequestListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="WPF\View\ShowTourFiltersView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\ShowTourInfoView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\ShowTourReviewView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ShowWholeTourView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\SuggestionForGuideView.xaml.cs">
@@ -438,10 +444,16 @@
     <Page Update="WPF\View\ShowRequestListView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\ShowTourFiltersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\ShowTourInfoView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ShowTourReviewView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ShowWholeTourView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\SuggestionForGuideView.xaml">
