@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -44,6 +44,10 @@ namespace TravelService.WPF.ViewModel
         public ObservableCollection<TourRequest> FilteredRequests { get; set; }
         public List<Location> Locations { get; set; }
         public List<Language> Languages { get; set; }
+        private App app;
+        private const string SRB = "sr-Latn-RS";
+        private const string ENG = "en-US";
+
 
         private int _guideId;
         public int GuideId
@@ -198,6 +202,9 @@ namespace TravelService.WPF.ViewModel
             Accept = new RelayCommand(Execute_Accept, CanExecute_Command);
             Stats = new RelayCommand(Execute_StatsCommand, CanExecute_Command);
             AcceptingTourRequestView = acceptingTourRequestView;
+
+            app = (App)Application.Current;
+            app.ChangeLanguage(SRB);
         }
 
         private void Execute_SearchAvailableDates(object sender)

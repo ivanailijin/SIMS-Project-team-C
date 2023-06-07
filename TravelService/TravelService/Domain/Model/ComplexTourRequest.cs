@@ -13,12 +13,16 @@ namespace TravelService.Domain.Model
         public List<TourRequest> TourRequests { get; set; }
         public APPROVAL Acceptance { get; set; }
         public Guest2 Guest2 { get; set; }
+
+
         public ComplexTourRequest()
         {
             TourRequests = new List<TourRequest>();
         }
 
         public ComplexTourRequest(List<TourRequest> tourRequests, string name, APPROVAL acceptance, Guest2 guest2)
+
+
         {
             Name = name;
             TourRequests = new List<TourRequest>(tourRequests);

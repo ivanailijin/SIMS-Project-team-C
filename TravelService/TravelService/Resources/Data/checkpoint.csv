@@ -1,4 +1,4 @@
-1|Kalemegdan|1|False
+1|Kalemegdan|1|True
 2|Avala|1|True
 3|Kalemegdan|2|True
 4|Avala|2|True
@@ -63,3 +63,8 @@
 70|ww|0|False
 67|d|0|False
 68|dd|0|False
+71|dd|0|False
+72|dddd|0|False
+73|dd|0|False
+74|ss|0|False
+75|sss|0|False

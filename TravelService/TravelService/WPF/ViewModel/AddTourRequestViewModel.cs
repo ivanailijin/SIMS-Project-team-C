@@ -2,18 +2,28 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
 using TravelService.WPF.View;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 
 namespace TravelService.WPF.ViewModel
 {
     public class AddTourRequestViewModel : ViewModelBase
+
     {
         private readonly TourRequestService _tourRequestService;
+
+     
+       
+
         private readonly LocationService _locationService;
         private readonly LanguageService _languageService;
         public Guest2 Guest2 { get; set; }
@@ -178,6 +188,7 @@ namespace TravelService.WPF.ViewModel
 
         public AddTourRequestViewModel(Guest2 guest2, bool isForwarded, ObservableCollection<TourRequest> tourRequests)
         {
+        
             _tourRequestService = new TourRequestService(Injector.CreateInstance<ITourRequestRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());
             _languageService = new LanguageService(Injector.CreateInstance<ILanguageRepository>());

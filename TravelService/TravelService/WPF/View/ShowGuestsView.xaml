@@ -1,64 +1,81 @@
-﻿<Window x:Class="TravelService.WPF.View.ShowGuestsView"
+﻿<Page x:Class="TravelService.WPF.View.ShowGuestsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ShowGuestsView" Height="450" Width="900" ResizeMode="NoResize">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:TravelService.WPF.View"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+      
+       mc:Ignorable="d"
+        Title="ShowGuestsView" d:DesignHeight="350" d:DesignWidth="544">
     <Grid Margin="0 0 0 0">
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/Icons/daniela-cuevas-t7YycgAoVSw-unsplash.jpg"/>
-        </Grid.Background>
-        <Grid.RowDefinitions>
-            <RowDefinition />
+        <Border BorderThickness="3" Margin="5" Padding="5" Width="400" Height="300">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Red" Offset="0"/>
+                    <GradientStop Color="Orange" Offset="0.17"/>
+                    <GradientStop Color="Yellow" Offset="0.33"/>
+                    <GradientStop Color="Green" Offset="0.5"/>
+                    <GradientStop Color="Blue" Offset="0.67"/>
+                    <GradientStop Color="Indigo" Offset="0.83"/>
+                    <GradientStop Color="Violet" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <StackPanel>
+                <ListView Width =" 220" Grid.Row="0"  ItemsSource="{Binding GuestList}" SelectedItem="{Binding SelectedGuest}" Height="150"  >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Username}"/>
+                            <GridViewColumn Header="Current Checkpoint" DisplayMemberBinding="{Binding CheckPointId}"  />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-        </Grid.RowDefinitions>
-
-        <ListView MaxWidth="200" MaxHeight="200" Grid.Row="0"  ItemsSource="{Binding GuestList}" SelectedItem="{Binding SelectedGuest}" Margin="102,24,125,43" Background="LightYellow" BorderBrush="#FF547ABE" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Username}" Width="auto"/>
-                    <GridViewColumn Header="Current Checkpoint" DisplayMemberBinding="{Binding CheckPointId}" Width="auto" />
-                </GridView>
-            </ListView.View>
-        </ListView>
 
 
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Width="306" Margin="0 70 0 0" Height="54">
+                    <Button Background="MediumPurple" Command="{Binding showReviewsCommand}" Content="Show Reviews"  HorizontalAlignment="Left" Foreground="#FFFFFF" Height="50" Width="100" Margin=" 0 0 100 0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Background="MediumPurple" Command="{Binding CancelCommand}" Content="Go back" Foreground="#FF184C75" HorizontalAlignment="Right" Height="50" Width="100">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,345,0,5" Width="405">
-            <Button Command="{Binding showReviewsCommand}" Content="Show Reviews" Background="#FF184C75" Foreground="#FFFFFF" Height="50" Width="140" Margin=" 0 0 100 0">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button Command="{Binding CancelCommand}" Content="Go back" Foreground="#FF184C75" Background="#FFFFFF"  Height="50" Width="140">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+        </Border>
+        <Frame x:Name="MyPopupFrame" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="Collapsed" Height="0" Width="0"/>
+
     </Grid>
-</Window>
+</Page>

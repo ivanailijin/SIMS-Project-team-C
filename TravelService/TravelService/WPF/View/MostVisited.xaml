@@ -3,42 +3,133 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TravelService.WPF.View"
         Title="Most Visited Tours" Height="450" Width="800">
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
-            <TextBlock Text="Select Year: " FontSize="16"/>
-            <ComboBox Name="SelectYear" ItemsSource="{Binding AvailableYears}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}" 
-      DisplayMemberPath="." FontSize="16" Width="100" Margin="10"
-      SelectionChanged="YearComboBox_SelectionChanged"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-70,0,0">
+            <TextBlock Text="Select Year: " VerticalAlignment="Center" FontSize="16"/>
+            <ComboBox  Grid.Row="0" Name="SelectYear" ItemsSource="{Binding AvailableYears}" SelectedItem="{Binding SelectedYear, Mode=TwoWay}" 
+                DisplayMemberPath="." FontSize="16" Width="100" Margin="10" 
+                SelectionChanged="YearComboBox_SelectionChanged"/>
         </StackPanel>
 
         <TextBlock Text="Most Visited Tours" FontSize="20" FontWeight="Bold" 
-               HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding MostVisitedTours, UpdateSourceTrigger=PropertyChanged}" 
-              AutoGenerateColumns="False" Margin="236,21,161,249">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Start Date" Binding="{Binding TourStart}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="100 0 50 0"/>
 
-        <TextBlock Grid.Row="1" Text="Most Visited Tours in Selected Year" FontSize="20" FontWeight="Bold" 
-               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="232,154,0,0"/>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding MostVisitedToursInYear, UpdateSourceTrigger=PropertyChanged}" 
-              AutoGenerateColumns="False" Margin="224,211,160,43" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Start Date" Binding="{Binding TourStart}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListBox Grid.Row="1" ItemsSource="{Binding MostVisitedTours, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="400" Height="400">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderThickness="3" Margin="5" Padding="5">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="Red" Offset="0"/>
+                                    <GradientStop Color="Orange" Offset="0.17"/>
+                                    <GradientStop Color="Yellow" Offset="0.33"/>
+                                    <GradientStop Color="Green" Offset="0.5"/>
+                                    <GradientStop Color="Blue" Offset="0.67"/>
+                                    <GradientStop Color="Indigo" Offset="0.83"/>
+                                    <GradientStop Color="Violet" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Image Source="{Binding Pictures[0]}" Width="400" Height="250" Stretch="UniformToFill"/>
+
+                                <StackPanel Grid.Row="1" Margin="5">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Location.CityAndCountry}" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding Language.Name}"/>
+
+                                  
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.Template>
+                <ControlTemplate>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListBox.Template>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <TextBlock Grid.Row="1" Text="Most Visited Tours in Selected Year" FontSize="20" FontWeight="Bold" Margin="0 -50 30 50"
+                HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding MostVisitedToursInYear, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  HorizontalAlignment="Right" Width="400" Height="400">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderThickness="3" Margin="5" Padding="5">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="Red" Offset="0"/>
+                                    <GradientStop Color="Orange" Offset="0.17"/>
+                                    <GradientStop Color="Yellow" Offset="0.33"/>
+                                    <GradientStop Color="Green" Offset="0.5"/>
+                                    <GradientStop Color="Blue" Offset="0.67"/>
+                                    <GradientStop Color="Indigo" Offset="0.83"/>
+                                    <GradientStop Color="Violet" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Image Source="{Binding Pictures[0]}" Width="400" Height="250" Stretch="UniformToFill"/>
+
+                                <StackPanel Grid.Row="1" Margin="5">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
+                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Location.CityAndCountry}" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding Language.Name}"/>
+
+
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.Template>
+                <ControlTemplate>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListBox.Template>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </Grid>
-
-
 </Page>

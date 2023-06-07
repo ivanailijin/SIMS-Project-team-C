@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;

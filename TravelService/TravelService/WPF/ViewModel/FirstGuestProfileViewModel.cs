@@ -2,11 +2,11 @@
 using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
-using TravelService.Application.UseCases;
+using TravelService.Applications.UseCases;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.WPF.View;
-using TravelService.Application.Utils;
+using TravelService.Applications.Utils;
 using TravelService.Domain.RepositoryInterface;
 using System.Collections.Generic;
 using LiveCharts;

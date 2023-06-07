@@ -17,13 +17,15 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="Auto" MinHeight="315"></RowDefinition>
+                <RowDefinition Height="Auto" ></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+            <TextBlock Text="{Binding ErrorMessage}" Margin="-5,40,329,495" Grid.RowSpan="3"/>
+            <TextBlock Text="{Binding ConfirmationMessage}"  Margin="-5,40,329,495" Grid.RowSpan="3"/>
             <TextBlock Text="Future Tours" Margin="5,10,24,25" FontFamily="Arial" FontSize="36" FontWeight="Bold" TextAlignment="Center"/>
-            <ListBox Grid.Row="1" x:Name="allTours"
+            <ListBox Grid.Row="2" x:Name="allTours" 
                   ItemsSource="{Binding Path=FutureTours, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding SelectedTour}" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Width="545" Margin="-15,0,0,0" Height="0">
+                  SelectedItem="{Binding SelectedTour}" VerticalAlignment="Center" HorizontalContentAlignment="Center" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -57,7 +59,24 @@
                                         <TextBlock Text="{Binding Location.CityAndCountry}" TextWrapping="Wrap"></TextBlock>
                                         <TextBlock Text="{Binding Language.Name}"/>
 
-                                        <Button IsDefault="True" Click="CancelTour_Click" Content="Cancel Tour" Margin="289,336,344,29" />
+                                        <Button IsDefault="True" Click="CancelTour_Click" Content="Cancel Tour"  Background="MediumPurple">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Grid>
+                                                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
                                     </StackPanel>
                                 </Grid>
                             </Border>

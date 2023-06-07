@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Navigation;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -25,6 +25,28 @@ namespace TravelService.WPF.ViewModel
         public List<Tour> ExistingTours { get; set; }
         public bool IsDateAvailable { get; set; }
         public RelayCommand ScheduleCommand { get; set; }
+
+        private string _confirmationMessage;
+        public string ConfirmationMessage
+        {
+            get { return _confirmationMessage; }
+            set
+            {
+                _confirmationMessage = value;
+                OnPropertyChanged(nameof(ConfirmationMessage));
+            }
+        }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
 
         public ScheduleDateViewModel(TourRequest selectedTourRequest,NavigationService navigationService,ScheduleDateView scheduleDateView)
         {
@@ -57,6 +79,7 @@ namespace TravelService.WPF.ViewModel
         // Schedule the tour for the selected date
         private void ScheduleTour(object obj)
         {
+            ErrorMessage = "You must select a date within the valid tour range.";
             // Check if the selected date is within the valid range
             if (SelectedTourRequest.TourStart <= SelectedDate && SelectedDate <= SelectedTourRequest.TourEnd && SelectedDate !=null)
             {
@@ -65,13 +88,14 @@ namespace TravelService.WPF.ViewModel
                 SelectedTourRequest.RequestApproved = APPROVAL.ACCEPTED;
                 _tourRequestService.Update(SelectedTourRequest);
                 NavigationService.Navigate(new AcceptingTourRequestView(Guide, SelectedTourRequest,NavigationService));
+                ConfirmationMessage = "Tura je zakazana!";
                
                 _newTourNotificationService.TourRequestAcceptedNotification(SelectedTourRequest);
                 CloseAction();
             }
             else
             {
-                MessageBox.Show("You must select a date within the valid tour range.");
+               ErrorMessage = "You must select a date within the valid tour range.";
             }
         }
 

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -20,10 +21,13 @@ namespace TravelService.WPF.ViewModel
        
         public NavigationService NavigationService { get; set; }
         public TourRequest SelectedTourRequest { get; set; }
+        public ComplexTourRequest SelectedComplexTourRequest { get; set; }
+        public TourRequest SelectedRequest { get; set; }
         private readonly GuideService _guideService;
         public Tour SelectedTour { get; set; }
         public bool Visibility { get; set; }
         public Guide Guide { get; set; }
+        public Tour Tour { get; set; }
         public List<Guest> Guests { get; set; }
 
         public Action CloseAction { get; set; }
@@ -34,18 +38,22 @@ namespace TravelService.WPF.ViewModel
         public RelayCommand CancelTourCommand { get; set; }
         public RelayCommand PastToursCommand { get; set; }
         public RelayCommand RequestsCommand { get; set; }
-        public RelayCommand RequestsComplexCommand { get; set; }
+        public RelayCommand Complex { get; set; }
         public RelayCommand BestTourCommand { get; set; }
         public RelayCommand AboutMeCommand { get; set; }
         public RelayCommand ThemeCommand { get; set; }
         public RelayCommand LanguageCommand { get; set; }
         public RelayCommand FutureToursCommand { get; set; }
+        public RelayCommand Profile { get; set; }
+        public RelayCommand Home { get; set; }
 
         public RelayCommand Suggestion { get; set; }
         public Brush Background { get; set; }
         public Brush Foreground { get; set; }
 
-
+        private App app;
+        private const string SRB = "sr-Latn-RS";
+        private const string ENG = "en-US";
 
 
         public GuideHomePageViewModel(NavigationService navigationService,Guide guide,GuideHomePageView guideHomePageView)
@@ -59,22 +67,26 @@ namespace TravelService.WPF.ViewModel
 
 
             LogOutCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
-            FutureToursCommand = new RelayCommand(Execute_Future, CanExecute_Command);
+        //    FutureToursCommand = new RelayCommand(Execute_Future, CanExecute_Command);
             AddTourCommand = new RelayCommand(Execute_AddTourCommand, CanExecute_Command);
             CancelTourCommand = new RelayCommand(Execute_CAncelTourCommand, CanExecute_Command);
             PastToursCommand = new RelayCommand(Execute_PastToursCommand, CanExecute_Command);
              RequestsCommand = new RelayCommand(Execute_RequestsCommand, CanExecute_Command);
-            // RequestsComplexCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
+             Complex = new RelayCommand(Execute_Complex, CanExecute_Command);
             BestTourCommand = new RelayCommand(Execute_BestTourCommand, CanExecute_Command);
             // AboutMeCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
-          
+            Profile = new RelayCommand(Execute_Profile, CanExecute_Command);
+            Home = new RelayCommand(Execute_Home, CanExecute_Command);
             LanguageCommand = new RelayCommand(Execute_LogOutCommand, CanExecute_Command);
             Suggestion = new RelayCommand(Execute_SuggestionCommand,CanExecute_Command);
 
             PopupFrame = guideHomePageView.MyPopupFrame;
 
-            NavigationService.Navigate(new ActiveToursView(SelectedTour, NavigationService))
-;        }
+            NavigationService.Navigate(new ActiveToursView(SelectedTour, NavigationService));
+
+                app = (App)Application.Current;
+               app.ChangeLanguage(SRB);
+               }
 
         private string _username;
         public string Username
@@ -89,14 +101,19 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        private void Execute_Future(object obk)
+        private void Execute_Home(object obk)
         {
-            NavigationService.Navigate(new MyTours(SelectedTour, Guide, NavigationService));
+            NavigationService.Navigate(new ActiveToursView(SelectedTour, NavigationService));
         }
+        private void Execute_Profile(object obk)
+        {
+            NavigationService.Navigate(new ProfileView(Guide,NavigationService,GuideHomePageView));
+        }
+       
         private void Execute_SuggestionCommand(object obj)
         {
-            var suggestion = new SuggestionForGuideView(Guide, NavigationService);
-            OpenPopupPage(suggestion);
+            NavigationService.Navigate (new SuggestionForGuideView(Guide, NavigationService));
+            
         }
         private void OpenPopupPage(Page SuggestionForGuideView)
         {
@@ -104,11 +121,16 @@ namespace TravelService.WPF.ViewModel
             PopupFrame.Visibility = System.Windows.Visibility.Visible;
 
         }
-
-
         private void Execute_RequestsCommand(object obj)
         {
-            NavigationService.Navigate(new AcceptingTourRequestView(Guide, SelectedTourRequest,NavigationService));
+            NavigationService.Navigate(new AcceptingTourRequestView(Guide, SelectedTourRequest, NavigationService));
+
+
+        }
+
+        private void Execute_Complex(object obj)
+        {
+            NavigationService.Navigate(new AcceptingComplexReq(SelectedRequest,Guide, SelectedComplexTourRequest,NavigationService));
             
 
         }

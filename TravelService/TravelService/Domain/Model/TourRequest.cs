@@ -18,6 +18,7 @@ namespace TravelService.Domain.Model
         public DateTime TourEnd { get; set; }
         public APPROVAL RequestApproved { get; set; }
         public int GuestId { get; set; }
+        
 
 
         public TourRequest() { }

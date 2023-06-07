@@ -29,13 +29,15 @@
             <Button Command="{Binding SearchTourCommand}" Height="20" Margin="30,0,0,0">Search</Button>
             <Button Command="{Binding ShowAllToursCommand}" Height="20" Margin="30,0,0,0">Show all tours</Button>
             <Button Command="{Binding CancelCommand}" Height="20" Margin="20,0,0,0">Cancel</Button>
-            
+         
+
 
         </StackPanel>
         <DataGrid Grid.Row="2" x:Name="allTours"
                   ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Guide.Username}" FontSize="13"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>

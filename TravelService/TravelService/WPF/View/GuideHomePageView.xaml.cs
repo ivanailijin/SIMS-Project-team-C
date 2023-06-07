@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using TravelService.Domain.Model;
 using TravelService.Repository;
 
+
 using TravelService.WPF.ViewModel;
 
 namespace TravelService.WPF.View
@@ -26,8 +27,7 @@ namespace TravelService.WPF.View
     public partial class GuideHomePageView : Window,INotifyPropertyChanged
     {
 
-        double panelWidth;
-        bool hidden;
+     
 
         public GuideHomePageView(Guide guide)
         {

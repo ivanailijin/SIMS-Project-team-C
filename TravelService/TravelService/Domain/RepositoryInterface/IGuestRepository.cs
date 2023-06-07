@@ -19,6 +19,7 @@ namespace TravelService.Domain.RepositoryInterface
 
         public Guest Update(Guest guest);
         public List<Guest> FindByTourId(int tourId);
+        public List<Guest> GetAllGuestsWithVouchers();
     }
 }
 

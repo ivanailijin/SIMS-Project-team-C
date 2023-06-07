@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -19,12 +19,12 @@ namespace TravelService.WPF.ViewModel
         public Action CloseAction { get; set; }
         public Guest SelectedGuest { get; set; }
         public List<TourReview> TourReviews { get; set; }
-        public List<TourReview> Reviews { get; set;}
+        public List<TourReview> Reviews { get; set; }
         public TourReview SelectedTourReview { get; set; }
         private readonly TourReviewService _tourReviewService;
         public RelayCommand CancelCommand { get; set; }
 
-        public ShowTourReviewsViewModel(Guest selectedGuest, TourReview selectedTourReview,NavigationService navigationService, ShowTourReviewView showTourReviewView)
+        public ShowTourReviewsViewModel(Guest selectedGuest, TourReview selectedTourReview, NavigationService navigationService, ShowTourReviewView showTourReviewView)
         {
             NavigationService = navigationService;
             ShowTourReviewView = showTourReviewView;
@@ -35,8 +35,9 @@ namespace TravelService.WPF.ViewModel
             Reviews = _tourReviewService.FindGuestsTourReviews(TourReviews, SelectedGuest);
 
             showReportCommand = new RelayCommand(Execute_Report, CanExecute_Command);
-            CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
-         
+            CancelCommand = new RelayCommand(Cancel_Command,CanExecute_Command);    
+
+
         }
 
         private RelayCommand showReport;
@@ -53,11 +54,31 @@ namespace TravelService.WPF.ViewModel
 
             }
         }
-        private void Execute_CancelCommand(object obj)
+        private string _confirmationMessage;
+        public string ConfirmationMessage
         {
-
-            CloseAction();
+            get { return _confirmationMessage; }
+            set
+            {
+                _confirmationMessage = value;
+                OnPropertyChanged(nameof(ConfirmationMessage));
+            }
         }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+        private void Cancel_Command(object sender)
+            {
+             NavigationService.GoBack();
+            }
 
         private bool CanExecute_Command(object parameter)
         {
@@ -72,7 +93,7 @@ namespace TravelService.WPF.ViewModel
             }
             else
             {
-                MessageBox.Show("Choose review to report!");
+                ErrorMessage="Choose review to report!";
             }
         }
 

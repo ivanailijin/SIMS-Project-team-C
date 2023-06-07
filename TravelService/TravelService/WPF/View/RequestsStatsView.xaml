@@ -5,51 +5,93 @@
      
 
         Title="Requests Statistics" Height="320" Width="760">
-   
-
-    <Grid Margin="20">
-        <!-- ComboBox za izbor lokacije -->
-        <ComboBox x:Name="locationComboBox" Text="{Binding Path = SelectedLocation, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding LocationsComboBox}"
-          BorderBrush="Transparent" BorderThickness="0" Height="41" VerticalAlignment="Top" Margin="258,45,278,0" RenderTransformOrigin="0.5,0.5">
-            <ComboBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.308"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </ComboBox.RenderTransform>
-        </ComboBox>
-        
-
-        <!-- ComboBox za izbor jezika -->
-        <ComboBox ItemsSource="{Binding LanguageComboBox}"
-          SelectedItem="{Binding SelectedLanguage}"
-          DisplayMemberPath="Name"
-          Margin="55,16,505,185"
-          Visibility="Visible"
-          BorderBrush="Black"/>
 
 
-        <!-- ComboBox za izbor godine -->
-        <ComboBox ItemsSource="{Binding Years}"
-          SelectedItem="{Binding SelectedYear}"
-          Margin="255,149,305,55"/>
+    <Grid >
+        <TextBlock Text="{Binding ErrorMessage}" Grid.Row="0"  FontSize="20 " Margin="10 20 0 0"/>
+        <TextBlock Text="{Binding ConfirmationMessage}" Grid.Row="0" FontSize="20" Margin="10 20 0 0" />
+        <Border BorderThickness="3" Margin="5" Padding="5" >
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Red" Offset="0"/>
+                    <GradientStop Color="Orange" Offset="0.17"/>
+                    <GradientStop Color="Yellow" Offset="0.33"/>
+                    <GradientStop Color="Green" Offset="0.5"/>
+                    <GradientStop Color="Blue" Offset="0.67"/>
+                    <GradientStop Color="Indigo" Offset="0.83"/>
+                    <GradientStop Color="Violet" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Height="86" Width="247">
+                    <ComboBox x:Name="locationComboBox" Text="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding LocationsComboBox}"  BorderBrush="Transparent" BorderThickness="0" Height="41" Width=" 200" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                        <ComboBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.308"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ComboBox.RenderTransform>
+                    </ComboBox>
+                    <Button Content="Show Location Statistics"
+                Command="{Binding ShowLocationStatisticsCommand}" Width="200" Height="41" Background="MediumPurple">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical" Width="230">
+                    <!-- ComboBox za izbor jezika -->
+                    <ComboBox ItemsSource="{Binding LanguageComboBox}" SelectedItem="{Binding SelectedLanguage}" Height="41" Width="200"  DisplayMemberPath="Name"  Visibility="Visible"  BorderBrush="Black"/>
+                    <Button Content="Show Language Statistics" Command="{Binding ShowLanguageStatisticsCommand}" Height="41" Width=" 200" Background="MediumPurple" >
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <ComboBox ItemsSource="{Binding Years}"  SelectedItem="{Binding SelectedYear}"  Width="200" Height="41"/>
 
-        <!-- ComboBox za izbor meseca -->
-        <ComboBox ItemsSource="{Binding Months}"
-          SelectedItem="{Binding SelectedMonth}"
-          Margin="480,24,70,186"/>
+
+                    <ComboBox ItemsSource="{Binding Months}"  SelectedItem="{Binding SelectedMonth}"  Width="200" Height="41" />
+                </StackPanel>
 
 
-        <!-- Dugme za prikaz statistike za lokaciju -->
-        <Button Content="Show Location Statistics"
-                Command="{Binding ShowLocationStatisticsCommand}"
-                Margin="475,164,55,5"/>
 
-        <!-- Dugme za prikaz statistike za jezik -->
-        <Button Content="Show Language Statistics"
-                Command="{Binding ShowLanguageStatisticsCommand}"
-                Margin="10,199,555,10"/>
+            </StackPanel>
+
+
+
+        </Border>
+
+
     </Grid>
+
 </Page>

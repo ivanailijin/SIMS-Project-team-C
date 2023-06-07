@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="EnterCheckPoint"  d:DesignHeight="350" d:DesignWidth="544" >
     <Grid>
-        <Border Background="Transparent" BorderBrush=" Red" Width="500" Height="200" CornerRadius="10"
+        <Border Background="White" BorderBrush=" Red" Width="500" Height="200" CornerRadius="10"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20">
 
 
-            <Grid  Background="White" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid >
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -32,7 +32,7 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="128,85,0,14" Width="210">
 
-                    <Button Command="{Binding CreateCommand}" Content="Create" Height="40" Width="100"  Background="#FF184C75" Foreground="#FFFFFF" Margin="0 0 0 1">
+                    <Button Command="{Binding CreateCommand}" Content="Create" Height="40" Width="100" Background="MediumPurple" Margin="0 0 0 1">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -50,7 +50,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Content="Go back" Height="40" Width="100" Background="#FFB0DAEB" Foreground="#FF132D57" Command="{Binding CancelCommand}">
+                    <Button Content="Go back" Height="40" Width="100" Background="MediumPurple" Command="{Binding CancelCommand}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid>

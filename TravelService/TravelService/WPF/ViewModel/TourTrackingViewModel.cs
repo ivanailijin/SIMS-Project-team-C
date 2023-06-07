@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -17,6 +17,7 @@ namespace TravelService.WPF.ViewModel
 {
     public class TourTrackingViewModel : ViewModelBase
     {
+ 
         public Action CloseAction { get; set; }
 
         private readonly TourService _tourService;
@@ -101,6 +102,7 @@ namespace TravelService.WPF.ViewModel
         public ObservableCollection<Tour> ActiveTours { get; set; }
         public TourTrackingViewModel(Tour selectedTour,Guest2 guest2)
         {
+            
             _tourService = new TourService(Injector.CreateInstance<ITourRepository>());
             _tourReservationService = new TourReservationService(Injector.CreateInstance<ITourReservationRepository>());
             _locationService = new LocationService(Injector.CreateInstance<ILocationRepository>());

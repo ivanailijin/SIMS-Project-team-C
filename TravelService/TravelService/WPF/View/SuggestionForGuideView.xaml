@@ -4,25 +4,73 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="clr-namespace:TravelService.WPF.View"
+              xmlns:ns="clr-namespace:TravelService.Localization"
       mc:Ignorable="d"
       Title="SuggestionForGuideView" d:DesignHeight="350" d:DesignWidth="544">
 
     <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border BorderThickness="3" Margin="5" Padding="5" Width="400" Height="300">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Red" Offset="0"/>
+                    <GradientStop Color="Orange" Offset="0.17"/>
+                    <GradientStop Color="Yellow" Offset="0.33"/>
+                    <GradientStop Color="Green" Offset="0.5"/>
+                    <GradientStop Color="Blue" Offset="0.67"/>
+                    <GradientStop Color="Indigo" Offset="0.83"/>
+                    <GradientStop Color="Violet" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <StackPanel>
-                <TextBlock Text="Most Requested Language:" FontSize="18" Margin="0 0 0 10"/>
-                <TextBox Text="{Binding MostRequestedLanguage, Mode=OneWay}" FontSize="16" Margin="0 0 0 20" IsReadOnly="True"/>
+                <StackPanel>
+                    <TextBlock Text="Most Requested Language:" FontSize="18" Margin="0 0 0 10"/>
+                    <TextBox Text="{Binding MostRequestedLanguage, Mode=OneWay}" FontSize="16" Margin="0 0 0 20" IsReadOnly="True"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Most Requested Location:" FontSize="18" Margin="0 0 0 10"/>
+                    <TextBox Text="{Binding MostRequestedLocation, Mode=OneWay}" FontSize="16" Margin="0 0 0 20" IsReadOnly="True"/>
+                </StackPanel>
+
+                <Button Content="Create Tour for Location" Command="{Binding AddTourLocationCommand}" FontSize="16" Margin="0 0 0 10" Padding="10" Width="210" HorizontalAlignment="Center" Background="MediumPurple">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Content="Create Tour for Language" Command="{Binding AddTourLangaugeCommand}" FontSize="16" Margin="0 0 0 10" Padding="10" Width="210"  HorizontalAlignment="Center" Background="MediumPurple">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </StackPanel>
-
-            <StackPanel>
-                <TextBlock Text="Most Requested Location:" FontSize="18" Margin="0 0 0 10"/>
-                <TextBox Text="{Binding MostRequestedLocation, Mode=OneWay}" FontSize="16" Margin="0 0 0 20" IsReadOnly="True"/>
-            </StackPanel>
-
-            <Button Content="Create Tour for Location" Command="{Binding AddTourLocationCommand}" FontSize="16" Margin="0 0 0 10" Padding="10" Background="#0078D7" Foreground="White" HorizontalAlignment="Center"/>
-            <Button Content="Create Tour for Language" Command="{Binding AddTourLangaugeCommand}" FontSize="16" Margin="0 0 0 10" Padding="10" Background="#0078D7" Foreground="White" HorizontalAlignment="Center"/>
-        </StackPanel>
+        </Border>
     </Grid>
 </Page>

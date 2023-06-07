@@ -5,12 +5,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="clr-namespace:TravelService.WPF.View"
       mc:Ignorable="d"
-      Title="CheckPointView" d:DesignHeight="350" d:DesignWidth="544">
+      Title="CheckPointView" d:DesignHeight="400" d:DesignWidth="544">
     <Grid >
         <Border BorderBrush="Black"/>
         <Grid />
+        <TextBlock Text="{Binding ErrorMessage}" Grid.Row="1"  FontSize="20"/>
+        <TextBlock Text="{Binding ConfirmationMessage}" Grid.Row="1" FontSize="20"/>
         <!-- Overlay grid with semi-transparent background -->
-        <Border Background="White" BorderBrush=" Red" Width="500" Height="200" CornerRadius="10"
+        <Border Background="White" BorderBrush=" Red" Width="500" Height="300" CornerRadius="10"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20">
             <Grid>
                 <Grid.RowDefinitions>
@@ -20,8 +22,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <ListView x:Name="ListCheckBox" Background="LightYellow" ItemsSource="{Binding FilteredCheckPoint}" SelectedItem="{Binding SelectedCheckPoint}"
-                          Grid.Row="0">
+                <ListView x:Name="ListCheckBox" Background="LightYellow" HorizontalAlignment="Left" ItemsSource="{Binding FilteredCheckPoint}" SelectedItem="{Binding SelectedCheckPoint}"
+                          Grid.Row="0" Grid.RowSpan="4" Width="186" Margin="133,10,0,-10">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -30,7 +32,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <WrapPanel Margin="100 70 50 50" Grid.Row="4">
+                <WrapPanel Margin="78,195,72,-75" Grid.Row="3">
                     <Button Content="Mark" Click="Mark_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="30"  Width="100" Background="LawnGreen"
                         Grid.Row="4"  />
 
@@ -42,7 +44,7 @@
 
                 </WrapPanel>
             </Grid>
-            
+
         </Border>
     </Grid>
 </Page>

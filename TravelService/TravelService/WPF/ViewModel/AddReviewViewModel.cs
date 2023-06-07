@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -186,6 +186,7 @@ namespace TravelService.WPF.ViewModel
         }
         public AddReviewViewModel(Tour selectedTour, Guest2 guest2) 
         {
+           
             _tourReviewService = new TourReviewService(Injector.CreateInstance<ITourReviewRepository>());
             SelectedTour = selectedTour;
             Guest2 = guest2;

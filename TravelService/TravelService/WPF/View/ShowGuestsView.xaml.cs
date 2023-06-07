@@ -20,7 +20,7 @@ namespace TravelService.WPF.View
     /// <summary>
     /// Interaction logic for ShowGuestsView.xaml
     /// </summary>
-    public partial class ShowGuestsView : Window
+    public partial class ShowGuestsView : Page
     {
 
         public ShowGuestsView(Tour selectedTour, Guest selectedGuest,NavigationService navigationService)

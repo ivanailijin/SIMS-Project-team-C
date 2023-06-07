@@ -21,5 +21,6 @@ namespace TravelService.Domain.RepositoryInterface
 
         public Tour Update(Tour tour);
         public Tour FindById(int id);
+        
     }
 }

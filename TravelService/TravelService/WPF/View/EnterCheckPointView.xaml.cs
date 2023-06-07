@@ -19,6 +19,7 @@ namespace TravelService.WPF.View
 
             InitializeComponent();
             this.DataContext = new EnterCheckPointViewModel(this, Id, navigationService);
+          
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 

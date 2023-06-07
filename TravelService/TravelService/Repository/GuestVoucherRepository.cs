@@ -140,5 +140,7 @@ namespace TravelService.Repository
                 selectedVoucher.Used= true;
             Update(selectedVoucher);
         }
+
+     
     }
 }

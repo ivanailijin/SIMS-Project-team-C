@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -15,7 +17,8 @@ namespace TravelService.WPF.ViewModel
 {
     public class EnterCheckPointViewModel : ViewModelBase
     {
-        public NavigationService NavgationService;
+       
+        public NavigationService NavgationService { get; set; }
         public EnterCheckPointView EnterCheckPointView;
         public int TourId;
         private readonly CheckPointService _checkPointService;
@@ -59,7 +62,7 @@ namespace TravelService.WPF.ViewModel
             
             if (CheckPoint == null )
             {
-                MessageBox.Show("Please enter checkpoints first.");
+               
                 return;
             }
             CheckPoint checkPoint = new CheckPoint();
@@ -67,11 +70,13 @@ namespace TravelService.WPF.ViewModel
             checkPoint.TourId = TourId;
 
             CheckPoint savedCheckPoint = _checkPointService.Save(checkPoint);
+           
         }
         private void Execute_CancelCommand(object obj)
         {
-            CloseAction();
+            EnterCheckPointView.NavigationService.GoBack();
         }
+
 
         private bool CanExecute_Command(object arg)
         {

@@ -13,25 +13,26 @@ namespace TravelService.Repository
     {
         private const string FilePath = "../../../Resources/Data/tourReviews.csv";
 
-
         private readonly Serializer<TourReview> _serializer;
-
         private List<TourReview> _tourReviews;
-
+        private TourRepository _tourRepository;
+     
         public TourReviewRepository()
         {
+          
             _serializer = new Serializer<TourReview>();
             _tourReviews = _serializer.FromCSV(FilePath);
+            _tourRepository = new TourRepository();
         }
+
         public List<TourReview> GetAll()
         {
-            return _serializer.FromCSV(FilePath);
+            return _tourReviews;
         }
 
         public TourReview Save(TourReview tourReview)
         {
             tourReview.Id = NextId();
-            _tourReviews = _serializer.FromCSV(FilePath);
             _tourReviews.Add(tourReview);
             _serializer.ToCSV(FilePath, _tourReviews);
             return tourReview;
@@ -39,7 +40,6 @@ namespace TravelService.Repository
 
         public int NextId()
         {
-            _tourReviews = _serializer.FromCSV(FilePath);
             if (_tourReviews.Count < 1)
             {
                 return 1;
@@ -49,7 +49,6 @@ namespace TravelService.Repository
 
         public void Delete(TourReview tourReview)
         {
-            _tourReviews = _serializer.FromCSV(FilePath);
             TourReview founded = _tourReviews.Find(r => r.Id == tourReview.Id);
             _tourReviews.Remove(founded);
             _serializer.ToCSV(FilePath, _tourReviews);
@@ -57,7 +56,6 @@ namespace TravelService.Repository
 
         public TourReview Update(TourReview tourReview)
         {
-            _tourReviews = _serializer.FromCSV(FilePath);
             TourReview current = _tourReviews.Find(r => r.Id == tourReview.Id);
             int index = _tourReviews.IndexOf(current);
             _tourReviews.Remove(current);
@@ -65,6 +63,62 @@ namespace TravelService.Repository
             _serializer.ToCSV(FilePath, _tourReviews);
             return tourReview;
         }
-    }
 
+        public bool CalculateSuperGuideStatus(Guide guide,List<TourReview> reviews, List<Tour> tours)
+        {
+            int minimumTours = 2;
+            double minimumRating = 4.0;
+            int languageId = 13; // Engleski jezik
+
+            foreach (TourReview review in reviews)
+            {
+                foreach (Tour tour in tours)
+                {
+                    if (review.GuideId == guide.Id)
+                    {
+                        if (tour.GuideId == review.GuideId)
+                        {
+                            if (tour.LanguageId == languageId)
+                            {
+                                // Dodajte ovaj dio koda za dobivanje ture na temelju ID-ja lokacije
+                                int locationId = tour.LocationId;
+                                List<Tour> languageTours = _tourRepository.GetTourByLanguageId(languageId);
+
+                                if (languageTours.Count >= minimumTours)
+                                {
+                                    var averageRating = CalculateAverageRatingForLanguage(reviews);
+
+                                    if (averageRating >= minimumRating)
+                                    {
+                                        return true; // Vodič je super-vodič
+                                    }
+                                }
+
+                                return false; // Vodič nije super-vodič
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false; // Vodič nije super-vodič
+        }
+
+
+
+        private double CalculateAverageRatingForLanguage(List<TourReview> tourReviews)
+        {
+            if (tourReviews.Count == 0)
+                return 0;
+
+            double sum = 0;
+            foreach (var review in tourReviews)
+            {
+                sum += review.GuideLanguage;
+            }
+
+            double averageRating = sum / tourReviews.Count;
+            return averageRating;
+        }
+    }
 }

@@ -1,0 +1,151 @@
+﻿<Page x:Class="TravelService.WPF.View.AcceptingComplexReq"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:resx="clr-namespace:TravelService.Localization"
+
+ 
+      xmlns:local="clr-namespace:TravelService.Localization"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AcceptingComplexReq" DataContext="{Binding RelativeSource={RelativeSource Self}}"
+>
+    
+    <Page.Resources>
+      
+
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox">
+                    <Border BorderBrush="Red"
+                            BorderThickness="1"/>
+                </AdornedElementPlaceholder>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+        <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="Pink" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Rounded1Button" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="#FF82F082" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RoundedLightButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="#166470" Background="MediumPurple" BorderThickness="2" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LabelText" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontFamily" Value="Candara"></Setter>
+            <Setter Property="FontWeight" Value="Normal"></Setter>
+        </Style>
+        
+    </Page.Resources>
+
+    <Grid Background="White">
+        
+        <ContentControl x:Name="PopupContent" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock  Margin="0,10,39,485" Grid.RowSpan="3" FontFamily="Arial" FontSize="36" FontWeight="Bold" TextAlignment="Center"/>
+            <ListBox Grid.Row="2" ItemsSource="{Binding   ComplexTourRequests}" SelectedItem="{Binding SelectedComplex}" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderThickness="3" Margin="5" Padding="5" Width="350" Height="100">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="Red" Offset="0"/>
+                                        <GradientStop Color="Orange" Offset="0.17"/>
+                                        <GradientStop Color="Yellow" Offset="0.33"/>
+                                        <GradientStop Color="Green" Offset="0.5"/>
+                                        <GradientStop Color="Blue" Offset="0.67"/>
+                                        <GradientStop Color="Indigo" Offset="0.83"/>
+                                        <GradientStop Color="Violet" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                  
+
+                                    <StackPanel Grid.Row="1" Margin="5">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
+                                        <TextBlock Text="{Binding APPROVAL}" TextWrapping="Wrap"/>
+
+
+                                        <Button Grid.Column="1" Height="30" Content="Accept" VerticalAlignment="Bottom" Style ="{StaticResource ResourceKey=RoundedLightButton}" Background="MediumPurple" Command="{Binding DataContext.Accept , RelativeSource={RelativeSource AncestorType=ListBox}}"  Margin=" 0,0,0,50"  CommandParameter="{Binding}">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Grid>
+                                                        <Rectangle x:Name="rect" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFEAEBB0" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter TargetName="rect" Property="Fill" Value="#FFC8C8C8" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ListBox.Template>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="10"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <Frame x:Name="MyPopupFrame" Grid.Row=" 2" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="Collapsed" Margin="10 0 0 0" />
+        </Grid>
+    </Grid>
+</Page>

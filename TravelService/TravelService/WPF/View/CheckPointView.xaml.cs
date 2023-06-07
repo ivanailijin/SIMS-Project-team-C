@@ -29,6 +29,28 @@ namespace TravelService.WPF.View
         public readonly GuestRepository _guestRepository;
         public List<Guest> _guests { get; set; }
 
+        private string _confirmationMessage;
+        public string ConfirmationMessage
+        {
+            get { return _confirmationMessage; }
+            set
+            {
+                _confirmationMessage = value;
+                OnPropertyChanged(nameof(ConfirmationMessage));
+            }
+        }
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
 
         public CheckPointView(Tour selectedTour,NavigationService navigationService)
         {
@@ -98,13 +120,14 @@ namespace TravelService.WPF.View
         {
             SelectedTour.Done = true;
             _tourRepository.Update(SelectedTour);
-            MessageBox.Show("The tour was successfully completed");
-          
+           ConfirmationMessage="The tour was successfully completed";
+            NavigationService.GoBack();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("The tour is cancelled");
+            ErrorMessage="The tour is cancelled";
+            NavigationService.GoBack();
             
         }
         

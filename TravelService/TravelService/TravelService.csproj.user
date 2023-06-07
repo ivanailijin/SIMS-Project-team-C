@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="WPF\View\AcceptingComplexReq.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="WPF\View\AcceptingTourRequestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +52,7 @@
     <Compile Update="WPF\View\ClosingAccommodationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+
     <Compile Update="WPF\View\ClosingForumView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -59,6 +63,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\FindAvailableAccommodationsView.xaml.cs">
+		<SubType>Code</SubType>
+	</Compile>
+    <Compile Update="WPF\View\ComplexRequests.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\Dates.xaml.cs">
+
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\FirstGuestProfileView.xaml.cs">
@@ -116,6 +127,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\PastTours.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WPF\View\ProfileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="WPF\View\RatingView.xaml.cs">
@@ -237,6 +251,9 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="WPF\View\AcceptingComplexReq.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="WPF\View\AcceptingTourRequestView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -273,6 +290,7 @@
     <Page Update="WPF\View\ClosingAccommodationView.xaml">
       <SubType>Designer</SubType>
     </Page>
+
     <Page Update="WPF\View\ClosingForumView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -280,7 +298,13 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\ChooseRequestTypeView.xaml">
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Update="WPF\View\ComplexRequests.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\Dates.xaml">
+   <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\DeclineReservationRequestView.xaml">
       <SubType>Designer</SubType>
@@ -352,6 +376,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\PastTours.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WPF\View\ProfileView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WPF\View\RatingView.xaml">

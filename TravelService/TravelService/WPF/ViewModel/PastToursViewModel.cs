@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
-using TravelService.Application.UseCases;
-using TravelService.Application.Utils;
+using TravelService.Applications.UseCases;
+using TravelService.Applications.Utils;
 using TravelService.Commands;
 using TravelService.Domain.Model;
 using TravelService.Domain.RepositoryInterface;
@@ -18,6 +19,7 @@ namespace TravelService.WPF.ViewModel
 {
     public class PastToursViewModel : ViewModelBase
     {
+        public Frame PopupFrame { get; set; }
         public PastTours PastTours { get; set; }
         public NavigationService NavigationService { get; set; }
 
@@ -62,7 +64,7 @@ namespace TravelService.WPF.ViewModel
 
             PastTour = _tourService.ShowPastTour(convertTourList(Tours), Locations, Languages, CheckPoints, PastTour, Guide.Id);
             StatsCommand = new RelayCommand(Execute_StatsCommand, CanExecute_Command);
-            CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
+            PopupFrame = pastTours.MyPopupFrame;
             ReviewsCommand = new RelayCommand(Execute_ReviewsCommand,CanExecute_Command);   
         }
 
@@ -75,15 +77,15 @@ namespace TravelService.WPF.ViewModel
         private void Execute_StatsCommand(object obj)
         {
 
-            if (SelectedTour == null)
+            if (SelectedTour != null)
             {
-                MessageBox.Show("Please select a tour first.");
-                return;
+               NavigationService.Navigate( new TourStats(SelectedTour, NavigationService));
+                
             }
 
-            // Show the statistics for the selected tour
+            
 
-            NavigationService.Navigate(new TourStats(SelectedTour, NavigationService));
+           
             
 
         }
@@ -91,19 +93,28 @@ namespace TravelService.WPF.ViewModel
         {
             return true;
         }
-        private void Execute_CancelCommand(object obj)
-        {
-           
-        }
+        
         private void Execute_ReviewsCommand(object obj)
         {
-            if (SelectedTour == null)
+            if (SelectedTour != null)
             {
-                MessageBox.Show("Please select a tour first.");
-                return;
+                NavigationService.Navigate(new ShowGuestsView(SelectedTour, SelectedGuest, NavigationService));
+               
             }
-          NavigationService.Navigate( new ShowGuestsView(SelectedTour, SelectedGuest,NavigationService));
             
+        }
+        private void OpenPopupPageGuests(Page ShowGuestsView)
+        {
+            PopupFrame.Navigate(ShowGuestsView);
+            PopupFrame.Visibility = System.Windows.Visibility.Visible;
+
+        }
+
+        private void OpenPopupPageStats(Page TourStats)
+        {
+            PopupFrame.Navigate(TourStats);
+            PopupFrame.Visibility = System.Windows.Visibility.Visible;
+
         }
 
     }

@@ -12,6 +12,7 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class MarkAttendence : Window
     {
+       
         public CheckPoint SelectedCheckPoint;
 
         public Tour SelectedTour;
@@ -31,6 +32,7 @@ namespace TravelService.WPF.View
 
         public MarkAttendence(Tour selectedTour, CheckPoint selectedCheckPoint, Guest2 guest)
         {
+            
             InitializeComponent();
             SelectedCheckPoint = selectedCheckPoint;
             SelectedTour = selectedTour;
