@@ -52,7 +52,7 @@
                         <TextBlock Text="Home page" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="197" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="197" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding NavigationCommand}">
                     <StackPanel Height="35" Width="250" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/keyboard.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Page navigation" FontSize="17" VerticalAlignment="Center"/>
@@ -64,31 +64,19 @@
                         <TextBlock Text="Vouchers" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding GuestsRequestsCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/document.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Requests" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding StatisticsCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/stats.png" Height="22" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Statistics" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
-                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/calendar.png" Height="25" Width="33" HorizontalAlignment="Left" />
-                        <TextBlock Text="Reservations" FontSize="17" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
-                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/help.png" Height="25" Width="33" HorizontalAlignment="Left" />
-                        <TextBlock Text="Help" FontSize="17" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding ReportCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/file.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="The report" FontSize="17" VerticalAlignment="Center"/>
@@ -102,6 +90,7 @@
                     <TextBlock Text="{Binding Username}" FontSize="20" Foreground="White"/>
                 </StackPanel>
             </StackPanel>
+            <Grid/>
         </Grid>
         <Grid Grid.Column="1" Background="AliceBlue">
             <Grid.RowDefinitions>
@@ -109,7 +98,7 @@
                 <RowDefinition Height="11*"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,0,0,0" Width="50" HorizontalAlignment="Left">
-                <Button Width="30" Height="40" Background="Transparent" BorderBrush="Transparent">
+                <Button Width="30" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding NotificationCommand}">
                     <Image Source="/Resources/Icons/bell.png" Width="27" Height="29"></Image>
                 </Button>
                 <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="Black" ToolTip="Shows all of your notifications.">
@@ -158,6 +147,7 @@
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Margin" Value="0" />
+                            <Setter Property="Width" Value="300" />
                             <Setter Property="Padding" Value="0" />
                         </Style>
                     </ListBox.ItemContainerStyle>
@@ -168,7 +158,7 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="#435D75" Background="#435D75" Padding="5" Margin="5">
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="#435D75" Background="#435D75" Padding="5" Margin="6">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -176,7 +166,7 @@
                                         <ColumnDefinition Width="*" />
                                         <!-- Text column -->
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding VoucherType}"  FontSize="18" Foreground="White" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="0" Text="{Binding VoucherType}"  Margin="0,0,10,0" FontSize="18" Foreground="White" HorizontalAlignment="Center" />
                                     <TextBlock Grid.Column="1" Text="{Binding ExpirationDate}"  FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
                                 </Grid>
                             </Border>

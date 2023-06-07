@@ -33,19 +33,6 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
-        private RelayCommand _voucherViewCommand;
-        public RelayCommand VoucherViewCommand
-        {
-            get => _voucherViewCommand;
-            set
-            {
-                if (value != _voucherViewCommand)
-                {
-                    _voucherViewCommand = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         private RelayCommand _addPictureCommand;
         public RelayCommand AddPictureCommand
@@ -70,19 +57,6 @@ namespace TravelService.WPF.ViewModel
                 if (value != _cancelCommand)
                 {
                     _cancelCommand = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private RelayCommand _homePageCommand;
-        public RelayCommand HomePageCommand
-        {
-            get => _homePageCommand;
-            set
-            {
-                if (value != _homePageCommand)
-                {
-                    _homePageCommand = value;
                     OnPropertyChanged();
                 }
             }
@@ -184,6 +158,85 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _notificationCommand;
+        public RelayCommand NotificationCommand
+        {
+            get => _notificationCommand;
+            set
+            {
+                if (value != _notificationCommand)
+                {
+                    _notificationCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _guestsRequestsCommand;
+        public RelayCommand GuestsRequestsCommand
+        {
+            get => _guestsRequestsCommand;
+            set
+            {
+                if (value != _guestsRequestsCommand)
+                {
+                    _guestsRequestsCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _voucherViewCommand;
+        public RelayCommand VoucherViewCommand
+        {
+            get => _voucherViewCommand;
+            set
+            {
+                if (value != _voucherViewCommand)
+                {
+                    _voucherViewCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _homePageCommand;
+        public RelayCommand HomePageCommand
+        {
+            get => _homePageCommand;
+            set
+            {
+                if (value != _homePageCommand)
+                {
+                    _homePageCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _statisticsCommand;
+        public RelayCommand StatisticsCommand
+        {
+            get => _statisticsCommand;
+            set
+            {
+                if (value != _statisticsCommand)
+                {
+                    _statisticsCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RelayCommand _reportCommand;
+        public RelayCommand ReportCommand
+        {
+            get => _reportCommand;
+            set
+            {
+                if (value != _reportCommand)
+                {
+                    _reportCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public NewTourNotification SelectedNotification { get; set; }
         public AddReviewViewModel(Tour selectedTour, Guest2 guest2) 
         {
             _tourReviewService = new TourReviewService(Injector.CreateInstance<ITourReviewRepository>());
@@ -195,10 +248,22 @@ namespace TravelService.WPF.ViewModel
             AddPictureCommand = new RelayCommand(Execute_AddPicture, CanExecute_Command);
             CancelCommand = new RelayCommand(Execute_Cancel, CanExecute_Command);
             VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
+            HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
+            VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
+            GuestsRequestsCommand = new RelayCommand(Execute_GuestsRequestsCommand, CanExecute_Command);
+            StatisticsCommand = new RelayCommand(Execute_StatisticsCommand, CanExecute_Command);
+            ReportCommand = new RelayCommand(Execute_ReportCommand, CanExecute_Command);
+            NotificationCommand = new RelayCommand(Execute_NotificationCommand, CanExecute_Command);
         }
         private bool CanExecute_Command(object parameter)
         {
             return true;
+        }
+        private void Execute_NotificationCommand(object sender)
+        {
+            SecondGuestNotificationsView secondGuestNotificationsView = new SecondGuestNotificationsView(SelectedNotification, Guest2);
+            secondGuestNotificationsView.Show();
+            CloseAction();
         }
         private void Execute_Rate(object sender)
         {
@@ -215,6 +280,27 @@ namespace TravelService.WPF.ViewModel
         {
             GuestsVouchersView guestsVouchersView = new GuestsVouchersView(Guest2);
             guestsVouchersView.Show();
+            CloseAction();
+        }
+        private void Execute_GuestsRequestsCommand(object sender)
+        {
+            ChoooseRequestListView choooseRequestListView = new ChoooseRequestListView(Guest2);
+            choooseRequestListView.Show();
+            CloseAction();
+        }
+        private void Execute_StatisticsCommand(object sender)
+        {
+            GuestsRequestsStatisticsView guestsRequestsStatisticsView = new GuestsRequestsStatisticsView(Guest2);
+            guestsRequestsStatisticsView.Show();
+        }
+        private void Execute_RateTourCommand(object sender)
+        {
+            GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
+            guestsToursView.Show();
+            CloseAction();
+        }
+        private void Execute_ReportCommand(object sender)
+        {
         }
         private void Execute_AddPicture(object sender)
         {

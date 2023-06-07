@@ -22,10 +22,10 @@ namespace TravelService.WPF.View
     /// </summary>
     public partial class ShowTourFiltersView : Window, INotifyPropertyChanged
     {
-        public ShowTourFiltersView()
+        public ShowTourFiltersView(Guest2 guest2)
         {
             InitializeComponent();
-            ShowTourFiltersViewModel showTourFiltersViewModel = new ShowTourFiltersViewModel();
+            ShowTourFiltersViewModel showTourFiltersViewModel = new ShowTourFiltersViewModel(guest2);
             DataContext = showTourFiltersViewModel;
             if (showTourFiltersViewModel.CloseAction == null)
             {

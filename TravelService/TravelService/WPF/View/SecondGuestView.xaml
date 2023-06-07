@@ -53,7 +53,7 @@
                         <TextBlock Text="Home page" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="197" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="197" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding NavigationCommand}">
                     <StackPanel Height="35" Width="250" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/keyboard.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Page navigation" FontSize="17" VerticalAlignment="Center"/>
@@ -77,19 +77,7 @@
                         <TextBlock Text="Statistics" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
-                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/calendar.png" Height="25" Width="33" HorizontalAlignment="Left" />
-                        <TextBlock Text="Reservations" FontSize="17" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
-                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/help.png" Height="25" Width="33" HorizontalAlignment="Left" />
-                        <TextBlock Text="Help" FontSize="17" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding ReportCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/file.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="The report" FontSize="17" VerticalAlignment="Center"/>

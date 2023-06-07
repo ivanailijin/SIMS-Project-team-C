@@ -130,6 +130,19 @@ namespace TravelService.WPF.ViewModel
                 }
             }
         }
+        private RelayCommand _reportCommand;
+        public RelayCommand ReportCommand
+        {
+            get => _reportCommand;
+            set
+            {
+                if (value != _reportCommand)
+                {
+                    _reportCommand = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private RelayCommand _rateTourCommand;
         public RelayCommand RateTourCommand
         {
@@ -160,15 +173,18 @@ namespace TravelService.WPF.ViewModel
         {
             this.Guest2 = guest2;
             TrackCommand = new RelayCommand(Execute_TrackCommand, CanExecute_Command);
-            StatisticsCommand = new RelayCommand(Execute_StatisticsCommand, CanExecute_Command);
             TourViewCommand = new RelayCommand(Execute_TourViewCommand, CanExecute_Command);
             ReservationCommand = new RelayCommand(Execute_ReservationCommand, CanExecute_Command);
             RequestCommand = new RelayCommand(Execute_RequestCommand, CanExecute_Command);
+            ReportCommand = new RelayCommand(Execute_RequestCommand, CanExecute_Command);
             NotificationCommand = new RelayCommand(Execute_NotificationCommand, CanExecute_Command);
-            GuestsRequestsCommand = new RelayCommand(Execute_GuestsRequestsCommand, CanExecute_Command);
-            VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
             RateTourCommand = new RelayCommand(Execute_RateTourCommand, CanExecute_Command);
             HomePageCommand = new RelayCommand(Execute_HomePageCommand, CanExecute_Command);
+            VoucherViewCommand = new RelayCommand(Execute_VoucherViewCommand, CanExecute_Command);
+            GuestsRequestsCommand = new RelayCommand(Execute_GuestsRequestsCommand, CanExecute_Command);
+            StatisticsCommand = new RelayCommand(Execute_StatisticsCommand, CanExecute_Command);
+            ReportCommand = new RelayCommand(Execute_ReportCommand, CanExecute_Command);
+            NotificationCommand = new RelayCommand(Execute_NotificationCommand, CanExecute_Command);
             Username = guest2.Username;
         }
         private bool CanExecute_Command(object parameter)
@@ -176,11 +192,6 @@ namespace TravelService.WPF.ViewModel
             return true;
         }
 
-        private void Execute_StatisticsCommand(object sender)
-        {
-            GuestsRequestsStatisticsView guestsRequestsStatisticsView = new GuestsRequestsStatisticsView(Guest2);
-            guestsRequestsStatisticsView.Show();
-        }
         private void Execute_TrackCommand(object sender)
         {
             TourTrackingView tourTrackingView = new TourTrackingView(SelectedTour, Guest2);
@@ -190,12 +201,6 @@ namespace TravelService.WPF.ViewModel
         {
             TourView tourView = new TourView(Guest2, SelectedTour);
             tourView.Show();
-        }
-        private void Execute_HomePageCommand(object sender)
-        {
-            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
-            secondGuestView.Show();
-            CloseAction();
         }
         private void Execute_ReservationCommand(object sender)
         {
@@ -215,10 +220,10 @@ namespace TravelService.WPF.ViewModel
             secondGuestNotificationsView.Show();
             CloseAction();
         }
-        private void Execute_GuestsRequestsCommand(object sender)
+        private void Execute_HomePageCommand(object sender)
         {
-            ChoooseRequestListView choooseRequestListView = new ChoooseRequestListView(Guest2);
-            choooseRequestListView.Show();
+            SecondGuestView secondGuestView = new SecondGuestView(Guest2);
+            secondGuestView.Show();
             CloseAction();
         }
         private void Execute_VoucherViewCommand(object sender)
@@ -227,11 +232,25 @@ namespace TravelService.WPF.ViewModel
             guestsVouchersView.Show();
             CloseAction();
         }
+        private void Execute_GuestsRequestsCommand(object sender)
+        {
+            ChoooseRequestListView choooseRequestListView = new ChoooseRequestListView(Guest2);
+            choooseRequestListView.Show();
+            CloseAction();
+        }
+        private void Execute_StatisticsCommand(object sender)
+        {
+            GuestsRequestsStatisticsView guestsRequestsStatisticsView = new GuestsRequestsStatisticsView(Guest2);
+            guestsRequestsStatisticsView.Show();
+        }
         private void Execute_RateTourCommand(object sender)
         {
             GuestsToursView guestsToursView = new GuestsToursView(SelectedTour, Guest2);
             guestsToursView.Show();
             CloseAction();
+        }
+        private void Execute_ReportCommand(object sender)
+        {
         }
         public event EventHandler<string> NotificationReceived;
 

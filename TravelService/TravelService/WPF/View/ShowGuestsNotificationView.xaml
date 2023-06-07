@@ -52,7 +52,7 @@
                         <TextBlock Text="Home page" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="197" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="197" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding NavigationCommand}">
                     <StackPanel Height="35" Width="250" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/keyboard.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Page navigation" FontSize="17" VerticalAlignment="Center"/>
@@ -64,31 +64,19 @@
                         <TextBlock Text="Vouchers" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding GuestsRequestsCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/document.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Requests" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding StatisticsCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/stats.png" Height="22" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="Statistics" FontSize="17" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
-                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/calendar.png" Height="25" Width="33" HorizontalAlignment="Left" />
-                        <TextBlock Text="Reservations" FontSize="17" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
-                    <StackPanel Height="35" Width="150" Orientation="Horizontal">
-                        <Image Source="/Resources/Icons/help.png" Height="25" Width="33" HorizontalAlignment="Left" />
-                        <TextBlock Text="Help" FontSize="17" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White">
+                <Button Height="35" Width="150" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Foreground="White" Command="{Binding ReportCommand}">
                     <StackPanel Height="35" Width="150" Orientation="Horizontal">
                         <Image Source="/Resources/Icons/file.png" Height="25" Width="33" HorizontalAlignment="Left" />
                         <TextBlock Text="The report" FontSize="17" VerticalAlignment="Center"/>
@@ -102,6 +90,7 @@
                     <TextBlock Text="{Binding Username}" FontSize="20" Foreground="White"/>
                 </StackPanel>
             </StackPanel>
+            <Grid/>
         </Grid>
         <Grid Grid.Column="1" Background="AliceBlue">
             <Grid.RowDefinitions>
@@ -109,7 +98,7 @@
                 <RowDefinition Height="11*"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,0,0,0" Width="50" HorizontalAlignment="Left">
-                <Button Width="30" Height="40" Background="Transparent" BorderBrush="Transparent">
+                <Button Width="30" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding NotificationCommand}">
                     <Image Source="/Resources/Icons/bell.png" Width="27" Height="29"></Image>
                 </Button>
                 <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="Black" ToolTip="Shows all of your notifications.">
@@ -133,7 +122,6 @@
                 <TextBlock FontSize="30" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" Margin="0,70,0,0">Newly created tour</TextBlock>
 
             </StackPanel>
-            <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10,155,10,80" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="15,15,15,15"></Border>
             <Grid Grid.Row="1" VerticalAlignment="Center" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="87*"/>
@@ -144,34 +132,35 @@
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <DataGrid Grid.Row="0" x:Name="allTours" Background="#BECCDA" HorizontalScrollBarVisibility="Visible"
-                  ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedTour}" Height="180" Margin="20,40,20,0" Grid.ColumnSpan="2">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Max guest number" Binding="{Binding MaxGuestNumber}" Width="110"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Checkpoints" Width="auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ListBox  x:Name="listBoxCheckPoint" Height="100" ItemsSource="{Binding Path=CheckPoints}">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Name}"/>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Date and time" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Duration in hours" Binding="{Binding Duration}" Width="auto"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Images">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ItemsControl ItemsSource="{Binding Pictures}">
+                <ListBox x:Name="allActiveTours" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="Transparent"
+         BorderThickness="0"
+         ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+         Margin="0,0,0,0"
+         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="#BECCDA" Background="#BECCDA" Padding="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <!-- Picture column -->
+                                        <ColumnDefinition Width="*" />
+                                        <!-- Text column -->
+                                    </Grid.ColumnDefinitions>
+                                    <ItemsControl ItemsSource="{Binding Pictures}" Grid.Column="0" HorizontalAlignment="Left">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel Orientation="Horizontal" />
@@ -179,15 +168,24 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Image Source="{Binding}" Width="120" Height="100" Margin="5" />
+                                                <Image Source="{Binding}" Width="300" Height="250" Margin="5" />
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                    <StackPanel Grid.Column="1" Margin="5" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="23" Foreground="#435D75" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding Location.CityAndCountry}" FontSize="14" Foreground="#D36582" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding Description}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Language.Name}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding MaxGuestNumber}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding TourStart}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding Duration}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </Grid>
     </Grid>
