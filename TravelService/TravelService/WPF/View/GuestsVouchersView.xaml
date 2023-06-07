@@ -142,28 +142,47 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-            <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="150,60,150,40" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="15,15,15,15"></Border>
             <Grid Grid.Row="1" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
-                
-                <DataGrid Grid.Row="0" x:Name="allVouchers" Width="250" Height="300" Margin="0,5,0,20" VerticalAlignment="Top"
-                  ItemsSource="{Binding Path=GuestsVouchers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedVoucher, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Type" Binding="{Binding VoucherType}" Width="75"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Usable until" Binding="{Binding ExpirationDate}" Width="125"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <ListBox x:Name="allVouchers" Grid.Row="0" Grid.Column="0" Background="Transparent"
+                     BorderThickness="0"
+                     ItemsSource="{Binding Path=GuestsVouchers, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding Path=SelectedVoucher, UpdateSourceTrigger=PropertyChanged}" Width="350"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="#435D75" Background="#435D75" Padding="5" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <!-- Picture column -->
+                                        <ColumnDefinition Width="*" />
+                                        <!-- Text column -->
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding VoucherType}"  FontSize="18" Foreground="White" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding ExpirationDate}"  FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
-
-            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
-                <TextBox Text="{Binding Path=TourId}"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Margin="0,0,30,0"/>
-                
-                <Button  VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Height="30" FontSize="18" Command="{Binding NotificationCommand}">send</Button>
-            </StackPanel>
         </Grid>
     </Grid>
 </Window>

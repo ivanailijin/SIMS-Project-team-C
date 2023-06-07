@@ -80,24 +80,7 @@ namespace TravelService.WPF.ViewModel
             CheckPoints = new List<CheckPoint>(_checkpointService.GetAll());
             ActiveTours = new ObservableCollection<Tour>(_tourReservationService.showAllActiveToursNew(Tours.ToList(), Locations, Languages, CheckPoints));
 
-            /*
-            
-            ReservationsByTour = new List<TourReservation>();
-            ValidVouchers = new List<GuestVoucher>();
-            GuestVouchers = new List<GuestVoucher>();
-            this.Guest2 = guest2;
-            
-
-            OtherTours = new List<Tour>();
-            OtherOtherTours = new List<Tour>();
-
-            SelectedTour = selectedTour;
-            SelectedVoucher = selectedVoucher;
-
-            ActiveTours = ;
-            ValidVouchers = _guestVoucherRepository.showValidVouchers(convertVoucherList(Vouchers), Guest2,GuestVouchers,ValidVouchers);
-        
-             */
+           
             CancelCommand = new RelayCommand(Execute_CancelCommand, CanExecute_Command);
             ShowTourDetailsCommand = new RelayCommand(Execute_ShowTourDetailsCommand, CanExecute_Command);
 
@@ -116,29 +99,5 @@ namespace TravelService.WPF.ViewModel
             showTourInfoView.Show();
             CloseAction();
         }
-
-        /*
-         private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void CheckTourButton_Click(object sender, RoutedEventArgs e)
-        {
-            bool reservationSuccess = false;
-            reservationSuccess = _tourReservationRepository.TryReserving(SelectedTour, EnteredNumberOfGuests, convertTourReservationList(TourReservations), ReservationsByTour, OtherTours, this, Guest2);
-            if(SelectedVoucher!=null)
-                _guestVoucherRepository.UseVoucher(SelectedVoucher, reservationSuccess); 
-        }
-
-        private void UseVoucherButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-         */
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TravelService.WPF.View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="GuestsToursView" Height="460" Width="800">
+        Title="GuestsToursView" Height="460" Width="960">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -147,35 +147,36 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
-                <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10,30,10,8" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="15,15,15,15"></Border>
-                <DataGrid Grid.Row="0" x:Name="allPastTours" Background="#BECCDA" HorizontalScrollBarVisibility="Visible"
-                  ItemsSource="{Binding Path=GuestsTours, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedTour}" Height="350" Margin="20,40,20,0">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Location" Binding="{Binding Location.CityAndCountry}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Max guest number" Binding="{Binding MaxGuestNumber}" Width="110"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Checkpoints" Width="auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ListBox  x:Name="listBoxCheckPoint" Height="100" ItemsSource="{Binding Path=CheckPoints}">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Name}"/>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Date and time" Binding="{Binding TourStart}" Width="auto"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Duration in hours" Binding="{Binding Duration}" Width="auto"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Images">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ItemsControl ItemsSource="{Binding Pictures}">
+                <ListBox x:Name="allActiveTours" Grid.Row="0" Grid.Column="0" Background="Transparent"
+         BorderThickness="0"
+         ItemsSource="{Binding Path=GuestsTours, UpdateSourceTrigger=PropertyChanged}"
+         SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}"
+         Margin="0,30,0,0"
+         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="#BECCDA" Background="#BECCDA" Padding="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <!-- Picture column -->
+                                        <ColumnDefinition Width="*" />
+                                        <!-- Text column -->
+                                    </Grid.ColumnDefinitions>
+                                    <ItemsControl ItemsSource="{Binding Pictures}" Grid.Column="0" HorizontalAlignment="Left">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel Orientation="Horizontal" />
@@ -183,15 +184,32 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Image Source="{Binding}" Width="120" Height="100" Margin="5" />
+                                                <Image Source="{Binding}" Width="300" Height="250" Margin="5" />
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                    <StackPanel Grid.Column="1" Margin="5" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="23" Foreground="#435D75" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding Location.CityAndCountry}" FontSize="14" Foreground="#D36582" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding Description}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Language.Name}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding MaxGuestNumber}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding TourStart}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" />
+                                        <TextBlock Text="{Binding Duration}" FontSize="14" Foreground="#435D75" HorizontalAlignment="Left" />
+                                        <ListBox x:Name="listBoxCheckPoint" Height="auto" Width="auto" ItemsSource="{Binding Path=CheckPoints}" Background="Transparent" BorderBrush="#435D75" HorizontalContentAlignment="Center">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" Foreground="#435D75"/>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="100,0,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Height="42" Margin="22,7,2,0" Command="{Binding RateTourCommand}" Background="#D36582" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" VerticalAlignment="Top">Rate</Button>

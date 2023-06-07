@@ -131,7 +131,7 @@
             </Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0">
                 <TextBlock FontSize="30" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" Margin="0,0,0,0">Reserve the tour!</TextBlock>
-                <Button  Width="18" Height="18" Content="?" Margin="5,5,0,0" FontSize="12" Foreground="#D36582" VerticalAlignment="Top" ToolTip="Take a look at the tour and reserve it.">
+                <Button  Width="18" Height="18" Content="?" Margin="5,5,0,0" FontSize="12" Foreground="#D36582" VerticalAlignment="Center" ToolTip="Take a look at the tour and reserve it.">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
@@ -149,7 +149,7 @@
                 </Grid.RowDefinitions>
 
                 <ListBox x:Name="allVouchers" Grid.Row="0" Grid.Column="0" Background="Transparent"
-                     BorderThickness="3"
+                     BorderThickness="0"
                      ItemsSource="{Binding Path=GuestVouchers, UpdateSourceTrigger=PropertyChanged}"
                      SelectedItem="{Binding Path=SelectedVoucher, UpdateSourceTrigger=PropertyChanged}" Width="350"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
@@ -189,7 +189,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                     <Button HorizontalAlignment="Center" Height="42" Margin="22,0,0,0" Command="{Binding UseCommand}" Background="#D36582" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" VerticalAlignment="Bottom">Use voucher</Button>
 
-                    <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="#D36582" VerticalAlignment="Center"  Margin="0,0,22,0"  ToolTip="Press to open the complex request, it will show you all the requests inside it.">
+                    <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="#D36582" VerticalAlignment="Center"  Margin="0,0,22,0"  ToolTip="Press to check if your voucher is valid, and use it if it is.">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid>

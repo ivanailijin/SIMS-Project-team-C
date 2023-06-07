@@ -130,8 +130,8 @@
                 </StackPanel>
             </Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
-                <TextBlock FontSize="30" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" Margin="0,-10,0,0">Your complex tour requests!</TextBlock>
-                <Button  Width="18" Height="18" Content="?" Margin="5,5,0,0" FontSize="12" Foreground="#D36582" VerticalAlignment="Top" ToolTip="These are all of your complex tour requests.">
+                <TextBlock FontSize="30" FontWeight="DemiBold" Foreground="#D36582" HorizontalAlignment="Center" Margin="0,-30,0,0">Your complex tour requests!</TextBlock>
+                <Button  Width="18" Height="18" Content="?" Margin="5,-16,0,0" FontSize="12" Foreground="#D36582" VerticalAlignment="Top" ToolTip="These are all of your complex tour requests.">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
@@ -142,56 +142,71 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-            <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="80,60,80,40" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="15,15,15,15"></Border>
+            
             <Grid Grid.Row="1" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
-
-                <DataGrid Grid.Row="0" x:Name="allRequests" Width="560" Height="250" Margin="0,5,0,0" VerticalAlignment="Top"
-                  ItemsSource="{Binding Path=GuestsComplexRequests, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedComplexRequest, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding  Id}" Width="75"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Requests" Width="400">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ListBox  x:Name="listBoxReqeusts" Height="100" ItemsSource="{Binding Path=TourRequests}">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Id}" Foreground="Black"/>
-                                                    <TextBlock Text=", " Foreground="Black" />
-                                                    <TextBlock Text="{Binding Description}" Foreground="Black"/>
-                                                    <TextBlock Text=", " Foreground="Black" />
-                                                    <TextBlock Text="{Binding TourStart}" Foreground="Black"/>
-                                                    <TextBlock Text=", " Foreground="Black" />
-                                                    <TextBlock Text="{Binding RequestApproved}" Foreground="Black"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Type" Binding="{Binding Acceptance}" Width="125"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="90,6,0,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
-                        <Button Height="42" Margin="22,7,2,0" Command="{Binding ShowComplexRequestCommand}" Background="#D36582" BorderBrush="Transparent" Foreground="White" FontSize="20" FontWeight="DemiBold" Width="150" VerticalAlignment="Top">Show request</Button>
-                        <Button  Width="18" Height="18" Content="?" FontSize="12" Foreground="White" VerticalAlignment="Top"  Margin="0,19,22,0"  ToolTip="Press to open the complex request, it will show you all the requests inside it.">
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Grid>
-                                        <Ellipse Stroke="White" StrokeThickness="2"/>
-                                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0"/>
-                                    </Grid>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </StackPanel>
-                    <Button Content="Cancel" Command="{Binding CancelCommand}" Background="#BECCDA" BorderBrush="Transparent" FontSize="15" Foreground="#D36582" FontWeight="DemiBold" VerticalAlignment="Top" Height="27" Width="80" Margin="0,15,0,0"/>
+                <ListBox x:Name="allActiveTours" Grid.Row="0" Grid.Column="0" Background="Transparent"
+         BorderThickness="0"
+         ItemsSource="{Binding Path=GuestsComplexRequests, UpdateSourceTrigger=PropertyChanged}"
+         SelectedItem="{Binding Path=SelectedComplexRequest, UpdateSourceTrigger=PropertyChanged}"
+         Margin="0,0,0,23"
+         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+         Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Height" Value="140" />
+                            <Setter Property="Width" Value="350" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="#BECCDA" Background="#BECCDA" Padding="8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="1" Margin="5" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" Foreground="#435D75" DockPanel.Dock="Top" />
+                                        <ListBox  x:Name="listBoxReqeusts" Height="auto" ItemsSource="{Binding Path=TourRequests}" Background="Transparent" BorderBrush="Transparent">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Description}" Foreground="#435D75"/>
+                                                        <TextBlock Text=", " Foreground="#435D75" />
+                                                        <TextBlock Text="{Binding TourStart}" Foreground="#435D75"/>
+                                                        <TextBlock Text=", " Foreground="#435D75" />
+                                                        <TextBlock Text="{Binding RequestApproved}" Foreground="#435D75"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                        <TextBlock Text="{Binding Acceptance}" Foreground="#D36582" FontWeight="DemiBold" FontSize="14" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <Button Background="Transparent" BorderBrush="Transparent" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,5"
+                            Command="{Binding DataContext.ShowComplexRequestCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"
+                            CommandParameter="{Binding}">
+                                        <Image Source="/Resources/Icons/more.png" Width="30" Height="30" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,6,0,0">
+                    <Button Content="Cancel" Command="{Binding CancelCommand}" Background="#BECCDA" BorderBrush="Transparent" FontSize="15" Foreground="#D36582" FontWeight="DemiBold" VerticalAlignment="Top" Height="27" Width="80" Margin="0,0,0,0"/>
 
                 </StackPanel>
             </Grid>

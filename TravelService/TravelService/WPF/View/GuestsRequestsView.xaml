@@ -142,24 +142,52 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-            <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="80,60,80,40" BorderBrush="Transparent" Background="#435D75" BorderThickness="2.5" CornerRadius="15,15,15,15"></Border>
             <Grid Grid.Row="1" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
+                <ListBox x:Name="allActiveTours" Grid.Row="0" Grid.Column="0" Background="Transparent"
+         BorderThickness="0"
+         ItemsSource="{Binding Path=GuestsRequests, UpdateSourceTrigger=PropertyChanged}"
+         Margin="0,0,0,0" VerticalAlignment="Center" 
+         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+         Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Height" Value="150" />
+                            <Setter Property="Width" Value="400" />
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="#BECCDA" Background="#BECCDA" Padding="8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="1" Margin="5" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Description}" FontWeight="Bold" FontSize="18" Foreground="#435D75" DockPanel.Dock="Top" />
+                                        <TextBlock Text="{Binding TourStart}" Foreground="#435D75" FontWeight="DemiBold" FontSize="14" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding TourEnd}" Foreground="#435D75" FontWeight="DemiBold" FontSize="14" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding RequestApproved}" Foreground="#D36582" FontWeight="DemiBold" FontSize="14" TextWrapping="Wrap" />
+                                    </StackPanel>
 
-                <DataGrid Grid.Row="0" x:Name="allRequests" Width="560" Height="300" Margin="0,5,0,20" VerticalAlignment="Top"
-                  ItemsSource="{Binding Path=GuestsRequests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Location" Binding="{Binding  Location.CityAndCountry}" Width="75"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="75"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Language" Binding="{Binding Language.Name}" Width="75"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Start" Binding="{Binding TourStart}" Width="125"></DataGridTextColumn>
-                        <DataGridTextColumn Header="End" Binding="{Binding TourEnd}" Width="125"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Type" Binding="{Binding RequestApproved}" Width="125"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </Grid>
     </Grid>
